@@ -517,49 +517,49 @@
         }
 
         /* ========================================
-           Services Horizontal Scroll Section
+           Services Grid Section (클릭 확대 방식)
         ======================================== */
         .services-pin-section {
             background: #f5f5f0;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            padding: 80px 0;
         }
 
         .services-pin-container {
             display: flex;
             width: 100%;
-            height: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 40px;
+            gap: 60px;
         }
 
         .services-left-panel {
-            width: 35%;
-            min-width: 400px;
-            padding: 80px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
-            background: #f5f5f0;
+            width: 300px;
+            flex-shrink: 0;
+            padding-top: 40px;
         }
 
         .services-progress {
             margin-top: 40px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .progress-item {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
-            color: #bbb;
-            padding: 10px 0;
-            border-left: 3px solid #ddd;
+            color: #999;
+            padding: 12px 0;
+            border-left: 3px solid transparent;
             padding-left: 20px;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
+        }
+
+        .progress-item:hover {
+            color: #666;
         }
 
         .progress-item.active {
@@ -568,133 +568,188 @@
             font-weight: 700;
         }
 
+        /* 오른쪽: 4개 카드 그리드 */
         .services-right-panel {
             flex: 1;
+            position: relative;
+        }
+
+        .services-track {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             position: relative;
             overflow: hidden;
         }
 
-        .services-track {
-            display: flex;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
         }
 
-        .service-card {
-            flex: 0 0 100%;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            position: relative;
+        .service-card.active {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .service-card.active .service-info h3,
+        .service-card.active .service-info p {
+            color: #fff;
+        }
+
+        .service-card.active .service-keyword {
+            color: rgba(255, 255, 255, 0.08);
         }
 
         .service-keyword {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(50px, 10vw, 100px);
+            font-size: 32px;
             font-weight: 400;
-            color: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.05);
             position: absolute;
-            top: 15%;
-            right: 8%;
-            letter-spacing: -3px;
+            top: 20px;
+            right: 20px;
+            letter-spacing: -1px;
             pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .service-card.active .service-keyword {
+            font-size: 60px;
+            top: 30px;
         }
 
         .service-devices {
             position: relative;
             width: 100%;
-            max-width: 500px;
-            height: 350px;
-            margin-bottom: 30px;
+            height: 180px;
+            margin-bottom: 20px;
+        }
+
+        .service-card.active .service-devices {
+            height: 320px;
         }
 
         .device {
             position: absolute;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
             background: #fff;
-            transition: transform 0.5s ease;
+            transition: all 0.4s ease;
         }
 
         .device.laptop {
-            width: 75%;
-            top: 5%;
+            width: 80%;
+            top: 0;
             left: 0;
-            border-radius: 12px;
-            padding: 8px;
-            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 4px;
+            background: #222;
         }
 
         .device.laptop img {
             width: 100%;
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
         .device.phone {
-            width: 28%;
+            width: 35%;
             bottom: 0;
-            right: 5%;
-            border-radius: 24px;
-            padding: 6px;
-            background: #1a1a1a;
+            right: 0;
+            border-radius: 12px;
+            padding: 3px;
+            background: #222;
         }
 
         .device.phone img {
             width: 100%;
-            border-radius: 18px;
+            border-radius: 9px;
         }
 
-        .service-card:hover .device.laptop {
-            transform: translateY(-8px) rotate(-1deg);
+        .service-card.active .device.laptop {
+            width: 70%;
         }
 
-        .service-card:hover .device.phone {
-            transform: translateY(-5px) rotate(2deg);
+        .service-card.active .device.phone {
+            width: 30%;
         }
 
         .service-info {
-            text-align: center;
-            max-width: 400px;
+            text-align: left;
         }
 
         .service-info h3 {
-            font-size: 26px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            color: #1a1a1a;
+            transition: color 0.3s ease;
+        }
+
+        .service-card.active .service-info h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
         }
 
         .service-info p {
-            font-size: 15px;
-            color: #666;
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+            display: none;
+        }
+
+        .service-card.active .service-info p {
+            display: block;
+            font-size: 16px;
             line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 1200px) {
+            .services-track {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-card.active {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
         }
 
         @media (max-width: 1024px) {
             .services-pin-section {
-                height: auto;
-                min-height: 100vh;
+                padding: 60px 0;
             }
 
             .services-pin-container {
                 flex-direction: column;
+                padding: 0 20px;
+                gap: 40px;
             }
 
             .services-left-panel {
                 width: 100%;
-                min-width: auto;
-                padding: 50px 30px;
             }
 
             .services-progress {
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 8px;
             }
 
             .progress-item {
@@ -702,35 +757,27 @@
                 border-bottom: 2px solid #ddd;
                 padding-left: 0;
                 padding-bottom: 8px;
+                padding-right: 16px;
             }
 
             .progress-item.active {
                 border-bottom-color: #1a1a1a;
             }
 
-            .services-right-panel {
-                width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
             .services-track {
-                transition: none;
+                grid-template-columns: 1fr;
             }
 
-            .service-card {
-                min-width: 90vw;
-                padding: 30px;
-            }
-
-            .service-keyword {
-                font-size: 40px;
-                top: 10px;
-                right: 15px;
+            .service-card.active {
+                grid-column: span 1;
             }
 
             .service-devices {
-                height: 280px;
+                height: 200px;
+            }
+
+            .service-card.active .service-devices {
+                height: 250px;
             }
         }
     </style>
@@ -1201,107 +1248,44 @@
     </script>
 
     <!-- ============================================================
-         서비스 섹션 수평 스크롤 애니메이션 (직접 수정 가능)
-         위치: index.html 1203번 줄
+         서비스 섹션 - 클릭하면 카드 확대 (스크롤 애니메이션 제거됨)
     ============================================================ -->
     <script>
         // =============================================
-        // 서비스 섹션 - 세로 스크롤 → 가로 스크롤 변환
+        // 서비스 섹션 - 클릭 시 카드 확대/축소
         // =============================================
         (function () {
-            // 모바일(1024px 이하)에서는 애니메이션 비활성화
-            if (window.innerWidth <= 1024) {
-                return;
-            }
+            const cards = document.querySelectorAll('.service-card');
+            const progressItems = document.querySelectorAll('.progress-item');
 
-            const section = document.getElementById('servicesPinSection');  // 서비스 섹션 전체
-            const track = document.getElementById('servicesTrack');         // 카드들을 감싸는 트랙
-            const cards = document.querySelectorAll('.service-card');       // 4개 서비스 카드
-            const progressItems = document.querySelectorAll('.progress-item'); // 왼쪽 인디케이터
+            if (cards.length === 0) return;
 
-            if (!section || !track || cards.length === 0) return;
+            // 첫 번째 카드를 기본 활성화
+            cards[0].classList.add('active');
 
-            const totalCards = cards.length; // 총 카드 수: 4개
+            // 카드 클릭 시 확대
+            cards.forEach((card, index) => {
+                card.addEventListener('click', () => {
+                    // 모든 카드에서 active 제거
+                    cards.forEach(c => c.classList.remove('active'));
+                    progressItems.forEach(p => p.classList.remove('active'));
 
-            // =============================================
-            // ★★★ 스크롤 속도 조절 핵심 설정 ★★★
-            // =============================================
-
-            // scrollDistance: 카드 트랙이 이동해야 할 총 거리 (픽셀)
-            // - 값이 클수록 이동 거리가 김
-            const scrollDistance = (track.scrollWidth - track.offsetWidth);
-
-            // ★ SCROLL_MULTIPLIER: 스크롤 속도 조절 (핵심!)
-            // - 값이 크면: 더 많이 스크롤해야 카드가 넘어감 (느림)
-            // - 값이 작으면: 조금만 스크롤해도 카드가 넘어감 (빠름)
-            // - 권장값: 1.0 ~ 3.0 (현재: 1.5)
-            const SCROLL_MULTIPLIER = 1.5;  // ← 이 값을 조절하세요!
-
-            // ★ LAST_CARD_BUFFER: 마지막 카드(성과분석) 머무는 시간
-            // - 값이 크면: 마지막 카드에서 더 오래 머문 후 다음 섹션으로
-            // - 값이 작으면: 마지막 카드 후 바로 다음 섹션으로
-            // - 단위: 화면 높이의 배수 (0.5 = 화면 절반 높이만큼 스크롤)
-            const LAST_CARD_BUFFER = 0.5;   // ← 이 값을 조절하세요!
-
-            gsap.to(track, {
-                // 트랙을 왼쪽으로 이동 (음수 = 왼쪽)
-                x: () => -scrollDistance,
-
-                // ★ ease: 애니메이션 곡선
-                // - "none": 일정한 속도로 이동
-                // - "power1.out": 끝에서 부드럽게 감속
-                // - "power2.inOut": 시작/끝 부드럽게
-                ease: "none",
-
-                scrollTrigger: {
-                    trigger: section,
-
-                    // ★ start: 애니메이션 시작 시점
-                    // - "top top": 섹션 상단이 화면 상단에 닿을 때 시작
-                    start: "top top",
-
-                    // ★ end: 애니메이션 종료 시점 (가장 중요!)
-                    // - "+=" 뒤의 값이 클수록 더 많이 스크롤해야 끝남
-                    // - scrollDistance * SCROLL_MULTIPLIER: 카드 전환 속도
-                    // - window.innerHeight * LAST_CARD_BUFFER: 마지막 카드 머무는 시간
-                    end: () => "+=" + (scrollDistance * SCROLL_MULTIPLIER + window.innerHeight * LAST_CARD_BUFFER),
-
-                    // ★ pin: true면 섹션이 화면에 고정됨
-                    pin: true,
-
-                    // ★ scrub: 스크롤과 애니메이션 동기화
-                    // - true: 즉시 반응 (1:1 동기화)
-                    // - 0.5: 약간의 딜레이로 부드럽게
-                    // - 1: 더 부드럽게 (느리게 반응)
-                    scrub: true,
-
-                    anticipatePin: 1,
-
-                    // 스크롤 진행률에 따라 왼쪽 인디케이터 업데이트
-                    onUpdate: (self) => {
-                        const progress = self.progress;
-                        const cardIndex = Math.min(Math.floor(progress * totalCards), totalCards - 1);
-
-                        progressItems.forEach((item, i) => {
-                            if (i === cardIndex) {
-                                item.classList.add('active');
-                            } else {
-                                item.classList.remove('active');
-                            }
-                        });
-                    }
-                }
+                    // 클릭한 카드 활성화
+                    card.classList.add('active');
+                    progressItems[index].classList.add('active');
+                });
             });
 
-            // 왼쪽 인디케이터 클릭 시 해당 카드로 이동
+            // 왼쪽 인디케이터 클릭 시 해당 카드 확대
             progressItems.forEach((item, index) => {
                 item.addEventListener('click', () => {
-                    const scrollTriggerInstance = ScrollTrigger.getAll().find(st => st.trigger === section);
-                    if (scrollTriggerInstance) {
-                        const progress = index / (totalCards - 1);
-                        const targetScroll = scrollTriggerInstance.start + (scrollTriggerInstance.end - scrollTriggerInstance.start) * progress;
-                        gsap.to(window, { scrollTo: targetScroll, duration: 0.8, ease: "power2.inOut" });
-                    }
+                    // 모든 카드에서 active 제거
+                    cards.forEach(c => c.classList.remove('active'));
+                    progressItems.forEach(p => p.classList.remove('active'));
+
+                    // 해당 카드 활성화
+                    cards[index].classList.add('active');
+                    item.classList.add('active');
                 });
             });
         })();
