@@ -207,57 +207,59 @@
 
         .gsap-section {
             width: 100%;
-            min-height: 95vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             box-sizing: border-box;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 0;
         }
 
         .gsap-section-inner {
             width: 100%;
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 40px;
-            padding: 40px 5%;
+            gap: 80px;
+            padding: 80px 8%;
         }
 
         .gsap-section-text {
             flex: 1;
-            max-width: 600px;
+            max-width: 700px;
             text-align: left;
         }
 
         .gsap-section-image {
-            flex: 1;
-            max-width: 500px;
+            flex: 1.2;
+            max-width: 700px;
         }
 
         .gsap-section-image img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
         }
 
         .gsap-section-image video {
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
             object-fit: cover;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1200px) {
             .gsap-section-inner {
                 flex-direction: column;
                 text-align: center;
+                gap: 50px;
+                padding: 60px 5%;
             }
 
             .gsap-section-text {
@@ -266,7 +268,7 @@
             }
 
             .gsap-section-image {
-                max-width: 100%;
+                max-width: 90%;
             }
         }
 
@@ -448,54 +450,69 @@
             margin-top: 4px;
         }
 
-        /* 섹션 타이포그래피 */
+        /* 섹션 타이포그래피 - 통일된 폰트, 굵기로만 구분 */
         .gsap-section h2 {
-            font-size: clamp(32px, 8vw, 64px);
-            font-weight: 900;
-            margin-bottom: 30px;
-            line-height: 1.2;
-            letter-spacing: -2px;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-size: clamp(42px, 10vw, 80px);
+            font-weight: 800;
+            font-style: normal;
+            margin-bottom: 40px;
+            line-height: 1.15;
+            letter-spacing: -3px;
+        }
+
+        .gsap-section h2 em,
+        .gsap-section h2 span.highlight {
+            font-style: normal;
+            font-weight: 400;
         }
 
         .gsap-section p {
-            font-size: 16px;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-size: 18px;
             line-height: 1.9;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 650px;
+            margin: 0;
         }
 
         .gsap-section .section-label {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 24px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .gsap-section-2 .section-label,
         .gsap-section-3 .section-label,
         .gsap-section-4 .section-label {
             background: rgba(0, 0, 0, 0.08);
-            color: #666;
+            color: #555;
         }
 
         .gsap-section .section-link {
             display: inline-block;
-            padding: 15px 40px;
-            border: 1px solid currentColor;
+            padding: 18px 50px;
+            border: 2px solid currentColor;
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             letter-spacing: 1px;
-            margin-top: 40px;
+            margin-top: 50px;
             transition: all 0.3s;
             color: inherit;
         }
 
         .gsap-section .section-link:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .gsap-section-5 .section-link:hover {
             background: rgba(255, 255, 255, 0.1);
         }
     </style>
@@ -604,7 +621,7 @@
                 <div class="gsap-section-inner">
                     <div class="gsap-section-text">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">About Us</span>
-                        <h2>부산 광고대행사<br><em style="font-style: italic; font-weight: 400;">하이브미디어</em></h2>
+                        <h2>부산 광고대행사<br><em>하이브미디어</em></h2>
                         <p><strong>부산 관공서 마케팅 전문 광고대행사</strong> 하이브미디어는 SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스를 제공합니다. 데이터
                             분석 기반의 맞춤 전략으로 브랜드의 가치를 높여드립니다.</p>
                         <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
@@ -625,7 +642,7 @@
                 <div class="gsap-section-inner">
                     <div class="gsap-section-text">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Marketing</span>
-                        <h2>온라인 <em style="font-style: italic; font-weight: 400;">광고</em></h2>
+                        <h2>온라인 <em>광고</em></h2>
                         <p><strong>SNS 광고, 검색광고, 디스플레이 광고</strong>까지 데이터 기반 맞춤 전략으로 효과적인 온라인 마케팅을 진행합니다.</p>
                         <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
                             <strong>SNS</strong> · 인스타그램, 페이스북, 유튜브 광고<br>
@@ -646,7 +663,7 @@
                 <div class="gsap-section-inner">
                     <div class="gsap-section-text">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Event & PR</span>
-                        <h2>이벤트 <em style="font-style: italic; font-weight: 400;">& 홍보PR</em></h2>
+                        <h2>이벤트 <em>& 홍보PR</em></h2>
                         <p>기업 행사, 공공기관 캠페인, 온·오프라인 프로모션까지 <strong>기획부터 실행까지</strong> 원스톱으로 진행합니다.</p>
                         <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
                             <strong>이벤트</strong> · 기념행사, 론칭이벤트, 시상식<br>
@@ -667,7 +684,7 @@
                 <div class="gsap-section-inner">
                     <div class="gsap-section-text">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Portfolio</span>
-                        <h2><em style="font-style: italic; font-weight: 400;">포트폴리오</em></h2>
+                        <h2>우리의 <em>포트폴리오</em></h2>
                         <p>부산시, 해운대구청, 부산항만공사 등 <strong>다수의 관공서 프로젝트</strong>를 성공적으로 수행했습니다.</p>
                         <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
                             SNS 운영, 홍보영상 제작, 온라인 캠페인 등<br>
@@ -690,7 +707,7 @@
                     <div class="gsap-section-text">
                         <span class="section-label"
                             style="border: 1px solid rgba(255,255,255,0.3); background: transparent;">Archive</span>
-                        <h2><em style="font-style: italic; font-weight: 400;">아카이브</em></h2>
+                        <h2>뉴스 & <em>아카이브</em></h2>
                         <p>마케팅 트렌드, 업계 소식, 유용한 정보를 <strong>정기적으로 업데이트</strong>합니다.</p>
                         <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 20px; line-height: 1.8;">
                             최신 마케팅 인사이트와 하이브미디어의<br>
@@ -713,7 +730,7 @@
                 <div class="gsap-section-inner" style="flex-direction: column; text-align: center;">
                     <div class="gsap-section-text" style="max-width: 800px;">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">FAQ</span>
-                        <h2>자주 묻는 <em style="font-style: italic; font-weight: 400;">질문</em></h2>
+                        <h2>자주 묻는 <em>질문</em></h2>
 
                         <!-- FAQ 아코디언 -->
                         <div class="faq-accordion" style="text-align: left;">
@@ -764,7 +781,7 @@
                     <div class="gsap-section-text" style="max-width: 600px;">
                         <span class="section-label"
                             style="border: 1px solid rgba(255,255,255,0.3); background: transparent;">Contact</span>
-                        <h2>프로젝트 <em style="font-style: italic; font-weight: 400;">문의</em></h2>
+                        <h2>프로젝트 <em>문의</em></h2>
                         <p
                             style="font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 40px;">
                             새로운 프로젝트나 협업에 대해 이야기 나눠보세요.<br>
