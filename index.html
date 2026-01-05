@@ -517,12 +517,10 @@
         }
 
         /* ========================================
-           Services Section (왼쪽 메뉴 + 오른쪽 상단 카드 + 하단 프로세스)
+           Services Section (gsap-section-2와 병합)
         ======================================== */
-        .services-pin-section {
+        .services-pin-section.gsap-section {
             background: #f5f5f0;
-            min-height: 100vh;
-            padding: 80px 0;
         }
 
         .services-pin-container {
@@ -530,7 +528,7 @@
             width: 100%;
             max-width: 1600px;
             margin: 0 auto;
-            padding: 0 60px;
+            padding: 80px 60px;
             gap: 60px;
             min-height: 600px;
         }
@@ -907,9 +905,9 @@
                 </div>
             </section>
 
-            <!-- Section 2: 서비스 소개 (새 레이아웃: 왼쪽 메뉴 + 오른쪽 상단 카드 + 오른쪽 하단 프로세스) -->
-            <section class="services-pin-section" id="servicesPinSection">
-                <div class="services-pin-container">
+            <!-- Section 2: 서비스 소개 -->
+            <section class="gsap-section gsap-section-2 services-pin-section" id="servicesPinSection">
+                <div class="gsap-section-inner services-pin-container">
                     <!-- 왼쪽 패널: 세로로 긴 텍스트 영역 -->
                     <div class="services-left-panel">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Services</span>
