@@ -1218,16 +1218,16 @@
 
             const totalCards = cards.length;
 
-            // Pin the section and animate horizontal scroll (FASTER)
+            // Pin the section and animate horizontal scroll (INSTANT SYNC)
             gsap.to(track, {
                 x: () => -(track.scrollWidth - track.offsetWidth),
-                ease: "power1.out",
+                ease: "none",
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
-                    end: () => "+=" + (track.scrollWidth * 0.6),  // Shorter scroll distance = faster cards
+                    end: () => "+=" + (window.innerHeight * 1.5),  // Very short scroll = instant card changes
                     pin: true,
-                    scrub: 0.3,  // Faster response
+                    scrub: true,  // Instant sync with scroll
                     anticipatePin: 1,
                     onUpdate: (self) => {
                         // Update progress indicators based on scroll position
