@@ -517,7 +517,7 @@
         }
 
         /* ========================================
-           Services Grid Section (클릭 확대 방식)
+           Services Section (왼쪽 메뉴 + 오른쪽 상단 카드 + 하단 프로세스)
         ======================================== */
         .services-pin-section {
             background: #f5f5f0;
@@ -530,28 +530,32 @@
             width: 100%;
             max-width: 1600px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 60px;
             gap: 60px;
+            min-height: 600px;
         }
 
+        /* 왼쪽 패널: 세로로 긴 텍스트 영역 */
         .services-left-panel {
-            width: 300px;
+            width: 280px;
             flex-shrink: 0;
-            padding-top: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .services-progress {
             margin-top: 40px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 4px;
         }
 
         .progress-item {
             font-size: 15px;
             font-weight: 500;
             color: #999;
-            padding: 12px 0;
+            padding: 14px 0;
             border-left: 3px solid transparent;
             padding-left: 20px;
             transition: all 0.3s ease;
@@ -560,174 +564,172 @@
 
         .progress-item:hover {
             color: #666;
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .progress-item.active {
             color: #1a1a1a;
             border-left-color: #1a1a1a;
             font-weight: 700;
+            background: rgba(0, 0, 0, 0.03);
         }
 
-        /* 오른쪽: 4개 카드 그리드 */
+        /* 오른쪽 패널: 상단+하단 분리 */
         .services-right-panel {
             flex: 1;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        .services-track {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        /* 오른쪽 상단: 4개 카드 가로 배치 */
+        .services-cards-row {
+            display: flex;
             gap: 20px;
-            align-items: start;
         }
 
         .service-card {
+            flex: 1;
             background: #fff;
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            position: relative;
-            overflow: hidden;
+            text-align: center;
         }
 
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
         }
 
         .service-card.active {
-            grid-column: span 2;
-            grid-row: span 2;
             background: #1a1a1a;
-            color: #fff;
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
 
-        .service-card.active .service-info h3,
-        .service-card.active .service-info p {
-            color: #fff;
-        }
-
-        .service-card.active .service-keyword {
-            color: rgba(255, 255, 255, 0.08);
-        }
-
-        .service-keyword {
-            font-family: 'Space Mono', monospace;
-            font-size: 32px;
-            font-weight: 400;
-            color: rgba(0, 0, 0, 0.05);
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            letter-spacing: -1px;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
-        .service-card.active .service-keyword {
-            font-size: 60px;
-            top: 30px;
-        }
-
-        .service-devices {
-            position: relative;
+        .service-thumb {
             width: 100%;
-            height: 180px;
-            margin-bottom: 20px;
-        }
-
-        .service-card.active .service-devices {
-            height: 320px;
-        }
-
-        .device {
-            position: absolute;
-            border-radius: 8px;
+            height: 140px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            background: #fff;
-            transition: all 0.4s ease;
+            margin-bottom: 16px;
         }
 
-        .device.laptop {
-            width: 80%;
-            top: 0;
-            left: 0;
-            border-radius: 8px;
-            padding: 4px;
-            background: #222;
-        }
-
-        .device.laptop img {
+        .service-thumb img {
             width: 100%;
-            border-radius: 4px;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
         }
 
-        .device.phone {
-            width: 35%;
-            bottom: 0;
-            right: 0;
-            border-radius: 12px;
-            padding: 3px;
-            background: #222;
+        .service-card:hover .service-thumb img {
+            transform: scale(1.05);
         }
 
-        .device.phone img {
-            width: 100%;
-            border-radius: 9px;
-        }
-
-        .service-card.active .device.laptop {
-            width: 70%;
-        }
-
-        .service-card.active .device.phone {
-            width: 30%;
-        }
-
-        .service-info {
-            text-align: left;
-        }
-
-        .service-info h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+        .service-title {
+            font-size: 16px;
+            font-weight: 600;
             color: #1a1a1a;
             transition: color 0.3s ease;
         }
 
-        .service-card.active .service-info h3 {
-            font-size: 28px;
-            margin-bottom: 16px;
+        .service-card.active .service-title {
+            color: #fff;
         }
 
-        .service-info p {
-            font-size: 13px;
-            color: #888;
-            line-height: 1.6;
-            transition: color 0.3s ease;
+        /* 오른쪽 하단: 프로세스 플로우 */
+        .services-process-panel {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px 50px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.06);
+            min-height: 200px;
+            position: relative;
+        }
+
+        .process-flow {
             display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
-        .service-card.active .service-info p {
-            display: block;
-            font-size: 16px;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.7);
+        .process-flow.active {
+            display: flex;
+            animation: fadeIn 0.4s ease;
         }
 
-        @media (max-width: 1200px) {
-            .services-track {
-                grid-template-columns: repeat(2, 1fr);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            .service-card.active {
-                grid-column: span 2;
-                grid-row: span 1;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            padding: 20px 10px;
+            background: linear-gradient(145deg, #f8f8f8, #fff);
+            border-radius: 16px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: #1a1a1a;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .process-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .process-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: -0.3px;
+        }
+
+        .process-arrow {
+            font-size: 24px;
+            color: #ccc;
+            font-weight: 300;
+            flex-shrink: 0;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .services-cards-row {
+                flex-wrap: wrap;
+            }
+
+            .service-card {
+                flex: 1 1 calc(50% - 10px);
+                min-width: 180px;
+            }
+
+            .process-step {
+                padding: 15px 8px;
+            }
+
+            .process-icon {
+                font-size: 26px;
+            }
+
+            .process-label {
+                font-size: 12px;
             }
         }
 
@@ -764,20 +766,23 @@
                 border-bottom-color: #1a1a1a;
             }
 
-            .services-track {
-                grid-template-columns: 1fr;
+            .services-process-panel {
+                padding: 30px 20px;
+                overflow-x: auto;
             }
 
-            .service-card.active {
-                grid-column: span 1;
+            .process-flow {
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-card {
+                flex: 1 1 100%;
             }
 
-            .service-devices {
-                height: 200px;
-            }
-
-            .service-card.active .service-devices {
-                height: 250px;
+            .service-thumb {
+                height: 120px;
             }
         }
     </style>
@@ -902,18 +907,18 @@
                 </div>
             </section>
 
-            <!-- Section 2: 서비스 소개 (Scroll-triggered Pinned Section) -->
+            <!-- Section 2: 서비스 소개 (새 레이아웃: 왼쪽 메뉴 + 오른쪽 상단 카드 + 오른쪽 하단 프로세스) -->
             <section class="services-pin-section" id="servicesPinSection">
                 <div class="services-pin-container">
-                    <!-- Left Panel - Fixed -->
+                    <!-- 왼쪽 패널: 세로로 긴 텍스트 영역 -->
                     <div class="services-left-panel">
                         <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Services</span>
                         <h2
-                            style="font-size: clamp(42px, 8vw, 72px); font-weight: 800; line-height: 1.1; letter-spacing: -3px; margin-bottom: 30px;">
-                            서비스 <em style="font-weight: 400; font-style: normal;">소개</em>
+                            style="font-size: clamp(36px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px;">
+                            서비스<br><em style="font-weight: 400; font-style: normal;">소개</em>
                         </h2>
-                        <p style="font-size: 18px; line-height: 1.8; color: #555; max-width: 400px;">
-                            공공기관 RFP에 요구되는 통합 마케팅 서비스를 제공합니다.
+                        <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 40px;">
+                            공공기관 RFP에 요구되는<br>통합 마케팅 서비스를 제공합니다.
                         </p>
                         <div class="services-progress">
                             <div class="progress-item active" data-index="0">온라인 광고</div>
@@ -923,82 +928,158 @@
                         </div>
                     </div>
 
-                    <!-- Right Panel - Horizontal Scrolling Cards -->
+                    <!-- 오른쪽 패널: 상단 카드 + 하단 프로세스 -->
                     <div class="services-right-panel">
-                        <div class="services-track" id="servicesTrack">
+                        <!-- 오른쪽 상단: 4개 카드 가로 배치 -->
+                        <div class="services-cards-row" id="servicesTrack">
                             <!-- Card 1: 온라인 광고 -->
-                            <div class="service-card" data-service="0">
-                                <div class="service-keyword">Online AD</div>
-                                <div class="service-devices">
-                                    <div class="device laptop">
-                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
-                                            alt="온라인 광고">
-                                    </div>
-                                    <div class="device phone">
-                                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=200&h=400&fit=crop"
-                                            alt="모바일 광고">
-                                    </div>
+                            <div class="service-card active" data-service="0">
+                                <div class="service-thumb">
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop"
+                                        alt="온라인 광고">
                                 </div>
-                                <div class="service-info">
-                                    <h3>온라인 광고</h3>
-                                    <p>네이버 SA/DA, META, 구글 Ads 등<br>데이터 기반 퍼포먼스 마케팅</p>
-                                </div>
+                                <div class="service-title">온라인 광고</div>
                             </div>
 
                             <!-- Card 2: 콘텐츠 제작 -->
                             <div class="service-card" data-service="1">
-                                <div class="service-keyword">Contents</div>
-                                <div class="service-devices">
-                                    <div class="device laptop">
-                                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&h=300&fit=crop"
-                                            alt="콘텐츠 제작">
-                                    </div>
-                                    <div class="device phone">
-                                        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=200&h=400&fit=crop"
-                                            alt="SNS 콘텐츠">
-                                    </div>
+                                <div class="service-thumb">
+                                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=200&fit=crop"
+                                        alt="콘텐츠 제작">
                                 </div>
-                                <div class="service-info">
-                                    <h3>콘텐츠 제작</h3>
-                                    <p>카드뉴스, 홍보영상, 리포팅 등<br>맞춤형 콘텐츠 기획 및 제작</p>
-                                </div>
+                                <div class="service-title">콘텐츠 제작</div>
                             </div>
 
                             <!-- Card 3: 웹 개발 -->
                             <div class="service-card" data-service="2">
-                                <div class="service-keyword">Web Dev</div>
-                                <div class="service-devices">
-                                    <div class="device laptop">
-                                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&h=300&fit=crop"
-                                            alt="웹 개발">
-                                    </div>
-                                    <div class="device phone">
-                                        <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?w=200&h=400&fit=crop"
-                                            alt="모바일 웹">
-                                    </div>
+                                <div class="service-thumb">
+                                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=300&h=200&fit=crop"
+                                        alt="웹 개발">
                                 </div>
-                                <div class="service-info">
-                                    <h3>웹 개발</h3>
-                                    <p>웹진, 랜딩페이지, 이벤트페이지<br>반응형 웹사이트 구축</p>
-                                </div>
+                                <div class="service-title">웹 개발</div>
                             </div>
 
                             <!-- Card 4: 성과 분석 -->
                             <div class="service-card" data-service="3">
-                                <div class="service-keyword">Analytics</div>
-                                <div class="service-devices">
-                                    <div class="device laptop">
-                                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop"
-                                            alt="성과 분석">
-                                    </div>
-                                    <div class="device phone">
-                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=400&fit=crop"
-                                            alt="리포팅">
-                                    </div>
+                                <div class="service-thumb">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=200&fit=crop"
+                                        alt="성과 분석">
                                 </div>
-                                <div class="service-info">
-                                    <h3>성과 분석</h3>
-                                    <p>월별 리포팅, KPI 분석<br>데이터 기반 개선안 제안</p>
+                                <div class="service-title">성과 분석</div>
+                            </div>
+                        </div>
+
+                        <!-- 오른쪽 하단: 업무 프로세스 플로우 -->
+                        <div class="services-process-panel">
+                            <!-- 프로세스 0: 온라인 광고 -->
+                            <div class="process-flow active" data-process="0">
+                                <div class="process-step">
+                                    <div class="process-icon">📊</div>
+                                    <div class="process-label">현황 분석</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🎯</div>
+                                    <div class="process-label">타겟 설정</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">📝</div>
+                                    <div class="process-label">광고 제작</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🚀</div>
+                                    <div class="process-label">캠페인 집행</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">📈</div>
+                                    <div class="process-label">성과 리포팅</div>
+                                </div>
+                            </div>
+
+                            <!-- 프로세스 1: 콘텐츠 제작 -->
+                            <div class="process-flow" data-process="1">
+                                <div class="process-step">
+                                    <div class="process-icon">💡</div>
+                                    <div class="process-label">기획 미팅</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">📋</div>
+                                    <div class="process-label">콘셉트 수립</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">✏️</div>
+                                    <div class="process-label">콘텐츠 제작</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">✅</div>
+                                    <div class="process-label">검수 및 수정</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">📤</div>
+                                    <div class="process-label">최종 납품</div>
+                                </div>
+                            </div>
+
+                            <!-- 프로세스 2: 웹 개발 -->
+                            <div class="process-flow" data-process="2">
+                                <div class="process-step">
+                                    <div class="process-icon">🎨</div>
+                                    <div class="process-label">디자인 기획</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🖼️</div>
+                                    <div class="process-label">시안 제작</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">💻</div>
+                                    <div class="process-label">퍼블리싱</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🔧</div>
+                                    <div class="process-label">기능 개발</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🌐</div>
+                                    <div class="process-label">사이트 오픈</div>
+                                </div>
+                            </div>
+
+                            <!-- 프로세스 3: 성과 분석 -->
+                            <div class="process-flow" data-process="3">
+                                <div class="process-step">
+                                    <div class="process-icon">📥</div>
+                                    <div class="process-label">데이터 수집</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🔍</div>
+                                    <div class="process-label">지표 분석</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">📊</div>
+                                    <div class="process-label">리포트 작성</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">💬</div>
+                                    <div class="process-label">인사이트 도출</div>
+                                </div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">
+                                    <div class="process-icon">🎯</div>
+                                    <div class="process-label">개선안 제안</div>
                                 </div>
                             </div>
                         </div>
@@ -1248,45 +1329,40 @@
     </script>
 
     <!-- ============================================================
-         서비스 섹션 - 클릭하면 카드 확대 (스크롤 애니메이션 제거됨)
+         서비스 섹션 - 카드 클릭 시 프로세스 플로우 전환
     ============================================================ -->
     <script>
         // =============================================
-        // 서비스 섹션 - 클릭 시 카드 확대/축소
+        // 서비스 섹션 - 카드 클릭 → 프로세스 플로우 변경
         // =============================================
         (function () {
             const cards = document.querySelectorAll('.service-card');
             const progressItems = document.querySelectorAll('.progress-item');
+            const processFlows = document.querySelectorAll('.process-flow');
 
             if (cards.length === 0) return;
 
-            // 첫 번째 카드를 기본 활성화
-            cards[0].classList.add('active');
+            // 서비스 선택 함수
+            function selectService(index) {
+                // 모든 활성화 상태 제거
+                cards.forEach(c => c.classList.remove('active'));
+                progressItems.forEach(p => p.classList.remove('active'));
+                processFlows.forEach(f => f.classList.remove('active'));
 
-            // 카드 클릭 시 확대
+                // 해당 인덱스 활성화
+                cards[index].classList.add('active');
+                progressItems[index].classList.add('active');
+                processFlows[index].classList.add('active');
+            }
+
+            // 카드 클릭 이벤트
             cards.forEach((card, index) => {
-                card.addEventListener('click', () => {
-                    // 모든 카드에서 active 제거
-                    cards.forEach(c => c.classList.remove('active'));
-                    progressItems.forEach(p => p.classList.remove('active'));
-
-                    // 클릭한 카드 활성화
-                    card.classList.add('active');
-                    progressItems[index].classList.add('active');
-                });
+                card.addEventListener('click', () => selectService(index));
             });
 
-            // 왼쪽 인디케이터 클릭 시 해당 카드 확대
+            // 왼쪽 메뉴 클릭 이벤트
             progressItems.forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    // 모든 카드에서 active 제거
-                    cards.forEach(c => c.classList.remove('active'));
-                    progressItems.forEach(p => p.classList.remove('active'));
-
-                    // 해당 카드 활성화
-                    cards[index].classList.add('active');
-                    item.classList.add('active');
-                });
+                item.addEventListener('click', () => selectService(index));
             });
         })();
     </script>
