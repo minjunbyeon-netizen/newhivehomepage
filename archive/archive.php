@@ -69,455 +69,303 @@ $base_path = '/01_work/hivemedia_homepage';
     <script src="../assets/js/common.js" defer=""></script>
     <script src="../assets/js/components.js" defer=""></script>
 
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Google Fonts - Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* GSAP 애니메이션 초기 상태 */
-        .gsap-title {
-            opacity: 0;
-            transform: translateY(80px);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .gsap-subtitle {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        .gsap-fade-in {
-            opacity: 0;
-        }
-
-        .gsap-line {
-            transform: scaleX(0);
-            transform-origin: left;
-        }
-
-        /* 인트로 장식 텍스트 */
-        .intro-text {
-            position: absolute;
-            left: 0;
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: #fff;
-            opacity: 0;
-            font-family: 'Georgia', serif;
-            font-style: italic;
-        }
-
-        .intro-text-top {
-            top: -35px;
-        }
-
-        .intro-text-bottom {
-            bottom: -35px;
-        }
-
-        .title-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Dark Theme - 검정 배경 */
         body,
         .Wrap {
-            background: #111 !important;
+            background: #f5f5f0 !important;
+            font-family: 'Space Mono', 'Courier New', monospace;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
 
-        /* Header 스타일 오버라이드 - 검정 배경 */
+        /* Header Override */
         .header {
-            background: #111 !important;
+            background: #f5f5f0 !important;
         }
 
         .header .conbox {
-            background: #111 !important;
+            background: #f5f5f0 !important;
         }
 
-        .header .util-btn {
-            background: #111 !important;
-        }
-
-        .portfolio-con.archive-con {
-            background: #111;
-            color: #fff;
+        /* Main Layout - 40:60 Split */
+        .archive-main {
+            display: flex;
             min-height: 100vh;
+            padding-top: 80px;
         }
 
-        .archive-con .sub-top {
-            background: #111;
-            padding: 120px 5% 80px;
-            border-bottom: 1px solid #333;
+        /* Left Panel - 40% */
+        .left-panel {
+            width: 40%;
+            padding: 60px 40px 60px 60px;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
         }
 
-        .archive-con .sub-top .inner {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .archive-con .sub-top .path {
-            margin-bottom: 60px;
-        }
-
-        .archive-con .sub-top .path ul {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .archive-con .sub-top .path li {
-            color: #888;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .archive-con .sub-top .path img {
-            filter: invert(1);
-            opacity: 0.5;
-            width: 12px;
-        }
-
-        .archive-con .sub-text {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 40px;
-            width: 100%;
-        }
-
-        .archive-con .sub-text .title-wrapper {
-            text-align: left;
-        }
-
-        .archive-con .sub-text h2.text_ani {
-            font-size: 24px;
-            font-style: italic;
-            font-weight: 300;
-            color: #888;
-            font-family: Georgia, serif;
-            margin-bottom: 10px;
-        }
-
-        .archive-con .sub-text h2.text_ani2 {
-            font-size: 120px;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: -6px;
-            line-height: 0.9;
-            text-transform: uppercase;
-        }
-
-        .archive-con .sub-text p {
-            font-size: 14px;
-            color: #aaa;
-            max-width: 300px;
-            line-height: 1.8;
-            text-align: right;
-        }
-
-        .archive-con .btn-inquiry {
-            display: none;
-        }
-
-        /* 콘텐츠 영역 */
-        .archive-con .conbody {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 60px 5%;
-        }
-
-
-        .archive-con .contents {
-            padding: 0;
-        }
-
-        /* ========================================
-           매거진 스타일 아카이브 리스트
-        ======================================== */
-        .archive-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            max-width: 1400px;
-        }
-
-        /* 첫 번째 아이템 - Featured (풀와이드) */
-        .archive-item:first-child {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 60px;
-            padding: 0 0 60px 0;
-            border-bottom: 1px solid #e0e0e0;
-            border-top: none;
-            align-items: center;
-        }
-
-        .archive-item:first-child .img-wrap {
-            display: block !important;
-            aspect-ratio: 16 / 10;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        .archive-item:first-child .img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .archive-item:first-child:hover .img-wrap img {
-            transform: scale(1.03);
-        }
-
-        .archive-item:first-child .text-wrap {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        .archive-item:first-child .text-wrap .category {
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: #888;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .archive-item:first-child .text-wrap h3 {
-            font-size: 36px;
-            font-weight: 600;
-            line-height: 1.35;
-            letter-spacing: -1px;
-            -webkit-line-clamp: 3;
-        }
-
-        .archive-item:first-child .text-wrap p {
-            display: block !important;
-            font-size: 15px;
-            color: #888;
-            line-height: 1.8;
-            margin-top: 10px;
-        }
-
-        .archive-item:first-child .text-wrap .date {
-            font-size: 13px;
-            color: #666;
-            margin-top: 20px;
-            font-style: italic;
-            font-family: Georgia, serif;
-        }
-
-        /* 나머지 아이템 - 목록형 스타일 */
-        .archive-item {
-            background: transparent;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 0;
-            padding: 22px 0;
-            border: none;
-            border-bottom: 1px solid #222;
-            transition: all 0.3s ease;
-        }
-
-        .archive-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            padding-left: 15px;
-            margin-left: -15px;
-            padding-right: 15px;
-            margin-right: -15px;
-        }
-
-        .archive-item .img-wrap {
-            display: none;
-        }
-
-        .archive-item .text-wrap {
-            padding: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 25px;
-            width: 100%;
-        }
-
-        .archive-item .text-wrap .category {
-            display: inline-block;
-            font-size: 11px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-            min-width: 100px;
-            flex-shrink: 0;
-        }
-
-        .archive-item .text-wrap h3 {
-            font-size: 16px;
-            font-weight: 500;
-            color: #ccc;
-            margin-bottom: 0;
-            line-height: 1.5;
-            flex: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            transition: color 0.2s ease;
-        }
-
-        .archive-item:hover .text-wrap h3 {
-            color: #fff;
-        }
-
-        .archive-item .text-wrap p {
-            display: none;
-        }
-
-        .archive-item .text-wrap .date {
-            font-size: 12px;
-            color: #555;
-            display: block;
-            font-style: italic;
-            font-family: Georgia, serif;
-            min-width: 100px;
-            text-align: right;
-            flex-shrink: 0;
-        }
-
-
-        /* 기본 썸네일 - Featured만 표시 */
-        .default-thumb {
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        .page-title {
             font-size: 48px;
-            color: #ccc;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 8px;
         }
 
-
-        .archive-item:first-child .default-thumb {
-            font-size: 80px;
+        .page-title-sub {
+            font-size: 72px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -4px;
+            line-height: 0.9;
+            margin-bottom: 40px;
         }
 
-        @media (max-width: 1024px) {
-            .archive-con .sub-text h2.text_ani2 {
-                font-size: 72px;
-            }
-
-            .archive-list {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
-
-            .archive-item:first-child {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .archive-item:first-child .text-wrap h3 {
-                font-size: 28px;
-            }
+        .intro-text {
+            font-size: 11px;
+            line-height: 1.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            max-width: 320px;
         }
 
-        @media (max-width: 768px) {
-            .archive-con .sub-text h2.text_ani2 {
-                font-size: 48px;
-                letter-spacing: -2px;
-            }
-
-            .archive-con .sub-text {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .archive-list {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .archive-item:first-child .text-wrap h3 {
-                font-size: 24px;
-            }
-
-            .archive-item .text-wrap h3 {
-                font-size: 16px;
-            }
+        .stats-box {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
         }
 
-        /* 로딩 스피너 */
-        .archive-loading {
-            text-align: center;
-            padding: 100px 20px;
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .stat-item .label {
+            color: #666;
+        }
+
+        .stat-item .value {
+            font-weight: 700;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid #1a1a1a;
+            background: transparent;
+            color: #1a1a1a;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            background: #1a1a1a;
+            color: #f5f5f0;
+        }
+
+        .left-footer {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+        }
+
+        .left-footer a {
+            display: block;
+            font-size: 11px;
+            color: #1a1a1a;
+            text-decoration: none;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .left-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 10px;
             color: #888;
         }
 
-        .archive-loading .spinner {
+        /* Right Panel - 60% */
+        .right-panel {
+            width: 60%;
+            padding: 60px 60px 60px 40px;
+            border-left: 1px solid #ddd;
+        }
+
+        /* Section Style */
+        .section-block {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            background: #1a1a1a;
+            color: #f5f5f0;
+            margin-bottom: 20px;
+        }
+
+        /* Article List */
+        .article-list .article-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .article-row:hover {
+            background: rgba(0, 0, 0, 0.03);
+            padding-left: 10px;
+            margin-left: -10px;
+            padding-right: 10px;
+            margin-right: -10px;
+        }
+
+        .article-row .title {
+            flex: 1;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .article-row .category {
+            width: 120px;
+            text-align: center;
+            color: #666;
+        }
+
+        .article-row .date {
+            width: 100px;
+            text-align: right;
+            color: #888;
+        }
+
+        /* Category List */
+        .category-list .cat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cat-row .name {
+            flex: 1;
+        }
+
+        .cat-row .count {
             width: 40px;
-            height: 40px;
-            border: 2px solid #333;
-            border-top: 2px solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* 빈 상태 메시지 */
-        .archive-empty {
-            text-align: center;
-            padding: 100px 20px;
+            text-align: right;
             color: #888;
-            display: none;
         }
 
-        .archive-empty h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #aaa;
-        }
-
-        .archive-empty p {
-            font-size: 16px;
-        }
-
-        /* 기본 썸네일 - 숨김 */
-        .default-thumb {
-            display: none;
+        /* Footer Override */
+        footer,
+        .footer {
+            background: #f5f5f0 !important;
+            border-top: 1px solid #ddd;
         }
 
         .dark_bg {
             display: none;
         }
 
-        /* Footer 스타일 오버라이드 */
-        footer,
-        .footer {
-            background: #111 !important;
-            border-top: 1px solid #222;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .archive-main {
+                flex-direction: column;
+            }
+
+            .left-panel,
+            .right-panel {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+            }
+
+            .left-panel {
+                padding: 40px 30px;
+            }
+
+            .right-panel {
+                padding: 40px 30px;
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
+
+            .left-footer {
+                position: relative;
+                bottom: 0;
+                left: 0;
+                margin-top: 40px;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .page-title-sub {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-row .category {
+                display: none;
+            }
+
+            .article-row .date {
+                width: 80px;
+            }
+        }
+
+        /* Loading State */
+        .loading-text {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -526,317 +374,212 @@ $base_path = '/01_work/hivemedia_homepage';
     <div class="Wrap">
         <div id="header-placeholder"></div>
 
-        <main class="">
-            <div class="portfolio-con archive-con">
-                <div class="sub-top">
-                    <div class="inner">
-                        <div class="path">
-                            <ul>
-                                <li class="home"><a href="<?php echo $base_path; ?>/"><img
-                                            src="<?php echo $base_path; ?>/assets/img/sub/icon_home.png" alt=""></a>
-                                </li>
-                                <li><img src="<?php echo $base_path; ?>/assets/img/sub/icon_step_arrow.png" alt=""></li>
-                            </ul>
-                        </div>
-                        <div class="sub-text">
-                            <div class="title-wrapper">
-                                <span class="intro-text intro-text-top">Latest Stories</span>
-                                <h2 class="text_ani2 gsap-title">Archive</h2>
-                                <span class="intro-text intro-text-bottom">News & Insights</span>
-                            </div>
-                            <p class="gsap-subtitle">Marketing trends, industry news, and valuable insights updated
-                                regularly.</p>
-                        </div>
-                        <div class="gsap-line"
-                            style="height: 2px; background: linear-gradient(90deg, #fff, transparent); margin-top: 40px;">
-                        </div>
+        <main class="archive-main">
+            <!-- Left Panel - 40% -->
+            <div class="left-panel">
+                <h1 class="page-title">NEWS &</h1>
+                <h1 class="page-title-sub">ARCHIVE</h1>
+
+                <p class="intro-text">
+                    LATEST NEWS, MARKETING TRENDS,
+                    AND INDUSTRY INSIGHTS FROM
+                    HIVE MEDIA.
+                </p>
+
+                <p class="intro-text">
+                    WE SHARE OUR KNOWLEDGE AND
+                    EXPERIENCE IN DIGITAL MARKETING,
+                    SNS MANAGEMENT, AND
+                    PUBLIC SECTOR COMMUNICATIONS.
+                </p>
+
+                <p class="intro-text">
+                    STAY UPDATED WITH THE LATEST
+                    DEVELOPMENTS IN THE MARKETING
+                    INDUSTRY AND LEARN FROM OUR
+                    CASE STUDIES.
+                </p>
+
+                <div class="stats-box" id="statsBox">
+                    <div class="stat-item">
+                        <span class="label">TOTAL ARTICLES</span>
+                        <span class="value" id="totalArticles">—</span>
                     </div>
-                    <div class="btn-inquiry"><a href="<?php echo $base_path; ?>/inquiry/inquiry.php"><span
-                                class="blind">문의</span></a></div>
+                    <div class="stat-item">
+                        <span class="label">CATEGORIES</span>
+                        <span class="value" id="totalCategories">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">LAST UPDATED</span>
+                        <span class="value" id="lastUpdated">—</span>
+                    </div>
                 </div>
 
-                <div class="conbody">
-                    <!-- 카테고리 없음 - 깔끔한 아티클 리스트 -->
+                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">CONTACT US</a>
 
-                    <div class="contents">
-                        <div class="portfolio-section" style="text-align:left">
-                            <div class="row">
-                                <!-- 로딩 표시 -->
-                                <div class="archive-loading" id="archiveLoading">
-                                    <div class="spinner"></div>
-                                    <p>아카이브를 불러오는 중...</p>
-                                </div>
+                <div class="left-footer">
+                    <a href="mailto:hivemedia@naver.com">EMAIL</a>
+                    <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
+                    <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
+                    <p class="copyright">© HIVE MEDIA 2025</p>
+                </div>
+            </div>
 
-                                <!-- 빈 상태 메시지 -->
-                                <div class="archive-empty" id="archiveEmpty">
-                                    <h3>아카이브 준비 중</h3>
-                                    <p>곧 새로운 콘텐츠가 업데이트 될 예정입니다.</p>
-                                </div>
-
-                                <!-- 아카이브 아이템 리스트 -->
-                                <ul class="archive-list" id="archiveList"></ul>
-                            </div>
+            <!-- Right Panel - 60% -->
+            <div class="right-panel">
+                <!-- Categories Section -->
+                <div class="section-block">
+                    <span class="section-title">CATEGORIES</span>
+                    <div class="category-list" id="categoryList">
+                        <div class="cat-row loading-text">
+                            <span class="name">LOADING...</span>
                         </div>
                     </div>
-                    <div class="dark_bg"></div>
+                </div>
+
+                <!-- All Articles Section -->
+                <div class="section-block">
+                    <span class="section-title">ALL ARTICLES</span>
+                    <div class="article-list" id="articleList">
+                        <div class="article-row loading-text">
+                            <span class="title">LOADING...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <!-- Firebase SDK (CDN) -->
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import { getFirestore, collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-            // Firebase 설정
-            const firebaseConfig = {
-                apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
-                authDomain: "hivemedia-archive.firebaseapp.com",
-                projectId: "hivemedia-archive",
-                storageBucket: "hivemedia-archive.firebasestorage.app",
-                messagingSenderId: "105246116532",
-                appId: "1:105246116532:web:18aad82490a11b7d4ea5e1",
-                measurementId: "G-1YZDYEPFFN"
-            };
-
-            // Firebase 초기화
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-
-            // 전역 변수
-            let allArticles = [];
-
-            // 날짜 포맷 함수
-            function formatDate(timestamp) {
-                if (!timestamp) return '';
-                let date;
-                if (timestamp.toDate) {
-                    date = timestamp.toDate();
-                } else if (timestamp.seconds) {
-                    date = new Date(timestamp.seconds * 1000);
-                } else {
-                    date = new Date(timestamp);
-                }
-                return date.toLocaleDateString('ko-KR', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                });
-            }
-
-            // HTML 태그 제거 함수
-            function stripHtml(html) {
-                const tmp = document.createElement('div');
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || '';
-            }
-
-            // 아티클 렌더링
-            function renderArticles(articles) {
-                const listEl = document.getElementById('archiveList');
-                const loadingEl = document.getElementById('archiveLoading');
-                const emptyEl = document.getElementById('archiveEmpty');
-
-                loadingEl.style.display = 'none';
-
-                if (articles.length === 0) {
-                    emptyEl.style.display = 'block';
-                    listEl.innerHTML = '';
-                    return;
-                }
-
-                emptyEl.style.display = 'none';
-
-                listEl.innerHTML = articles.map(article => {
-                    const title = article.title || '제목 없음';
-                    const category = article.category || '기타';
-                    const content = stripHtml(article.content || '').substring(0, 100);
-                    const date = formatDate(article.createdAt);
-                    const thumbnail = article.thumbnail || '';
-                    const slug = article.slug || article.id;
-
-                    return `
-                <li class="archive-item" data-category="${category}" onclick="location.href='<?php echo $base_path; ?>/archive/view.php?id=${article.id}'">
-                    <div class="img-wrap">
-                        ${thumbnail
-                            ? `<img src="${thumbnail}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'default-thumb\\'>📰</div>'">`
-                            : `<div class="default-thumb">📰</div>`
-                        }
-                    </div>
-                    <div class="text-wrap">
-                        <span class="category">${category}</span>
-                        <h3>${title}</h3>
-                        <p>${content}...</p>
-                        <span class="date">${date}</span>
-                    </div>
-                </li>
-            `;
-                }).join('');
-            }
-
-            // Firestore에서 아티클 가져오기
-            async function fetchArticles() {
-                try {
-                    const articlesRef = collection(db, 'articles');
-                    const q = query(articlesRef, orderBy('createdAt', 'desc'));
-                    const querySnapshot = await getDocs(q);
-
-                    allArticles = [];
-                    querySnapshot.forEach((doc) => {
-                        allArticles.push({
-                            id: doc.id,
-                            ...doc.data()
-                        });
-                    });
-
-                    renderArticles(allArticles);
-                } catch (error) {
-                    console.error('Error fetching articles:', error);
-                    document.getElementById('archiveLoading').innerHTML =
-                        '<p style="color: #ff6b6b;">아카이브를 불러오는 데 실패했습니다.</p>';
-                }
-            }
-
-            // 필터링 함수
-            window.filterArticles = function (category) {
-                if (category === 'all') {
-                    renderArticles(allArticles);
-                } else {
-                    const filtered = allArticles.filter(a => a.category === category);
-                    renderArticles(filtered);
-                }
-            };
-
-            // 페이지 로드 시 실행
-            fetchArticles();
-        </script>
-
-        <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(function () {
-                // 필터 탭 클릭 시
-                $('.portfolio-itemTab .filter').on('click', function () {
-                    $('.portfolio-itemTab .filter').removeClass('active');
-                    $(this).addClass('active');
-
-                    const category = $(this).data('filter');
-                    window.filterArticles(category);
-                });
-            });
-        </script>
-
-        <!-- GSAP 애니메이션 초기화 -->
-        <script>
-            // GSAP & ScrollTrigger 등록
-            gsap.registerPlugin(ScrollTrigger);
-
-            // 페이지 로드 후 애니메이션 시작
-            window.addEventListener('load', function () {
-                // 로딩 완료 후 약간의 딜레이
-                setTimeout(initAnimations, 300);
-            });
-
-            function initAnimations() {
-                // 1. 히어로 타이틀 애니메이션
-                const heroTimeline = gsap.timeline();
-
-                heroTimeline
-                    // 인트로 텍스트 먼저 등장
-                    .to('.intro-text', {
-                        opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.2,
-                        ease: 'power2.out'
-                    })
-                    // 잠시 유지 후 사라짐
-                    .to('.intro-text', {
-                        opacity: 0,
-                        y: -20,
-                        duration: 0.6,
-                        stagger: 0.1,
-                        ease: 'power2.in'
-                    }, '+=0.8')
-                    // 메인 타이틀 등장
-                    .to('.gsap-title', {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1.2,
-                        ease: 'power4.out'
-                    }, '-=0.3')
-                    .to('.gsap-subtitle', {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    }, '-=0.6')
-                    .to('.gsap-line', {
-                        scaleX: 1,
-                        duration: 1,
-                        ease: 'power2.inOut'
-                    }, '-=0.4');
-
-                // 2. 아카이브 리스트 아이템 애니메이션
-                observeArchiveItems();
-            }
-
-            // MutationObserver로 동적 로드된 아이템 감지
-            function observeArchiveItems() {
-                const archiveList = document.getElementById('archiveList');
-
-                const observer = new MutationObserver(function (mutations) {
-                    mutations.forEach(function (mutation) {
-                        if (mutation.addedNodes.length > 0) {
-                            animateArchiveItems();
-                        }
-                    });
-                });
-
-                observer.observe(archiveList, { childList: true });
-
-                // 이미 로드된 아이템이 있으면 바로 애니메이션
-                if (archiveList.children.length > 0) {
-                    animateArchiveItems();
-                }
-            }
-
-            // 아카이브 아이템 애니메이션
-            function animateArchiveItems() {
-                const items = document.querySelectorAll('.archive-item');
-
-                // 초기 상태 설정
-                gsap.set(items, {
-                    opacity: 0,
-                    x: -30
-                });
-
-                // 순차적 등장 애니메이션
-                gsap.to(items, {
-                    opacity: 1,
-                    x: 0,
-                    duration: 0.6,
-                    stagger: 0.08,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '#archiveList',
-                        start: 'top 85%'
-                    }
-                });
-            }
-
-            // 스크롤 시 패럴랙스 효과 (서브탑)
-            gsap.to('.sub-top', {
-                backgroundPositionY: '30%',
-                scrollTrigger: {
-                    trigger: '.sub-top',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1
-                }
-            });
-        </script>
-
         <div id="footer-placeholder"></div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
+            authDomain: "hivemedia-archive.firebaseapp.com",
+            projectId: "hivemedia-archive",
+            storageBucket: "hivemedia-archive.firebasestorage.app",
+            messagingSenderId: "105246116532",
+            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1",
+            measurementId: "G-1YZDYEPFFN"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const basePath = '<?php echo $base_path; ?>';
+
+        // 날짜 포맷
+        function formatDate(timestamp) {
+            if (!timestamp) return '—';
+            let date;
+            if (timestamp.toDate) {
+                date = timestamp.toDate();
+            } else if (timestamp.seconds) {
+                date = new Date(timestamp.seconds * 1000);
+            } else {
+                date = new Date(timestamp);
+            }
+            return date.toLocaleDateString('en-US', {
+                year: '2-digit',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\//g, '.');
+        }
+
+        // 아티클 데이터 가져오기
+        async function fetchArticles() {
+            try {
+                const articlesRef = collection(db, 'articles');
+                const q = query(articlesRef, orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+
+                const articles = [];
+                querySnapshot.forEach((doc) => {
+                    articles.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                renderStats(articles);
+                renderCategories(articles);
+                renderArticles(articles);
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+                document.getElementById('articleList').innerHTML = '<div class="article-row"><span class="title">FAILED TO LOAD</span></div>';
+            }
+        }
+
+        // 통계 렌더링
+        function renderStats(articles) {
+            document.getElementById('totalArticles').textContent = articles.length;
+
+            const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
+            document.getElementById('totalCategories').textContent = categories.length;
+
+            if (articles.length > 0 && articles[0].createdAt) {
+                document.getElementById('lastUpdated').textContent = formatDate(articles[0].createdAt);
+            }
+        }
+
+        // 카테고리 렌더링
+        function renderCategories(articles) {
+            const categoryEl = document.getElementById('categoryList');
+            const categoryCounts = {};
+
+            articles.forEach(a => {
+                const cat = a.category || 'OTHER';
+                categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+            });
+
+            const sortedCategories = Object.entries(categoryCounts)
+                .sort((a, b) => b[1] - a[1]);
+
+            if (sortedCategories.length === 0) {
+                categoryEl.innerHTML = '<div class="cat-row"><span class="name">NO CATEGORIES</span></div>';
+                return;
+            }
+
+            categoryEl.innerHTML = sortedCategories.map(([cat, count]) => `
+                <div class="cat-row">
+                    <span class="name">${cat.toUpperCase()}</span>
+                    <span class="count">X${count}</span>
+                </div>
+            `).join('');
+        }
+
+        // 아티클 목록 렌더링
+        function renderArticles(articles) {
+            const articleEl = document.getElementById('articleList');
+
+            if (articles.length === 0) {
+                articleEl.innerHTML = '<div class="article-row"><span class="title">NO ARTICLES YET</span></div>';
+                return;
+            }
+
+            articleEl.innerHTML = articles.map(article => {
+                const title = (article.title || 'UNTITLED').toUpperCase();
+                const category = (article.category || 'OTHER').toUpperCase();
+                const date = formatDate(article.createdAt);
+
+                return `
+                    <div class="article-row" onclick="location.href='${basePath}/archive/view.php?id=${article.id}'">
+                        <span class="title">${title}</span>
+                        <span class="category">${category}</span>
+                        <span class="date">${date}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 페이지 로드 시 실행
+        fetchArticles();
+    </script>
 </body>
 
 </html>
