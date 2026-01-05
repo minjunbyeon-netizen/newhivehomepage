@@ -1,0 +1,313 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <title>하이브미디어 - CONTACT</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="하이브미디어 - CONTACT" />
+    <meta property="og:description" content="하이브미디어 문의하기" />
+    <meta property="og:image" content="./assets/img/orimage.png" />
+    <meta name="description" content="하이브미디어 문의 - 온라인 마케팅, 홈페이지 제작, 영상 제작 문의">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png" />
+    <link rel="stylesheet" href="./assets/css/all.css">
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./assets/js/common.js" defer=""></script>
+    <script src="./assets/js/components.js" defer=""></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./assets/plugins/jquery.easeScroll.js"></script>
+    <script src="https://unpkg.com/hangul-js"></script>
+    <script src="https://unpkg.com/type-hangul@latest/dist/type-hangul.min.js"></script>
+
+    <style>
+        .contact-con {
+            min-height: 100vh;
+            padding-top: 100px;
+            background: var(--bg-color);
+        }
+
+        .contact-con .sub-top {
+            padding: 80px 0;
+        }
+
+        .contact-con .sub-text h2 {
+            font-size: 60px;
+            font-family: 'Poppins-Bold', sans-serif;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-con .sub-text p {
+            font-size: 18px;
+            color: var(--text-color);
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card .icon {
+            width: 80px;
+            height: 80px;
+            background: #0084ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .contact-card .icon img {
+            width: 40px;
+            filter: brightness(0) invert(1);
+        }
+
+        .contact-card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .contact-card p {
+            font-size: 16px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .contact-card a {
+            color: #0084ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-form-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+        }
+
+        .contact-form-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0084ff;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: #0084ff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #0066cc;
+        }
+
+        @media (max-width: 768px) {
+            .contact-con .sub-text h2 {
+                font-size: 36px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Wrap">
+        <div id="header-placeholder"></div>
+
+        <main class="main-con">
+            <div class="contact-con">
+                <div class="sub-top">
+                    <div class="inner">
+                        <div class="path">
+                            <ul>
+                                <li class="home"><a href="./"><img src="./assets/img/sub/icon_home.png" alt=""></a></li>
+                                <li><img src="./assets/img/sub/icon_step_arrow.png" alt=""></li>
+                                <li>CONTACT</li>
+                            </ul>
+                        </div>
+                        <div class="sub-text" style="text-align: center;">
+                            <h2>CONTACT US</h2>
+                            <p>하이브미디어와 함께 성공적인 마케팅을 시작하세요.<br>전문 컨설턴트가 친절하게 상담해 드립니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-grid">
+                        <div class="contact-card" data-aos="fade-up">
+                            <div class="icon">
+                                <img src="./assets/img/sub/icon_tel.png" alt="Phone">
+                            </div>
+                            <h4>전화 문의</h4>
+                            <p><a href="tel:070-7728-6334">070.7728.6334</a></p>
+                            <p style="font-size: 14px; margin-top: 10px;">평일 09:00 - 18:00</p>
+                        </div>
+                        <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="icon">
+                                <img src="./assets/img/sub/icon_tel.png" alt="Email">
+                            </div>
+                            <h4>이메일 문의</h4>
+                            <p><a href="mailto:hive_ad@hivemedia.co.kr">hive_ad@hivemedia.co.kr</a></p>
+                            <p style="font-size: 14px; margin-top: 10px;">빠른 답변을 드리겠습니다</p>
+                        </div>
+                        <div class="contact-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="icon">
+                                <img src="./assets/img/sub/regi_icon.png" alt="Location">
+                            </div>
+                            <h4>본사 위치</h4>
+                            <p>부산 남구 수영로 312<br>9층 918호</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-section" data-aos="fade-up">
+                    <h3>문의하기</h3>
+                    <form id="contact-form" action="mailto:hive_ad@hivemedia.co.kr" method="post" enctype="text/plain">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">이름 / 회사명 *</label>
+                                <input type="text" id="name" name="name" required placeholder="이름 또는 회사명을 입력해주세요">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">연락처 *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="010-0000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일 *</label>
+                            <input type="email" id="email" name="email" required placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">문의 서비스</label>
+                            <select id="service" name="service">
+                                <option value="">서비스를 선택해주세요</option>
+                                <option value="온라인 마케팅">온라인 마케팅</option>
+                                <option value="홈페이지 제작">홈페이지 제작</option>
+                                <option value="영상 제작">영상 제작</option>
+                                <option value="전시회 기획">전시회 기획</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">문의 내용 *</label>
+                            <textarea id="message" name="message" required placeholder="문의하실 내용을 자세히 적어주세요"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">문의 보내기</button>
+                    </form>
+                </div>
+
+                <div class="dark_bg"></div>
+            </div>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#ff4444';
+                } else {
+                    field.style.borderColor = '#e0e0e0';
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('필수 항목을 모두 입력해주세요.');
+            }
+        });
+    </script>
+</body>
+
+</html>

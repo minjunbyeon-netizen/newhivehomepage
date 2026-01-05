@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <title>부산광고대행사 하이브미디어 | 관공서 SNS·영상·온라인홍보 전문</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="부산광고대행사 하이브미디어 | 관공서 SNS·영상·온라인홍보 전문" />
+    <meta property="og:description" content="부산 관공서 마케팅 전문 광고대행사. SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스." />
+    <meta property="og:image" content="./assets/img/orimage.png" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/all.css">
+
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./assets/js/common.js" defer=""></script>
+    <script src="./assets/js/components.js" defer=""></script>
+
+    <!-- Plugins -->
+    <script src="https://unpkg.com/hangul-js"></script>
+    <script src="https://unpkg.com/type-hangul@latest/dist/type-hangul.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* 기존 메인 텍스트 스타일 */
+        .main_text01>p,
+        .main_text02>p {
+            font-family: NotoSansKR-Light;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 400;
+            letter-spacing: -5px !important;
+            opacity: 0;
+            line-height: 1.4;
+            display: inline-block;
+        }
+
+        .main_text01>p.bold_p,
+        .main_text02>p.bold_p {
+            font-family: NotoSansKR-Medium;
+        }
+
+        .main_text01>p:nth-child(1) {
+            width: 183px;
+        }
+
+        .main_text01>p:nth-child(2) {
+            width: 218px;
+        }
+
+        .main_text02>p:nth-child(1) {
+            width: 183px;
+        }
+
+        .main_text02>p:nth-child(2) {
+            width: 259px;
+        }
+
+        .main_text_box {
+            position: absolute;
+            top: calc(50% - 40px);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main_text_box>div {
+            position: relative;
+        }
+
+        .main_video_pc {
+            display: block;
+        }
+
+        .main_video_mobile {
+            display: none;
+        }
+
+        .conbody {
+            padding: 0;
+        }
+
+        @media screen and (max-width: 850px) {
+            .main_video_pc {
+                display: none;
+            }
+
+            .main_video_mobile {
+                display: block;
+            }
+
+            .main_text_box {
+                width: 100vw;
+            }
+
+            .main_text01>p,
+            .main_text02>p {
+                font-size: 26px;
+                letter-spacing: -1.5px !important;
+            }
+
+            .main_text01>p:nth-child(1) {
+                width: 103px;
+            }
+
+            .main_text01>p:nth-child(2) {
+                width: 121px;
+            }
+
+            .main_text02>p:nth-child(1) {
+                width: 103px;
+            }
+
+            .main_text02>p:nth-child(2) {
+                width: 144px;
+            }
+        }
+
+        /* ========================================
+           GSAP 슬라이드 섹션 스타일
+        ======================================== */
+        .slides-wrapper {
+            position: relative;
+        }
+
+        .gsap-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .gsap-section-inner {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 5%;
+        }
+
+        /* 섹션별 배경색 */
+        .gsap-section-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .gsap-section-2 {
+            background: #f2f2f2;
+            color: #111;
+        }
+
+        .gsap-section-3 {
+            background: #fff;
+            color: #111;
+        }
+
+        .gsap-section-4 {
+            background: #f2f2f2;
+            color: #111;
+        }
+
+        .gsap-section-5 {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        /* 섹션 타이포그래피 */
+        .gsap-section h2 {
+            font-size: clamp(32px, 8vw, 64px);
+            font-weight: 900;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            letter-spacing: -2px;
+        }
+
+        .gsap-section p {
+            font-size: 16px;
+            line-height: 1.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gsap-section .section-label {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .gsap-section-2 .section-label,
+        .gsap-section-3 .section-label,
+        .gsap-section-4 .section-label {
+            background: rgba(0, 0, 0, 0.08);
+            color: #666;
+        }
+
+        .gsap-section .section-link {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid currentColor;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 40px;
+            transition: all 0.3s;
+            color: inherit;
+        }
+
+        .gsap-section .section-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Wrap">
+        <!-- Header -->
+        <div id="header-placeholder"></div>
+
+        <main class="main-con">
+            <!-- ========================================
+                 기존 히어로 섹션 (동영상 + 타이핑 효과)
+            ======================================== -->
+            <div class="index-con">
+                <div class="sub-top">
+                    <div class="intro">
+                        <div class="logo-con">
+                            <img src="./assets/img/logo_img_b.png" alt="">
+                        </div>
+                    </div>
+                    <div class="vimeo-con">
+                        <iframe class="main_video_pc"
+                            src="https://player.castr.com/vod/eSgaF5bWKPLIM8wt?loop=on&controls=off&hideSidebarVolume=true&click=off"
+                            width="100%" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen></iframe>
+                        <iframe class="main_video_mobile"
+                            src="https://player.castr.com/vod/ZAbsoGgzwVJy0fBB?loop=on&controls=off&hideSidebarVolume=true&click=off"
+                            width="100%" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen></iframe>
+
+                        <div class="main_text_box">
+                            <div class="main_text01">
+                                <p>그&nbsp; 너머의&nbsp; </p>
+                                <p class="bold_p">세상을&nbsp; 보다</p>
+                            </div>
+                            <div class="main_text02">
+                                <p>그&nbsp; 이상의&nbsp; </p>
+                                <p class="bold_p">생각을&nbsp; 만들다</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-inquiry">
+                        <a href="./contact.html">
+                            <span class="blind">문의</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ========================================
+             GSAP 슬라이드 섹션들 (스크롤 효과 적용)
+        ======================================== -->
+        <div class="slides-wrapper">
+            <!-- Section 1: SNS 관리대행 -->
+            <section class="gsap-section gsap-section-1">
+                <div class="gsap-section-inner">
+                    <span class="section-label">Section 01</span>
+                    <h2>SNS 관리대행</h2>
+                    <p>인스타그램 운영, 페이스북 관리, 유튜브 채널 운영<br>
+                        공공기관 공식 SNS 채널 기획, 콘텐츠 제작, 일일 운영까지 통합 관리</p>
+                </div>
+            </section>
+
+            <!-- Section 2: 영상촬영 및 제작 -->
+            <section class="gsap-section gsap-section-2">
+                <div class="gsap-section-inner">
+                    <span class="section-label">Web Agency</span>
+                    <h2>영상촬영 및 <em style="font-style: italic; font-weight: 400;">제작</em><br>홍보영상 전문 프로덕션</h2>
+                    <p>관공서 홍보영상, 정책 안내 영상, 행사 스케치 등<br>
+                        기획부터 편집까지 풀 프로덕션</p>
+                    <a href="./service/agency.html" class="section-link">LEARN MORE →</a>
+                </div>
+            </section>
+
+            <!-- Section 3: 온라인 캠페인 -->
+            <section class="gsap-section gsap-section-3">
+                <div class="gsap-section-inner">
+                    <h2 style="font-size: clamp(48px, 10vw, 80px);">CAMPAIGN</h2>
+                    <p>META 광고, 네이버 검색광고, 인플루언서 협업<br>
+                        보도자료 배포 등 통합 온라인 홍보</p>
+                    <a href="./service/video.html" class="section-link">VIEW WORKS →</a>
+                </div>
+            </section>
+
+            <!-- Section 4: 관공서 실적 -->
+            <section class="gsap-section gsap-section-4">
+                <div class="gsap-section-inner">
+                    <span class="section-label">Exhibition Art</span>
+                    <h2>관공서 <em style="font-style: italic; font-weight: 400;">수행</em> 실적<br>검증된 운영 노하우</h2>
+                    <p>부산시, 부산항만공사, 구·군청<br>
+                        다수 공공기관 프로젝트 수행으로 검증된 입찰 및 운영 노하우</p>
+                    <a href="./service/exhibition.html" class="section-link">EXPLORE →</a>
+                </div>
+            </section>
+
+            <!-- Section 5: Contact (마지막 - 효과 없음) -->
+            <section class="gsap-section gsap-section-5">
+                <div class="gsap-section-inner">
+                    <span class="section-label"
+                        style="border: 1px solid rgba(255,255,255,0.3); background: transparent;">Contact</span>
+                    <h2>Let's work<br><em style="font-style: italic; font-weight: 400;">together.</em></h2>
+                    <p>TEL: 070-7728-6334 &nbsp;|&nbsp; FAX: 070-4850-8223<br>
+                        EMAIL: hive_ad@hivemedia.co.kr</p>
+                    <a href="./contact.html" class="section-link">문의하기 →</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- 기존 타이핑 애니메이션 스크립트 -->
+    <script>
+        window.onload = function () {
+            $('.main_text01 > p:nth-child(1)').addClass('target');
+            $('.main_text02 > p:nth-child(1)').addClass('target2');
+            $('.main_text01 > p:nth-child(2)').addClass('target_');
+            $('.main_text02 > p:nth-child(2)').addClass('target2_');
+
+            setTimeout(function () {
+                $('.main_text01 > p:nth-child(1)').css('opacity', '1')
+                TypeHangul.type('.target', { intervalType: 50 });
+            }, 3000);
+            setTimeout(function () {
+                $('.main_text01 > p:nth-child(2)').css('opacity', '1')
+                TypeHangul.type('.target_', { intervalType: 50 });
+            }, 4000);
+            setTimeout(function () {
+                $('.main_text02 > p:nth-child(1)').css('opacity', '1')
+                TypeHangul.type('.target2', { intervalType: 50 });
+            }, 5500);
+            setTimeout(function () {
+                $('.main_text02 > p:nth-child(2)').css('opacity', '1')
+                TypeHangul.type('.target2_', { intervalType: 50 });
+            }, 6700);
+        }
+
+        $(function () {
+            const intro = $(".sub-top");
+            setTimeout(function () { intro.addClass("on"); }, 700);
+            setTimeout(function () { intro.addClass("on1"); }, 1400);
+            setTimeout(function () { intro.addClass("on2"); }, 1700);
+            setTimeout(function () { intro.addClass("active"); }, 2700);
+
+            $("body").addClass("not-scroll");
+            setTimeout(function () { $("body").removeClass("not-scroll"); }, 2700);
+        });
+    </script>
+
+    <!-- GSAP 슬라이드 애니메이션 -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // .gsap-section 요소들 가져오기 (마지막 섹션 제외 - Contact는 효과 없음)
+        var panels = gsap.utils.toArray(".gsap-section");
+        panels.pop(); // 마지막 섹션은 제외
+
+        panels.forEach((panel, i) => {
+            let innerpanel = panel.querySelector(".gsap-section-inner");
+            let panelHeight = innerpanel.offsetHeight;
+            let windowHeight = window.innerHeight;
+            let difference = panelHeight - windowHeight;
+            let fakeScrollRatio = difference > 0 ? (difference / (difference + windowHeight)) : 0;
+
+            if (fakeScrollRatio) {
+                panel.style.marginBottom = panelHeight * fakeScrollRatio + "px";
+            }
+
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: panel,
+                    start: "bottom bottom",
+                    end: () => fakeScrollRatio ? `+=${innerpanel.offsetHeight}` : "bottom top",
+                    pinSpacing: false,
+                    pin: true,
+                    scrub: true
+                }
+            });
+
+            if (fakeScrollRatio) {
+                tl.to(innerpanel, { yPercent: -100, y: window.innerHeight, duration: 1 / (1 - fakeScrollRatio) - 1, ease: "none" });
+            }
+            tl.fromTo(panel, { scale: 1, opacity: 1 }, { scale: 0.9, opacity: 0.5, duration: 0.9 })
+                .to(panel, { opacity: 0, duration: 0.1 });
+        });
+    </script>
+</body>
+
+</html>

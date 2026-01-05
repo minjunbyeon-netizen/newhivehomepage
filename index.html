@@ -1,0 +1,902 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <title>부산광고대행사 하이브미디어 | 관공서 SNS·영상·온라인홍보 전문</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="부산 관공서 마케팅 전문 광고대행사 하이브미디어. SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스. 부산시, 해운대구청, 부산항만공사 등 다수의 관공서 프로젝트 수행.">
+    <meta name="keywords" content="부산광고대행사, 관공서마케팅, SNS관리대행, 홍보영상제작, 온라인마케팅, 부산마케팅, 공공기관광고, 디지털마케팅">
+    <meta name="author" content="하이브미디어">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hivemedia.co.kr/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="부산광고대행사 하이브미디어 | 관공서 SNS·영상·온라인홍보 전문" />
+    <meta property="og:description" content="부산 관공서 마케팅 전문 광고대행사. SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스." />
+    <meta property="og:image" content="https://hivemedia.co.kr/assets/img/orimage.png" />
+    <meta property="og:url" content="https://hivemedia.co.kr/" />
+    <meta property="og:site_name" content="하이브미디어" />
+    <meta property="og:locale" content="ko_KR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="부산광고대행사 하이브미디어 | 관공서 SNS·영상·온라인홍보 전문">
+    <meta name="twitter:description" content="부산 관공서 마케팅 전문 광고대행사. SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스.">
+    <meta name="twitter:image" content="https://hivemedia.co.kr/assets/img/orimage.png">
+
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "하이브미디어",
+        "alternateName": "Hivemedia",
+        "description": "부산 관공서 마케팅 전문 광고대행사. SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스.",
+        "url": "https://hivemedia.co.kr",
+        "telephone": "+82-70-7728-6334",
+        "email": "hive_ad@hivemedia.co.kr",
+        "address": [
+            {
+                "@type": "PostalAddress",
+                "name": "부산 본사",
+                "addressLocality": "부산광역시",
+                "addressRegion": "남구",
+                "streetAddress": "수영로 312, 9층 918호",
+                "postalCode": "48434",
+                "addressCountry": "KR"
+            },
+            {
+                "@type": "PostalAddress",
+                "name": "서울 지사",
+                "addressLocality": "서울특별시",
+                "addressRegion": "중구",
+                "streetAddress": "서소문로 89, 17층 씨에스-1732호",
+                "addressCountry": "KR"
+            },
+            {
+                "@type": "PostalAddress",
+                "name": "대구 지사",
+                "addressLocality": "대구광역시",
+                "addressRegion": "동구",
+                "streetAddress": "동대구로 523, 3층 345호",
+                "addressCountry": "KR"
+            }
+        ],
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "35.1379",
+            "longitude": "129.0985"
+        },
+        "areaServed": ["부산", "서울", "대구", "전국"],
+        "serviceType": ["SNS 마케팅", "홍보영상 제작", "웹사이트 개발", "온라인 광고", "관공서 마케팅"],
+        "priceRange": "₩₩",
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "image": "https://hivemedia.co.kr/assets/img/orimage.png"
+    }
+    </script>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/all.css">
+
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./assets/js/common.js" defer=""></script>
+    <script src="./assets/js/components.js" defer=""></script>
+
+    <!-- Plugins -->
+    <script src="https://unpkg.com/hangul-js"></script>
+    <script src="https://unpkg.com/type-hangul@latest/dist/type-hangul.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* 기존 메인 텍스트 스타일 */
+        .main_text01>p,
+        .main_text02>p {
+            font-family: NotoSansKR-Light;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 400;
+            letter-spacing: -5px !important;
+            opacity: 0;
+            line-height: 1.4;
+            display: inline-block;
+        }
+
+        .main_text01>p.bold_p,
+        .main_text02>p.bold_p {
+            font-family: NotoSansKR-Medium;
+        }
+
+        .main_text01>p:nth-child(1) {
+            width: 183px;
+        }
+
+        .main_text01>p:nth-child(2) {
+            width: 218px;
+        }
+
+        .main_text02>p:nth-child(1) {
+            width: 183px;
+        }
+
+        .main_text02>p:nth-child(2) {
+            width: 259px;
+        }
+
+        .main_text_box {
+            position: absolute;
+            top: calc(50% - 40px);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main_text_box>div {
+            position: relative;
+        }
+
+        .main_video_pc {
+            display: block;
+        }
+
+        .main_video_mobile {
+            display: none;
+        }
+
+        .conbody {
+            padding: 0;
+        }
+
+        @media screen and (max-width: 850px) {
+            .main_video_pc {
+                display: none;
+            }
+
+            .main_video_mobile {
+                display: block;
+            }
+
+            .main_text_box {
+                width: 100vw;
+            }
+
+            .main_text01>p,
+            .main_text02>p {
+                font-size: 26px;
+                letter-spacing: -1.5px !important;
+            }
+
+            .main_text01>p:nth-child(1) {
+                width: 103px;
+            }
+
+            .main_text01>p:nth-child(2) {
+                width: 121px;
+            }
+
+            .main_text02>p:nth-child(1) {
+                width: 103px;
+            }
+
+            .main_text02>p:nth-child(2) {
+                width: 144px;
+            }
+        }
+
+        /* ========================================
+           GSAP 슬라이드 섹션 스타일
+        ======================================== */
+        .slides-wrapper {
+            position: relative;
+        }
+
+        .gsap-section {
+            width: 100%;
+            min-height: 95vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .gsap-section-inner {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 40px 5%;
+        }
+
+        .gsap-section-text {
+            flex: 1;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .gsap-section-image {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .gsap-section-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .gsap-section-image video {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+        }
+
+        @media (max-width: 900px) {
+            .gsap-section-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .gsap-section-text {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .gsap-section-image {
+                max-width: 100%;
+            }
+        }
+
+        /* 섹션별 배경색 */
+        .gsap-section-1 {
+            background: #fff;
+            color: #111;
+        }
+
+        .gsap-section-2 {
+            background: #f2f2f2;
+            color: #111;
+        }
+
+        .gsap-section-3 {
+            background: #fff;
+            color: #111;
+        }
+
+        .gsap-section-4 {
+            background: #f2f2f2;
+            color: #111;
+        }
+
+        .gsap-section-5 {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .gsap-section-6 {
+            background: #fff;
+            color: #111;
+        }
+
+        /* FAQ 아코디언 스타일 */
+        .faq-accordion {
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover {
+            color: #0066cc;
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            font-weight: 300;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 18px;
+        }
+
+        .faq-answer p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ===== Client Logo Marquee Section ===== */
+        .logo-marquee-section {
+            background: #f5f5f5;
+            padding: 80px 0;
+            overflow: hidden;
+        }
+
+        .logo-marquee-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo-marquee-header p {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .logo-marquee-header h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: -1px;
+        }
+
+        .logo-row {
+            display: flex;
+            width: max-content;
+            margin-bottom: 20px;
+        }
+
+        .logo-row.slide-right {
+            animation: slideRight 30s linear infinite;
+        }
+
+        .logo-row.slide-left {
+            animation: slideLeft 25s linear infinite;
+        }
+
+        @keyframes slideRight {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            width: 160px;
+            height: 80px;
+            background: #fff;
+            border-radius: 8px;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+        }
+
+        .logo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .logo-item span {
+            font-size: 11px;
+            color: #888;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* 섹션 타이포그래피 */
+        .gsap-section h2 {
+            font-size: clamp(32px, 8vw, 64px);
+            font-weight: 900;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            letter-spacing: -2px;
+        }
+
+        .gsap-section p {
+            font-size: 16px;
+            line-height: 1.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gsap-section .section-label {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .gsap-section-2 .section-label,
+        .gsap-section-3 .section-label,
+        .gsap-section-4 .section-label {
+            background: rgba(0, 0, 0, 0.08);
+            color: #666;
+        }
+
+        .gsap-section .section-link {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid currentColor;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 40px;
+            transition: all 0.3s;
+            color: inherit;
+        }
+
+        .gsap-section .section-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Wrap">
+        <!-- Header -->
+        <div id="header-placeholder"></div>
+
+        <main class="main-con">
+            <!-- ========================================
+                 기존 히어로 섹션 (동영상 + 타이핑 효과)
+            ======================================== -->
+            <div class="index-con">
+                <div class="sub-top">
+                    <div class="intro">
+                        <div class="logo-con">
+                            <img src="./assets/img/logo_img_b.png" alt="">
+                        </div>
+                    </div>
+                    <div class="vimeo-con">
+                        <iframe class="main_video_pc"
+                            src="https://player.castr.com/vod/eSgaF5bWKPLIM8wt?loop=on&controls=off&hideSidebarVolume=true&click=off"
+                            width="100%" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen></iframe>
+                        <iframe class="main_video_mobile"
+                            src="https://player.castr.com/vod/ZAbsoGgzwVJy0fBB?loop=on&controls=off&hideSidebarVolume=true&click=off"
+                            width="100%" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen></iframe>
+
+                        <div class="main_text_box">
+                            <div class="main_text01">
+                                <p>그&nbsp; 너머의&nbsp; </p>
+                                <p class="bold_p">세상을&nbsp; 보다</p>
+                            </div>
+                            <div class="main_text02">
+                                <p>그&nbsp; 이상의&nbsp; </p>
+                                <p class="bold_p">생각을&nbsp; 만들다</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-inquiry">
+                        <a href="./contact.html">
+                            <span class="blind">문의</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ========================================
+             GSAP 슬라이드 섹션들 (스크롤 효과 적용)
+        ======================================== -->
+        <!-- ===== 클라이언트 로고 마퀴 섹션 ===== -->
+        <section class="logo-marquee-section">
+            <div class="logo-marquee-header">
+                <p>Trusted Partners</p>
+                <h3>함께한 기업 및 기관</h3>
+            </div>
+
+            <!-- Row 1: 오른쪽으로 슬라이드 -->
+            <div class="logo-row slide-right">
+                <div class="logo-item">부산광역시</div>
+                <div class="logo-item">부산항만공사</div>
+                <div class="logo-item">해운대구청</div>
+                <div class="logo-item">부산관광공사</div>
+                <div class="logo-item">부산문화재단</div>
+                <div class="logo-item">동래구청</div>
+                <div class="logo-item">수영구청</div>
+                <div class="logo-item">사하구청</div>
+                <!-- 복제 (무한 루프용) -->
+                <div class="logo-item">부산광역시</div>
+                <div class="logo-item">부산항만공사</div>
+                <div class="logo-item">해운대구청</div>
+                <div class="logo-item">부산관광공사</div>
+                <div class="logo-item">부산문화재단</div>
+                <div class="logo-item">동래구청</div>
+                <div class="logo-item">수영구청</div>
+                <div class="logo-item">사하구청</div>
+            </div>
+
+            <!-- Row 2: 왼쪽으로 슬라이드 -->
+            <div class="logo-row slide-left">
+                <div class="logo-item">국립해양박물관</div>
+                <div class="logo-item">부산경제진흥원</div>
+                <div class="logo-item">부산시설공단</div>
+                <div class="logo-item">한국해양대학교</div>
+                <div class="logo-item">부산교통공사</div>
+                <div class="logo-item">기장군청</div>
+                <div class="logo-item">금정구청</div>
+                <div class="logo-item">연제구청</div>
+                <!-- 복제 (무한 루프용) -->
+                <div class="logo-item">국립해양박물관</div>
+                <div class="logo-item">부산경제진흥원</div>
+                <div class="logo-item">부산시설공단</div>
+                <div class="logo-item">한국해양대학교</div>
+                <div class="logo-item">부산교통공사</div>
+                <div class="logo-item">기장군청</div>
+                <div class="logo-item">금정구청</div>
+                <div class="logo-item">연제구청</div>
+            </div>
+        </section>
+
+        <div class="slides-wrapper">
+            <!-- Section 1: 회사 개요 (About) -->
+            <section class="gsap-section gsap-section-1">
+                <div class="gsap-section-inner">
+                    <div class="gsap-section-text">
+                        <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">About Us</span>
+                        <h2>부산 광고대행사<br><em style="font-style: italic; font-weight: 400;">하이브미디어</em></h2>
+                        <p><strong>부산 관공서 마케팅 전문 광고대행사</strong> 하이브미디어는 SNS 관리대행, 홍보영상 촬영, 온라인 캠페인까지 원스톱 서비스를 제공합니다. 데이터
+                            분석 기반의 맞춤 전략으로 브랜드의 가치를 높여드립니다.</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
+                            <strong>MARKETING</strong> · 데이터 분석, 검색광고, SNS 바이럴<br>
+                            <strong>VIDEO ART</strong> · 기업홍보, 행사영상, 항공촬영<br>
+                            <strong>WEB AGENCY</strong> · 반응형 웹, 쇼핑몰, 솔루션 개발
+                        </p>
+                        <a href="./about.html" class="section-link">회사소개 →</a>
+                    </div>
+                    <div class="gsap-section-image">
+                        <img src="./assets/uploaded/thumbnail/about_01.jpg" alt="부산광고대행사 하이브미디어">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: 온라인 광고/마케팅 -->
+            <section class="gsap-section gsap-section-2">
+                <div class="gsap-section-inner">
+                    <div class="gsap-section-text">
+                        <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Marketing</span>
+                        <h2>온라인 <em style="font-style: italic; font-weight: 400;">광고</em></h2>
+                        <p><strong>SNS 광고, 검색광고, 디스플레이 광고</strong>까지 데이터 기반 맞춤 전략으로 효과적인 온라인 마케팅을 진행합니다.</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
+                            <strong>SNS</strong> · 인스타그램, 페이스북, 유튜브 광고<br>
+                            <strong>검색</strong> · 네이버 파워링크, 구글 Ads<br>
+                            <strong>바이럴</strong> · 블로그, 카페, 인플루언서 마케팅
+                        </p>
+                        <a href="./service/marketing.html" class="section-link">서비스 소개 →</a>
+                    </div>
+                    <div class="gsap-section-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=500&fit=crop"
+                            alt="온라인 광고">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: 이벤트/홍보PR -->
+            <section class="gsap-section gsap-section-3">
+                <div class="gsap-section-inner">
+                    <div class="gsap-section-text">
+                        <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Event & PR</span>
+                        <h2>이벤트 <em style="font-style: italic; font-weight: 400;">& 홍보PR</em></h2>
+                        <p>기업 행사, 공공기관 캠페인, 온·오프라인 프로모션까지 <strong>기획부터 실행까지</strong> 원스톱으로 진행합니다.</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
+                            <strong>이벤트</strong> · 기념행사, 론칭이벤트, 시상식<br>
+                            <strong>홍보PR</strong> · 보도자료 배포, 언론 홍보<br>
+                            <strong>프로모션</strong> · SNS 이벤트, 경품 행사 기획
+                        </p>
+                        <a href="./service/event.html" class="section-link">자세히 보기 →</a>
+                    </div>
+                    <div class="gsap-section-image">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=500&fit=crop"
+                            alt="이벤트 홍보">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: 포트폴리오 -->
+            <section class="gsap-section gsap-section-4">
+                <div class="gsap-section-inner">
+                    <div class="gsap-section-text">
+                        <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">Portfolio</span>
+                        <h2><em style="font-style: italic; font-weight: 400;">포트폴리오</em></h2>
+                        <p>부산시, 해운대구청, 부산항만공사 등 <strong>다수의 관공서 프로젝트</strong>를 성공적으로 수행했습니다.</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 20px; line-height: 1.8;">
+                            SNS 운영, 홍보영상 제작, 온라인 캠페인 등<br>
+                            다양한 분야의 수행 실적을 확인해 보세요.
+                        </p>
+                        <a href="./portfolio/portfolio.php" class="section-link">포트폴리오 보기 →</a>
+                    </div>
+                    <div class="gsap-section-image">
+                        <video autoplay muted loop playsinline
+                            style="border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                            <source src="./assets/img/viedo/1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: 아카이브 -->
+            <section class="gsap-section gsap-section-5">
+                <div class="gsap-section-inner">
+                    <div class="gsap-section-text">
+                        <span class="section-label"
+                            style="border: 1px solid rgba(255,255,255,0.3); background: transparent;">Archive</span>
+                        <h2><em style="font-style: italic; font-weight: 400;">아카이브</em></h2>
+                        <p>마케팅 트렌드, 업계 소식, 유용한 정보를 <strong>정기적으로 업데이트</strong>합니다.</p>
+                        <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 20px; line-height: 1.8;">
+                            최신 마케팅 인사이트와 하이브미디어의<br>
+                            프로젝트 소식을 확인해 보세요.
+                        </p>
+                        <a href="./archive/archive.php" class="section-link"
+                            style="border-color: #fff; color: #fff;">아카이브 보기 →</a>
+                    </div>
+                    <div class="gsap-section-image">
+                        <video autoplay muted loop playsinline
+                            style="border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                            <source src="./assets/img/viedo/2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: FAQ -->
+            <section class="gsap-section gsap-section-6">
+                <div class="gsap-section-inner" style="flex-direction: column; text-align: center;">
+                    <div class="gsap-section-text" style="max-width: 800px;">
+                        <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">FAQ</span>
+                        <h2>자주 묻는 <em style="font-style: italic; font-weight: 400;">질문</em></h2>
+
+                        <!-- FAQ 아코디언 -->
+                        <div class="faq-accordion" style="text-align: left;">
+                            <div class="faq-item">
+                                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                                    <span>견적은 어떻게 받을 수 있나요?</span>
+                                    <span class="faq-icon">+</span>
+                                </button>
+                                <div class="faq-answer">
+                                    <p>문의 페이지에서 프로젝트 개요를 알려주시면 24시간 내에 담당자가 연락드립니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                                    <span>관공서 입찰도 가능한가요?</span>
+                                    <span class="faq-icon">+</span>
+                                </button>
+                                <div class="faq-answer">
+                                    <p>네, 다수의 관공서 입찰 수행 경험이 있습니다. 제안서 작성부터 발표까지 지원해 드립니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                                    <span>전국 어디서든 가능한가요?</span>
+                                    <span class="faq-icon">+</span>
+                                </button>
+                                <div class="faq-answer">
+                                    <p>본사(부산), 서울, 대구에 지사가 있어 전국 어디서든 프로젝트 진행이 가능합니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                                    <span>프로젝트 기간은 보통 얼마나 걸리나요?</span>
+                                    <span class="faq-icon">+</span>
+                                </button>
+                                <div class="faq-answer">
+                                    <p>프로젝트 규모에 따라 다르지만, 일반적으로 2주~2개월 정도 소요됩니다. 상담 시 상세 일정을 안내해 드립니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Contact -->
+            <section class="gsap-section gsap-section-7" style="background: #1a1a1a; color: #fff;">
+                <div class="gsap-section-inner" style="flex-direction: column; text-align: center;">
+                    <div class="gsap-section-text" style="max-width: 600px;">
+                        <span class="section-label"
+                            style="border: 1px solid rgba(255,255,255,0.3); background: transparent;">Contact</span>
+                        <h2>프로젝트 <em style="font-style: italic; font-weight: 400;">문의</em></h2>
+                        <p
+                            style="font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 40px;">
+                            새로운 프로젝트나 협업에 대해 이야기 나눠보세요.<br>
+                            24시간 내 담당자가 연락드립니다.
+                        </p>
+                        <div
+                            style="display: flex; gap: 60px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
+                            <div>
+                                <p style="font-size: 12px; color: #666; letter-spacing: 2px; margin-bottom: 10px;">PHONE
+                                </p>
+                                <p style="font-size: 20px; font-weight: 500;">070-7728-6334</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 12px; color: #666; letter-spacing: 2px; margin-bottom: 10px;">EMAIL
+                                </p>
+                                <p style="font-size: 20px; font-weight: 500;">hive_ad@hivemedia.co.kr</p>
+                            </div>
+                        </div>
+                        <p style="font-size: 14px; color: #555; line-height: 1.8;">
+                            부산 남구 수영로 312, 9층 918호<br>
+                            서울특별시 중구 서소문로 89, 17층
+                        </p>
+                        <a href="./contact.html" class="section-link"
+                            style="border-color: #fff; color: #fff; margin-top: 40px;">문의하기 →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- 기존 타이핑 애니메이션 스크립트 -->
+    <script>
+        window.onload = function () {
+            $('.main_text01 > p:nth-child(1)').addClass('target');
+            $('.main_text02 > p:nth-child(1)').addClass('target2');
+            $('.main_text01 > p:nth-child(2)').addClass('target_');
+            $('.main_text02 > p:nth-child(2)').addClass('target2_');
+
+            setTimeout(function () {
+                $('.main_text01 > p:nth-child(1)').css('opacity', '1')
+                TypeHangul.type('.target', { intervalType: 50 });
+            }, 3000);
+            setTimeout(function () {
+                $('.main_text01 > p:nth-child(2)').css('opacity', '1')
+                TypeHangul.type('.target_', { intervalType: 50 });
+            }, 4000);
+            setTimeout(function () {
+                $('.main_text02 > p:nth-child(1)').css('opacity', '1')
+                TypeHangul.type('.target2', { intervalType: 50 });
+            }, 5500);
+            setTimeout(function () {
+                $('.main_text02 > p:nth-child(2)').css('opacity', '1')
+                TypeHangul.type('.target2_', { intervalType: 50 });
+            }, 6700);
+        }
+
+        $(function () {
+            const intro = $(".sub-top");
+            setTimeout(function () { intro.addClass("on"); }, 700);
+            setTimeout(function () { intro.addClass("on1"); }, 1400);
+            setTimeout(function () { intro.addClass("on2"); }, 1700);
+            setTimeout(function () { intro.addClass("active"); }, 2700);
+
+            $("body").addClass("not-scroll");
+            setTimeout(function () { $("body").removeClass("not-scroll"); }, 2700);
+        });
+    </script>
+
+    <!-- GSAP 슬라이드 애니메이션 -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // .gsap-section 요소들 가져오기 (마지막 섹션 제외 - Contact는 효과 없음)
+        var panels = gsap.utils.toArray(".gsap-section");
+        panels.pop(); // 마지막 섹션은 제외
+
+        panels.forEach((panel, i) => {
+            let innerpanel = panel.querySelector(".gsap-section-inner");
+            let panelHeight = innerpanel.offsetHeight;
+            let windowHeight = window.innerHeight;
+            let difference = panelHeight - windowHeight;
+            let fakeScrollRatio = difference > 0 ? (difference / (difference + windowHeight)) : 0;
+
+            if (fakeScrollRatio) {
+                panel.style.marginBottom = panelHeight * fakeScrollRatio + "px";
+            }
+
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: panel,
+                    start: "bottom bottom",
+                    end: () => fakeScrollRatio ? `+=${innerpanel.offsetHeight}` : "bottom top",
+                    pinSpacing: false,
+                    pin: true,
+                    scrub: true
+                }
+            });
+
+            if (fakeScrollRatio) {
+                tl.to(innerpanel, { yPercent: -100, y: window.innerHeight, duration: 1 / (1 - fakeScrollRatio) - 1, ease: "none" });
+            }
+            tl.fromTo(panel, { scale: 1, opacity: 1 }, { scale: 0.9, opacity: 0.5, duration: 0.9 })
+                .to(panel, { opacity: 0, duration: 0.1 });
+        });
+
+        // 포트폴리오(섹션4)와 아카이브(섹션5) 비디오 줌 효과
+        document.querySelectorAll('.gsap-section-4, .gsap-section-5').forEach((section) => {
+            const video = section.querySelector('video');
+            if (video) {
+                // 비디오 overflow 숨기기 위한 스타일 추가
+                video.parentElement.style.overflow = 'hidden';
+
+                gsap.fromTo(video,
+                    { scale: 1, opacity: 1 },
+                    {
+                        scale: 2.5,           // 더 극적인 줌 효과 (2.5배)
+                        opacity: 0,
+                        ease: "power2.in",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top top",     // 섹션이 화면 상단에 닿을 때 시작
+                            end: "bottom top",    // 섹션이 화면을 벗어날 때 끝
+                            scrub: 0.5            // 더 빠른 반응
+                        }
+                    }
+                );
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+﻿<!doctype html>
+<html lang="ko" data-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <title>하이브미디어 - EXHIBITION ART</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="하이브미디어 - EXHIBITION ART" />
+    <meta property="og:description" content="하이브미디어 서비스 - 전시 기획" />
+    <meta property="og:image" content="../assets/img/orimage.png" />
+    <meta name="description" content="하이브미디어 전시 기획 - 전시기획 및 연출·제작·설치, 미디어 아트, 체험형 전시">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png" />
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../assets/js/common.js" defer=""></script>
+    <script src="../assets/js/components.js" defer=""></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../assets/plugins/jquery.easeScroll.js"></script>
+    <script src="https://unpkg.com/hangul-js"></script>
+    <script src="https://unpkg.com/type-hangul@latest/dist/type-hangul.min.js"></script>
+
+    <style>
+        .service-con .sub-text h2 {
+            opacity: 0;
+        }
+
+        .service-con .sub-text h2.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Wrap">
+        <div id="header-placeholder"></div>
+
+        <main class="main-con">
+            <div class="service-con marketing-con">
+                <div class="sub-top">
+                    <div class="inner">
+                        <div class="path">
+                            <ul>
+                                <li class="home"><a href="../"><img src="../assets/img/sub/icon_home.png" alt=""></a>
+                                </li>
+                                <li><img src="../assets/img/sub/icon_step_arrow.png" alt=""></li>
+                                <li>SERVICE</li>
+                                <li><img src="../assets/img/sub/icon_step_arrow.png" alt=""></li>
+                                <li>EXHIBITION ART</li>
+                            </ul>
+                        </div>
+                        <div class="sub-text">
+                            <h2 class="text_ani"><span>EXHIBITION</span></h2>
+                            <h2 class="text_ani2"><span>ART</span></h2>
+                            <p>하이브미디어 서비스</p>
+                            <p><strong>전시 기획</strong></p>
+                        </div>
+
+                        <div class="scroll-con">
+                            <div class="inner">
+                                <div class="img">
+                                    <img src="../assets/img/sub/scroll_arrow.png" alt="" class="">
+                                </div>
+                                <p>SCROLL</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-inquiry"><a href="../contact.html"><span class="blind">문의</span></a></div>
+                </div>
+
+                <div class="conbody">
+                    <div class="contents">
+                        <div class="ex-zone ex-zone1">
+                            <div class="ex-text-box" data-aos="">
+                                <h3 data-aos="fade-right" data-aos-duration="700">공간에 <br /><strong>생명을 불어넣습니다</strong>.
+                                </h3>
+                                <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="600">창의적인 기획과 최신 기술로
+                                    <br />관람객에게 특별한 경험을 <br />선사합니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="ex-zone ex-zone2">
+                            <div class="ex-title" data-aos="">
+                                <h3><span>Working</span></h3>
+                                <p><span>다양한 전시 콘텐츠를 기획합니다.</span></p>
+                            </div>
+                            <ul class="ex-working-items">
+                                <li data-aos="fade-up" data-aos-offset="300">
+                                    <a href="../portfolio/portfolio.php">
+                                        <h4>전시 기획</h4>
+                                        <p>테마별 전시 기획<br />및 공간 연출</p>
+                                    </a>
+                                </li>
+                                <li data-aos="fade-up" data-aos-delay="200" data-aos-offset="300">
+                                    <a href="../portfolio/portfolio.php">
+                                        <h4>미디어 아트</h4>
+                                        <p>디지털 기술 기반<br />인터랙티브 전시</p>
+                                    </a>
+                                </li>
+                                <li data-aos="fade-up" data-aos-delay="400" data-aos-offset="300">
+                                    <a href="../portfolio/portfolio.php">
+                                        <h4>체험형 전시</h4>
+                                        <p>관람객 참여형<br />인터랙티브 체험</p>
+                                    </a>
+                                </li>
+                                <li data-aos="fade-up" data-aos-delay="600" data-aos-offset="300">
+                                    <a href="../portfolio/portfolio.php">
+                                        <h4>설치 및 제작</h4>
+                                        <p>전시물 제작부터<br />설치까지 원스톱</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dark_bg"></div>
+                </div>
+            </div>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            $('.text_ani').addClass('target');
+            $('.text_ani2').addClass('target2');
+            $('.text_ani').addClass('visible');
+            TypeHangul.type('.target span', {
+                intervalType: 50
+            });
+            setTimeout(function () {
+                $('.text_ani2').addClass('visible');
+                TypeHangul.type('.target2 span', {
+                    intervalType: 50
+                });
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
