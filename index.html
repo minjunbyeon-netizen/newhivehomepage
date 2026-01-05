@@ -1200,39 +1200,85 @@
         });
     </script>
 
-    <!-- Services Horizontal Scroll Animation -->
+    <!-- ============================================================
+         서비스 섹션 수평 스크롤 애니메이션 (직접 수정 가능)
+         위치: index.html 1203번 줄
+    ============================================================ -->
     <script>
-        // Services Section - Horizontal Scroll on Vertical Scroll (GSAP Pin)
+        // =============================================
+        // 서비스 섹션 - 세로 스크롤 → 가로 스크롤 변환
+        // =============================================
         (function () {
+            // 모바일(1024px 이하)에서는 애니메이션 비활성화
             if (window.innerWidth <= 1024) {
-                // Mobile: no animation needed
                 return;
             }
 
-            const section = document.getElementById('servicesPinSection');
-            const track = document.getElementById('servicesTrack');
-            const cards = document.querySelectorAll('.service-card');
-            const progressItems = document.querySelectorAll('.progress-item');
+            const section = document.getElementById('servicesPinSection');  // 서비스 섹션 전체
+            const track = document.getElementById('servicesTrack');         // 카드들을 감싸는 트랙
+            const cards = document.querySelectorAll('.service-card');       // 4개 서비스 카드
+            const progressItems = document.querySelectorAll('.progress-item'); // 왼쪽 인디케이터
 
             if (!section || !track || cards.length === 0) return;
 
-            const totalCards = cards.length;
+            const totalCards = cards.length; // 총 카드 수: 4개
 
-            // Pin the section and animate horizontal scroll (ALL 4 CARDS + BUFFER)
+            // =============================================
+            // ★★★ 스크롤 속도 조절 핵심 설정 ★★★
+            // =============================================
+
+            // scrollDistance: 카드 트랙이 이동해야 할 총 거리 (픽셀)
+            // - 값이 클수록 이동 거리가 김
             const scrollDistance = (track.scrollWidth - track.offsetWidth);
 
+            // ★ SCROLL_MULTIPLIER: 스크롤 속도 조절 (핵심!)
+            // - 값이 크면: 더 많이 스크롤해야 카드가 넘어감 (느림)
+            // - 값이 작으면: 조금만 스크롤해도 카드가 넘어감 (빠름)
+            // - 권장값: 1.0 ~ 3.0 (현재: 1.5)
+            const SCROLL_MULTIPLIER = 1.5;  // ← 이 값을 조절하세요!
+
+            // ★ LAST_CARD_BUFFER: 마지막 카드(성과분석) 머무는 시간
+            // - 값이 크면: 마지막 카드에서 더 오래 머문 후 다음 섹션으로
+            // - 값이 작으면: 마지막 카드 후 바로 다음 섹션으로
+            // - 단위: 화면 높이의 배수 (0.5 = 화면 절반 높이만큼 스크롤)
+            const LAST_CARD_BUFFER = 0.5;   // ← 이 값을 조절하세요!
+
             gsap.to(track, {
+                // 트랙을 왼쪽으로 이동 (음수 = 왼쪽)
                 x: () => -scrollDistance,
+
+                // ★ ease: 애니메이션 곡선
+                // - "none": 일정한 속도로 이동
+                // - "power1.out": 끝에서 부드럽게 감속
+                // - "power2.inOut": 시작/끝 부드럽게
                 ease: "none",
+
                 scrollTrigger: {
                     trigger: section,
+
+                    // ★ start: 애니메이션 시작 시점
+                    // - "top top": 섹션 상단이 화면 상단에 닿을 때 시작
                     start: "top top",
-                    end: () => "+=" + (scrollDistance + window.innerHeight * 0.5),  // Full scroll + buffer for last card
+
+                    // ★ end: 애니메이션 종료 시점 (가장 중요!)
+                    // - "+=" 뒤의 값이 클수록 더 많이 스크롤해야 끝남
+                    // - scrollDistance * SCROLL_MULTIPLIER: 카드 전환 속도
+                    // - window.innerHeight * LAST_CARD_BUFFER: 마지막 카드 머무는 시간
+                    end: () => "+=" + (scrollDistance * SCROLL_MULTIPLIER + window.innerHeight * LAST_CARD_BUFFER),
+
+                    // ★ pin: true면 섹션이 화면에 고정됨
                     pin: true,
-                    scrub: true,  // Instant sync with scroll
+
+                    // ★ scrub: 스크롤과 애니메이션 동기화
+                    // - true: 즉시 반응 (1:1 동기화)
+                    // - 0.5: 약간의 딜레이로 부드럽게
+                    // - 1: 더 부드럽게 (느리게 반응)
+                    scrub: true,
+
                     anticipatePin: 1,
+
+                    // 스크롤 진행률에 따라 왼쪽 인디케이터 업데이트
                     onUpdate: (self) => {
-                        // Update progress indicators based on scroll position
                         const progress = self.progress;
                         const cardIndex = Math.min(Math.floor(progress * totalCards), totalCards - 1);
 
@@ -1247,13 +1293,10 @@
                 }
             });
 
-            // Click on progress items to jump to that card
+            // 왼쪽 인디케이터 클릭 시 해당 카드로 이동
             progressItems.forEach((item, index) => {
                 item.addEventListener('click', () => {
-                    const cardWidth = cards[0].offsetWidth;
-                    const targetX = cardWidth * index;
                     const scrollTriggerInstance = ScrollTrigger.getAll().find(st => st.trigger === section);
-
                     if (scrollTriggerInstance) {
                         const progress = index / (totalCards - 1);
                         const targetScroll = scrollTriggerInstance.start + (scrollTriggerInstance.end - scrollTriggerInstance.start) * progress;
