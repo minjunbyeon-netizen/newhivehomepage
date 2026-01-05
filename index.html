@@ -526,17 +526,17 @@
         .services-pin-container {
             display: flex;
             width: 100%;
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
-            padding: 80px 60px;
-            gap: 60px;
-            min-height: 600px;
+            padding: 80px 8%;
+            gap: 80px;
+            align-items: center;
         }
 
-        /* 왼쪽 패널: 세로로 긴 텍스트 영역 */
+        /* 왼쪽 패널: 다른 섹션과 동일한 비율 */
         .services-left-panel {
-            width: 280px;
-            flex-shrink: 0;
+            flex: 1;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -572,9 +572,10 @@
             background: rgba(0, 0, 0, 0.03);
         }
 
-        /* 오른쪽 패널: 상단+하단 분리 */
+        /* 오른쪽 패널: 다른 섹션과 동일한 비율 */
         .services-right-panel {
-            flex: 1;
+            flex: 1.2;
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             gap: 30px;
