@@ -20,6 +20,33 @@
 </header>
 
 <style>
+    /* ========================================
+       헤더 통일 스타일 - 검정 배경
+    ======================================== */
+    .header {
+        background: #1a1a1a !important;
+    }
+
+    .header .conbox {
+        background: #1a1a1a !important;
+    }
+
+    /* 로고 흰색으로 변환 */
+    .header h1.basic img {
+        filter: brightness(0) invert(1);
+    }
+
+    /* 햄버거 메뉴 흰색 */
+    .header .btn-nav-open span::before,
+    .header .btn-nav-open span::after {
+        background: #fff !important;
+    }
+
+    /* 다크모드 토글 테두리 */
+    .header .slider {
+        border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+
     /* 회사소개서 버튼 스타일 */
     .btn-brochure {
         display: inline-flex;
@@ -46,11 +73,6 @@
 
     .btn-brochure span {
         position: relative;
-    }
-
-    /* 헤더 색상 상태에 따른 조정 */
-    .header.color .btn-brochure {
-        background: #8B0000;
     }
 
     @media (max-width: 768px) {
