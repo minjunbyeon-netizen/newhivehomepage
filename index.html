@@ -517,39 +517,38 @@
         }
 
         /* ========================================
-           Services Pin Section Styles
+           Services Horizontal Scroll Section
         ======================================== */
         .services-pin-section {
             background: #f5f5f0;
-            min-height: 400vh;
+            height: 100vh;
             position: relative;
+            overflow: hidden;
         }
 
         .services-pin-container {
             display: flex;
             width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            min-height: 100vh;
-            position: sticky;
-            top: 0;
+            height: 100%;
         }
 
         .services-left-panel {
-            width: 40%;
-            padding: 100px 60px;
+            width: 35%;
+            min-width: 400px;
+            padding: 80px 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             position: relative;
             z-index: 10;
+            background: #f5f5f0;
         }
 
         .services-progress {
-            margin-top: 50px;
+            margin-top: 40px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .progress-item {
@@ -560,6 +559,7 @@
             border-left: 3px solid #ddd;
             padding-left: 20px;
             transition: all 0.4s ease;
+            cursor: pointer;
         }
 
         .progress-item.active {
@@ -569,40 +569,37 @@
         }
 
         .services-right-panel {
-            width: 60%;
+            flex: 1;
             position: relative;
             overflow: hidden;
         }
 
+        .services-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
         .service-card {
-            position: absolute;
-            top: 0;
-            left: 0;
+            flex: 0 0 100%;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 60px;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .service-card.active {
-            opacity: 1;
-            transform: translateY(0);
+            padding: 40px;
+            position: relative;
         }
 
         .service-keyword {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(60px, 12vw, 120px);
+            font-size: clamp(50px, 10vw, 100px);
             font-weight: 400;
-            color: rgba(0, 0, 0, 0.08);
+            color: rgba(0, 0, 0, 0.06);
             position: absolute;
-            top: 10%;
-            right: 5%;
+            top: 15%;
+            right: 8%;
             letter-spacing: -3px;
             pointer-events: none;
         }
@@ -610,9 +607,9 @@
         .service-devices {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            height: 400px;
-            margin-bottom: 40px;
+            max-width: 500px;
+            height: 350px;
+            margin-bottom: 30px;
         }
 
         .device {
@@ -625,8 +622,8 @@
         }
 
         .device.laptop {
-            width: 70%;
-            top: 10%;
+            width: 75%;
+            top: 5%;
             left: 0;
             border-radius: 12px;
             padding: 8px;
@@ -639,63 +636,59 @@
         }
 
         .device.phone {
-            width: 25%;
+            width: 28%;
             bottom: 0;
-            right: 10%;
-            border-radius: 20px;
+            right: 5%;
+            border-radius: 24px;
             padding: 6px;
             background: #1a1a1a;
         }
 
         .device.phone img {
             width: 100%;
-            border-radius: 14px;
+            border-radius: 18px;
         }
 
         .service-card:hover .device.laptop {
-            transform: translateY(-10px) rotate(-2deg);
+            transform: translateY(-8px) rotate(-1deg);
         }
 
         .service-card:hover .device.phone {
-            transform: translateY(-5px) rotate(3deg);
+            transform: translateY(-5px) rotate(2deg);
         }
 
         .service-info {
             text-align: center;
+            max-width: 400px;
         }
 
         .service-info h3 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             letter-spacing: -1px;
         }
 
         .service-info p {
-            font-size: 16px;
+            font-size: 15px;
             color: #666;
             line-height: 1.8;
         }
 
         @media (max-width: 1024px) {
             .services-pin-section {
-                min-height: auto;
+                height: auto;
+                min-height: 100vh;
             }
 
             .services-pin-container {
                 flex-direction: column;
-                position: relative;
-                min-height: auto;
-            }
-
-            .services-left-panel,
-            .services-right-panel {
-                width: 100%;
             }
 
             .services-left-panel {
-                padding: 60px 30px;
-                min-height: auto;
+                width: 100%;
+                min-width: auto;
+                padding: 50px 30px;
             }
 
             .services-progress {
@@ -716,22 +709,28 @@
             }
 
             .services-right-panel {
-                position: relative;
-                height: auto;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .services-track {
+                transition: none;
             }
 
             .service-card {
-                position: relative;
-                opacity: 1;
-                transform: none;
-                height: auto;
-                min-height: 500px;
+                min-width: 90vw;
+                padding: 30px;
             }
 
             .service-keyword {
-                font-size: 48px;
-                top: 20px;
-                right: 20px;
+                font-size: 40px;
+                top: 10px;
+                right: 15px;
+            }
+
+            .service-devices {
+                height: 280px;
             }
         }
     </style>
@@ -877,81 +876,83 @@
                         </div>
                     </div>
 
-                    <!-- Right Panel - Scrolling Cards -->
+                    <!-- Right Panel - Horizontal Scrolling Cards -->
                     <div class="services-right-panel">
-                        <!-- Card 1: 온라인 광고 -->
-                        <div class="service-card" data-service="0">
-                            <div class="service-keyword">Online AD</div>
-                            <div class="service-devices">
-                                <div class="device laptop">
-                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
-                                        alt="온라인 광고">
+                        <div class="services-track" id="servicesTrack">
+                            <!-- Card 1: 온라인 광고 -->
+                            <div class="service-card" data-service="0">
+                                <div class="service-keyword">Online AD</div>
+                                <div class="service-devices">
+                                    <div class="device laptop">
+                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
+                                            alt="온라인 광고">
+                                    </div>
+                                    <div class="device phone">
+                                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=200&h=400&fit=crop"
+                                            alt="모바일 광고">
+                                    </div>
                                 </div>
-                                <div class="device phone">
-                                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=200&h=400&fit=crop"
-                                        alt="모바일 광고">
+                                <div class="service-info">
+                                    <h3>온라인 광고</h3>
+                                    <p>네이버 SA/DA, META, 구글 Ads 등<br>데이터 기반 퍼포먼스 마케팅</p>
                                 </div>
                             </div>
-                            <div class="service-info">
-                                <h3>온라인 광고</h3>
-                                <p>네이버 SA/DA, META, 구글 Ads 등<br>데이터 기반 퍼포먼스 마케팅</p>
-                            </div>
-                        </div>
 
-                        <!-- Card 2: 콘텐츠 제작 -->
-                        <div class="service-card" data-service="1">
-                            <div class="service-keyword">Contents</div>
-                            <div class="service-devices">
-                                <div class="device laptop">
-                                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&h=300&fit=crop"
-                                        alt="콘텐츠 제작">
+                            <!-- Card 2: 콘텐츠 제작 -->
+                            <div class="service-card" data-service="1">
+                                <div class="service-keyword">Contents</div>
+                                <div class="service-devices">
+                                    <div class="device laptop">
+                                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&h=300&fit=crop"
+                                            alt="콘텐츠 제작">
+                                    </div>
+                                    <div class="device phone">
+                                        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=200&h=400&fit=crop"
+                                            alt="SNS 콘텐츠">
+                                    </div>
                                 </div>
-                                <div class="device phone">
-                                    <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=200&h=400&fit=crop"
-                                        alt="SNS 콘텐츠">
+                                <div class="service-info">
+                                    <h3>콘텐츠 제작</h3>
+                                    <p>카드뉴스, 홍보영상, 리포팅 등<br>맞춤형 콘텐츠 기획 및 제작</p>
                                 </div>
                             </div>
-                            <div class="service-info">
-                                <h3>콘텐츠 제작</h3>
-                                <p>카드뉴스, 홍보영상, 리포팅 등<br>맞춤형 콘텐츠 기획 및 제작</p>
-                            </div>
-                        </div>
 
-                        <!-- Card 3: 웹 개발 -->
-                        <div class="service-card" data-service="2">
-                            <div class="service-keyword">Web Dev</div>
-                            <div class="service-devices">
-                                <div class="device laptop">
-                                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&h=300&fit=crop"
-                                        alt="웹 개발">
+                            <!-- Card 3: 웹 개발 -->
+                            <div class="service-card" data-service="2">
+                                <div class="service-keyword">Web Dev</div>
+                                <div class="service-devices">
+                                    <div class="device laptop">
+                                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&h=300&fit=crop"
+                                            alt="웹 개발">
+                                    </div>
+                                    <div class="device phone">
+                                        <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?w=200&h=400&fit=crop"
+                                            alt="모바일 웹">
+                                    </div>
                                 </div>
-                                <div class="device phone">
-                                    <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?w=200&h=400&fit=crop"
-                                        alt="모바일 웹">
+                                <div class="service-info">
+                                    <h3>웹 개발</h3>
+                                    <p>웹진, 랜딩페이지, 이벤트페이지<br>반응형 웹사이트 구축</p>
                                 </div>
                             </div>
-                            <div class="service-info">
-                                <h3>웹 개발</h3>
-                                <p>웹진, 랜딩페이지, 이벤트페이지<br>반응형 웹사이트 구축</p>
-                            </div>
-                        </div>
 
-                        <!-- Card 4: 성과 분석 -->
-                        <div class="service-card" data-service="3">
-                            <div class="service-keyword">Analytics</div>
-                            <div class="service-devices">
-                                <div class="device laptop">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop"
-                                        alt="성과 분석">
+                            <!-- Card 4: 성과 분석 -->
+                            <div class="service-card" data-service="3">
+                                <div class="service-keyword">Analytics</div>
+                                <div class="service-devices">
+                                    <div class="device laptop">
+                                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop"
+                                            alt="성과 분석">
+                                    </div>
+                                    <div class="device phone">
+                                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=400&fit=crop"
+                                            alt="리포팅">
+                                    </div>
                                 </div>
-                                <div class="device phone">
-                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=400&fit=crop"
-                                        alt="리포팅">
+                                <div class="service-info">
+                                    <h3>성과 분석</h3>
+                                    <p>월별 리포팅, KPI 분석<br>데이터 기반 개선안 제안</p>
                                 </div>
-                            </div>
-                            <div class="service-info">
-                                <h3>성과 분석</h3>
-                                <p>월별 리포팅, KPI 분석<br>데이터 기반 개선안 제안</p>
                             </div>
                         </div>
                     </div>
@@ -1199,38 +1200,40 @@
         });
     </script>
 
-    <!-- Services Pin Section Animation -->
+    <!-- Services Horizontal Scroll Animation -->
     <script>
-        // Services Section Scroll Animation
-        if (window.innerWidth > 1024) {
-            const serviceSection = document.getElementById('servicesPinSection');
-            const serviceCards = document.querySelectorAll('.service-card');
+        // Services Section - Horizontal Scroll on Vertical Scroll (GSAP Pin)
+        (function () {
+            if (window.innerWidth <= 1024) {
+                // Mobile: no animation needed
+                return;
+            }
+
+            const section = document.getElementById('servicesPinSection');
+            const track = document.getElementById('servicesTrack');
+            const cards = document.querySelectorAll('.service-card');
             const progressItems = document.querySelectorAll('.progress-item');
 
-            if (serviceSection && serviceCards.length > 0) {
-                // Set first card as active initially
-                serviceCards[0].classList.add('active');
+            if (!section || !track || cards.length === 0) return;
 
-                // Create scroll trigger for service section
-                ScrollTrigger.create({
-                    trigger: serviceSection,
+            const totalCards = cards.length;
+
+            // Pin the section and animate horizontal scroll
+            gsap.to(track, {
+                x: () => -(track.scrollWidth - track.offsetWidth),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
                     start: "top top",
-                    end: "bottom bottom",
+                    end: () => "+=" + (track.scrollWidth - track.offsetWidth + window.innerHeight),
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
                     onUpdate: (self) => {
+                        // Update progress indicators based on scroll position
                         const progress = self.progress;
-                        const totalCards = serviceCards.length;
                         const cardIndex = Math.min(Math.floor(progress * totalCards), totalCards - 1);
 
-                        // Update active card
-                        serviceCards.forEach((card, i) => {
-                            if (i === cardIndex) {
-                                card.classList.add('active');
-                            } else {
-                                card.classList.remove('active');
-                            }
-                        });
-
-                        // Update progress indicators
                         progressItems.forEach((item, i) => {
                             if (i === cardIndex) {
                                 item.classList.add('active');
@@ -1239,14 +1242,24 @@
                             }
                         });
                     }
-                });
-            }
-        } else {
-            // Mobile: show all cards
-            document.querySelectorAll('.service-card').forEach(card => {
-                card.classList.add('active');
+                }
             });
-        }
+
+            // Click on progress items to jump to that card
+            progressItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    const cardWidth = cards[0].offsetWidth;
+                    const targetX = cardWidth * index;
+                    const scrollTriggerInstance = ScrollTrigger.getAll().find(st => st.trigger === section);
+
+                    if (scrollTriggerInstance) {
+                        const progress = index / (totalCards - 1);
+                        const targetScroll = scrollTriggerInstance.start + (scrollTriggerInstance.end - scrollTriggerInstance.start) * progress;
+                        gsap.to(window, { scrollTo: targetScroll, duration: 0.8, ease: "power2.inOut" });
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 
