@@ -5,6 +5,9 @@
         <h1 class="color"><a href="./"><img src="./assets/img/logo_img_blue.png" alt="Logo"></a></h1>
     </div>
     <div class="util-btn">
+        <a href="#" class="btn-brochure" onclick="alert('회사소개서 다운로드 준비중입니다.'); return false;">
+            <span>회사소개서</span>
+        </a>
         <button class="switch btn-dark-light">
             <span class="blind">밝기 모드</span>
             <input type="checkbox" class="light">
@@ -15,6 +18,64 @@
         </button>
     </div>
 </header>
+
+<style>
+    /* 회사소개서 버튼 스타일 */
+    .btn-brochure {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        background: #8B0000;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: 'Noto Sans KR', sans-serif;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-right: 15px;
+        white-space: nowrap;
+    }
+
+    .btn-brochure:hover {
+        background: #a50000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+    }
+
+    .btn-brochure span {
+        position: relative;
+    }
+
+    /* 헤더 색상 상태에 따른 조정 */
+    .header.color .btn-brochure {
+        background: #8B0000;
+    }
+
+    @media (max-width: 768px) {
+        .btn-brochure {
+            padding: 8px 14px;
+            font-size: 11px;
+            margin-right: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .btn-brochure span {
+            display: none;
+        }
+
+        .btn-brochure::before {
+            content: "📄";
+            font-size: 16px;
+        }
+
+        .btn-brochure {
+            padding: 8px 10px;
+        }
+    }
+</style>
 
 <aside class="nav-wrap">
     <div class="inner">
