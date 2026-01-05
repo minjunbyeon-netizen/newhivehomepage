@@ -196,9 +196,10 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         .left-footer {
-            position: absolute;
-            bottom: 60px;
-            left: 60px;
+            position: relative;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
         }
 
         .left-footer a {
