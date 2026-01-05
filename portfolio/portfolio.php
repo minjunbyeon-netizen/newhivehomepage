@@ -66,592 +66,278 @@ $base_path = '/01_work/hivemedia_homepage';
     <script src="../assets/js/common.js" defer=""></script>
     <script src="../assets/js/components.js" defer=""></script>
 
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Google Fonts - Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* GSAP 애니메이션 초기 상태 */
-        .gsap-title {
-            opacity: 0;
-            transform: translateY(80px);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .gsap-subtitle {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        .gsap-fade-in {
-            opacity: 0;
-        }
-
-        .gsap-line {
-            transform: scaleX(0);
-            transform-origin: left;
-        }
-
-        /* 인트로 장식 텍스트 */
-        .intro-text {
-            position: absolute;
-            left: 0;
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: #fff;
-            opacity: 0;
-            font-family: 'Georgia', serif;
-            font-style: italic;
-        }
-
-        .intro-text-top {
-            top: -35px;
-        }
-
-        .intro-text-bottom {
-            bottom: -35px;
-        }
-
-        .title-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Dark Theme - 검정 배경 */
         body,
         .Wrap {
-            background: #111 !important;
+            background: #f5f5f0 !important;
+            font-family: 'Space Mono', 'Courier New', monospace;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
 
-        /* Header 스타일 오버라이드 - 검정 배경 */
+        /* Header Override */
         .header {
-            background: #111 !important;
+            background: #f5f5f0 !important;
         }
 
         .header .conbox {
-            background: #111 !important;
+            background: #f5f5f0 !important;
         }
 
-        .header .util-btn {
-            background: #111 !important;
-        }
-
-        .portfolio-con.portfolio2-con {
-            background: #111;
-            color: #fff;
+        /* Main Layout - 40:60 Split */
+        .portfolio-main {
+            display: flex;
             min-height: 100vh;
+            padding-top: 80px;
         }
 
-        .portfolio2-con .sub-top {
-            background: #111;
-            padding: 120px 5% 80px;
-            border-bottom: 1px solid #333;
+        /* Left Panel - 40% */
+        .left-panel {
+            width: 40%;
+            padding: 60px 40px 60px 60px;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
         }
 
-        .portfolio2-con .sub-top .inner {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .portfolio2-con .sub-top .path {
-            margin-bottom: 60px;
-        }
-
-        .portfolio2-con .sub-top .path ul {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .portfolio2-con .sub-top .path li {
-            color: #888;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .portfolio2-con .sub-top .path img {
-            filter: invert(1);
-            opacity: 0.5;
-            width: 12px;
-        }
-
-        .portfolio2-con .sub-text {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 40px;
-            width: 100%;
-        }
-
-        .portfolio2-con .sub-text .title-wrapper {
-            text-align: left;
-        }
-
-        .portfolio2-con .sub-text h2.text_ani {
-            font-size: 24px;
-            font-style: italic;
-            font-weight: 300;
-            color: #888;
-            font-family: Georgia, serif;
-            margin-bottom: 10px;
-        }
-
-        .portfolio2-con .sub-text h2.text_ani2 {
-            font-size: 120px;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: -6px;
-            line-height: 0.9;
-            text-transform: uppercase;
-        }
-
-        .portfolio2-con .sub-text p {
-            font-size: 14px;
-            color: #aaa;
-            max-width: 300px;
-            line-height: 1.8;
-            text-align: right;
-        }
-
-        .portfolio2-con .btn-inquiry {
-            display: none;
-        }
-
-        /* 카테고리 탭 */
-        .portfolio2-con .conbody {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 60px 5%;
-        }
-
-        .portfolio2-con .portfolio-itemTab {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 60px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed #333;
-            flex-wrap: wrap;
-        }
-
-        .portfolio2-con .portfolio-itemTab li {
-            list-style: none;
-        }
-
-        .portfolio2-con .portfolio-itemTab li a {
-            font-size: 13px;
-            font-weight: 600;
-            color: #aaa;
-            text-decoration: none;
-            letter-spacing: 1px;
-            padding: 8px 0;
-            transition: all 0.3s;
-        }
-
-        .portfolio2-con .portfolio-itemTab li.active a,
-        .portfolio2-con .portfolio-itemTab li:hover a {
-            color: #fff;
-            border-bottom: 2px solid #fff;
-        }
-
-        /* 카테고리 섹션 레이아웃 */
-        .category-section {
-            margin-bottom: 60px;
-        }
-
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #333;
-            position: relative;
-        }
-
-        .category-icon {
-            font-size: 28px;
-        }
-
-        .category-title {
-            font-size: 24px;
+        .company-name {
+            font-size: 48px;
             font-weight: 700;
-            color: #fff;
-            margin: 0;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 8px;
         }
 
-        .category-count {
-            font-size: 12px;
-            color: #888;
-            padding: 4px 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+        .company-name-sub {
+            font-size: 72px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -4px;
+            line-height: 0.9;
+            margin-bottom: 40px;
         }
 
-        .category-color-bar {
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100px;
-            height: 3px;
-            border-radius: 2px;
-        }
-
-        .category-items {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 1024px) {
-            .category-items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            @media (max-width: 768px) {
-                .portfolio2-list {
-                    grid-template-columns: 1fr;
-                }
-
-                .portfolio2-con .sub-text h2.text_ani2 {
-                    font-size: 48px;
-                    letter-spacing: -2px;
-                }
-
-                .portfolio2-con .sub-text {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-            }
-        }
-
-        /* 포트폴리오 아이템 */
-        .portfolio2-item {
-            position: relative;
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            background: #ddd;
+            margin-bottom: 30px;
             overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 4/3;
-            background: #222;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
         }
 
-        .portfolio2-item:hover {
-            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .portfolio2-item img {
+        .profile-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease, filter 0.4s ease;
-            filter: grayscale(30%);
+            filter: grayscale(100%);
         }
 
-        .portfolio2-item:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        /* 오버레이 */
-        .portfolio2-item .overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .portfolio2-item:hover .overlay {
-            opacity: 1;
-        }
-
-        .portfolio2-item .overlay .category {
+        .intro-text {
             font-size: 11px;
-            color: #fff;
+            line-height: 1.8;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            font-weight: 700;
-            padding: 6px 12px;
-            border-radius: 4px;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            max-width: 320px;
+        }
+
+        .cta-button {
             display: inline-block;
-            width: fit-content;
-        }
-
-        /* 카테고리별 색상 구분 */
-        .portfolio2-item[data-category="online_ad"] .overlay .category {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .portfolio2-item[data-category="sns"] .overlay .category {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .portfolio2-item[data-category="homepage"] .overlay .category {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .portfolio2-item[data-category="video"] .overlay .category {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        }
-
-        /* 카테고리 뱃지를 항상 표시 (좌측 상단) */
-        .portfolio2-item .category-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 10px;
-            color: #fff;
+            padding: 12px 24px;
+            border: 1px solid #1a1a1a;
+            background: transparent;
+            color: #1a1a1a;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 3px;
-            z-index: 10;
-            opacity: 0.95;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
         }
 
-        .portfolio2-item[data-category="online_ad"] .category-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .cta-button:hover {
+            background: #1a1a1a;
+            color: #f5f5f0;
         }
 
-        .portfolio2-item[data-category="sns"] .category-badge {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .left-footer {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
         }
 
-        .portfolio2-item[data-category="homepage"] .category-badge {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        .left-footer a {
+            display: block;
+            font-size: 11px;
+            color: #1a1a1a;
+            text-decoration: none;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .portfolio2-item[data-category="video"] .category-badge {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        .left-footer a:hover {
+            text-decoration: underline;
         }
 
-        .portfolio2-item .overlay h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .portfolio2-item .overlay p {
-            font-size: 13px;
+        .copyright {
+            margin-top: 20px;
+            font-size: 10px;
             color: #888;
         }
 
-        /* 기본 썸네일 */
-        .default-portfolio-thumb {
+        /* Right Panel - 60% */
+        .right-panel {
+            width: 60%;
+            padding: 60px 60px 60px 40px;
+            border-left: 1px solid #ddd;
+        }
+
+        /* Section Style */
+        .section-block {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            background: #1a1a1a;
+            color: #f5f5f0;
+            margin-bottom: 20px;
+        }
+
+        /* Two Column List */
+        .two-col-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .list-item {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .list-item:hover {
+            background: rgba(0, 0, 0, 0.03);
+            padding-left: 10px;
+        }
+
+        /* Single Column List with Count */
+        .single-col-list .list-row {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #222 0%, #333 100%);
-            color: #fff;
-            font-size: 48px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
         }
 
-        /* 로딩 */
-        .portfolio2-loading {
+        .list-row .name {
+            flex: 1;
+        }
+
+        .list-row .award {
+            flex: 1;
             text-align: center;
-            padding: 100px 20px;
-            color: #888;
+            color: #666;
         }
 
-        .portfolio2-loading .spinner {
+        .list-row .count {
             width: 40px;
-            height: 40px;
-            border: 2px solid #333;
-            border-top: 2px solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* 빈 상태 */
-        .portfolio2-empty {
-            text-align: center;
-            padding: 100px 20px;
+            text-align: right;
             color: #888;
-            display: none;
         }
 
-        .portfolio2-empty h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #aaa;
+        /* Footer Override */
+        footer,
+        .footer {
+            background: #f5f5f0 !important;
+            border-top: 1px solid #ddd;
         }
 
         .dark_bg {
             display: none;
         }
 
-        /* Footer 스타일 오버라이드 */
-        footer,
-        .footer {
-            background: #111 !important;
-            border-top: 1px solid #222;
-        }
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .portfolio-main {
+                flex-direction: column;
+            }
 
-        /* 모달 스타일 */
-        .portfolio-modal {
-            display: none;
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            background: rgba(0, 0, 0, 0.9) !important;
-            z-index: 10000 !important;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-        }
+            .left-panel,
+            .right-panel {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+            }
 
-        .portfolio-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-        }
+            .left-panel {
+                padding: 40px 30px;
+            }
 
-        .modal-content {
-            background: #1a1a1a;
-            max-width: 900px;
-            width: 90%;
-            max-height: 90vh;
-            border-radius: 12px;
-            overflow: hidden;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+            .right-panel {
+                padding: 40px 30px;
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
 
-        .portfolio-modal.active .modal-content {
-            transform: scale(1);
-        }
+            .left-footer {
+                position: relative;
+                bottom: 0;
+                left: 0;
+                margin-top: 40px;
+            }
 
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 10001;
-        }
+            .company-name {
+                font-size: 36px;
+            }
 
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .modal-category {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 6px 14px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .modal-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-
-        .modal-description {
-            font-size: 16px;
-            color: #aaa;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        .modal-info {
-            display: flex;
-            gap: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-        }
-
-        .modal-info-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .modal-info-label {
-            font-size: 11px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .modal-info-value {
-            font-size: 14px;
-            color: #fff;
+            .company-name-sub {
+                font-size: 48px;
+            }
         }
 
         @media (max-width: 768px) {
-            .modal-image {
-                height: 250px;
+            .two-col-list {
+                grid-template-columns: 1fr;
             }
+        }
 
-            .modal-title {
-                font-size: 22px;
-            }
-
-            .modal-info {
-                flex-direction: column;
-                gap: 15px;
-            }
+        /* Loading State */
+        .loading-text {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -660,518 +346,228 @@ $base_path = '/01_work/hivemedia_homepage';
     <div class="Wrap">
         <div id="header-placeholder"></div>
 
-        <main class="">
-            <div class="portfolio-con portfolio2-con">
-                <div class="sub-top">
-                    <div class="inner">
-                        <div class="path">
-                            <ul>
-                                <li class="home"><a href="<?php echo $base_path; ?>/"><img
-                                            src="<?php echo $base_path; ?>/assets/img/sub/icon_home.png" alt=""></a>
-                                </li>
-                                <li><img src="<?php echo $base_path; ?>/assets/img/sub/icon_step_arrow.png" alt=""></li>
-                            </ul>
-                        </div>
-                        <div class="sub-text">
-                            <div class="title-wrapper">
-                                <span class="intro-text intro-text-top">Creative Works</span>
-                                <h2 class="text_ani2 gsap-title">Portfolio</h2>
-                                <span class="intro-text intro-text-bottom">Since 2015</span>
-                            </div>
-                            <p class="gsap-subtitle">A collection of our finest work in digital marketing, web
-                                development, and creative
-                                production.</p>
-                        </div>
-                        <div class="gsap-line"
-                            style="height: 2px; background: linear-gradient(90deg, #fff, transparent); margin-top: 40px;">
-                        </div>
-                    </div>
+        <main class="portfolio-main">
+            <!-- Left Panel - 40% -->
+            <div class="left-panel">
+                <h1 class="company-name">HIVE</h1>
+                <h1 class="company-name-sub">MEDIA</h1>
+
+                <div class="profile-image">
+                    <img src="../assets/img/logo_img_b.png" alt="Hivemedia Logo">
                 </div>
 
-                <div class="conbody">
-                    <!-- 카테고리 탭 -->
-                    <ul class="portfolio-itemTab">
-                        <li class="filter active" data-filter="all" style="cursor:pointer"><a
-                                href="javascript:;">All</a></li>
-                        <li class="filter" data-filter="online_ad" style="cursor:pointer"><a href="javascript:;">Online
-                                AD</a>
-                        </li>
-                        <li class="filter" data-filter="sns" style="cursor:pointer"><a href="javascript:;">SNS</a></li>
-                        <li class="filter" data-filter="homepage" style="cursor:pointer"><a
-                                href="javascript:;">Homepage</a>
-                        </li>
-                        <li class="filter" data-filter="video" style="cursor:pointer"><a href="javascript:;">Video</a>
-                        </li>
-                    </ul>
+                <p class="intro-text">
+                    AS A FULL-SERVICE MARKETING AGENCY WITH A
+                    PASSION FOR PUBLIC SECTOR MARKETING,
+                    WE BELIEVE IN CREATIVITY TO
+                    EMPOWER BRANDS.
+                </p>
 
-                    <div class="contents">
-                        <div class="portfolio-section" style="text-align:left">
-                            <div class="row">
-                                <!-- 로딩 표시 -->
-                                <div class="portfolio2-loading" id="portfolioLoading">
-                                    <div class="spinner"></div>
-                                    <p>포트폴리오를 불러오는 중...</p>
-                                </div>
+                <p class="intro-text">
+                    OUR GOAL IS TO CONNECT PEOPLE WITH
+                    BRANDS AND BUSINESSES THROUGH DESIGN.
+                    A COMBINATION OF STRONG CONCEPTS &
+                    REFINED EXECUTION TO DELIVER PREMIUM
+                    RESULTS.
+                </p>
 
-                                <!-- 빈 상태 메시지 -->
-                                <div class="portfolio2-empty" id="portfolioEmpty">
-                                    <h3>포트폴리오 준비 중</h3>
-                                    <p>곧 새로운 프로젝트가 업데이트 될 예정입니다.</p>
-                                </div>
+                <p class="intro-text">
+                    WITH A SHARP EYE FOR DETAIL, A TYPICAL
+                    STRAIGHTFORWARD APPROACH AND
+                    ENDLESS AMBITION, WE'VE GAINED
+                    EXPERIENCE WORKING FOR AGENCIES &
+                    GOVERNMENT OFFICES ACROSS KOREA.
+                </p>
 
-                                <!-- 포트폴리오 리스트 -->
-                                <ul class="portfolio2-list" id="portfolioList"></ul>
-                            </div>
-                        </div>
-                    </div>
+                <p class="intro-text">
+                    CURRENTLY WE'RE WORKING AS A MARKETING
+                    AGENCY BASED IN BUSAN, KOREA
+                    SINCE 2015.
+                </p>
+
+                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">LET'S TALK</a>
+
+                <div class="left-footer">
+                    <a href="mailto:hivemedia@naver.com">EMAIL</a>
+                    <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
+                    <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
+                    <a href="https://www.youtube.com/@hivemedia" target="_blank">YOUTUBE</a>
+                    <p class="copyright">© HIVE MEDIA 2025</p>
                 </div>
             </div>
 
-            <!-- 숨겨진 관리자 버튼 -->
-            <div style="text-align: center; padding: 60px 0 20px; opacity: 0.15;">
-                <a href="<?php echo $base_path; ?>/portfolio/write.php"
-                    style="color: #333; font-size: 11px; text-decoration: none;">●</a>
+            <!-- Right Panel - 60% -->
+            <div class="right-panel">
+                <!-- Services Section -->
+                <div class="section-block">
+                    <span class="section-title">SERVICES</span>
+                    <div class="two-col-list" id="servicesList">
+                        <div class="list-item">SNS MANAGEMENT</div>
+                        <div class="list-item">BRAND DESIGN</div>
+                        <div class="list-item">CONTENT CREATION</div>
+                        <div class="list-item">VIDEO PRODUCTION</div>
+                        <div class="list-item">ONLINE MARKETING</div>
+                        <div class="list-item">WEB DESIGN</div>
+                        <div class="list-item">PROMOTIONAL VIDEO</div>
+                        <div class="list-item">MOTION DESIGN</div>
+                        <div class="list-item">EXHIBITION BOOTH</div>
+                        <div class="list-item">EVENT PLANNING</div>
+                    </div>
+                </div>
+
+                <!-- Selected Clients Section -->
+                <div class="section-block">
+                    <span class="section-title">SELECTED CLIENTS</span>
+                    <div class="two-col-list" id="clientsList">
+                        <div class="list-item loading-text">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- Projects by Category -->
+                <div class="section-block">
+                    <span class="section-title">PROJECTS BY CATEGORY</span>
+                    <div class="single-col-list" id="categoryList">
+                        <div class="list-row loading-text">
+                            <span class="name">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Projects Section -->
+                <div class="section-block">
+                    <span class="section-title">RECENT PROJECTS</span>
+                    <div class="single-col-list" id="recentProjects">
+                        <div class="list-row loading-text">
+                            <span class="name">Loading...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
-        <!-- 포트폴리오 상세 모달 -->
-        <div class="portfolio-modal" id="portfolioModal">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div class="modal-content">
-                <img class="modal-image" id="modalImage" src="" alt="">
-                <div class="modal-body">
-                    <span class="modal-category" id="modalCategory"></span>
-                    <h2 class="modal-title" id="modalTitle"></h2>
-                    <p class="modal-description" id="modalDescription"></p>
-                    <div class="modal-info">
-                        <div class="modal-info-item">
-                            <span class="modal-info-label">카테고리</span>
-                            <span class="modal-info-value" id="modalCategoryInfo"></span>
-                        </div>
-                        <div class="modal-info-item">
-                            <span class="modal-info-label">프로젝트 유형</span>
-                            <span class="modal-info-value" id="modalTypeInfo">브랜드 마케팅</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Firebase SDK -->
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-            // Firebase 설정
-            const firebaseConfig = {
-                apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
-                authDomain: "hivemedia-archive.firebaseapp.com",
-                projectId: "hivemedia-archive",
-                storageBucket: "hivemedia-archive.firebasestorage.app",
-                messagingSenderId: "105246116532",
-                appId: "1:105246116532:web:18aad82490a11b7d4ea5e1",
-                measurementId: "G-1YZDYEPFFN"
-            };
-
-            // Firebase 초기화
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-
-            // 전역 변수
-            let allPortfolios = [];
-
-            // 포트폴리오 렌더링 (카테고리별 그룹화)
-            function renderPortfolios(portfolios) {
-                const listEl = document.getElementById('portfolioList');
-                const loadingEl = document.getElementById('portfolioLoading');
-                const emptyEl = document.getElementById('portfolioEmpty');
-
-                loadingEl.style.display = 'none';
-
-                if (portfolios.length === 0) {
-                    emptyEl.style.display = 'block';
-                    listEl.innerHTML = '';
-                    return;
-                }
-
-                emptyEl.style.display = 'none';
-
-                // 카테고리별 그룹화
-                const categoryOrder = ['Online AD', 'SNS', 'Homepage', 'Video'];
-                const categoryColors = {
-                    'Online AD': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    'SNS': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                    'Homepage': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                    'Video': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
-                };
-                const categoryIcons = {
-                    'Online AD': '📊',
-                    'SNS': '📱',
-                    'Homepage': '💻',
-                    'Video': '🎬'
-                };
-
-                const grouped = {};
-                portfolios.forEach(item => {
-                    const cat = item.category || '기타';
-                    if (!grouped[cat]) grouped[cat] = [];
-                    grouped[cat].push(item);
-                });
-
-                // 카테고리 순서대로 정렬
-                const sortedCategories = Object.keys(grouped).sort((a, b) => {
-                    const aIdx = categoryOrder.indexOf(a);
-                    const bIdx = categoryOrder.indexOf(b);
-                    if (aIdx === -1 && bIdx === -1) return 0;
-                    if (aIdx === -1) return 1;
-                    if (bIdx === -1) return -1;
-                    return aIdx - bIdx;
-                });
-
-                listEl.innerHTML = sortedCategories.map(category => {
-                    const items = grouped[category];
-                    const categoryKey = category.toLowerCase().replace(/\s+/g, '_');
-                    const color = categoryColors[category] || '#666';
-                    const icon = categoryIcons[category] || '📁';
-
-                    return `
-                    <div class="category-section" data-category="${categoryKey}">
-                        <div class="category-header">
-                            <span class="category-icon">${icon}</span>
-                            <h3 class="category-title">${category}</h3>
-                            <span class="category-count">${items.length} Projects</span>
-                            <span class="category-color-bar" style="background: ${color}"></span>
-                        </div>
-                        <div class="category-items">
-                            ${items.map(item => {
-                        const title = item.title || '프로젝트';
-                        const description = item.description || '';
-                        const thumbnail = item.thumbnail || '';
-                        const itemColor = categoryColors[category] || '#666';
-                        const escapedData = JSON.stringify({ title, description, thumbnail, category, color: itemColor }).replace(/'/g, "\\'");
-
-                        return `
-                                <div class="portfolio2-item" data-category="${categoryKey}" onclick='openModal(${escapedData})'>
-                                    ${thumbnail
-                                ? `<img src="${thumbnail}" alt="${title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
-                                : ''
-                            }
-                                    <div class="default-portfolio-thumb" style="${thumbnail ? 'display:none' : ''}">🎨</div>
-                                    <div class="overlay">
-                                        <h3>${title}</h3>
-                                        ${description ? `<p>${description}</p>` : ''}
-                                    </div>
-                                </div>
-                                `;
-                    }).join('')}
-                        </div>
-                    </div>
-                    `;
-                }).join('');
-            }
-
-            // 모달 열기
-            window.openModal = function (data) {
-                const modal = document.getElementById('portfolioModal');
-                const modalImage = document.getElementById('modalImage');
-                const modalCategory = document.getElementById('modalCategory');
-                const modalTitle = document.getElementById('modalTitle');
-                const modalDescription = document.getElementById('modalDescription');
-                const modalCategoryInfo = document.getElementById('modalCategoryInfo');
-
-                // 데이터 설정
-                modalImage.src = data.thumbnail || '';
-                modalImage.style.display = data.thumbnail ? 'block' : 'none';
-                modalCategory.textContent = data.category;
-                modalCategory.style.background = data.color || '#666';
-                modalTitle.textContent = data.title;
-                modalDescription.textContent = data.description || '하이브미디어의 크리에이티브 프로젝트입니다.';
-                modalCategoryInfo.textContent = data.category;
-
-                // 모달 표시
-                modal.style.display = 'flex';
-                setTimeout(() => modal.classList.add('active'), 10);
-                document.body.style.overflow = 'hidden';
-            };
-
-            // 모달 닫기
-            window.closeModal = function () {
-                const modal = document.getElementById('portfolioModal');
-                modal.classList.remove('active');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = '';
-                }, 300);
-            };
-
-            // 모달 외부 클릭 시 닫기
-            document.getElementById('portfolioModal').addEventListener('click', function (e) {
-                if (e.target === this) closeModal();
-            });
-
-            // ESC 키로 닫기
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') closeModal();
-            });
-
-            // Firestore에서 포트폴리오 가져오기
-            async function fetchPortfolios() {
-                try {
-                    // 'portfolios' 컬렉션에서 가져오기 (없으면 예시 데이터 사용)
-                    const portfoliosRef = collection(db, 'portfolios');
-                    const q = query(portfoliosRef, orderBy('createdAt', 'desc'));
-                    const querySnapshot = await getDocs(q);
-
-                    allPortfolios = [];
-                    querySnapshot.forEach((doc) => {
-                        allPortfolios.push({
-                            id: doc.id,
-                            ...doc.data()
-                        });
-                    });
-
-                    // 테스트용: 샘플 데이터 강제 표시 (실제 데이터가 준비되면 이 줄만 삭제)
-                    allPortfolios = []; // 강제로 비워서 샘플 표시
-
-                    // 데이터가 없으면 샘플 데이터 표시
-                    if (allPortfolios.length === 0) {
-                        allPortfolios = [
-                            { id: 1, title: '부산시 공공기관 SNS 캠페인', category: 'Online AD', description: '부산시 관광홍보 통합 마케팅', thumbnail: '../assets/img/portfolio/sample_1.png' },
-                            { id: 2, title: '해운대 관광 인스타그램 운영', category: 'SNS', description: '월간 콘텐츠 제작 및 커뮤니티 관리', thumbnail: '../assets/img/portfolio/sample_2.png' },
-                            { id: 3, title: '부산항만공사 반응형 웹사이트', category: 'Homepage', description: '기업 소개 및 서비스 안내 홈페이지', thumbnail: '../assets/img/portfolio/sample_3.png' },
-                            { id: 4, title: '지역 특산물 홍보 영상', category: 'Video', description: '다큐멘터리 스타일 브랜드 필름', thumbnail: '../assets/img/portfolio/sample_4.png' },
-                            { id: 5, title: '문화축제 이벤트 페이지', category: 'Homepage', description: '티켓 예매 및 프로그램 안내', thumbnail: '../assets/img/portfolio/sample_5.png' },
-                            { id: 6, title: '정부 공모사업 온라인 광고', category: 'Online AD', description: '정책 홍보 배너 및 카드뉴스', thumbnail: '../assets/img/portfolio/sample_6.png' },
-                            { id: 7, title: '기업 브랜딩 다큐멘터리', category: 'Video', description: 'CEO 인터뷰 및 기업 역사 영상', thumbnail: '../assets/img/portfolio/sample_7.png' },
-                            { id: 8, title: '대중교통 앱 UI/UX 디자인', category: 'Homepage', description: '모바일 앱 사용자 인터페이스', thumbnail: '../assets/img/portfolio/sample_8.png' },
-                            { id: 9, title: '환경부 카드뉴스 시리즈', category: 'SNS', description: '친환경 캠페인 인포그래픽', thumbnail: '../assets/img/portfolio/sample_9.png' },
-                            { id: 10, title: '박물관 디지털 사이니지', category: 'Online AD', description: '전시 안내 인터랙티브 키오스크', thumbnail: '../assets/img/portfolio/sample_10.png' },
-                        ];
-                    }
-
-                    renderPortfolios(allPortfolios);
-                } catch (error) {
-                    console.error('Error fetching portfolios:', error);
-                    // 에러 시 샘플 데이터 표시
-                    allPortfolios = [
-                        { id: 1, title: '부산시 공공기관 SNS 캠페인', category: 'Online AD', description: '부산시 관광홍보 통합 마케팅', thumbnail: '../assets/img/portfolio/sample_1.png' },
-                        { id: 2, title: '해운대 관광 인스타그램 운영', category: 'SNS', description: '월간 콘텐츠 제작 및 커뮤니티 관리', thumbnail: '../assets/img/portfolio/sample_2.png' },
-                        { id: 3, title: '부산항만공사 반응형 웹사이트', category: 'Homepage', description: '기업 소개 및 서비스 안내 홈페이지', thumbnail: '../assets/img/portfolio/sample_3.png' },
-                        { id: 4, title: '지역 특산물 홍보 영상', category: 'Video', description: '다큐멘터리 스타일 브랜드 필름', thumbnail: '../assets/img/portfolio/sample_4.png' },
-                        { id: 5, title: '문화축제 이벤트 페이지', category: 'Homepage', description: '티켓 예매 및 프로그램 안내', thumbnail: '../assets/img/portfolio/sample_5.png' },
-                        { id: 6, title: '정부 공모사업 온라인 광고', category: 'Online AD', description: '정책 홍보 배너 및 카드뉴스', thumbnail: '../assets/img/portfolio/sample_6.png' },
-                        { id: 7, title: '기업 브랜딩 다큐멘터리', category: 'Video', description: 'CEO 인터뷰 및 기업 역사 영상', thumbnail: '../assets/img/portfolio/sample_7.png' },
-                        { id: 8, title: '대중교통 앱 UI/UX 디자인', category: 'Homepage', description: '모바일 앱 사용자 인터페이스', thumbnail: '../assets/img/portfolio/sample_8.png' },
-                        { id: 9, title: '환경부 카드뉴스 시리즈', category: 'SNS', description: '친환경 캠페인 인포그래픽', thumbnail: '../assets/img/portfolio/sample_9.png' },
-                        { id: 10, title: '박물관 디지털 사이니지', category: 'Online AD', description: '전시 안내 인터랙티브 키오스크', thumbnail: '../assets/img/portfolio/sample_10.png' },
-                    ];
-                    renderPortfolios(allPortfolios);
-                }
-            }
-
-            // 필터링 함수
-            window.filterPortfolios = function (category) {
-                if (category === 'all') {
-                    renderPortfolios(allPortfolios);
-                } else {
-                    const filtered = allPortfolios.filter(p => {
-                        const cat = (p.category || '').toLowerCase().replace(/\s+/g, '_');
-                        return cat === category;
-                    });
-                    renderPortfolios(filtered);
-                }
-            };
-
-            // 페이지 로드 시 실행
-            fetchPortfolios();
-        </script>
-
-        <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(function () {
-                // 필터 탭 클릭 시
-                $('.portfolio-itemTab .filter').on('click', function () {
-                    $('.portfolio-itemTab .filter').removeClass('active');
-                    $(this).addClass('active');
-
-                    const category = $(this).data('filter');
-                    window.filterPortfolios(category);
-                });
-            });
-        </script>
-
-        <!-- GSAP 애니메이션 초기화 -->
-        <script>
-            // GSAP & ScrollTrigger 등록
-            gsap.registerPlugin(ScrollTrigger);
-
-            // 페이지 로드 후 애니메이션 시작
-            window.addEventListener('load', function () {
-                // 로딩 완료 후 약간의 딜레이
-                setTimeout(initAnimations, 300);
-            });
-
-            function initAnimations() {
-                // 1. 히어로 타이틀 애니메이션
-                const heroTimeline = gsap.timeline();
-
-                heroTimeline
-                    // 인트로 텍스트 먼저 등장
-                    .to('.intro-text', {
-                        opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.2,
-                        ease: 'power2.out'
-                    })
-                    // 잠시 유지 후 사라짐
-                    .to('.intro-text', {
-                        opacity: 0,
-                        y: -20,
-                        duration: 0.6,
-                        stagger: 0.1,
-                        ease: 'power2.in'
-                    }, '+=0.8')
-                    // 메인 타이틀 등장
-                    .to('.gsap-title', {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1.2,
-                        ease: 'power4.out'
-                    }, '-=0.3')
-                    .to('.gsap-subtitle', {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    }, '-=0.6')
-                    .to('.gsap-line', {
-                        scaleX: 1,
-                        duration: 1,
-                        ease: 'power2.inOut'
-                    }, '-=0.4');
-
-                // 2. 카테고리 탭 순차 등장
-                gsap.from('.portfolio-itemTab .filter', {
-                    opacity: 0,
-                    y: 20,
-                    duration: 0.5,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: '.portfolio-itemTab',
-                        start: 'top 85%'
-                    }
-                });
-
-                // 3. 포트폴리오 아이템 관찰자 (동적 로드 대응)
-                observePortfolioItems();
-            }
-
-            // MutationObserver로 동적 로드된 아이템 감지
-            function observePortfolioItems() {
-                const portfolioList = document.getElementById('portfolioList');
-
-                const observer = new MutationObserver(function (mutations) {
-                    mutations.forEach(function (mutation) {
-                        if (mutation.addedNodes.length > 0) {
-                            animatePortfolioItems();
-                        }
-                    });
-                });
-
-                observer.observe(portfolioList, { childList: true });
-
-                // 이미 로드된 아이템이 있으면 바로 애니메이션
-                if (portfolioList.children.length > 0) {
-                    animatePortfolioItems();
-                }
-            }
-
-            // 포트폴리오 카드 애니메이션
-            function animatePortfolioItems() {
-                const items = document.querySelectorAll('.portfolio2-item');
-
-                // 초기 상태 설정
-                gsap.set(items, {
-                    opacity: 0,
-                    y: 60,
-                    scale: 0.9
-                });
-
-                // 순차적 등장 애니메이션
-                gsap.to(items, {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.8,
-                    stagger: {
-                        each: 0.1,
-                        grid: [3, 3],
-                        from: 'start'
-                    },
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '#portfolioList',
-                        start: 'top 80%'
-                    }
-                });
-
-                // 호버 효과 강화
-                items.forEach(item => {
-                    item.addEventListener('mouseenter', function () {
-                        gsap.to(this, {
-                            scale: 1.03,
-                            boxShadow: '0 20px 40px rgba(0, 102, 204, 0.25)',
-                            duration: 0.4,
-                            ease: 'power2.out'
-                        });
-                        gsap.to(this.querySelector('img'), {
-                            scale: 1.1,
-                            filter: 'grayscale(0%)',
-                            duration: 0.5,
-                            ease: 'power2.out'
-                        });
-                        gsap.to(this.querySelector('.overlay'), {
-                            opacity: 1,
-                            duration: 0.3
-                        });
-                    });
-
-                    item.addEventListener('mouseleave', function () {
-                        gsap.to(this, {
-                            scale: 1,
-                            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                            duration: 0.4,
-                            ease: 'power2.out'
-                        });
-                        gsap.to(this.querySelector('img'), {
-                            scale: 1,
-                            filter: 'grayscale(30%)',
-                            duration: 0.5,
-                            ease: 'power2.out'
-                        });
-                        gsap.to(this.querySelector('.overlay'), {
-                            opacity: 0,
-                            duration: 0.3
-                        });
-                    });
-                });
-            }
-
-            // 스크롤 시 패럴랙스 효과 (서브탑)
-            gsap.to('.sub-top', {
-                backgroundPositionY: '30%',
-                scrollTrigger: {
-                    trigger: '.sub-top',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1
-                }
-            });
-        </script>
-
         <div id="footer-placeholder"></div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
+            authDomain: "hivemedia-archive.firebaseapp.com",
+            projectId: "hivemedia-archive",
+            storageBucket: "hivemedia-archive.firebasestorage.app",
+            messagingSenderId: "105246116532",
+            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1",
+            measurementId: "G-1YZDYEPFFN"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 카테고리 한글 매핑
+        const categoryNames = {
+            'sns': 'SNS',
+            'homepage': 'HOMEPAGE',
+            'video': 'VIDEO',
+            'online_ad': 'ONLINE AD'
+        };
+
+        // 포트폴리오 데이터 가져오기
+        async function fetchPortfolios() {
+            try {
+                const portfoliosRef = collection(db, 'portfolios');
+                const q = query(portfoliosRef, orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+
+                const portfolios = [];
+                querySnapshot.forEach((doc) => {
+                    portfolios.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                renderClients(portfolios);
+                renderCategories(portfolios);
+                renderRecentProjects(portfolios);
+            } catch (error) {
+                console.error('Error fetching portfolios:', error);
+                document.getElementById('clientsList').innerHTML = '<div class="list-item">Failed to load</div>';
+            }
+        }
+
+        // 클라이언트 목록 렌더링
+        function renderClients(portfolios) {
+            const clientsEl = document.getElementById('clientsList');
+            const uniqueClients = [...new Set(portfolios.map(p => p.title).filter(Boolean))];
+
+            if (uniqueClients.length === 0) {
+                clientsEl.innerHTML = '<div class="list-item">NO CLIENTS YET</div>';
+                return;
+            }
+
+            clientsEl.innerHTML = uniqueClients.slice(0, 20).map(client =>
+                `<div class="list-item">${client.toUpperCase()}</div>`
+            ).join('');
+        }
+
+        // 카테고리별 프로젝트 수 렌더링
+        function renderCategories(portfolios) {
+            const categoryEl = document.getElementById('categoryList');
+            const categoryCounts = {};
+
+            portfolios.forEach(p => {
+                const cat = p.category || 'other';
+                categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+            });
+
+            const categoryOrder = ['sns', 'homepage', 'video', 'online_ad'];
+            let html = '';
+
+            categoryOrder.forEach(cat => {
+                const count = categoryCounts[cat] || 0;
+                const displayName = categoryNames[cat] || cat.toUpperCase();
+                html += `
+                    <div class="list-row">
+                        <span class="name">${displayName}</span>
+                        <span class="award">—</span>
+                        <span class="count">X${count}</span>
+                    </div>
+                `;
+            });
+
+            categoryEl.innerHTML = html || '<div class="list-row"><span class="name">NO DATA</span></div>';
+        }
+
+        // 최근 프로젝트 렌더링
+        function renderRecentProjects(portfolios) {
+            const recentEl = document.getElementById('recentProjects');
+            const recentItems = portfolios.slice(0, 10);
+
+            if (recentItems.length === 0) {
+                recentEl.innerHTML = '<div class="list-row"><span class="name">NO PROJECTS YET</span></div>';
+                return;
+            }
+
+            recentEl.innerHTML = recentItems.map(p => {
+                const cat = categoryNames[p.category] || p.category?.toUpperCase() || 'OTHER';
+                return `
+                    <div class="list-row">
+                        <span class="name">${(p.title || 'UNTITLED').toUpperCase()}</span>
+                        <span class="award">${cat}</span>
+                        <span class="count"></span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 페이지 로드 시 실행
+        fetchPortfolios();
+    </script>
 </body>
 
 </html>
