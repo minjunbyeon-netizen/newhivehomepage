@@ -89,13 +89,21 @@ $base_path = '/01_work/hivemedia_homepage';
             line-height: 1.6;
         }
 
-        /* Header Override */
+        /* Header Override - Dark */
         .header {
-            background: #f5f5f0 !important;
+            background: #1a1a1a !important;
         }
 
         .header .conbox {
-            background: #f5f5f0 !important;
+            background: #1a1a1a !important;
+        }
+
+        .header .logo img {
+            filter: brightness(0) invert(1);
+        }
+
+        .header .menu-toggle span {
+            background: #fff !important;
         }
 
         /* Main Layout - 40:60 Split */
@@ -299,11 +307,18 @@ $base_path = '/01_work/hivemedia_homepage';
             color: #888;
         }
 
-        /* Footer Override */
+        /* Footer Override - Dark */
         footer,
         .footer {
-            background: #f5f5f0 !important;
-            border-top: 1px solid #ddd;
+            background: #1a1a1a !important;
+            border-top: 1px solid #333;
+            color: #fff;
+        }
+
+        .footer a,
+        .footer p,
+        .footer span {
+            color: rgba(255, 255, 255, 0.7) !important;
         }
 
         .dark_bg {
