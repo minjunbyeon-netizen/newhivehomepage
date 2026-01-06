@@ -12,7 +12,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 <head>
     <meta charset="utf-8">
-    <title>하이브미디어 - ARCHIVE</title>
+    <title>하이브미디어 아카이브 | 마케팅 인사이트</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:title" content="하이브미디어 - ARCHIVE" />

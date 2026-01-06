@@ -12,7 +12,7 @@ $CODE = isset($_REQUEST["CODE"]) ? htmlspecialchars($_REQUEST["CODE"]) : '';
 
 <head>
 	<meta charset="utf-8">
-	<title>하이브미디어 - PORTFOLIO</title>
+	<title>하이브미디어 포트폴리오 | 프로젝트 상세</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta property="og:title" content="하이브미디어 - PORTFOLIO" />
