@@ -99,12 +99,20 @@
 
     /* 네비게이션 서브타이틀 (한글) 스타일 */
     .gnb .nav-sub {
-        display: block;
+        display: inline;
         font-size: 0.5em;
         font-weight: 400;
-        opacity: 0.6;
-        margin-top: 4px;
+        opacity: 0.5;
+        margin-left: 6px;
         letter-spacing: 0;
+    }
+
+    .gnb .nav-sub::before {
+        content: "(";
+    }
+
+    .gnb .nav-sub::after {
+        content: ")";
     }
 </style>
 
