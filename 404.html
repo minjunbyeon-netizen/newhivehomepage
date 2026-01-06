@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <title>페이지를 찾을 수 없습니다 | 하이브미디어</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png" />
+    <link rel="stylesheet" href="./assets/css/all.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            background: #f5f5f0;
+            color: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .error-code {
+            font-size: clamp(100px, 20vw, 200px);
+            font-weight: 800;
+            letter-spacing: -8px;
+            color: #1a1a1a;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 400px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #1a1a1a;
+            border: 2px solid #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .contact-info {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .contact-info a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <h1 class="error-title">페이지를 찾을 수 없습니다</h1>
+        <p class="error-message">
+            요청하신 페이지가 존재하지 않거나 이동되었습니다.<br>
+            주소를 다시 확인해 주세요.
+        </p>
+        <div class="error-actions">
+            <a href="./" class="btn btn-primary">홈으로 이동</a>
+            <a href="./contact.html" class="btn btn-secondary">문의하기</a>
+        </div>
+        <div class="contact-info">
+            도움이 필요하시면 <a href="tel:070-7728-6334">070-7728-6334</a> 또는
+            <a href="mailto:hive_ad@hivemedia.co.kr">hive_ad@hivemedia.co.kr</a>로 연락주세요.
+        </div>
+    </div>
+</body>
+
+</html>
