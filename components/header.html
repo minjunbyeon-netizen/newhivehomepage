@@ -46,28 +46,29 @@
         border-color: rgba(255, 255, 255, 0.5) !important;
     }
 
-    /* 회사소개서 버튼 스타일 */
+    /* 회사소개서 버튼 스타일 - 토글과 유사한 톤앤매너 */
     .btn-brochure {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 20px;
-        background: #8B0000;
+        padding: 6px 14px;
+        background: #c62828;
         color: #fff;
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 500;
         font-family: 'Noto Sans KR', sans-serif;
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: 4px;
         transition: all 0.3s ease;
-        margin-right: 15px;
+        margin-right: 12px;
         white-space: nowrap;
+        height: 30px;
+        letter-spacing: -0.3px;
     }
 
     .btn-brochure:hover {
-        background: #a50000;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+        background: #e53935;
+        box-shadow: 0 2px 8px rgba(198, 40, 40, 0.4);
     }
 
     .btn-brochure span {
@@ -76,9 +77,10 @@
 
     @media (max-width: 768px) {
         .btn-brochure {
-            padding: 8px 14px;
+            padding: 5px 10px;
             font-size: 11px;
-            margin-right: 10px;
+            margin-right: 8px;
+            height: 26px;
         }
     }
 
