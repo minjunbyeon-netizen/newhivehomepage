@@ -593,6 +593,13 @@ Aside
 	cursor: pointer;
 }
 
+/* =====================================================
+   메인 메뉴 ::before 가상 요소 - 화살표 아이콘 (→)
+   - 기본 상태: 숨김 (opacity: 0, visibility: hidden)
+   - 호버 시 나타남 (아래 :hover::before 참조)
+   - 위치: 메뉴 텍스트 왼쪽 (left: 0)
+   - 이미지: menu_on_arrow.png (22x20px)
+   ===================================================== */
 .nav-wrap .gnb ul li a::before {
 	opacity: 0;
 	visibility: hidden;
@@ -608,6 +615,13 @@ Aside
 	transition: .4s cubic-bezier(.54, 0, .1, .98)
 }
 
+/* =====================================================
+   메인 메뉴 ::after 가상 요소 - 파란 점 (●)
+   - 기본 상태: 숨김 (opacity: 0, visibility: hidden)
+   - 현재 호버 효과에서 제외됨 (점이 나타나지 않음)
+   - 위치: 메뉴 텍스트 오른쪽 끝 (right: -15px, bottom: 15px)
+   - 스타일: 파란색 원형 (#0084ff, 10x10px)
+   ===================================================== */
 .nav-wrap .gnb ul li a::after {
 	opacity: 0;
 	visibility: hidden;
@@ -623,13 +637,23 @@ Aside
 	transition: .4s cubic-bezier(.54, 0, .1, .98);
 }
 
-/* 호버 효과 - 화살표만 (점 제외) */
+/* =====================================================
+   메인 메뉴 호버 효과 (ABOUT, PORTFOLIO, ARCHIVE 등)
+   - font-family: 이탤릭체로 변경 (Poppins-BlackItalic)
+   - padding-left: 30px 오른쪽으로 이동 (화살표 공간 확보)
+   - color: 파란색으로 변경 (#0084ff)
+   ===================================================== */
 .nav-wrap .gnb .inn>ul>li>a:hover {
 	font-family: Poppins-BlackItalic;
 	padding-left: 30px;
 	color: #0084ff;
 }
 
+/* =====================================================
+   메인 메뉴 호버 시 화살표 표시
+   - ::before 가상 요소만 활성화 (화살표만 나타남)
+   - ::after 가상 요소는 제외 (파란점 안 나타남)
+   ===================================================== */
 .nav-wrap .gnb .inn>ul>li>a:hover::before {
 	opacity: 1;
 	visibility: visible;
