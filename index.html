@@ -101,6 +101,19 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
     <style>
+        /* Screen reader only - SEO H1 */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         /* 기존 메인 텍스트 스타일 */
         .main_text01>p,
         .main_text02>p {
@@ -800,7 +813,7 @@
                 <div class="sub-top">
                     <div class="intro">
                         <div class="logo-con">
-                            <img src="./assets/img/logo_img_b.png" alt="">
+                            <img src="./assets/img/logo_img_b.png" alt="하이브미디어 로고">
                         </div>
                     </div>
                     <div class="vimeo-con">
@@ -812,6 +825,7 @@
                             width="100%" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen></iframe>
 
                         <div class="main_text_box">
+                            <h1 class="visually-hidden">부산 공공기관 마케팅 전문 광고대행사 하이브미디어 - 10년의 노하우로 신뢰를 만들고 성과를 남기다</h1>
                             <div class="main_text01">
                                 <p>공공기관&nbsp; 마케팅&nbsp; </p>
                                 <p class="bold_p">10년의&nbsp; 노하우</p>
@@ -901,7 +915,7 @@
                         <a href="./about.html" class="section-link">회사소개 →</a>
                     </div>
                     <div class="gsap-section-image">
-                        <img src="./assets/uploaded/thumbnail/about_01.jpg" alt="공공기관 마케팅 전문 하이브미디어">
+                        <img src="./assets/uploaded/thumbnail/about_01.jpg" alt="공공기관 마케팅 전문 하이브미디어" loading="lazy">
                     </div>
                 </div>
             </section>
@@ -935,7 +949,7 @@
                             <div class="service-card active" data-service="0">
                                 <div class="service-thumb">
                                     <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop"
-                                        alt="온라인 광고">
+                                        alt="온라인 광고" loading="lazy">
                                 </div>
                                 <div class="service-title">온라인 광고</div>
                             </div>
@@ -944,7 +958,7 @@
                             <div class="service-card" data-service="1">
                                 <div class="service-thumb">
                                     <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=200&fit=crop"
-                                        alt="콘텐츠 제작">
+                                        alt="콘텐츠 제작" loading="lazy">
                                 </div>
                                 <div class="service-title">콘텐츠 제작</div>
                             </div>
@@ -953,7 +967,7 @@
                             <div class="service-card" data-service="2">
                                 <div class="service-thumb">
                                     <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=300&h=200&fit=crop"
-                                        alt="웹 개발">
+                                        alt="웹 개발" loading="lazy">
                                 </div>
                                 <div class="service-title">웹 개발</div>
                             </div>
@@ -962,7 +976,7 @@
                             <div class="service-card" data-service="3">
                                 <div class="service-thumb">
                                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=200&fit=crop"
-                                        alt="성과 분석">
+                                        alt="성과 분석" loading="lazy">
                                 </div>
                                 <div class="service-title">성과 분석</div>
                             </div>
@@ -1128,7 +1142,7 @@
                     </div>
                     <div class="gsap-section-image">
                         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=500&fit=crop"
-                            alt="공공기관 마케팅 프로세스">
+                            alt="공공기관 마케팅 프로세스" loading="lazy">
                     </div>
                 </div>
             </section>
