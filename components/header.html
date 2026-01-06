@@ -111,23 +111,13 @@
         content: "/ ";
     }
 
-    /* 메인 메뉴 호버 효과 제거, 서브메뉴만 호버 */
-    .gnb>.inn>ul>li>a {
-        transition: none !important;
-        transform: none !important;
+    /* 모든 메뉴 아이템에 동일한 호버 효과 적용 */
+    .gnb a {
+        transition: padding-left 0.2s ease;
     }
 
-    .gnb>.inn>ul>li>a:hover {
-        transform: none !important;
-    }
-
-    .gnb .depth2 a {
-        transition: all 0.2s ease;
-    }
-
-    .gnb .depth2 a:hover {
+    .gnb a:hover {
         padding-left: 10px;
-        opacity: 1;
     }
 </style>
 
