@@ -609,19 +609,7 @@ Aside
 }
 
 
-
-/* 호버 효과 - 화살표만 (점 제외) */
-/* transform 사용하여 왼쪽 기준선 고정, 텍스트만 오른쪽 이동 */
-.nav-wrap .gnb .inn>ul>li>a:hover {
-	font-family: Poppins-BlackItalic;
-	transform: translateX(30px);
-	color: #0084ff;
-}
-
-.nav-wrap .gnb .inn>ul>li>a:hover::before {
-	opacity: 1;
-	visibility: visible;
-}
+/* 호버 효과 비활성화 */
 
 .nav-wrap .gnb .depth2 {
 	margin-bottom: 30px
