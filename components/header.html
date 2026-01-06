@@ -100,19 +100,34 @@
     /* 네비게이션 서브타이틀 (한글) 스타일 */
     .gnb .nav-sub {
         display: inline;
-        font-size: 0.5em;
+        font-size: 0.4em;
         font-weight: 400;
         opacity: 0.5;
-        margin-left: 6px;
+        margin-left: 8px;
         letter-spacing: 0;
     }
 
     .gnb .nav-sub::before {
-        content: "(";
+        content: "/ ";
     }
 
-    .gnb .nav-sub::after {
-        content: ")";
+    /* 메인 메뉴 호버 효과 제거, 서브메뉴만 호버 */
+    .gnb>.inn>ul>li>a {
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .gnb>.inn>ul>li>a:hover {
+        transform: none !important;
+    }
+
+    .gnb .depth2 a {
+        transition: all 0.2s ease;
+    }
+
+    .gnb .depth2 a:hover {
+        padding-left: 10px;
+        opacity: 1;
     }
 </style>
 
