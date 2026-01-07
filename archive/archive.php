@@ -142,10 +142,10 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         .intro-text {
-            font-size: 11px;
+            font-family: NotoSansKR-Light;
+            font-size: 1.6rem;
             line-height: 1.8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--text-color);
             margin-bottom: 20px;
             max-width: 320px;
         }
@@ -251,9 +251,8 @@ $base_path = '/01_work/hivemedia_homepage';
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-family: NotoSansKR-Light;
+            font-size: 1.6rem;
             padding: 12px 0;
             border-bottom: 1px solid #ddd;
             cursor: pointer;
@@ -291,10 +290,9 @@ $base_path = '/01_work/hivemedia_homepage';
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 0;
+            font-family: NotoSansKR-Light;
+            font-size: 1.6rem;
+            padding: 12px 0;
             border-bottom: 1px solid #ddd;
         }
 
@@ -397,23 +395,13 @@ $base_path = '/01_work/hivemedia_homepage';
                 <h1 class="page-title-sub">ARCHIVE</h1>
 
                 <p class="intro-text">
-                    LATEST NEWS, MARKETING TRENDS,
-                    AND INDUSTRY INSIGHTS FROM
-                    HIVE MEDIA.
+                    마케팅 업계 최신 뉴스와
+                    하이브미디어의 프로젝트 비하인드 스토리.
                 </p>
 
                 <p class="intro-text">
-                    WE SHARE OUR KNOWLEDGE AND
-                    EXPERIENCE IN DIGITAL MARKETING,
-                    SNS MANAGEMENT, AND
-                    PUBLIC SECTOR COMMUNICATIONS.
-                </p>
-
-                <p class="intro-text">
-                    STAY UPDATED WITH THE LATEST
-                    DEVELOPMENTS IN THE MARKETING
-                    INDUSTRY AND LEARN FROM OUR
-                    CASE STUDIES.
+                    부산 광고업계의
+                    생생한 현장을 전합니다.
                 </p>
 
                 <div class="stats-box" id="statsBox">
@@ -431,7 +419,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     </div>
                 </div>
 
-                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">CONTACT US</a>
+                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">문의하기</a>
 
                 <div class="left-footer">
                     <a href="mailto:hivemedia@naver.com">EMAIL</a>

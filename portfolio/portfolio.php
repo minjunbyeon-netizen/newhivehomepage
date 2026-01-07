@@ -154,10 +154,10 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         .intro-text {
-            font-size: 11px;
+            font-family: NotoSansKR-Light;
+            font-size: 1.6rem;
             line-height: 1.8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--text-color);
             margin-bottom: 20px;
             max-width: 320px;
         }
@@ -291,10 +291,9 @@ $base_path = '/01_work/hivemedia_homepage';
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 0;
+            font-family: NotoSansKR-Light;
+            font-size: 1.6rem;
+            padding: 12px 0;
             border-bottom: 1px solid #ddd;
             cursor: pointer;
             transition: all 0.2s;
@@ -428,40 +427,22 @@ $base_path = '/01_work/hivemedia_homepage';
                 <h1 class="company-name">HIVE</h1>
                 <h1 class="company-name-sub">MEDIA</h1>
 
-                <div class="profile-image">
-                    <img src="../assets/img/logo_img_b.png" alt="Hivemedia Logo">
-                </div>
-
                 <p class="intro-text">
-                    AS A FULL-SERVICE MARKETING AGENCY WITH A
-                    PASSION FOR PUBLIC SECTOR MARKETING,
-                    WE BELIEVE IN CREATIVITY TO
-                    EMPOWER BRANDS.
+                    10년간 쌓아온 신뢰와 결과물.
                 </p>
 
                 <p class="intro-text">
-                    OUR GOAL IS TO CONNECT PEOPLE WITH
-                    BRANDS AND BUSINESSES THROUGH DESIGN.
-                    A COMBINATION OF STRONG CONCEPTS &
-                    REFINED EXECUTION TO DELIVER PREMIUM
-                    RESULTS.
+                    하이브미디어는 부산을 기반으로
+                    다양한 기관과 기업의 브랜드 가치를
+                    높여왔습니다.
                 </p>
 
                 <p class="intro-text">
-                    WITH A SHARP EYE FOR DETAIL, A TYPICAL
-                    STRAIGHTFORWARD APPROACH AND
-                    ENDLESS AMBITION, WE'VE GAINED
-                    EXPERIENCE WORKING FOR AGENCIES &
-                    GOVERNMENT OFFICES ACROSS KOREA.
+                    강한 컨셉과 세련된 실행력으로
+                    프리미엄 결과물을 만들어갑니다.
                 </p>
 
-                <p class="intro-text">
-                    CURRENTLY WE'RE WORKING AS A MARKETING
-                    AGENCY BASED IN BUSAN, KOREA
-                    SINCE 2015.
-                </p>
-
-                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">LET'S TALK</a>
+                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">문의하기</a>
 
                 <div class="left-footer">
                     <a href="mailto:hivemedia@naver.com">EMAIL</a>
