@@ -918,32 +918,84 @@
                             <p>한국광고협회 회원사이자 <strong>광고대행업 등록 사업자</strong>로서, 2015년 설립 이래 <strong>10년간 공공기관 마케팅에
                                     특화</strong>해왔습니다.</p>
 
-                            <!-- GEO: 통계 데이터 테이블 -->
-                            <div
-                                style="margin: 24px 0; padding: 20px; background: rgba(0,0,0,0.03); border-radius: 8px;">
-                                <p style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 12px;">KEY
-                                    METRICS
-                                    하이브미디어 성과 지표 (2025년 기준)</p>
-                                <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
-                                    <tr style="border-bottom: 1px solid #ddd;">
-                                        <td style="padding: 8px 0; color: #666;">누적 수행 프로젝트</td>
-                                        <td style="padding: 8px 0; font-weight: 700; text-align: right;">380건+</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #ddd;">
-                                        <td style="padding: 8px 0; color: #666;">공공기관 협력 경험</td>
-                                        <td style="padding: 8px 0; font-weight: 700; text-align: right;">52개 기관</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #ddd;">
-                                        <td style="padding: 8px 0; color: #666;">평균 계약 재연장율</td>
-                                        <td style="padding: 8px 0; font-weight: 700; text-align: right;">87.3%</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 8px 0; color: #666;">전국 거점</td>
-                                        <td style="padding: 8px 0; font-weight: 700; text-align: right;">부산(본사), 서울, 대구
-                                        </td>
-                                    </tr>
-                                </table>
+                            <!-- GEO: 통계 데이터 - 애니메이션 카운터 -->
+                            <div style="margin: 24px 0;">
+                                <p
+                                    style="font-size: 11px; font-weight: 600; color: #888; margin-bottom: 16px; letter-spacing: 1px;">
+                                    KEY METRICS — 하이브미디어 성과 지표 (2025년 기준)</p>
+                                <div class="about-stats-grid"
+                                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                                    <div class="stat-card"
+                                        style="padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
+                                        <p class="stat-number" data-target="380" data-suffix="건+"
+                                            style="font-size: 36px; font-weight: 700; color: #0084ff; margin-bottom: 6px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #666;">누적 수행 프로젝트</p>
+                                    </div>
+                                    <div class="stat-card"
+                                        style="padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
+                                        <p class="stat-number" data-target="52" data-suffix="개 기관"
+                                            style="font-size: 36px; font-weight: 700; color: #0084ff; margin-bottom: 6px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #666;">공공기관 협력 경험</p>
+                                    </div>
+                                    <div class="stat-card"
+                                        style="padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
+                                        <p class="stat-number" data-target="87.3" data-suffix="%" data-decimal="true"
+                                            style="font-size: 36px; font-weight: 700; color: #0084ff; margin-bottom: 6px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #666;">평균 계약 재연장율</p>
+                                    </div>
+                                    <div class="stat-card"
+                                        style="padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
+                                        <p
+                                            style="font-size: 28px; font-weight: 700; color: #0084ff; margin-bottom: 6px;">
+                                            3개</p>
+                                        <p style="font-size: 12px; color: #666;">전국 거점<br><span
+                                                style="font-size: 10px; color: #999;">부산 · 서울 · 대구</span></p>
+                                    </div>
+                                </div>
                             </div>
+
+                            <script>
+                                // ABOUT 섹션 숫자 카운트 애니메이션
+                                (function () {
+                                    const counters = document.querySelectorAll('.stat-number[data-target]');
+                                    let animated = false;
+
+                                    function animateCounters() {
+                                        counters.forEach(counter => {
+                                            const target = parseFloat(counter.dataset.target);
+                                            const suffix = counter.dataset.suffix || '';
+                                            const isDecimal = counter.dataset.decimal === 'true';
+                                            const duration = 2000;
+                                            const step = target / (duration / 16);
+                                            let current = 0;
+
+                                            const timer = setInterval(() => {
+                                                current += step;
+                                                if (current >= target) {
+                                                    current = target;
+                                                    clearInterval(timer);
+                                                }
+                                                counter.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+                                            }, 16);
+                                        });
+                                    }
+
+                                    const observer = new IntersectionObserver((entries) => {
+                                        entries.forEach(entry => {
+                                            if (entry.isIntersecting && !animated) {
+                                                animated = true;
+                                                animateCounters();
+                                            }
+                                        });
+                                    }, { threshold: 0.5 });
+
+                                    const statsGrid = document.querySelector('.about-stats-grid');
+                                    if (statsGrid) observer.observe(statsGrid);
+                                })();
+                            </script>
 
                             <!-- GEO: 전문가 인용 -->
                             <blockquote
