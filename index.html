@@ -1195,22 +1195,97 @@
                             <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">아카이브</span>
                             <h2>ARCHIVE<br><span class="h2-sub">아카이브</span></h2>
                             <p>최신 마케팅 트렌드와 업계 소식을 공유합니다.</p>
-                            <div class="archive-preview" style="margin-top: 30px;">
-                                <div class="archive-item" style="padding: 20px 0; border-bottom: 1px solid #ddd;">
-                                    <p style="font-size: 12px; color: #888; margin-bottom: 8px;">TREND</p>
-                                    <p style="font-size: 16px; font-weight: 600; color: #1a1a1a;">2026년 SNS 마케팅 트렌드 전망
-                                    </p>
+                            <div class="archive-accordion" style="margin-top: 30px;">
+                                <!-- TREND 카테고리 -->
+                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
+                                    <button class="archive-cat-btn"
+                                        onclick="this.parentElement.classList.toggle('active')"
+                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
+                                        <span
+                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">TREND</span>
+                                        <span class="archive-cat-icon"
+                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
+                                    </button>
+                                    <div class="archive-cat-list"
+                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <a href="./archive/archive.php?cat=trend"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">2026년
+                                            SNS 마케팅 트렌드 전망</a>
+                                        <a href="./archive/archive.php?cat=trend"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">AI
+                                            기반 콘텐츠 자동화 동향</a>
+                                        <a href="./archive/archive.php?cat=trend"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s; margin-bottom: 12px;">숏폼
+                                            콘텐츠 제작 트렌드</a>
+                                    </div>
                                 </div>
-                                <div class="archive-item" style="padding: 20px 0; border-bottom: 1px solid #ddd;">
-                                    <p style="font-size: 12px; color: #888; margin-bottom: 8px;">INSIGHT</p>
-                                    <p style="font-size: 16px; font-weight: 600; color: #1a1a1a;">효과적인 홍보영상 제작 가이드</p>
+
+                                <!-- INSIGHT 카테고리 -->
+                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
+                                    <button class="archive-cat-btn"
+                                        onclick="this.parentElement.classList.toggle('active')"
+                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
+                                        <span
+                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">INSIGHT</span>
+                                        <span class="archive-cat-icon"
+                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
+                                    </button>
+                                    <div class="archive-cat-list"
+                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <a href="./archive/archive.php?cat=insight"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">효과적인
+                                            홍보영상 제작 가이드</a>
+                                        <a href="./archive/archive.php?cat=insight"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">공공기관
+                                            SNS 운영 핵심 전략</a>
+                                        <a href="./archive/archive.php?cat=insight"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s; margin-bottom: 12px;">온라인
+                                            광고 효율 극대화 방법</a>
+                                    </div>
                                 </div>
-                                <div class="archive-item" style="padding: 20px 0; border-bottom: 1px solid #ddd;">
-                                    <p style="font-size: 12px; color: #888; margin-bottom: 8px;">CASE STUDY</p>
-                                    <p style="font-size: 16px; font-weight: 600; color: #1a1a1a;">지자체 SNS 운영 성공 사례</p>
+
+                                <!-- CASE STUDY 카테고리 -->
+                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
+                                    <button class="archive-cat-btn"
+                                        onclick="this.parentElement.classList.toggle('active')"
+                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
+                                        <span
+                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">CASE
+                                            STUDY</span>
+                                        <span class="archive-cat-icon"
+                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
+                                    </button>
+                                    <div class="archive-cat-list"
+                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <a href="./archive/archive.php?cat=case"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">지자체
+                                            SNS 운영 성공 사례</a>
+                                        <a href="./archive/archive.php?cat=case"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">부산항만공사
+                                            브랜딩 프로젝트</a>
+                                        <a href="./archive/archive.php?cat=case"
+                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s; margin-bottom: 12px;">해운대구청
+                                            영상 캠페인 분석</a>
+                                    </div>
                                 </div>
                             </div>
                             <a href="./archive/archive.php" class="section-link">아카이브 보기 →</a>
+
+                            <style>
+                                .archive-category.active .archive-cat-list {
+                                    max-height: 200px !important;
+                                }
+
+                                .archive-category.active .archive-cat-icon {
+                                    transform: rotate(45deg);
+                                }
+
+                                .archive-cat-list a:hover {
+                                    color: #0084ff !important;
+                                    border-left-color: #0084ff !important;
+                                    padding-left: 20px !important;
+                                }
+                            </style>
                         </div>
 
                         <!-- 아카이브 오른쪽 이미지 영역 -->
