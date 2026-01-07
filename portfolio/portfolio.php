@@ -414,6 +414,184 @@ $base_path = '/01_work/hivemedia_homepage';
                 font-size: 10px;
             }
         }
+
+        /* Bento Grid Styles */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 200px);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .bento-card {
+            position: relative;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .bento-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .bento-card--large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .bento-card__bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            transition: opacity 0.3s, transform 0.5s;
+        }
+
+        .bento-card:hover .bento-card__bg {
+            opacity: 0.25;
+            transform: scale(1.05);
+        }
+
+        .bento-card__content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card__icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .bento-card__title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bento-card__subtitle {
+            font-size: 12px;
+            color: #888;
+            font-family: NotoSansKR-Light;
+        }
+
+        .bento-card__count {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0084ff;
+        }
+
+        .bento-card__count span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .bento-card--large .bento-card__title {
+            font-size: 28px;
+        }
+
+        .bento-card--large .bento-card__count {
+            font-size: 48px;
+        }
+
+        /* Card Color Themes */
+        .bento-card--online .bento-card__icon {
+            background: rgba(0, 132, 255, 0.1);
+            color: #0084ff;
+        }
+
+        .bento-card--sns .bento-card__icon {
+            background: rgba(225, 48, 108, 0.1);
+            color: #E1306C;
+        }
+
+        .bento-card--homepage .bento-card__icon {
+            background: rgba(26, 26, 26, 0.1);
+            color: #1a1a1a;
+        }
+
+        .bento-card--video .bento-card__icon {
+            background: rgba(255, 0, 0, 0.1);
+            color: #FF0000;
+        }
+
+        .bento-card--event .bento-card__icon {
+            background: rgba(255, 193, 7, 0.1);
+            color: #FFC107;
+        }
+
+        .bento-card--print .bento-card__icon {
+            background: rgba(102, 102, 102, 0.1);
+            color: #666;
+        }
+
+        .bento-card__projects {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .bento-card__projects span {
+            display: block;
+            padding: 4px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Hide bento grid when category is selected */
+        .bento-grid.hidden {
+            display: none;
+        }
+
+        .section-block.hidden {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+
+            .bento-card--large {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-card--large {
+                grid-column: span 1;
+            }
+
+            .bento-card {
+                min-height: 160px;
+            }
+        }
     </style>
 </head>
 
@@ -467,8 +645,91 @@ $base_path = '/01_work/hivemedia_homepage';
                     <span class="category-tab" data-category="exhibition">Exhibition Art</span>
                 </div>
 
-                <!-- All Projects List -->
-                <div class="section-block">
+                <!-- Bento Grid - 카테고리별 카드 -->
+                <div class="bento-grid" id="bentoGrid">
+                    <!-- 온라인 광고 (Large) -->
+                    <div class="bento-card bento-card--large bento-card--online" data-category="online_ad">
+                        <div class="bento-card__bg" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%230084ff%22/%3E%3C/svg%3E');"></div>
+                        <div class="bento-card__content">
+                            <div>
+                                <div class="bento-card__icon">📊</div>
+                                <h3 class="bento-card__title">Online AD</h3>
+                                <p class="bento-card__subtitle">온라인 광고 · 검색광고 · DA · 리타겟팅</p>
+                            </div>
+                            <div>
+                                <p class="bento-card__count">15 <span>projects</span></p>
+                                <div class="bento-card__projects">
+                                    <span>부산시 관광홍보 네이버 SA</span>
+                                    <span>해운대구 축제 구글 DA</span>
+                                    <span>경남도청 카카오모먼트</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SNS 운영 -->
+                    <div class="bento-card bento-card--sns" data-category="sns">
+                        <div class="bento-card__content">
+                            <div>
+                                <div class="bento-card__icon">📱</div>
+                                <h3 class="bento-card__title">SNS</h3>
+                                <p class="bento-card__subtitle">채널 운영 · 콘텐츠 제작</p>
+                            </div>
+                            <p class="bento-card__count">15 <span>건</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 홈페이지 -->
+                    <div class="bento-card bento-card--homepage" data-category="homepage">
+                        <div class="bento-card__content">
+                            <div>
+                                <div class="bento-card__icon">🌐</div>
+                                <h3 class="bento-card__title">Homepage</h3>
+                                <p class="bento-card__subtitle">웹사이트 구축 · 포털</p>
+                            </div>
+                            <p class="bento-card__count">15 <span>건</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 영상 제작 -->
+                    <div class="bento-card bento-card--video" data-category="video">
+                        <div class="bento-card__content">
+                            <div>
+                                <div class="bento-card__icon">🎬</div>
+                                <h3 class="bento-card__title">Video</h3>
+                                <p class="bento-card__subtitle">홍보영상 · 시네마틱</p>
+                            </div>
+                            <p class="bento-card__count">15 <span>건</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 이벤트페이지 -->
+                    <div class="bento-card bento-card--event" data-category="eventpage">
+                        <div class="bento-card__content">
+                            <div>
+                                <div class="bento-card__icon">🎉</div>
+                                <h3 class="bento-card__title">Event</h3>
+                                <p class="bento-card__subtitle">이벤트 · 프로모션</p>
+                            </div>
+                            <p class="bento-card__count">15 <span>건</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 인쇄물/전시 -->
+                    <div class="bento-card bento-card--print" data-category="print,exhibition">
+                        <div class="bento-card__content">
+                            <div>
+                                <div class="bento-card__icon">🖨️</div>
+                                <h3 class="bento-card__title">Print & Exhibition</h3>
+                                <p class="bento-card__subtitle">인쇄물 · 전시기획</p>
+                            </div>
+                            <p class="bento-card__count">18 <span>건</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Projects List (initially hidden) -->
+                <div class="section-block hidden" id="projectsSection">
                     <span class="section-title">PROJECTS</span>
                     <div class="single-col-list" id="projectsList">
                         <!-- Online AD Projects -->
@@ -913,27 +1174,63 @@ $base_path = '/01_work/hivemedia_homepage';
     </div>
 
     <script>
-        // Category Tab Filtering
+        // Category Tab & Bento Grid Filtering
         document.addEventListener('DOMContentLoaded', function () {
             const tabs = document.querySelectorAll('.category-tab');
             const items = document.querySelectorAll('#projectsList .list-row');
+            const bentoGrid = document.getElementById('bentoGrid');
+            const projectsSection = document.getElementById('projectsSection');
+            const bentoCards = document.querySelectorAll('.bento-card');
 
+            // Show bento grid, hide projects list
+            function showBentoGrid() {
+                bentoGrid.classList.remove('hidden');
+                projectsSection.classList.add('hidden');
+            }
+
+            // Show projects list, hide bento grid
+            function showProjectsList(category) {
+                bentoGrid.classList.add('hidden');
+                projectsSection.classList.remove('hidden');
+                
+                // Filter items
+                items.forEach(item => {
+                    const itemCategories = category.split(',');
+                    if (category === 'all' || itemCategories.includes(item.dataset.category)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            // Tab click handler
             tabs.forEach(tab => {
                 tab.addEventListener('click', function () {
-                    // Update active tab
                     tabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
 
                     const category = this.dataset.category;
 
-                    // Filter items
-                    items.forEach(item => {
-                        if (category === 'all' || item.dataset.category === category) {
-                            item.style.display = 'flex';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
+                    if (category === 'all') {
+                        showBentoGrid();
+                    } else {
+                        showProjectsList(category);
+                    }
+                });
+            });
+
+            // Bento card click handler
+            bentoCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const category = this.dataset.category;
+                    
+                    // Update tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    const matchingTab = document.querySelector(`.category-tab[data-category="${category.split(',')[0]}"]`);
+                    if (matchingTab) matchingTab.classList.add('active');
+                    
+                    showProjectsList(category);
                 });
             });
         });
