@@ -475,7 +475,9 @@ $base_path = '/01_work/hivemedia_homepage';
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             margin-bottom: 16px;
         }
 
@@ -649,10 +651,12 @@ $base_path = '/01_work/hivemedia_homepage';
                 <div class="bento-grid" id="bentoGrid">
                     <!-- 온라인 광고 (Large) -->
                     <div class="bento-card bento-card--large bento-card--online" data-category="online_ad">
-                        <div class="bento-card__bg" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%230084ff%22/%3E%3C/svg%3E');"></div>
+                        <div class="bento-card__bg"
+                            style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%230084ff%22/%3E%3C/svg%3E');">
+                        </div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">📊</div>
+                                <div class="bento-card__icon">AD</div>
                                 <h3 class="bento-card__title">Online AD</h3>
                                 <p class="bento-card__subtitle">온라인 광고 · 검색광고 · DA · 리타겟팅</p>
                             </div>
@@ -671,7 +675,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div class="bento-card bento-card--sns" data-category="sns">
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">📱</div>
+                                <div class="bento-card__icon">SNS</div>
                                 <h3 class="bento-card__title">SNS</h3>
                                 <p class="bento-card__subtitle">채널 운영 · 콘텐츠 제작</p>
                             </div>
@@ -683,7 +687,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div class="bento-card bento-card--homepage" data-category="homepage">
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">🌐</div>
+                                <div class="bento-card__icon">WEB</div>
                                 <h3 class="bento-card__title">Homepage</h3>
                                 <p class="bento-card__subtitle">웹사이트 구축 · 포털</p>
                             </div>
@@ -695,7 +699,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div class="bento-card bento-card--video" data-category="video">
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">🎬</div>
+                                <div class="bento-card__icon">VD</div>
                                 <h3 class="bento-card__title">Video</h3>
                                 <p class="bento-card__subtitle">홍보영상 · 시네마틱</p>
                             </div>
@@ -707,7 +711,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div class="bento-card bento-card--event" data-category="eventpage">
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">🎉</div>
+                                <div class="bento-card__icon">EVT</div>
                                 <h3 class="bento-card__title">Event</h3>
                                 <p class="bento-card__subtitle">이벤트 · 프로모션</p>
                             </div>
@@ -719,7 +723,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div class="bento-card bento-card--print" data-category="print,exhibition">
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">🖨️</div>
+                                <div class="bento-card__icon">P&E</div>
                                 <h3 class="bento-card__title">Print & Exhibition</h3>
                                 <p class="bento-card__subtitle">인쇄물 · 전시기획</p>
                             </div>
@@ -1192,7 +1196,7 @@ $base_path = '/01_work/hivemedia_homepage';
             function showProjectsList(category) {
                 bentoGrid.classList.add('hidden');
                 projectsSection.classList.remove('hidden');
-                
+
                 // Filter items
                 items.forEach(item => {
                     const itemCategories = category.split(',');
@@ -1224,12 +1228,12 @@ $base_path = '/01_work/hivemedia_homepage';
             bentoCards.forEach(card => {
                 card.addEventListener('click', function () {
                     const category = this.dataset.category;
-                    
+
                     // Update tabs
                     tabs.forEach(t => t.classList.remove('active'));
                     const matchingTab = document.querySelector(`.category-tab[data-category="${category.split(',')[0]}"]`);
                     if (matchingTab) matchingTab.classList.add('active');
-                    
+
                     showProjectsList(category);
                 });
             });
