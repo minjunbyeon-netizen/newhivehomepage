@@ -1367,20 +1367,20 @@
                                 }
                             </style>
                         </div>
-
                         <!-- 아카이브 오른쪽 이미지 영역 -->
                         <div class="gsap-section-image">
                             <div style="position: relative;">
                                 <!-- 트렌드 카드 스타일 그리드 -->
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div class="archive-stats-grid"
+                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                                     <div
                                         style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
                                         <p
                                             style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
                                             GROWTH</p>
-                                        <p
+                                        <p class="archive-stat-number" data-target="47" data-prefix="+" data-suffix="%"
                                             style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            +47%</p>
+                                            0</p>
                                         <p style="font-size: 12px; color: #666;">숏폼 콘텐츠 성장률<br>(2025 vs 2024)</p>
                                     </div>
                                     <div
@@ -1388,9 +1388,9 @@
                                         <p
                                             style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
                                             SOCIAL</p>
-                                        <p
+                                        <p class="archive-stat-number" data-target="82" data-suffix="%"
                                             style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            82%</p>
+                                            0</p>
                                         <p style="font-size: 12px; color: #666;">공공기관 SNS<br>활용 증가율</p>
                                     </div>
                                     <div
@@ -1398,9 +1398,10 @@
                                         <p
                                             style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
                                             VIDEO</p>
-                                        <p
+                                        <p class="archive-stat-number" data-target="3.2" data-suffix="x"
+                                            data-decimal="true"
                                             style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            3.2x</p>
+                                            0</p>
                                         <p style="font-size: 12px; color: #666;">영상 콘텐츠<br>전환율 상승</p>
                                     </div>
                                     <div
@@ -1408,14 +1409,56 @@
                                         <p
                                             style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
                                             TREND</p>
-                                        <p
+                                        <p class="archive-stat-number" data-target="1" data-prefix="#"
                                             style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            #1</p>
+                                            0</p>
                                         <p style="font-size: 12px; color: #666;">인스타그램 릴스<br>마케팅 채널 선호도</p>
                                     </div>
                                 </div>
                                 <p style="font-size: 11px; color: #999; text-align: center; margin-top: 16px;">* 2025
                                     디지털 마케팅 트렌드 리포트 기준</p>
+
+                                <!-- 아카이브 숫자 카운트 애니메이션 -->
+                                <script>
+                                    (function () {
+                                        const counters = document.querySelectorAll('.archive-stat-number[data-target]');
+                                        let animated = false;
+
+                                        function animateCounters() {
+                                            counters.forEach(counter => {
+                                                const target = parseFloat(counter.dataset.target);
+                                                const prefix = counter.dataset.prefix || '';
+                                                const suffix = counter.dataset.suffix || '';
+                                                const isDecimal = counter.dataset.decimal === 'true';
+                                                const duration = 2000;
+                                                const steps = duration / 16;
+                                                const step = target / steps;
+                                                let current = 0;
+
+                                                const timer = setInterval(() => {
+                                                    current += step;
+                                                    if (current >= target) {
+                                                        current = target;
+                                                        clearInterval(timer);
+                                                    }
+                                                    counter.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+                                                }, 16);
+                                            });
+                                        }
+
+                                        const observer = new IntersectionObserver((entries) => {
+                                            entries.forEach(entry => {
+                                                if (entry.isIntersecting && !animated) {
+                                                    animated = true;
+                                                    animateCounters();
+                                                }
+                                            });
+                                        }, { threshold: 0.5 });
+
+                                        const statsGrid = document.querySelector('.archive-stats-grid');
+                                        if (statsGrid) observer.observe(statsGrid);
+                                    })();
+                                </script>
                             </div>
                         </div>
                     </div>
