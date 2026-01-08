@@ -166,32 +166,30 @@ def save_article(db, trend: dict) -> bool:
         article = {
             "title": f"[{category}] {keyword} - 주간 트렌드 분석",
             "summary": f"이번 주 '{keyword}' 키워드의 검색 트렌드와 마케팅 인사이트입니다.",
-            "content": f"""## {keyword} 주간 트렌드 분석
+            "content": f"""{keyword} 주간 트렌드 분석
 
-이번 주 네이버 검색 트렌드에서 **'{keyword}'** 키워드가 주목받고 있습니다.
+이번 주 네이버 검색 트렌드에서 '{keyword}' 키워드가 주목받고 있습니다.
 
-### 📈 트렌드 현황
+[트렌드 현황]
 - 검색 인기도: {ratio:.1f}/100
 - 카테고리: {category}
 - 분석 기간: 최근 7일
 
-### 💡 마케팅 인사이트
+[마케팅 인사이트]
+1. 주간 검색량: 이 키워드는 지난 일주일간 높은 검색량을 기록했습니다.
+2. 타겟 오디언스: {category} 관련 콘텐츠에 관심있는 사용자층이 주요 타겟입니다.
+3. 콘텐츠 전략: 이 트렌드를 활용한 콘텐츠 마케팅이 효과적입니다.
 
-1. **주간 검색량**: 이 키워드는 지난 일주일간 높은 검색량을 기록했습니다.
-2. **타겟 오디언스**: {category} 관련 콘텐츠에 관심있는 사용자층이 주요 타겟입니다.
-3. **콘텐츠 전략**: 이 트렌드를 활용한 콘텐츠 마케팅이 효과적입니다.
-
-### 🐝 하이브미디어의 제안
-
+[하이브미디어의 제안]
 부산 지역 마케팅 전문 기업 하이브미디어는 이 트렌드를 지역 특성에 맞게 적용하여 클라이언트에게 최적의 마케팅 솔루션을 제공합니다.
 
-**문의: hivemedia@naver.com**
+문의: hivemedia@naver.com
 """,
             "category": category,
             "trendKeyword": keyword,
             "trendRatio": ratio,
             "source": "weekly_auto",
-            "status": "pending",  # 승인 대기 상태
+            "status": "pending",
             "createdAt": firestore.SERVER_TIMESTAMP
         }
         
