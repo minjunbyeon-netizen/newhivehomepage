@@ -3,12 +3,16 @@
 주간 트렌드 자동 글 생성기
 - 매주 목요일 오후 3시 실행 (Windows Task Scheduler)
 - 일주일간 트렌드 키워드 5개 조회
-- AI 글 생성 후 Firebase 저장
+- AI 글 생성 후 Firebase 저장 (pending 상태)
+- 이메일 알림 발송
 """
 
 import os
 import json
 import requests
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -30,6 +34,12 @@ FIREBASE_CRED_PATH = Path(__file__).parent / "firebase-service-account.json"
 # 생성할 글 개수
 ARTICLE_COUNT = 5
 
+# 이메일 알림 설정
+EMAIL_ENABLED = True  # 이메일 알림 사용 여부
+EMAIL_SENDER = "hivemedia@naver.com"  # 발신자 이메일
+EMAIL_RECEIVER = "hivemedia@naver.com"  # 수신자 이메일 (본인)
+EMAIL_SMTP_SERVER = "smtp.naver.com"
+EMAIL_SMTP_PORT = 587
 # 검색 카테고리별 키워드 (5개 카테고리에서 각 1개씩 = 5개 글)
 TREND_CATEGORIES = [
     {"name": "마케팅", "keywords": ["마케팅", "광고", "브랜딩", "SNS마케팅"]},
@@ -181,6 +191,7 @@ def save_article(db, trend: dict) -> bool:
             "trendKeyword": keyword,
             "trendRatio": ratio,
             "source": "weekly_auto",
+            "status": "pending",  # 승인 대기 상태
             "createdAt": firestore.SERVER_TIMESTAMP
         }
         
@@ -188,6 +199,72 @@ def save_article(db, trend: dict) -> bool:
         return True
     except Exception as e:
         log(f"[ERROR] 저장 실패: {e}")
+        return False
+
+
+# ============================================================
+# 이메일 알림
+# ============================================================
+
+def send_notification_email(articles: list):
+    """이메일 알림 발송"""
+    if not EMAIL_ENABLED or not EMAIL_PASSWORD:
+        log("[INFO] 이메일 알림 비활성화됨 (EMAIL_PASSWORD 미설정)")
+        return False
+    
+    try:
+        # 이메일 본문 생성
+        article_list = "\n".join([
+            f"  • [{a['category']}] {a['keyword']}" 
+            for a in articles
+        ])
+        
+        html_body = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #FFD93D;">🐝 Hivemedia Archive - 새 글 승인 요청</h2>
+            <p>자동 생성된 <strong>{len(articles)}개</strong>의 글이 승인을 기다리고 있습니다.</p>
+            
+            <h3>📋 생성된 글 목록:</h3>
+            <ul>
+                {"".join([f'<li>[{a["category"]}] {a["keyword"]}</li>' for a in articles])}
+            </ul>
+            
+            <p style="margin-top: 20px;">
+                <a href="http://localhost/01_work/hivemedia_homepage/archive/admin.html" 
+                   style="background: #FFD93D; color: #1a1a1a; padding: 12px 24px; 
+                          text-decoration: none; border-radius: 4px; font-weight: bold;">
+                    👉 Admin 페이지에서 확인하기
+                </a>
+            </p>
+            
+            <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;">
+            <p style="color: #888; font-size: 12px;">
+                이 메일은 주간 트렌드 자동 글 생성기에서 발송되었습니다.<br>
+                생성 시간: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+            </p>
+        </body>
+        </html>
+        """
+        
+        # 이메일 구성
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = f"[Hivemedia] 새 글 {len(articles)}개 승인 대기 중"
+        msg["From"] = EMAIL_SENDER
+        msg["To"] = EMAIL_RECEIVER
+        msg.attach(MIMEText(html_body, "html", "utf-8"))
+        
+        # SMTP 발송
+        with smtplib.SMTP(EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT) as server:
+            server.starttls()
+            server.login(EMAIL_SENDER, EMAIL_PASSWORD)
+            server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, msg.as_string())
+        
+        log(f"📧 이메일 알림 발송 완료: {EMAIL_RECEIVER}")
+        return True
+        
+    except Exception as e:
+        log(f"[ERROR] 이메일 발송 실패: {e}")
         return False
 
 
@@ -201,7 +278,7 @@ def main():
     log("=" * 60)
     
     # 1. 트렌드 조회
-    log("[1/3] 네이버 주간 트렌드 조회 중...")
+    log("[1/4] 네이버 주간 트렌드 조회 중...")
     trends = get_top_5_trends()
     
     if not trends:
@@ -211,28 +288,35 @@ def main():
     log(f"✅ {len(trends)}개 트렌드 키워드 수집 완료")
     
     # 2. Firebase 초기화
-    log("[2/3] Firebase 연결 중...")
+    log("[2/4] Firebase 연결 중...")
     db = init_firebase()
     
     if not db:
         log("❌ Firebase 연결 실패 - 종료")
         return
     
-    # 3. 글 생성 및 저장
-    log("[3/3] 글 생성 및 저장 중...")
-    success_count = 0
+    # 3. 글 생성 및 저장 (pending 상태)
+    log("[3/4] 글 생성 및 저장 중 (승인 대기 상태)...")
+    saved_articles = []
     
     for trend in trends:
         if save_article(db, trend):
             log(f"  ✅ 저장: [{trend['category']}] {trend['keyword']}")
-            success_count += 1
+            saved_articles.append(trend)
         else:
             log(f"  ❌ 실패: {trend['keyword']}")
     
+    # 4. 이메일 알림 발송
+    log("[4/4] 이메일 알림 발송 중...")
+    if saved_articles:
+        send_notification_email(saved_articles)
+    
     log("=" * 60)
-    log(f"✨ 완료! {success_count}/{len(trends)}개 글 저장됨")
+    log(f"✨ 완료! {len(saved_articles)}/{len(trends)}개 글 저장됨 (승인 대기 상태)")
+    log("👉 Admin 페이지에서 승인해주세요!")
     log("=" * 60)
 
 
 if __name__ == "__main__":
     main()
+

@@ -504,10 +504,14 @@ $base_path = '/01_work/hivemedia_homepage';
 
                 const articles = [];
                 querySnapshot.forEach((doc) => {
-                    articles.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
+                    const data = doc.data();
+                    // 승인된 글만 표시 (status가 없거나 'published'인 경우)
+                    if (!data.status || data.status === 'published') {
+                        articles.push({
+                            id: doc.id,
+                            ...data
+                        });
+                    }
                 });
 
                 renderStats(articles);
