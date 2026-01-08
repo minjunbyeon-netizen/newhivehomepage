@@ -315,7 +315,7 @@
 
 <body>
     <div class="container">
-        <h1>🐝 Archive Admin</h1>
+        <h1>Archive Admin</h1>
         <p class="subtitle">네이버 트렌드 → AI 글 생성 → Firebase 저장</p>
 
         <!-- 네이버 API 상태 -->
@@ -342,7 +342,7 @@
 
         <!-- 승인 대기 관리 -->
         <div class="section" id="pendingSection" style="border: 2px solid #ff6b6b;">
-            <h2>⏳ 승인 대기 글 <span class="badge" style="background: #ff6b6b;">REVIEW</span></h2>
+            <h2>승인 대기 글 <span class="badge" style="background: #ff6b6b;">REVIEW</span></h2>
             <div class="trend-list" id="pendingList">
                 <div class="trend-item" style="color: #888;">
                     <span>승인 대기중인 글이 없습니다</span>
@@ -350,20 +350,20 @@
             </div>
             <div class="actions" style="margin-top: 16px;">
                 <button class="btn" id="btnApproveAll" onclick="approveAllPending()" style="background: #4ADE80;">
-                    ✅ 전체 승인
+                    전체 승인
                 </button>
                 <button class="btn btn-danger" id="btnRejectAll" onclick="rejectAllPending()">
-                    ❌ 전체 거부
+                    전체 거부
                 </button>
             </div>
         </div>
 
         <!-- 네이버 트렌드 조회 -->
         <div class="section">
-            <h2>📊 네이버 트렌드 키워드 <span class="badge">LIVE</span></h2>
+            <h2>네이버 트렌드 키워드 <span class="badge">LIVE</span></h2>
             <div class="actions" style="margin-bottom: 16px;">
                 <button class="btn btn-naver" id="btnFetchTrend" onclick="fetchNaverTrends()">
-                    🔍 실시간 트렌드 조회
+                    실시간 트렌드 조회
                 </button>
             </div>
             <div class="trend-list" id="naverTrendList">
@@ -375,7 +375,7 @@
 
         <!-- 데모 키워드 -->
         <div class="section">
-            <h2>🔥 데모 트렌드 키워드</h2>
+            <h2>데모 트렌드 키워드</h2>
             <div class="trend-list" id="trendList">
                 <!-- JS로 렌더링 -->
             </div>
@@ -383,7 +383,7 @@
 
         <!-- 액션 버튼 -->
         <div class="section">
-            <h2>⚡ Actions</h2>
+            <h2>Actions</h2>
             <div class="actions">
                 <button class="btn btn-naver" id="btnGenerateNaver" onclick="generateFromNaverTrends()">
                     네이버 트렌드로 글 생성
@@ -399,13 +399,13 @@
 
         <!-- 로그 -->
         <div class="section">
-            <h2>📋 Log</h2>
+            <h2>Log</h2>
             <div class="log" id="logBox">[시스템] 준비 완료. 네이버 트렌드를 조회하거나 데모 글을 생성하세요.</div>
         </div>
 
         <!-- 링크 -->
         <div class="link-box">
-            <strong>👉 Archive 페이지:</strong>
+            <strong>Archive 페이지:</strong>
             <a href="./archive.php" target="_blank">archive.php 열기</a>
         </div>
     </div>
@@ -560,7 +560,7 @@
             const section = document.getElementById('pendingSection');
 
             if (articles.length === 0) {
-                container.innerHTML = '<div class="trend-item" style="color: #888;"><span>승인 대기중인 글이 없습니다 ✨</span></div>';
+                container.innerHTML = '<div class="trend-item" style="color: #888;"><span>승인 대기중인 글이 없습니다</span></div>';
                 section.style.border = '2px solid #333';
                 return;
             }
@@ -571,7 +571,7 @@
                     <input type="checkbox" id="pending${i}" value="${a.id}" checked>
                     <span class="keyword" style="cursor: pointer;" onclick="openPreview(${i})">${a.title || 'Untitled'}</span>
                     <span class="category">[${a.category || '기타'}]</span>
-                    <button class="btn btn-preview" onclick="openPreview(${i})">👁️ 미리보기</button>
+                    <button class="btn btn-preview" onclick="openPreview(${i})">미리보기</button>
                     <button class="btn" style="padding: 6px 12px; font-size: 10px; background: #4ADE80;" onclick="approveArticle('${a.id}')">승인</button>
                     <button class="btn btn-danger" style="padding: 6px 12px; font-size: 10px;" onclick="rejectArticle('${a.id}')">거부</button>
                 </div>
@@ -625,10 +625,10 @@
         window.approveArticle = async function (articleId) {
             try {
                 await updateDoc(doc(db, 'articles', articleId), { status: 'published' });
-                log(`✅ 승인 완료: ${articleId}`, 'success');
+                log(`승인 완료: ${articleId}`, 'success');
                 loadStats();
             } catch (e) {
-                log(`❌ 승인 실패: ${e.message}`, 'error');
+                log(`승인 실패: ${e.message}`, 'error');
             }
         };
 
@@ -637,10 +637,10 @@
             if (!confirm('정말 이 글을 삭제하시겠습니까?')) return;
             try {
                 await deleteDoc(doc(db, 'articles', articleId));
-                log(`🗑️ 거부/삭제 완료: ${articleId}`, 'success');
+                log(`거부/삭제 완료: ${articleId}`, 'success');
                 loadStats();
             } catch (e) {
-                log(`❌ 삭제 실패: ${e.message}`, 'error');
+                log(`삭제 실패: ${e.message}`, 'error');
             }
         };
 
@@ -652,18 +652,18 @@
                 return;
             }
 
-            log(`🚀 ${checkboxes.length}개 글 일괄 승인 시작...`, 'info');
+            log(`${checkboxes.length}개 글 일괄 승인 시작...`, 'info');
 
             for (const cb of checkboxes) {
                 try {
                     await updateDoc(doc(db, 'articles', cb.value), { status: 'published' });
-                    log(`  ✅ 승인: ${cb.value}`, 'success');
+                    log(`  승인: ${cb.value}`, 'success');
                 } catch (e) {
-                    log(`  ❌ 실패: ${cb.value}`, 'error');
+                    log(`  실패: ${cb.value}`, 'error');
                 }
             }
 
-            log('🎉 일괄 승인 완료!', 'success');
+            log('일괄 승인 완료!', 'success');
             loadStats();
         };
 
@@ -673,17 +673,17 @@
             if (checkboxes.length === 0) return;
             if (!confirm(`정말 ${checkboxes.length}개 글을 모두 삭제하시겠습니까?`)) return;
 
-            log(`🗑️ ${checkboxes.length}개 글 일괄 삭제 시작...`, 'info');
+            log(`${checkboxes.length}개 글 일괄 삭제 시작...`, 'info');
 
             for (const cb of checkboxes) {
                 try {
                     await deleteDoc(doc(db, 'articles', cb.value));
                 } catch (e) {
-                    log(`  ❌ 실패: ${cb.value}`, 'error');
+                    log(`  실패: ${cb.value}`, 'error');
                 }
             }
 
-            log('✅ 일괄 삭제 완료', 'success');
+            log('일괄 삭제 완료', 'success');
             loadStats();
         };
 
@@ -699,7 +699,7 @@
         window.fetchNaverTrends = async function () {
             const btn = document.getElementById('btnFetchTrend');
             btn.disabled = true;
-            log('📊 네이버 트렌드 조회 중...', 'naver');
+            log('네이버 트렌드 조회 중...', 'naver');
 
             // 브라우저에서는 CORS 때문에 직접 호출 불가
             // 대신 시뮬레이션된 트렌드 데이터 사용 (실제 서비스에서는 백엔드 API 필요)
@@ -719,13 +719,13 @@
                 window.naverTrends = trends;
                 renderNaverTrendList(trends);
 
-                log(`✅ ${trends.length}개 트렌드 키워드 조회 완료`, 'success');
+                log(`${trends.length}개 트렌드 키워드 조회 완료`, 'success');
                 trends.forEach(t => {
-                    log(`   📈 ${t.keyword} (${t.category}) - 인기도: ${t.ratio.toFixed(1)}`, 'naver');
+                    log(`   ${t.keyword} (${t.category}) - 인기도: ${t.ratio.toFixed(1)}`, 'naver');
                 });
 
             } catch (e) {
-                log(`❌ 트렌드 조회 실패: ${e.message}`, 'error');
+                log(`트렌드 조회 실패: ${e.message}`, 'error');
             }
 
             btn.disabled = false;
@@ -774,7 +774,7 @@
             const btn = document.getElementById('btnGenerateNaver');
             btn.disabled = true;
 
-            log(`🚀 ${checkboxes.length}개 네이버 트렌드 글 생성 시작...`, 'naver');
+            log(`${checkboxes.length}개 네이버 트렌드 글 생성 시작...`, 'naver');
 
             for (const cb of checkboxes) {
                 const trend = window.naverTrends[parseInt(cb.value)];
@@ -783,13 +783,13 @@
                 try {
                     const article = generateTrendContent(trend.keyword, trend.category, trend.ratio);
                     await addDoc(collection(db, 'articles'), article);
-                    log(`✅ 생성 완료: ${article.title}`, 'success');
+                    log(`생성 완료: ${article.title}`, 'success');
                 } catch (e) {
-                    log(`❌ 생성 실패: ${trend.keyword} - ${e.message}`, 'error');
+                    log(`생성 실패: ${trend.keyword} - ${e.message}`, 'error');
                 }
             }
 
-            log('🎉 네이버 트렌드 글 생성 완료!', 'success');
+            log('네이버 트렌드 글 생성 완료!', 'success');
             btn.disabled = false;
             loadStats();
         };
@@ -829,20 +829,20 @@
             const btn = document.getElementById('btnGenerate');
             btn.disabled = true;
 
-            log(`🚀 ${checkboxes.length}개 데모 글 생성 시작...`, 'info');
+            log(`${checkboxes.length}개 데모 글 생성 시작...`, 'info');
 
             for (const cb of checkboxes) {
                 const trend = DEMO_TRENDS[parseInt(cb.value)];
                 try {
                     const article = generateDemoContent(trend.keyword, trend.category);
                     await addDoc(collection(db, 'articles'), article);
-                    log(`✅ 생성 완료: ${article.title}`, 'success');
+                    log(`생성 완료: ${article.title}`, 'success');
                 } catch (e) {
-                    log(`❌ 생성 실패: ${trend.keyword} - ${e.message}`, 'error');
+                    log(`생성 실패: ${trend.keyword} - ${e.message}`, 'error');
                 }
             }
 
-            log('🎉 생성 완료!', 'success');
+            log('생성 완료!', 'success');
             btn.disabled = false;
             loadStats();
         };
@@ -854,7 +854,7 @@
             const btn = document.getElementById('btnClear');
             btn.disabled = true;
 
-            log('🗑️ 전체 삭제 시작...', 'info');
+            log('전체 삭제 시작...', 'info');
 
             try {
                 const articlesRef = collection(db, 'articles');
@@ -866,9 +866,9 @@
                     count++;
                 }
 
-                log(`✅ ${count}개 글 삭제 완료`, 'success');
+                log(`${count}개 글 삭제 완료`, 'success');
             } catch (e) {
-                log(`❌ 삭제 실패: ${e.message}`, 'error');
+                log(`삭제 실패: ${e.message}`, 'error');
             }
 
             btn.disabled = false;
