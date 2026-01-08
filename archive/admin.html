@@ -235,6 +235,81 @@
             border-radius: 50%;
             background: #03C75A;
         }
+
+        /* 미리보기 모달 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            border-radius: 12px;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 32px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #ff6b6b;
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-title {
+            color: #FFD93D;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .modal-meta {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .modal-body {
+            color: #f5f5f0;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .modal-actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-preview {
+            background: #60A5FA;
+            padding: 6px 12px;
+            font-size: 10px;
+        }
     </style>
 </head>
 
@@ -332,6 +407,23 @@
         <div class="link-box">
             <strong>👉 Archive 페이지:</strong>
             <a href="./archive.php" target="_blank">archive.php 열기</a>
+        </div>
+    </div>
+
+    <!-- 미리보기 모달 -->
+    <div class="modal-overlay" id="previewModal" onclick="closePreviewIfOverlay(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePreview()">×</button>
+            <h2 class="modal-title" id="previewTitle">제목</h2>
+            <div class="modal-meta">
+                <span>📁 카테고리: <strong id="previewCategory">-</strong></span>
+                <span>🔑 키워드: <strong id="previewKeyword">-</strong></span>
+            </div>
+            <div class="modal-body" id="previewContent">내용</div>
+            <div class="modal-actions">
+                <button class="btn btn-danger" onclick="rejectFromPreview()">❌ 거부</button>
+                <button class="btn" style="background: #4ADE80;" onclick="approveFromPreview()">✅ 승인</button>
+            </div>
         </div>
     </div>
 
@@ -462,7 +554,7 @@
             }
         };
 
-        // Pending 글 목록 렌더링
+        // Pending 글 목록 렌더링 (미리보기 버튼 포함)
         function renderPendingList(articles) {
             const container = document.getElementById('pendingList');
             const section = document.getElementById('pendingSection');
@@ -477,13 +569,57 @@
             container.innerHTML = articles.map((a, i) => `
                 <div class="trend-item" style="border-left: 3px solid #ff6b6b;">
                     <input type="checkbox" id="pending${i}" value="${a.id}" checked>
-                    <span class="keyword">${a.title || 'Untitled'}</span>
+                    <span class="keyword" style="cursor: pointer;" onclick="openPreview(${i})">${a.title || 'Untitled'}</span>
                     <span class="category">[${a.category || '기타'}]</span>
+                    <button class="btn btn-preview" onclick="openPreview(${i})">👁️ 미리보기</button>
                     <button class="btn" style="padding: 6px 12px; font-size: 10px; background: #4ADE80;" onclick="approveArticle('${a.id}')">승인</button>
                     <button class="btn btn-danger" style="padding: 6px 12px; font-size: 10px;" onclick="rejectArticle('${a.id}')">거부</button>
                 </div>
             `).join('');
         }
+
+        // 현재 미리보기 중인 글 ID
+        window.currentPreviewId = null;
+
+        // 미리보기 열기
+        window.openPreview = function (index) {
+            const article = window.pendingArticles[index];
+            if (!article) return;
+
+            window.currentPreviewId = article.id;
+            document.getElementById('previewTitle').textContent = article.title || 'Untitled';
+            document.getElementById('previewCategory').textContent = article.category || '기타';
+            document.getElementById('previewKeyword').textContent = article.trendKeyword || '-';
+            document.getElementById('previewContent').textContent = article.content || '내용이 없습니다.';
+            document.getElementById('previewModal').classList.add('active');
+        };
+
+        // 미리보기 닫기
+        window.closePreview = function () {
+            document.getElementById('previewModal').classList.remove('active');
+            window.currentPreviewId = null;
+        };
+
+        // 오버레이 클릭 시 닫기
+        window.closePreviewIfOverlay = function (event) {
+            if (event.target.id === 'previewModal') {
+                closePreview();
+            }
+        };
+
+        // 미리보기에서 승인
+        window.approveFromPreview = async function () {
+            if (!window.currentPreviewId) return;
+            await approveArticle(window.currentPreviewId);
+            closePreview();
+        };
+
+        // 미리보기에서 거부
+        window.rejectFromPreview = async function () {
+            if (!window.currentPreviewId) return;
+            await rejectArticle(window.currentPreviewId);
+            closePreview();
+        };
 
         // 단일 글 승인
         window.approveArticle = async function (articleId) {
