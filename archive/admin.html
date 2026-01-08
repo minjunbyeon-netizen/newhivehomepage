@@ -763,7 +763,7 @@
             };
         };
 
-        // 네이버 트렌드로 글 생성
+        // 네이버 트렌드로 글 생성 (Gemini API 사용)
         window.generateFromNaverTrends = async function () {
             const checkboxes = document.querySelectorAll('#naverTrendList input:checked');
             if (checkboxes.length === 0) {
@@ -774,14 +774,52 @@
             const btn = document.getElementById('btnGenerateNaver');
             btn.disabled = true;
 
-            log(`${checkboxes.length}개 네이버 트렌드 글 생성 시작...`, 'naver');
+            const useGemini = confirm('Gemini AI로 맞춤 글을 생성할까요?\n\n[확인] → AI 글 생성 (권장)\n[취소] → 템플릿 글 사용');
+
+            log(`${checkboxes.length}개 트렌드 글 생성 시작... (${useGemini ? 'AI 생성' : '템플릿'})`, 'naver');
 
             for (const cb of checkboxes) {
                 const trend = window.naverTrends[parseInt(cb.value)];
                 if (!trend) continue;
 
                 try {
-                    const article = generateTrendContent(trend.keyword, trend.category, trend.ratio);
+                    let article;
+
+                    if (useGemini) {
+                        // Gemini API 호출
+                        log(`AI 생성 중: ${trend.keyword}...`, 'info');
+                        const response = await fetch('./api/generate.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                keyword: trend.keyword,
+                                category: trend.category
+                            })
+                        });
+
+                        const result = await response.json();
+
+                        if (result.error && !result.fallback) {
+                            log(`AI 실패, 템플릿 사용: ${result.error}`, 'error');
+                            article = generateTrendContent(trend.keyword, trend.category, trend.ratio);
+                        } else {
+                            article = {
+                                title: result.title || `[${trend.category}] ${trend.keyword}`,
+                                summary: result.summary || '',
+                                content: result.content || '',
+                                category: trend.category,
+                                trendKeyword: trend.keyword,
+                                trendRatio: trend.ratio,
+                                source: result.fallback ? 'template' : 'gemini_ai',
+                                status: 'pending',
+                                createdAt: serverTimestamp()
+                            };
+                        }
+                    } else {
+                        // 템플릿 사용
+                        article = generateTrendContent(trend.keyword, trend.category, trend.ratio);
+                    }
+
                     await addDoc(collection(db, 'articles'), article);
                     log(`생성 완료: ${article.title}`, 'success');
                 } catch (e) {
@@ -789,7 +827,7 @@
                 }
             }
 
-            log('네이버 트렌드 글 생성 완료!', 'success');
+            log('글 생성 완료!', 'success');
             btn.disabled = false;
             loadStats();
         };
