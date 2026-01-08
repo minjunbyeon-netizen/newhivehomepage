@@ -121,31 +121,24 @@
             color: #fff;
             font-size: 50px;
             font-weight: 400;
-            letter-spacing: -5px !important;
+            letter-spacing: -3px !important;
             opacity: 0;
             line-height: 1.4;
-            display: inline-block;
+            display: inline;
         }
 
         .main_text01>p.bold_p,
-        .main_text02>p.bold_p {
+        .main_text02>p.bold_p,
+        .main_text01 span.bold_p,
+        .main_text02 span.bold_p {
             font-family: NotoSansKR-Medium;
         }
 
-        .main_text01>p:nth-child(1) {
-            width: 183px;
-        }
-
-        .main_text01>p:nth-child(2) {
-            width: 218px;
-        }
-
-        .main_text02>p:nth-child(1) {
-            width: 183px;
-        }
-
-        .main_text02>p:nth-child(2) {
-            width: 259px;
+        /* 고정 width 제거 - 자연스러운 텍스트 흐름 */
+        .main_text01,
+        .main_text02 {
+            text-align: center;
+            white-space: nowrap;
         }
 
         .main_text_box {
@@ -157,6 +150,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 8px;
         }
 
         .main_text_box>div {
@@ -192,22 +186,6 @@
             .main_text02>p {
                 font-size: 26px;
                 letter-spacing: -1.5px !important;
-            }
-
-            .main_text01>p:nth-child(1) {
-                width: 103px;
-            }
-
-            .main_text01>p:nth-child(2) {
-                width: 121px;
-            }
-
-            .main_text02>p:nth-child(1) {
-                width: 103px;
-            }
-
-            .main_text02>p:nth-child(2) {
-                width: 144px;
             }
         }
 
@@ -864,12 +842,10 @@
                         <div class="main_text_box">
                             <h1 class="visually-hidden">부산 공공기관 마케팅 전문 광고대행사 하이브미디어 - 10년의 노하우로 신뢰를 만들고 성과를 남기다</h1>
                             <div class="main_text01">
-                                <p>공공기관&nbsp; 마케팅&nbsp; </p>
-                                <p class="bold_p">10년의&nbsp; 노하우</p>
+                                <p>공공기관 마케팅, <span class="bold_p">10년의 노하우</span></p>
                             </div>
                             <div class="main_text02">
-                                <p>신뢰를&nbsp; 만들고&nbsp; </p>
-                                <p class="bold_p">성과를&nbsp; 남기다</p>
+                                <p>신뢰를 만들고, <span class="bold_p">성과를 남기다</span></p>
                             </div>
                         </div>
                     </div>
@@ -1651,27 +1627,21 @@
     <!-- 기존 타이핑 애니메이션 스크립트 -->
     <script>
         window.onload = function () {
-            $('.main_text01 > p:nth-child(1)').addClass('target');
-            $('.main_text02 > p:nth-child(1)').addClass('target2');
-            $('.main_text01 > p:nth-child(2)').addClass('target_');
-            $('.main_text02 > p:nth-child(2)').addClass('target2_');
+            // 새 구조: 각 줄에 하나의 p 태그만 있음
+            $('.main_text01 > p').addClass('target');
+            $('.main_text02 > p').addClass('target2');
 
+            // 첫 번째 줄 타이핑 (3초 후)
             setTimeout(function () {
-                $('.main_text01 > p:nth-child(1)').css('opacity', '1')
-                TypeHangul.type('.target', { intervalType: 50 });
+                $('.main_text01 > p').css('opacity', '1');
+                TypeHangul.type('.target', { intervalType: 40 });
             }, 3000);
+
+            // 두 번째 줄 타이핑 (5초 후)
             setTimeout(function () {
-                $('.main_text01 > p:nth-child(2)').css('opacity', '1')
-                TypeHangul.type('.target_', { intervalType: 50 });
-            }, 4000);
-            setTimeout(function () {
-                $('.main_text02 > p:nth-child(1)').css('opacity', '1')
-                TypeHangul.type('.target2', { intervalType: 50 });
-            }, 5500);
-            setTimeout(function () {
-                $('.main_text02 > p:nth-child(2)').css('opacity', '1')
-                TypeHangul.type('.target2_', { intervalType: 50 });
-            }, 6700);
+                $('.main_text02 > p').css('opacity', '1');
+                TypeHangul.type('.target2', { intervalType: 40 });
+            }, 5000);
         }
 
         $(function () {
