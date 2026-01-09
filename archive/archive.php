@@ -106,17 +106,17 @@ $base_path = '/01_work/hivemedia_homepage';
             background: #fff !important;
         }
 
-        /* Main Layout - 40:60 Split */
+        /* Main Layout - 20:80 Split */
         .archive-main {
             display: flex;
             min-height: 100vh;
             padding-top: 80px;
         }
 
-        /* Left Panel - 40% */
+        /* Left Panel - 20% */
         .left-panel {
-            width: 40%;
-            padding: 60px 40px 60px 60px;
+            width: 20%;
+            padding: 40px 30px 40px 40px;
             position: sticky;
             top: 80px;
             height: calc(100vh - 80px);
@@ -216,15 +216,24 @@ $base_path = '/01_work/hivemedia_homepage';
             text-decoration: underline;
         }
 
+        .left-footer .write-link {
+            color: #bbb !important;
+            font-size: 10px;
+        }
+
+        .left-footer .write-link:hover {
+            color: #888 !important;
+        }
+
         .copyright {
             margin-top: 20px;
             font-size: 10px;
             color: #888;
         }
 
-        /* Right Panel - 60% */
+        /* Right Panel - 80% */
         .right-panel {
-            width: 60%;
+            width: 80%;
             padding: 60px 60px 60px 40px;
             border-left: 1px solid #ddd;
         }
@@ -425,6 +434,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <a href="mailto:hivemedia@naver.com">EMAIL</a>
                     <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
                     <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
+                    <a href="<?php echo $base_path; ?>/portfolio/write.php" class="write-link">포트폴리오 등록</a>
                     <p class="copyright">© HIVE MEDIA 2025</p>
                 </div>
             </div>
