@@ -458,12 +458,12 @@ $base_path = '/01_work/hivemedia_homepage';
             inset: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
+            opacity: 0.4;
             transition: opacity 0.3s, transform 0.5s;
         }
 
         .bento-card:hover .bento-card__bg {
-            opacity: 0.25;
+            opacity: 0.6;
             transform: scale(1.05);
         }
 
@@ -607,6 +607,88 @@ $base_path = '/01_work/hivemedia_homepage';
 </head>
 
 <body>
+    <!-- Video Intro Overlay -->
+    <div id="videoIntro" class="video-intro">
+        <video id="introVideo" autoplay muted playsinline>
+            <source src="<?php echo $base_path; ?>/assets/img/viedo/3.mp4" type="video/mp4">
+        </video>
+        <button id="skipBtn" class="skip-btn">SKIP</button>
+    </div>
+
+    <style>
+        .video-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-intro.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-intro video {
+            width: 80%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .skip-btn {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            padding: 12px 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .skip-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+
+    <script>
+        (function () {
+            const intro = document.getElementById('videoIntro');
+            const video = document.getElementById('introVideo');
+            const skipBtn = document.getElementById('skipBtn');
+
+            // Set playback speed to 1.5x
+            video.playbackRate = 1.5;
+
+            // Hide intro when video ends
+            video.addEventListener('ended', function () {
+                intro.classList.add('hidden');
+                setTimeout(() => intro.style.display = 'none', 500);
+            });
+
+            // Skip button
+            skipBtn.addEventListener('click', function () {
+                intro.classList.add('hidden');
+                setTimeout(() => intro.style.display = 'none', 500);
+            });
+        })();
+    </script>
+
     <div class="Wrap">
         <div id="header-placeholder"></div>
 
@@ -661,8 +743,7 @@ $base_path = '/01_work/hivemedia_homepage';
                 <div class="bento-grid" id="bentoGrid">
                     <!-- 온라인 광고 (Large) -->
                     <div class="bento-card bento-card--large bento-card--online" data-category="online_ad">
-                        <div class="bento-card__bg"
-                            style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%230084ff%22/%3E%3C/svg%3E');">
+                        <div class="bento-card__bg" style="background-image: url('./img/online_ad.png');">
                         </div>
                         <div class="bento-card__content">
                             <div>
@@ -671,73 +752,73 @@ $base_path = '/01_work/hivemedia_homepage';
                                 <p class="bento-card__subtitle">온라인 광고 · 검색광고 · DA · 리타겟팅</p>
                             </div>
                             <div>
-                                <p class="bento-card__count">15 <span>projects</span></p>
-                                <div class="bento-card__projects">
-                                    <span>부산시 관광홍보 네이버 SA</span>
-                                    <span>해운대구 축제 구글 DA</span>
-                                    <span>경남도청 카카오모먼트</span>
-                                </div>
+                                <p class="bento-card__count">0 <span>projects</span></p>
                             </div>
                         </div>
                     </div>
 
                     <!-- SNS 운영 -->
                     <div class="bento-card bento-card--sns" data-category="sns">
+                        <div class="bento-card__bg" style="background-image: url('./img/sns.png');"></div>
                         <div class="bento-card__content">
                             <div>
                                 <div class="bento-card__icon">SNS</div>
                                 <h3 class="bento-card__title">SNS</h3>
                                 <p class="bento-card__subtitle">채널 운영 · 콘텐츠 제작</p>
                             </div>
-                            <p class="bento-card__count">15 <span>건</span></p>
+                            <p class="bento-card__count">0 <span>건</span></p>
                         </div>
                     </div>
 
                     <!-- 홈페이지 -->
                     <div class="bento-card bento-card--homepage" data-category="homepage">
+                        <div class="bento-card__bg" style="background-image: url('./img/homepage.png');"></div>
                         <div class="bento-card__content">
                             <div>
                                 <div class="bento-card__icon">WEB</div>
                                 <h3 class="bento-card__title">Homepage</h3>
                                 <p class="bento-card__subtitle">웹사이트 구축 · 포털</p>
                             </div>
-                            <p class="bento-card__count">15 <span>건</span></p>
+                            <p class="bento-card__count">0 <span>건</span></p>
                         </div>
                     </div>
 
                     <!-- 영상 제작 -->
                     <div class="bento-card bento-card--video" data-category="video">
+                        <div class="bento-card__bg" style="background-image: url('./img/video.png');"></div>
                         <div class="bento-card__content">
                             <div>
                                 <div class="bento-card__icon">VD</div>
                                 <h3 class="bento-card__title">Video</h3>
                                 <p class="bento-card__subtitle">홍보영상 · 시네마틱</p>
                             </div>
-                            <p class="bento-card__count">15 <span>건</span></p>
+                            <p class="bento-card__count">0 <span>건</span></p>
                         </div>
                     </div>
 
                     <!-- 이벤트페이지 -->
                     <div class="bento-card bento-card--event" data-category="eventpage">
+                        <div class="bento-card__bg" style="background-image: url('./img/event.png');"></div>
                         <div class="bento-card__content">
                             <div>
                                 <div class="bento-card__icon">EVT</div>
                                 <h3 class="bento-card__title">Event</h3>
                                 <p class="bento-card__subtitle">이벤트 · 프로모션</p>
                             </div>
-                            <p class="bento-card__count">15 <span>건</span></p>
+                            <p class="bento-card__count">0 <span>건</span></p>
                         </div>
                     </div>
 
                     <!-- 인쇄물/전시 -->
                     <div class="bento-card bento-card--print" data-category="print,exhibition">
+                        <div class="bento-card__bg" style="background-image: url('./img/print.png');"></div>
                         <div class="bento-card__content">
                             <div>
                                 <div class="bento-card__icon">P&E</div>
                                 <h3 class="bento-card__title">Print & Exhibition</h3>
                                 <p class="bento-card__subtitle">인쇄물 · 전시기획</p>
                             </div>
-                            <p class="bento-card__count">18 <span>건</span></p>
+                            <p class="bento-card__count">0 <span>건</span></p>
                         </div>
                     </div>
                 </div>
@@ -746,439 +827,7 @@ $base_path = '/01_work/hivemedia_homepage';
                 <div class="section-block hidden" id="projectsSection">
                     <span class="section-title">PROJECTS</span>
                     <div class="single-col-list" id="projectsList">
-                        <!-- Online AD Projects -->
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">부산시 관광홍보 네이버 SA 캠페인</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">해운대구 축제 구글 DA 프로모션</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">부산항만공사 항만투어 검색광고</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">경남도청 관광지원 카카오모먼트</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">김해시 농산물직거래 페이스북 광고</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">울산시 에코투어 인스타그램 광고</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">창원시 스마트시티 유튜브 프리롤</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">진주시 한옥마을 네이버 GFA</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">통영시 루지월드 리타겟팅 캠페인</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">거제시 해양레저 퍼포먼스 마케팅</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">사천시 항공우주박물관 DA 캠페인</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">밀양시 아리랑축제 SA 프로모션</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">양산시 워터파크 앱설치 캠페인</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">함안군 강주마을 버즈마케팅</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-                        <div class="list-row" data-category="online_ad">
-                            <span class="name">합천군 황매산 철쭉제 온라인광고</span>
-                            <span class="category">ONLINE AD</span>
-                        </div>
-
-                        <!-- SNS Projects -->
-                        <div class="list-row" data-category="sns">
-                            <span class="name">부산시 공식 인스타그램 운영</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">해운대구청 페이스북 콘텐츠</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">부산항만공사 유튜브 채널</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">부산문화재단 SNS 통합운영</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">기장군 관광 인스타그램</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">동래구청 SNS 카드뉴스 제작</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">수영구 라이프스타일 인스타</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">남구 갈맷길 페이스북 운영</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">북구청 젊은북구 SNS 브랜딩</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">사하구 낙동강 트위터 운영</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">연제구 온천천 인스타 콘텐츠</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">금정구 범어사 유튜브 시리즈</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">영도구 태종대 틱톡 챌린지</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">중구 광복동 스토리 콘텐츠</span>
-                            <span class="category">SNS</span>
-                        </div>
-                        <div class="list-row" data-category="sns">
-                            <span class="name">서구 송도 릴스 마케팅</span>
-                            <span class="category">SNS</span>
-                        </div>
-
-                        <!-- Homepage Projects -->
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">부산시 공식 홈페이지 리뉴얼</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">해운대구 관광포털 구축</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">부산항만공사 기업사이트</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">부산문화재단 웹사이트 개편</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">기장군 워터파크 예약시스템</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">동래온천축제 마이크로사이트</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">수영팔도시장 온라인몰</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">남구 갈맷길 트레킹앱 웹뷰</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">북구 구포시장 반응형 웹</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">사하구 다대포 해변 랜딩페이지</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">연제구 공공시설 예약포털</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">금정구 등산로 정보사이트</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">영도구 조선해양 산업관 웹</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">중구 국제시장 아카이브</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="homepage">
-                            <span class="name">서구 송도케이블카 티켓예매</span>
-                            <span class="category">HOMEPAGE</span>
-                        </div>
-
-                        <!-- Eventpage Projects -->
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">부산불꽃축제 이벤트페이지</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">해운대모래축제 프로모션</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">자갈치축제 온라인응모</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">기장멸치축제 경품이벤트</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">동래읍성축제 SNS챌린지</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">수영전통민속예술축제 참여형</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">부산국제영화제 팬미팅</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">원아시아페스티벌 투표</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">부산락페스티벌 티켓추첨</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">크리스마스트리축제 포토존</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">부산바다축제 스탬프투어</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">낙동강하구 철새축제 퀴즈</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">감천문화마을 워크숍 신청</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">태종대 수국축제 인증이벤트</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-                        <div class="list-row" data-category="eventpage">
-                            <span class="name">광안리불꽃놀이 사전예약</span>
-                            <span class="category">EVENTPAGE</span>
-                        </div>
-
-                        <!-- Video Projects -->
-                        <div class="list-row" data-category="video">
-                            <span class="name">부산시 홍보영상 "다이나믹부산"</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">해운대구 드론촬영 시네마틱</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">부산항만공사 물류허브 PR</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">부산문화재단 아티스트 다큐</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">기장군 일출 타임랩스</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">동래구 역사탐방 VR 360</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">수영구 민락수변공원 스케치</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">남구 이기대 트레킹 VLOG</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">북구 화명생태공원 자연다큐</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">사하구 을숙도 철새 영상</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">연제구 온천천 야경 시네마틱</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">금정구 범어사 사계절 영상</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">영도구 깡깡이마을 인터뷰</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">중구 40계단 스토리텔링</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-                        <div class="list-row" data-category="video">
-                            <span class="name">서구 암남공원 모션그래픽</span>
-                            <span class="category">VIDEO</span>
-                        </div>
-
-                        <!-- Print Projects -->
-                        <div class="list-row" data-category="print">
-                            <span class="name">부산시 관광가이드북 디자인</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">해운대구 축제 포스터</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">부산항만공사 연간보고서</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">부산문화재단 전시도록</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">기장군 특산물 브로슈어</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">동래구 역사문화 리플렛</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">수영구 맛집지도 인쇄물</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">남구 갈맷길 안내판</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">북구 구포시장 카탈로그</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">사하구 감천마을 엽서세트</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">연제구 공공시설 이용안내</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">금정구 금정산 등산지도</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">영도구 태종대 팸플릿</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">중구 국제시장 쇼핑가이드</span>
-                            <span class="category">PRINT</span>
-                        </div>
-                        <div class="list-row" data-category="print">
-                            <span class="name">서구 송도 관광 배너</span>
-                            <span class="category">PRINT</span>
-                        </div>
-
-                        <!-- Exhibition Art Projects -->
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">부산시 박람회 메인부스</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">해운대구 관광전시회 부스</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">부산항만공사 해양엑스포</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">부산문화재단 아트페어 부스</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">기장군 농수산물 전시부스</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">동래구 역사관 상설전시</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">수영구 수산물박람회 연출</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">남구 UN평화공원 기획전시</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">북구 구포국수축제 체험존</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">사하구 국제전시회 한국관</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">연제구 스마트시티 전시관</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">금정구 산림박람회 부스</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">영도구 조선해양전시관</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">중구 근대역사관 미디어아트</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
-                        <div class="list-row" data-category="exhibition">
-                            <span class="name">서구 송도해변 포토존 설치</span>
-                            <span class="category">EXHIBITION</span>
-                        </div>
+                        <!-- Firebase 승인된 포트폴리오가 여기에 동적으로 추가됩니다 -->
                     </div>
                 </div>
             </div>
@@ -1191,7 +840,6 @@ $base_path = '/01_work/hivemedia_homepage';
         // Category Tab & Bento Grid Filtering
         document.addEventListener('DOMContentLoaded', function () {
             const tabs = document.querySelectorAll('.category-tab');
-            const items = document.querySelectorAll('#projectsList .list-row');
             const bentoGrid = document.getElementById('bentoGrid');
             const projectsSection = document.getElementById('projectsSection');
             const bentoCards = document.querySelectorAll('.bento-card');
@@ -1207,10 +855,14 @@ $base_path = '/01_work/hivemedia_homepage';
                 bentoGrid.classList.add('hidden');
                 projectsSection.classList.remove('hidden');
 
+                // Get items dynamically (to include Firebase-loaded items)
+                const items = document.querySelectorAll('#projectsList .list-row');
+                
                 // Filter items
                 items.forEach(item => {
-                    const itemCategories = category.split(',');
-                    if (category === 'all' || itemCategories.includes(item.dataset.category)) {
+                    const itemCategory = item.dataset.category;
+                    const filterCategories = category.split(',');
+                    if (category === 'all' || filterCategories.includes(itemCategory)) {
                         item.style.display = 'flex';
                     } else {
                         item.style.display = 'none';
@@ -1248,6 +900,104 @@ $base_path = '/01_work/hivemedia_homepage';
                 });
             });
         });
+    </script>
+
+    <!-- Firebase Integration for Dynamic Portfolio -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
+            authDomain: "hivemedia-archive.firebaseapp.com",
+            projectId: "hivemedia-archive",
+            storageBucket: "hivemedia-archive.firebasestorage.app",
+            messagingSenderId: "105246116532",
+            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Category mapping
+        const categoryMap = {
+            'Online AD': 'online_ad',
+            'SNS': 'sns',
+            'Homepage': 'homepage',
+            'Eventpage': 'eventpage',
+            'Video': 'video',
+            'Print': 'print',
+            'Exhibition Art': 'exhibition'
+        };
+
+        // Load approved portfolios
+        async function loadApprovedPortfolios() {
+            try {
+                const q = query(
+                    collection(db, 'portfolios'),
+                    where('status', '==', 'approved')
+                );
+                const snapshot = await getDocs(q);
+
+                const projectsList = document.getElementById('projectsList');
+
+                // Add Firebase items to the list
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const categoryKey = categoryMap[data.category] || 'online_ad';
+
+                    const row = document.createElement('div');
+                    row.className = 'list-row firebase-item';
+                    row.dataset.category = categoryKey;
+                    row.innerHTML = `
+                        <span class="name">${data.title}</span>
+                        <span class="category">${data.category.toUpperCase()}</span>
+                    `;
+
+                    // Add to beginning of list
+                    projectsList.insertBefore(row, projectsList.firstChild);
+                });
+
+                // Update counts on bento cards
+                updateBentoCounts(snapshot);
+
+                console.log('Firebase portfolios loaded:', snapshot.size);
+            } catch (error) {
+                console.error('Error loading portfolios:', error);
+            }
+        }
+
+        // Update bento card counts
+        function updateBentoCounts(snapshot) {
+            const counts = {};
+            snapshot.forEach(doc => {
+                const category = doc.data().category;
+                const key = categoryMap[category] || 'online_ad';
+                counts[key] = (counts[key] || 0) + 1;
+            });
+
+            // Add Firebase counts to existing counts
+            document.querySelectorAll('.bento-card').forEach(card => {
+                const categories = card.dataset.category.split(',');
+                let additionalCount = 0;
+                categories.forEach(cat => {
+                    additionalCount += counts[cat] || 0;
+                });
+
+                if (additionalCount > 0) {
+                    const countEl = card.querySelector('.bento-card__count');
+                    if (countEl) {
+                        const currentText = countEl.textContent;
+                        const currentNum = parseInt(currentText) || 0;
+                        const newNum = currentNum + additionalCount;
+                        countEl.innerHTML = `${newNum} <span>${currentText.includes('projects') ? 'projects' : '건'}</span>`;
+                    }
+                }
+            });
+        }
+
+        // Load on page ready
+        loadApprovedPortfolios();
     </script>
 </body>
 
