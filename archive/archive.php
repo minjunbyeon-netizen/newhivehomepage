@@ -662,7 +662,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <a href="mailto:hivemedia@naver.com">EMAIL</a>
                     <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
                     <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
-                    <a href="<?php echo $base_path; ?>/archive/admin.html" class="write-link">아카이브 등록</a>
+                    <a href="<?php echo $base_path; ?>/portfolio/write.php" class="write-link">아카이브 등록</a>
                     <p class="copyright">© HIVE MEDIA 2025</p>
                 </div>
             </div>
