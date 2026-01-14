@@ -622,7 +622,7 @@ $base_path = '/01_work/hivemedia_homepage';
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
+            background: #fff;
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -648,9 +648,9 @@ $base_path = '/01_work/hivemedia_homepage';
             bottom: 40px;
             right: 40px;
             padding: 12px 32px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
             font-family: 'Poppins', sans-serif;
             font-size: 12px;
             font-weight: 600;
@@ -661,8 +661,8 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         .skip-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.3);
         }
     </style>
 

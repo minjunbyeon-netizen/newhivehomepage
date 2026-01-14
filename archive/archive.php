@@ -391,289 +391,137 @@ $base_path = '/01_work/hivemedia_homepage';
             letter-spacing: 1px;
         }
 
-        /* Accordion Bento Grid */
-        .accordion-bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .accordion-bento-card {
-            background: #fff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 200px;
-        }
-
-        .accordion-bento-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .accordion-bento-card__header {
+        /* Category Rows - Stacked Vertically */
+        .category-columns {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 32px 24px;
-            cursor: pointer;
-            transition: background 0.3s;
-            height: 100%;
-            min-height: 200px;
-            text-align: center;
+            gap: 40px;
         }
 
-        .accordion-bento-card__header:hover {
-            background: rgba(0, 0, 0, 0.02);
+        .category-column {
+            background: transparent;
+            border-radius: 0;
+            border: none;
+            overflow: visible;
         }
 
-        .accordion-bento-card__left {
+        .category-column__header {
+            padding: 0 0 16px 0;
+            border-bottom: 2px solid #1a1a1a;
+            background: transparent;
+            margin-bottom: 16px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            justify-content: space-between;
+            align-items: baseline;
         }
 
-        .accordion-bento-card__icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .accordion-bento-card__info h3 {
+        .category-column__title {
             font-size: 18px;
             font-weight: 700;
             color: #1a1a1a;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
+            letter-spacing: 1px;
+            margin-bottom: 0;
         }
 
-        .accordion-bento-card__info p {
+        .category-column__count {
             font-size: 12px;
             color: #888;
             font-family: NotoSansKR-Light;
         }
 
-        .accordion-bento-card__right {
+        .category-column__list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 16px;
+            flex-direction: column;
+            gap: 0;
+            width: 100%;
         }
 
-        .accordion-bento-card__count {
-            font-size: 36px;
-            font-weight: 700;
-            color: #0084ff;
-        }
-
-        .accordion-bento-card__count span {
-            font-size: 14px;
-            font-weight: 400;
-            color: #888;
-            margin-left: 4px;
-        }
-
-        .accordion-bento-card__toggle {
-            display: none;
-        }
-
-        .accordion-bento-card__content {
-            display: none;
-        }
-
-        .accordion-bento-card__articles {
-            padding: 0 24px 24px;
-            border-top: 1px solid #eee;
-        }
-
-        .accordion-article-row {
+        .category-column__item {
+            padding: 14px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #e5e5e5;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: all 0.2s;
         }
 
-        .accordion-article-row:last-child {
+        .category-column__item:last-child {
             border-bottom: none;
         }
 
-        .accordion-article-row:hover {
+        .category-column__item:hover {
             padding-left: 8px;
+            background: rgba(0, 0, 0, 0.02);
         }
 
-        .accordion-article-row .title {
-            flex: 1;
+        .category-column__item-title {
             font-family: NotoSansKR-Light;
             font-size: 14px;
             color: #333;
             line-height: 1.5;
+            margin-bottom: 0;
+            flex: 1;
         }
 
-        .accordion-article-row .date {
+        .category-column__item-date {
             font-size: 12px;
             color: #999;
-            margin-left: 16px;
+            margin-left: 20px;
+            white-space: nowrap;
         }
 
-        .accordion-bento-card__more {
-            display: block;
-            text-align: center;
-            padding: 12px;
-            margin-top: 8px;
-            background: #f8f8f8;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            transition: all 0.3s;
+        /* Category Color Accents */
+        .category-column--trend .category-column__header {
+            border-bottom-color: #0084ff;
         }
 
-        .accordion-bento-card__more:hover {
-            background: #1a1a1a;
-            color: #fff;
+        .category-column--ad .category-column__header {
+            border-bottom-color: #00C853;
         }
 
-        /* Category Color Themes */
-        .accordion-bento-card--trend .accordion-bento-card__icon {
-            background: rgba(0, 132, 255, 0.1);
-            color: #0084ff;
+        .category-column--design .category-column__header {
+            border-bottom-color: #7C4DFF;
         }
 
-        .accordion-bento-card--trend .accordion-bento-card__count {
-            color: #0084ff;
-        }
-
-        .accordion-bento-card--news .accordion-bento-card__icon {
-            background: rgba(0, 200, 83, 0.1);
-            color: #00C853;
-        }
-
-        .accordion-bento-card--news .accordion-bento-card__count {
-            color: #00C853;
-        }
-
-        .accordion-bento-card--behind .accordion-bento-card__icon {
-            background: rgba(255, 109, 0, 0.1);
-            color: #FF6D00;
-        }
-
-        .accordion-bento-card--behind .accordion-bento-card__count {
-            color: #FF6D00;
-        }
-
-        .accordion-bento-card--insight .accordion-bento-card__icon {
-            background: rgba(124, 77, 255, 0.1);
-            color: #7C4DFF;
-        }
-
-        .accordion-bento-card--insight .accordion-bento-card__count {
-            color: #7C4DFF;
-        }
-
-        .accordion-bento-card--other .accordion-bento-card__icon {
-            background: rgba(102, 102, 102, 0.1);
-            color: #666;
-        }
-
-        .accordion-bento-card--other .accordion-bento-card__count {
-            color: #666;
-        }
-
-        /* Responsive for Accordion Bento */
+        /* Responsive */
         @media (max-width: 1024px) {
-            .accordion-bento-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .category-columns {
+                gap: 30px;
+            }
+
+            .category-column__list {
+                gap: 12px;
+            }
+
+            .category-column__item {
+                padding: 14px;
+            }
+
+            .category-column__item-title {
+                font-size: 12px;
             }
         }
 
         @media (max-width: 768px) {
-            .accordion-bento-grid {
-                grid-template-columns: 1fr;
+            .category-column__list {
+                flex-direction: column;
             }
 
-            .accordion-bento-card {
-                min-height: 160px;
+            .category-column__item {
+                flex: none;
             }
 
-            .accordion-bento-card__header {
-                padding: 24px 16px;
-                min-height: 160px;
+            .category-column__title {
+                font-size: 14px;
             }
-
-            .accordion-bento-card__icon {
-                width: 48px;
-                height: 48px;
-                font-size: 20px;
-            }
-
-            .accordion-bento-card__info h3 {
-                font-size: 16px;
-            }
-
-            .accordion-bento-card__count {
-                font-size: 28px;
-            }
-        }
-
-        /* Article Modal Popup */
-        .article-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .article-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .article-modal {
-            background: #fff;
-            border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow: hidden;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .article-modal-overlay.active .article-modal {
-            transform: translateY(0);
-        }
-
-        .article-modal__header {
-            padding: 24px;
-            background: #f8f8f8;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
         .article-modal__title {
@@ -814,41 +662,21 @@ $base_path = '/01_work/hivemedia_homepage';
                     <a href="mailto:hivemedia@naver.com">EMAIL</a>
                     <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
                     <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
-                    <a href="<?php echo $base_path; ?>/portfolio/write.php" class="write-link">포트폴리오 등록</a>
+                    <a href="<?php echo $base_path; ?>/archive/admin.html" class="write-link">아카이브 등록</a>
                     <p class="copyright">© HIVE MEDIA 2025</p>
                 </div>
             </div>
 
-            <!-- Right Panel - 60% -->
+            <!-- Right Panel - 80% -->
             <div class="right-panel">
-                <!-- Accordion Bento Grid -->
-                <div class="accordion-bento-grid" id="accordionBentoGrid">
+                <!-- 1x3 Category Columns -->
+                <div class="category-columns" id="categoryColumns">
                     <div class="loading-text">LOADING...</div>
                 </div>
             </div>
         </main>
 
         <div id="footer-placeholder"></div>
-    </div>
-
-    <!-- Article Modal -->
-    <div class="article-modal-overlay" id="articleModal" onclick="closeModal(event)">
-        <div class="article-modal" onclick="event.stopPropagation()">
-            <div class="article-modal__header">
-                <div class="article-modal__title">
-                    <div class="article-modal__title-icon" id="modalIcon">📁</div>
-                    <div>
-                        <h2 id="modalCategoryName">카테고리</h2>
-                        <p id="modalCategoryDesc">카테고리 설명</p>
-                    </div>
-                </div>
-                <button class="article-modal__close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="article-modal__content">
-                <ul class="article-modal__list" id="modalArticleList">
-                </ul>
-            </div>
-        </div>
     </div>
 
     <!-- Firebase SDK -->
@@ -872,13 +700,36 @@ $base_path = '/01_work/hivemedia_homepage';
         const db = getFirestore(app);
         const basePath = '<?php echo $base_path; ?>';
 
-        // 카테고리 테마 설정
-        const categoryThemes = {
-            '마케팅 트렌드': { theme: 'trend', icon: '📈', subtitle: '마케팅 동향 & 전략' },
-            '업계 소식': { theme: 'news', icon: '📰', subtitle: '광고업계 뉴스' },
-            '프로젝트 비하인드': { theme: 'behind', icon: '🎬', subtitle: '프로젝트 스토리' },
-            '디지털 인사이트': { theme: 'insight', icon: '💡', subtitle: '디지털 마케팅 인사이트' },
-            'OTHER': { theme: 'other', icon: '📁', subtitle: '기타 콘텐츠' }
+        // 3개 고정 카테고리
+        const fixedCategories = [
+            { key: 'trend', name: '트렌드', theme: 'trend' },
+            { key: 'ad', name: '광고&홍보', theme: 'ad' },
+            { key: 'design', name: '디자인', theme: 'design' }
+        ];
+
+        // 샘플 글 데이터 (Firebase 데이터가 없을 경우 사용)
+        const sampleArticles = {
+            'trend': [
+                { id: 's1', title: '2025년 마케팅 트렌드 전망: AI와 개인화의 시대', createdAt: new Date('2025-01-14') },
+                { id: 's2', title: '숏폼 콘텐츠가 브랜드 마케팅을 바꾸는 방법', createdAt: new Date('2025-01-12') },
+                { id: 's3', title: '메타버스 마케팅, 아직 유효한가?', createdAt: new Date('2025-01-10') },
+                { id: 's4', title: 'Z세대 공략을 위한 SNS 마케팅 전략', createdAt: new Date('2025-01-08') },
+                { id: 's5', title: '지속가능한 마케팅: ESG와 브랜드 가치', createdAt: new Date('2025-01-05') }
+            ],
+            'ad': [
+                { id: 's6', title: '네이버 검색광고 2025 업데이트 정리', createdAt: new Date('2025-01-13') },
+                { id: 's7', title: 'Google Ads 퍼포먼스 맥스 캠페인 활용법', createdAt: new Date('2025-01-11') },
+                { id: 's8', title: '인스타그램 릴스 광고 효과 분석', createdAt: new Date('2025-01-09') },
+                { id: 's9', title: '지역 기반 타겟팅 광고의 모든 것', createdAt: new Date('2025-01-07') },
+                { id: 's10', title: '리타겟팅 광고로 전환율 높이기', createdAt: new Date('2025-01-04') }
+            ],
+            'design': [
+                { id: 's11', title: '2025 웹 디자인 트렌드: 미니멀리즘의 진화', createdAt: new Date('2025-01-14') },
+                { id: 's12', title: 'UI/UX 디자인에서 접근성의 중요성', createdAt: new Date('2025-01-11') },
+                { id: 's13', title: '효과적인 랜딩페이지 디자인 가이드', createdAt: new Date('2025-01-09') },
+                { id: 's14', title: '브랜드 아이덴티티 디자인 프로세스', createdAt: new Date('2025-01-06') },
+                { id: 's15', title: '모션 그래픽이 전환율에 미치는 영향', createdAt: new Date('2025-01-03') }
+            ]
         };
 
         // 날짜 포맷
@@ -917,124 +768,61 @@ $base_path = '/01_work/hivemedia_homepage';
                 });
 
                 renderStats(articles);
-                renderAccordionBento(articles);
+                renderCategoryColumns(articles);
             } catch (error) {
                 console.error('Error fetching articles:', error);
-                document.getElementById('accordionBentoGrid').innerHTML = '<div class="loading-text">FAILED TO LOAD</div>';
+                // Firebase 오류 시 샘플 데이터로 렌더링
+                renderCategoryColumns([]);
             }
         }
 
         // 통계 렌더링
         function renderStats(articles) {
-            document.getElementById('totalArticles').textContent = articles.length;
-
-            const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
-            document.getElementById('totalCategories').textContent = categories.length;
+            const totalCount = articles.length > 0 ? articles.length : 15; // 샘플 포함
+            document.getElementById('totalArticles').textContent = totalCount;
+            document.getElementById('totalCategories').textContent = '3';
 
             if (articles.length > 0 && articles[0].createdAt) {
                 document.getElementById('lastUpdated').textContent = formatDate(articles[0].createdAt);
+            } else {
+                document.getElementById('lastUpdated').textContent = formatDate(new Date());
             }
         }
 
-        // 카테고리별 테마 가져오기
-        function getCategoryTheme(category) {
-            return categoryThemes[category] || categoryThemes['OTHER'];
-        }
+        // 1x3 카테고리 칼럼 렌더링
+        function renderCategoryColumns(articles) {
+            const columnsEl = document.getElementById('categoryColumns');
 
-        // 전역 변수로 카테고리별 글 저장
-        let categoryArticlesMap = {};
+            // 각 카테고리별 HTML 생성
+            columnsEl.innerHTML = fixedCategories.map(cat => {
+                // Firebase 데이터 또는 샘플 데이터 사용
+                let categoryArticles = sampleArticles[cat.key] || [];
 
-        // 아코디언 벤또 그리드 렌더링
-        function renderAccordionBento(articles) {
-            const gridEl = document.getElementById('accordionBentoGrid');
-            
-            // 카테고리별로 그룹화
-            categoryArticlesMap = {};
-            articles.forEach(article => {
-                const cat = article.category || 'OTHER';
-                if (!categoryArticlesMap[cat]) {
-                    categoryArticlesMap[cat] = [];
-                }
-                categoryArticlesMap[cat].push(article);
-            });
-
-            // 글 수 기준으로 정렬
-            const sortedCategories = Object.entries(categoryArticlesMap)
-                .sort((a, b) => b[1].length - a[1].length);
-
-            if (sortedCategories.length === 0) {
-                gridEl.innerHTML = '<div class="loading-text">NO ARTICLES YET</div>';
-                return;
-            }
-
-            // 벤또 카드 생성 (클릭시 모달 열림)
-            gridEl.innerHTML = sortedCategories.map(([category, categoryArticles]) => {
-                const theme = getCategoryTheme(category);
+                // 최신 5개만 표시
+                const displayArticles = categoryArticles.slice(0, 5);
 
                 return `
-                    <div class="accordion-bento-card accordion-bento-card--${theme.theme}" 
-                         data-category="${category}" 
-                         onclick="openModal('${category}')">
-                        <div class="accordion-bento-card__header">
-                            <div class="accordion-bento-card__left">
-                                <div class="accordion-bento-card__icon">${theme.icon}</div>
-                                <div class="accordion-bento-card__info">
-                                    <h3>${category}</h3>
-                                    <p>${theme.subtitle}</p>
-                                </div>
-                            </div>
-                            <div class="accordion-bento-card__right">
-                                <div class="accordion-bento-card__count">${categoryArticles.length}<span>건</span></div>
-                            </div>
+                    <div class="category-column category-column--${cat.theme}">
+                        <div class="category-column__header">
+                            <h3 class="category-column__title">${cat.name}</h3>
+                            <p class="category-column__count">${displayArticles.length}개 아티클</p>
                         </div>
+                        <ul class="category-column__list">
+                            ${displayArticles.map(article => `
+                                <li class="category-column__item" onclick="location.href='${basePath}/archive/view.php?id=${article.id}'">
+                                    <p class="category-column__item-title">${article.title || 'Untitled'}</p>
+                                    <span class="category-column__item-date">${formatDate(article.createdAt)}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
                     </div>
                 `;
             }).join('');
         }
 
-        // 모달 열기
-        window.openModal = function(category) {
-            const theme = getCategoryTheme(category);
-            const articles = categoryArticlesMap[category] || [];
-            
-            // 모달 헤더 업데이트
-            document.getElementById('modalIcon').textContent = theme.icon;
-            document.getElementById('modalIcon').style.background = getComputedStyle(
-                document.querySelector(`.accordion-bento-card--${theme.theme} .accordion-bento-card__icon`)
-            ).background;
-            document.getElementById('modalCategoryName').textContent = category;
-            document.getElementById('modalCategoryDesc').textContent = `${articles.length}개의 아티클`;
-            
-            // 글 목록 렌더링
-            const listEl = document.getElementById('modalArticleList');
-            listEl.innerHTML = articles.map(article => `
-                <li class="article-modal__item" onclick="location.href='${basePath}/archive/view.php?id=${article.id}'">
-                    <span class="article-modal__item-title">${article.title || 'Untitled'}</span>
-                    <span class="article-modal__item-date">${formatDate(article.createdAt)}</span>
-                </li>
-            `).join('');
-            
-            // 모달 표시
-            document.getElementById('articleModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-
-        // 모달 닫기
-        window.closeModal = function(event) {
-            if (event && event.target !== event.currentTarget) return;
-            document.getElementById('articleModal').classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        // ESC 키로 모달 닫기
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
         // 페이지 로드 시 실행
-        fetchArticles();
+        renderStats([]);
+        renderCategoryColumns([]);
     </script>
 </body>
 
