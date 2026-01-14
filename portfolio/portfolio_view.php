@@ -32,8 +32,17 @@ $CODE = isset($_REQUEST["CODE"]) ? htmlspecialchars($_REQUEST["CODE"]) : '';
 			background: #fff !important;
 		}
 
-		.portfolio-con.view-con {
+		.Wrap {
+			display: flex;
+			flex-direction: column;
 			min-height: 100vh;
+		}
+
+		main {
+			flex: 1;
+		}
+
+		.portfolio-con.view-con {
 			padding: 80px 0;
 		}
 

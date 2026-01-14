@@ -2,6 +2,8 @@
 $config = include('config.php');
 $staffId = $config['staff']['id'];
 $staffPassword = $config['staff']['password'];
+$adminId = $config['admin']['id'];
+$adminPassword = $config['admin']['password'];
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -366,6 +368,17 @@ $staffPassword = $config['staff']['password'];
             line-height: 1.6;
         }
 
+        /* Form Error Message */
+        .form-error {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid #f44336;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            color: #f44336;
+            font-size: 14px;
+        }
+
         .form-actions {
             display: flex;
             gap: 12px;
@@ -423,15 +436,18 @@ $staffPassword = $config['staff']['password'];
 
         .metric-value {
             flex: 1;
+            min-width: 80px;
             text-align: right;
         }
 
         .metric-unit {
-            width: 60px;
+            width: 80px;
+            flex-shrink: 0;
         }
 
         .metric-row select,
         .metric-row input {
+            width: auto;
             padding: 10px 12px;
             background: #202124;
             border: 1px solid #5f6368;
@@ -733,6 +749,12 @@ $staffPassword = $config['staff']['password'];
                     <input type="text" id="title" placeholder="예: 부산 F45 센텀점 여성 회원 모집 캠페인">
                 </div>
 
+                <!-- 광고주(클라이언트명) -->
+                <div class="form-group">
+                    <label>광고주(클라이언트명)</label>
+                    <input type="text" id="client" placeholder="예: F45 센텀점">
+                </div>
+
                 <!-- 카테고리 -->
                 <div class="form-group">
                     <label>카테고리 <span class="required">*</span></label>
@@ -841,12 +863,6 @@ $staffPassword = $config['staff']['password'];
                     <p class="form-hint">200~300자로 핵심 전략과 결과를 작성하세요</p>
                 </div>
 
-                <!-- 클라이언트 정보 -->
-                <div class="form-group">
-                    <label>클라이언트명</label>
-                    <input type="text" id="client" placeholder="예: F45 센텀점">
-                </div>
-
                 <!-- 지역 -->
                 <div class="form-group">
                     <label>지역</label>
@@ -884,8 +900,13 @@ $staffPassword = $config['staff']['password'];
 
                 <!-- 작성자 -->
                 <div class="form-group">
-                    <label>작성자</label>
+                    <label>작성자 <span class="required">*</span></label>
                     <input type="text" id="author" placeholder="작성자 이름">
+                </div>
+
+                <!-- 에러 메시지 -->
+                <div class="form-error" id="formError" style="display:none;">
+                    <span id="formErrorText"></span>
                 </div>
 
                 <div class="form-actions">
@@ -997,12 +1018,14 @@ $staffPassword = $config['staff']['password'];
 
         const STAFF_ID = "<?php echo $staffId; ?>";
         const STAFF_PASSWORD = "<?php echo $staffPassword; ?>";
+        const ADMIN_ID = "<?php echo $adminId; ?>";
+        const ADMIN_PASSWORD = "<?php echo $adminPassword; ?>";
 
         window.checkPassword = function () {
             const id = document.getElementById('idInput').value;
             const pw = document.getElementById('passwordInput').value;
 
-            if (id === STAFF_ID && pw === STAFF_PASSWORD) {
+            if ((id === STAFF_ID && pw === STAFF_PASSWORD) || (id === ADMIN_ID && pw === ADMIN_PASSWORD)) {
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('typeSelection').classList.add('active');
             } else {
@@ -1066,12 +1089,23 @@ $staffPassword = $config['staff']['password'];
             });
 
             // 유효성 검사
-            if (!title) { alert('프로젝트 제목을 입력하세요.'); return; }
-            if (!category) { alert('카테고리를 선택하세요.'); return; }
-            if (platforms.length === 0) { alert('사용 플랫폼을 1개 이상 선택하세요.'); return; }
-            if (metrics.length === 0) { alert('핵심 성과를 1개 이상 입력하세요.'); return; }
-            if (!content) { alert('프로젝트 요약을 입력하세요.'); return; }
-            if (content.length < 50) { alert('프로젝트 요약은 최소 50자 이상 작성하세요.'); return; }
+            function showError(msg) {
+                document.getElementById('formError').style.display = 'block';
+                document.getElementById('formErrorText').textContent = msg;
+                document.getElementById('formError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            function hideError() {
+                document.getElementById('formError').style.display = 'none';
+            }
+            hideError();
+
+            if (!title) { showError('프로젝트 제목이 입력되지 않았습니다.'); return; }
+            if (!category) { showError('카테고리가 선택되지 않았습니다.'); return; }
+            if (platforms.length === 0) { showError('사용 플랫폼이 선택되지 않았습니다. (1개 이상 선택)'); return; }
+            if (metrics.length === 0) { showError('핵심 성과가 입력되지 않았습니다. (1개 이상 입력)'); return; }
+            if (!content) { showError('프로젝트 요약이 입력되지 않았습니다.'); return; }
+            if (content.length < 50) { showError('프로젝트 요약은 최소 50자 이상 작성해야 합니다. (현재: ' + content.length + '자)'); return; }
+            if (!author) { showError('작성자가 입력되지 않았습니다.'); return; }
 
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
