@@ -80,7 +80,7 @@ $base_path = '/01_work/hivemedia_homepage';
 
         body,
         .Wrap {
-            background: #f5f5f0 !important;
+            background: #ffffff !important;
             font-family: 'Space Mono', 'Courier New', monospace;
             color: #1a1a1a;
             line-height: 1.6;
@@ -857,7 +857,7 @@ $base_path = '/01_work/hivemedia_homepage';
 
                 // Get items dynamically (to include Firebase-loaded items)
                 const items = document.querySelectorAll('#projectsList .list-row');
-                
+
                 // Filter items
                 items.forEach(item => {
                     const itemCategory = item.dataset.category;

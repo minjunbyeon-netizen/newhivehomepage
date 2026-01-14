@@ -390,6 +390,386 @@ $base_path = '/01_work/hivemedia_homepage';
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
+        /* Accordion Bento Grid */
+        .accordion-bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .accordion-bento-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 200px;
+        }
+
+        .accordion-bento-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .accordion-bento-card__header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+            height: 100%;
+            min-height: 200px;
+            text-align: center;
+        }
+
+        .accordion-bento-card__header:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .accordion-bento-card__left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .accordion-bento-card__icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .accordion-bento-card__info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .accordion-bento-card__info p {
+            font-size: 12px;
+            color: #888;
+            font-family: NotoSansKR-Light;
+        }
+
+        .accordion-bento-card__right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .accordion-bento-card__count {
+            font-size: 36px;
+            font-weight: 700;
+            color: #0084ff;
+        }
+
+        .accordion-bento-card__count span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #888;
+            margin-left: 4px;
+        }
+
+        .accordion-bento-card__toggle {
+            display: none;
+        }
+
+        .accordion-bento-card__content {
+            display: none;
+        }
+
+        .accordion-bento-card__articles {
+            padding: 0 24px 24px;
+            border-top: 1px solid #eee;
+        }
+
+        .accordion-article-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .accordion-article-row:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-article-row:hover {
+            padding-left: 8px;
+        }
+
+        .accordion-article-row .title {
+            flex: 1;
+            font-family: NotoSansKR-Light;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .accordion-article-row .date {
+            font-size: 12px;
+            color: #999;
+            margin-left: 16px;
+        }
+
+        .accordion-bento-card__more {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            margin-top: 8px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .accordion-bento-card__more:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Category Color Themes */
+        .accordion-bento-card--trend .accordion-bento-card__icon {
+            background: rgba(0, 132, 255, 0.1);
+            color: #0084ff;
+        }
+
+        .accordion-bento-card--trend .accordion-bento-card__count {
+            color: #0084ff;
+        }
+
+        .accordion-bento-card--news .accordion-bento-card__icon {
+            background: rgba(0, 200, 83, 0.1);
+            color: #00C853;
+        }
+
+        .accordion-bento-card--news .accordion-bento-card__count {
+            color: #00C853;
+        }
+
+        .accordion-bento-card--behind .accordion-bento-card__icon {
+            background: rgba(255, 109, 0, 0.1);
+            color: #FF6D00;
+        }
+
+        .accordion-bento-card--behind .accordion-bento-card__count {
+            color: #FF6D00;
+        }
+
+        .accordion-bento-card--insight .accordion-bento-card__icon {
+            background: rgba(124, 77, 255, 0.1);
+            color: #7C4DFF;
+        }
+
+        .accordion-bento-card--insight .accordion-bento-card__count {
+            color: #7C4DFF;
+        }
+
+        .accordion-bento-card--other .accordion-bento-card__icon {
+            background: rgba(102, 102, 102, 0.1);
+            color: #666;
+        }
+
+        .accordion-bento-card--other .accordion-bento-card__count {
+            color: #666;
+        }
+
+        /* Responsive for Accordion Bento */
+        @media (max-width: 1024px) {
+            .accordion-bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .accordion-bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .accordion-bento-card {
+                min-height: 160px;
+            }
+
+            .accordion-bento-card__header {
+                padding: 24px 16px;
+                min-height: 160px;
+            }
+
+            .accordion-bento-card__icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+
+            .accordion-bento-card__info h3 {
+                font-size: 16px;
+            }
+
+            .accordion-bento-card__count {
+                font-size: 28px;
+            }
+        }
+
+        /* Article Modal Popup */
+        .article-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .article-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .article-modal {
+            background: #fff;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .article-modal-overlay.active .article-modal {
+            transform: translateY(0);
+        }
+
+        .article-modal__header {
+            padding: 24px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .article-modal__title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .article-modal__title-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .article-modal__title h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .article-modal__title p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .article-modal__close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .article-modal__close:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .article-modal__content {
+            padding: 16px 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .article-modal__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .article-modal__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .article-modal__item:last-child {
+            border-bottom: none;
+        }
+
+        .article-modal__item:hover {
+            padding-left: 8px;
+            background: rgba(0, 132, 255, 0.03);
+            margin: 0 -24px;
+            padding-right: 32px;
+            padding-left: 32px;
+        }
+
+        .article-modal__item-title {
+            font-family: NotoSansKR-Light;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .article-modal__item-date {
+            font-size: 12px;
+            color: #999;
+            margin-left: 16px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -441,29 +821,34 @@ $base_path = '/01_work/hivemedia_homepage';
 
             <!-- Right Panel - 60% -->
             <div class="right-panel">
-                <!-- Categories Section -->
-                <div class="section-block">
-                    <span class="section-title">CATEGORIES</span>
-                    <div class="category-list" id="categoryList">
-                        <div class="cat-row loading-text">
-                            <span class="name">LOADING...</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- All Articles Section -->
-                <div class="section-block">
-                    <span class="section-title">ALL ARTICLES</span>
-                    <div class="article-list" id="articleList">
-                        <div class="article-row loading-text">
-                            <span class="title">LOADING...</span>
-                        </div>
-                    </div>
+                <!-- Accordion Bento Grid -->
+                <div class="accordion-bento-grid" id="accordionBentoGrid">
+                    <div class="loading-text">LOADING...</div>
                 </div>
             </div>
         </main>
 
         <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- Article Modal -->
+    <div class="article-modal-overlay" id="articleModal" onclick="closeModal(event)">
+        <div class="article-modal" onclick="event.stopPropagation()">
+            <div class="article-modal__header">
+                <div class="article-modal__title">
+                    <div class="article-modal__title-icon" id="modalIcon">📁</div>
+                    <div>
+                        <h2 id="modalCategoryName">카테고리</h2>
+                        <p id="modalCategoryDesc">카테고리 설명</p>
+                    </div>
+                </div>
+                <button class="article-modal__close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="article-modal__content">
+                <ul class="article-modal__list" id="modalArticleList">
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!-- Firebase SDK -->
@@ -487,6 +872,15 @@ $base_path = '/01_work/hivemedia_homepage';
         const db = getFirestore(app);
         const basePath = '<?php echo $base_path; ?>';
 
+        // 카테고리 테마 설정
+        const categoryThemes = {
+            '마케팅 트렌드': { theme: 'trend', icon: '📈', subtitle: '마케팅 동향 & 전략' },
+            '업계 소식': { theme: 'news', icon: '📰', subtitle: '광고업계 뉴스' },
+            '프로젝트 비하인드': { theme: 'behind', icon: '🎬', subtitle: '프로젝트 스토리' },
+            '디지털 인사이트': { theme: 'insight', icon: '💡', subtitle: '디지털 마케팅 인사이트' },
+            'OTHER': { theme: 'other', icon: '📁', subtitle: '기타 콘텐츠' }
+        };
+
         // 날짜 포맷
         function formatDate(timestamp) {
             if (!timestamp) return '—';
@@ -498,11 +892,10 @@ $base_path = '/01_work/hivemedia_homepage';
             } else {
                 date = new Date(timestamp);
             }
-            return date.toLocaleDateString('en-US', {
-                year: '2-digit',
+            return date.toLocaleDateString('ko-KR', {
                 month: '2-digit',
                 day: '2-digit'
-            }).replace(/\//g, '.');
+            }).replace(/\. /g, '.').replace(/\.$/, '');
         }
 
         // 아티클 데이터 가져오기
@@ -515,7 +908,6 @@ $base_path = '/01_work/hivemedia_homepage';
                 const articles = [];
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    // 승인된 글만 표시 (status가 없거나 'published'인 경우)
                     if (!data.status || data.status === 'published') {
                         articles.push({
                             id: doc.id,
@@ -525,11 +917,10 @@ $base_path = '/01_work/hivemedia_homepage';
                 });
 
                 renderStats(articles);
-                renderCategories(articles);
-                renderArticles(articles);
+                renderAccordionBento(articles);
             } catch (error) {
                 console.error('Error fetching articles:', error);
-                document.getElementById('articleList').innerHTML = '<div class="article-row"><span class="title">FAILED TO LOAD</span></div>';
+                document.getElementById('accordionBentoGrid').innerHTML = '<div class="loading-text">FAILED TO LOAD</div>';
             }
         }
 
@@ -545,55 +936,102 @@ $base_path = '/01_work/hivemedia_homepage';
             }
         }
 
-        // 카테고리 렌더링
-        function renderCategories(articles) {
-            const categoryEl = document.getElementById('categoryList');
-            const categoryCounts = {};
-
-            articles.forEach(a => {
-                const cat = a.category || 'OTHER';
-                categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
-            });
-
-            const sortedCategories = Object.entries(categoryCounts)
-                .sort((a, b) => b[1] - a[1]);
-
-            if (sortedCategories.length === 0) {
-                categoryEl.innerHTML = '<div class="cat-row"><span class="name">NO CATEGORIES</span></div>';
-                return;
-            }
-
-            categoryEl.innerHTML = sortedCategories.map(([cat, count]) => `
-                <div class="cat-row">
-                    <span class="name">${cat.toUpperCase()}</span>
-                    <span class="count">X${count}</span>
-                </div>
-            `).join('');
+        // 카테고리별 테마 가져오기
+        function getCategoryTheme(category) {
+            return categoryThemes[category] || categoryThemes['OTHER'];
         }
 
-        // 아티클 목록 렌더링
-        function renderArticles(articles) {
-            const articleEl = document.getElementById('articleList');
+        // 전역 변수로 카테고리별 글 저장
+        let categoryArticlesMap = {};
 
-            if (articles.length === 0) {
-                articleEl.innerHTML = '<div class="article-row"><span class="title">NO ARTICLES YET</span></div>';
+        // 아코디언 벤또 그리드 렌더링
+        function renderAccordionBento(articles) {
+            const gridEl = document.getElementById('accordionBentoGrid');
+            
+            // 카테고리별로 그룹화
+            categoryArticlesMap = {};
+            articles.forEach(article => {
+                const cat = article.category || 'OTHER';
+                if (!categoryArticlesMap[cat]) {
+                    categoryArticlesMap[cat] = [];
+                }
+                categoryArticlesMap[cat].push(article);
+            });
+
+            // 글 수 기준으로 정렬
+            const sortedCategories = Object.entries(categoryArticlesMap)
+                .sort((a, b) => b[1].length - a[1].length);
+
+            if (sortedCategories.length === 0) {
+                gridEl.innerHTML = '<div class="loading-text">NO ARTICLES YET</div>';
                 return;
             }
 
-            articleEl.innerHTML = articles.map(article => {
-                const title = (article.title || 'UNTITLED').toUpperCase();
-                const category = (article.category || 'OTHER').toUpperCase();
-                const date = formatDate(article.createdAt);
+            // 벤또 카드 생성 (클릭시 모달 열림)
+            gridEl.innerHTML = sortedCategories.map(([category, categoryArticles]) => {
+                const theme = getCategoryTheme(category);
 
                 return `
-                    <div class="article-row" onclick="location.href='${basePath}/archive/view.php?id=${article.id}'">
-                        <span class="title">${title}</span>
-                        <span class="category">${category}</span>
-                        <span class="date">${date}</span>
+                    <div class="accordion-bento-card accordion-bento-card--${theme.theme}" 
+                         data-category="${category}" 
+                         onclick="openModal('${category}')">
+                        <div class="accordion-bento-card__header">
+                            <div class="accordion-bento-card__left">
+                                <div class="accordion-bento-card__icon">${theme.icon}</div>
+                                <div class="accordion-bento-card__info">
+                                    <h3>${category}</h3>
+                                    <p>${theme.subtitle}</p>
+                                </div>
+                            </div>
+                            <div class="accordion-bento-card__right">
+                                <div class="accordion-bento-card__count">${categoryArticles.length}<span>건</span></div>
+                            </div>
+                        </div>
                     </div>
                 `;
             }).join('');
         }
+
+        // 모달 열기
+        window.openModal = function(category) {
+            const theme = getCategoryTheme(category);
+            const articles = categoryArticlesMap[category] || [];
+            
+            // 모달 헤더 업데이트
+            document.getElementById('modalIcon').textContent = theme.icon;
+            document.getElementById('modalIcon').style.background = getComputedStyle(
+                document.querySelector(`.accordion-bento-card--${theme.theme} .accordion-bento-card__icon`)
+            ).background;
+            document.getElementById('modalCategoryName').textContent = category;
+            document.getElementById('modalCategoryDesc').textContent = `${articles.length}개의 아티클`;
+            
+            // 글 목록 렌더링
+            const listEl = document.getElementById('modalArticleList');
+            listEl.innerHTML = articles.map(article => `
+                <li class="article-modal__item" onclick="location.href='${basePath}/archive/view.php?id=${article.id}'">
+                    <span class="article-modal__item-title">${article.title || 'Untitled'}</span>
+                    <span class="article-modal__item-date">${formatDate(article.createdAt)}</span>
+                </li>
+            `).join('');
+            
+            // 모달 표시
+            document.getElementById('articleModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        // 모달 닫기
+        window.closeModal = function(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('articleModal').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // 페이지 로드 시 실행
         fetchArticles();
