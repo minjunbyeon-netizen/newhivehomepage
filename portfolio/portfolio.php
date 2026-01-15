@@ -721,6 +721,214 @@ $base_path = '/01_work/hivemedia_homepage';
                 font-size: 16px;
             }
         }
+
+        /* ========================================
+           Card Bottom Info (Always visible)
+        ======================================== */
+        .project-card {
+            aspect-ratio: unset;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card__image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+        }
+
+        .project-card__image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-card__image {
+            transform: scale(1.1);
+        }
+
+        .project-card__placeholder {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .project-card__overlay {
+            position: absolute;
+            inset: 0;
+        }
+
+        .project-card__bottom {
+            padding: 16px;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .project-card__client {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #0084ff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .project-card__project-name {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ========================================
+           Portfolio Modal Popup
+        ======================================== */
+        .portfolio-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .portfolio-modal__content {
+            background: #fff;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-modal.active .portfolio-modal__content {
+            transform: scale(1) translateY(0);
+        }
+
+        .portfolio-modal__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .portfolio-modal__title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .portfolio-modal__close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .portfolio-modal__close:hover {
+            background: #e0e0e0;
+        }
+
+        .portfolio-modal__body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .portfolio-modal__image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            background: #f5f5f5;
+        }
+
+        .portfolio-modal__meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .portfolio-modal__meta-item {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .portfolio-modal__meta-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .portfolio-modal__meta-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .portfolio-modal__description {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-modal__content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .portfolio-modal__meta {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-modal__header {
+                padding: 16px;
+            }
+
+            .portfolio-modal__body {
+                padding: 16px;
+            }
+        }
     </style>
 </head>
 
@@ -952,6 +1160,40 @@ $base_path = '/01_work/hivemedia_homepage';
         </main>
 
         <div id="footer-placeholder"></div>
+
+        <!-- Portfolio Modal -->
+        <div class="portfolio-modal" id="portfolioModal">
+            <div class="portfolio-modal__content">
+                <div class="portfolio-modal__header">
+                    <h2 class="portfolio-modal__title" id="modalTitle">프로젝트 제목</h2>
+                    <button class="portfolio-modal__close" id="modalClose">×</button>
+                </div>
+                <div class="portfolio-modal__body">
+                    <img class="portfolio-modal__image" id="modalImage" src="" alt="">
+                    <div class="portfolio-modal__meta">
+                        <div class="portfolio-modal__meta-item">
+                            <div class="portfolio-modal__meta-label">광고주</div>
+                            <div class="portfolio-modal__meta-value" id="modalClient">-</div>
+                        </div>
+                        <div class="portfolio-modal__meta-item">
+                            <div class="portfolio-modal__meta-label">카테고리</div>
+                            <div class="portfolio-modal__meta-value" id="modalCategory">-</div>
+                        </div>
+                        <div class="portfolio-modal__meta-item">
+                            <div class="portfolio-modal__meta-label">진행년도</div>
+                            <div class="portfolio-modal__meta-value" id="modalYear">-</div>
+                        </div>
+                        <div class="portfolio-modal__meta-item">
+                            <div class="portfolio-modal__meta-label">프로젝트 유형</div>
+                            <div class="portfolio-modal__meta-value" id="modalType">-</div>
+                        </div>
+                    </div>
+                    <div class="portfolio-modal__description" id="modalDescription">
+                        프로젝트 설명이 여기에 표시됩니다.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1094,50 +1336,66 @@ $base_path = '/01_work/hivemedia_homepage';
 
                 const projectsList = document.getElementById('projectsList');
 
+                // Store portfolio data for modal
+                window.portfolioData = {};
+
                 // Add Firebase items as image cards
                 snapshot.forEach(doc => {
                     const data = doc.data();
+                    const docId = doc.id;
                     const categoryKey = categoryMap[data.category] || 'online_ad';
+
+                    // Store data for modal
+                    window.portfolioData[docId] = data;
 
                     const card = document.createElement('div');
                     card.className = 'project-card firebase-item';
                     card.dataset.category = categoryKey;
+                    card.dataset.docId = docId;
 
                     // Get thumbnail or use placeholder
                     const thumbnailUrl = data.thumbnailUrl || data.imageUrl || '';
                     const firstLetter = data.title ? data.title.charAt(0).toUpperCase() : 'P';
+                    const client = data.client || data.advertiser || '하이브미디어';
+                    const projectName = data.title || '프로젝트';
+
+                    // Create colorful placeholder based on category
+                    const colors = {
+                        'online_ad': 'linear-gradient(135deg, #0084ff 0%, #00c6ff 100%)',
+                        'sns': 'linear-gradient(135deg, #E1306C 0%, #F77737 100%)',
+                        'homepage': 'linear-gradient(135deg, #1a1a1a 0%, #434343 100%)',
+                        'video': 'linear-gradient(135deg, #FF0000 0%, #FF5722 100%)',
+                        'eventpage': 'linear-gradient(135deg, #FFC107 0%, #FF9800 100%)',
+                        'print': 'linear-gradient(135deg, #666666 0%, #999999 100%)',
+                        'exhibition': 'linear-gradient(135deg, #9C27B0 0%, #673AB7 100%)'
+                    };
+                    const bgColor = colors[categoryKey] || colors['online_ad'];
 
                     if (thumbnailUrl) {
                         card.innerHTML = `
-                            <img class="project-card__image" src="${thumbnailUrl}" alt="${data.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'project-card__placeholder\\'>${firstLetter}</div><div class=\\'project-card__overlay\\'></div><div class=\\'project-card__info\\'><h3 class=\\'project-card__title\\'>${data.title}</h3><span class=\\'project-card__category\\'>${data.category}</span></div>'">
-                            <div class="project-card__overlay"></div>
-                            <div class="project-card__info">
-                                <h3 class="project-card__title">${data.title}</h3>
-                                <span class="project-card__category">${data.category}</span>
+                            <div class="project-card__image-wrapper">
+                                <img class="project-card__image" src="${thumbnailUrl}" alt="${projectName}" loading="lazy" 
+                                    onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'project-card__placeholder\\' style=\\'background:${bgColor.replace(/'/g, "\\'")};\\'>${firstLetter}</div>'">
+                            </div>
+                            <div class="project-card__bottom">
+                                <div class="project-card__client">${client}</div>
+                                <div class="project-card__project-name">${projectName}</div>
                             </div>
                         `;
                     } else {
-                        // Create colorful placeholder based on category
-                        const colors = {
-                            'online_ad': 'linear-gradient(135deg, #0084ff 0%, #00c6ff 100%)',
-                            'sns': 'linear-gradient(135deg, #E1306C 0%, #F77737 100%)',
-                            'homepage': 'linear-gradient(135deg, #1a1a1a 0%, #434343 100%)',
-                            'video': 'linear-gradient(135deg, #FF0000 0%, #FF5722 100%)',
-                            'eventpage': 'linear-gradient(135deg, #FFC107 0%, #FF9800 100%)',
-                            'print': 'linear-gradient(135deg, #666666 0%, #999999 100%)',
-                            'exhibition': 'linear-gradient(135deg, #9C27B0 0%, #673AB7 100%)'
-                        };
-                        const bgColor = colors[categoryKey] || colors['online_ad'];
-
                         card.innerHTML = `
-                            <div class="project-card__placeholder" style="background: ${bgColor}">${firstLetter}</div>
-                            <div class="project-card__overlay"></div>
-                            <div class="project-card__info">
-                                <h3 class="project-card__title">${data.title}</h3>
-                                <span class="project-card__category">${data.category}</span>
+                            <div class="project-card__image-wrapper">
+                                <div class="project-card__placeholder" style="background: ${bgColor}; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; color: #fff;">${firstLetter}</div>
+                            </div>
+                            <div class="project-card__bottom">
+                                <div class="project-card__client">${client}</div>
+                                <div class="project-card__project-name">${projectName}</div>
                             </div>
                         `;
                     }
+
+                    // Add click handler for modal
+                    card.addEventListener('click', () => openPortfolioModal(docId));
 
                     // Add to grid
                     projectsList.appendChild(card);
@@ -1150,6 +1408,48 @@ $base_path = '/01_work/hivemedia_homepage';
             } catch (error) {
                 console.error('Error loading portfolios:', error);
             }
+        }
+
+        // Open portfolio modal
+        function openPortfolioModal(docId) {
+            const data = window.portfolioData[docId];
+            if (!data) return;
+
+            const modal = document.getElementById('portfolioModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalImage = document.getElementById('modalImage');
+            const modalClient = document.getElementById('modalClient');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalYear = document.getElementById('modalYear');
+            const modalType = document.getElementById('modalType');
+            const modalDescription = document.getElementById('modalDescription');
+
+            modalTitle.textContent = data.title || '프로젝트';
+            modalImage.src = data.thumbnailUrl || data.imageUrl || '';
+            modalImage.style.display = (data.thumbnailUrl || data.imageUrl) ? 'block' : 'none';
+            modalClient.textContent = data.client || data.advertiser || '-';
+            modalCategory.textContent = data.category || '-';
+            modalYear.textContent = data.year || data.createdAt?.toDate?.()?.getFullYear?.() || '-';
+            modalType.textContent = data.projectType || data.type || '-';
+            modalDescription.textContent = data.description || data.content || '상세 설명이 없습니다.';
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal handlers
+        document.getElementById('modalClose').addEventListener('click', closePortfolioModal);
+        document.getElementById('portfolioModal').addEventListener('click', function(e) {
+            if (e.target === this) closePortfolioModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closePortfolioModal();
+        });
+
+        function closePortfolioModal() {
+            const modal = document.getElementById('portfolioModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         // Update bento card counts
