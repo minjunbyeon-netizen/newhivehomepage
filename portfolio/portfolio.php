@@ -911,6 +911,65 @@ $base_path = '/01_work/hivemedia_homepage';
             color: #444;
         }
 
+        /* Gallery Styles */
+        .portfolio-modal__gallery {
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f5f5f5;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portfolio-modal__main-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+        }
+
+        .portfolio-modal__gallery-placeholder {
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .portfolio-modal__thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-modal__thumbnails:empty {
+            display: none;
+        }
+
+        .portfolio-modal__thumb {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .portfolio-modal__thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-modal__thumb.active {
+            border-color: #0084ff;
+        }
+
+        .portfolio-modal__thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         @media (max-width: 768px) {
             .portfolio-modal__content {
                 width: 95%;
@@ -1169,7 +1228,16 @@ $base_path = '/01_work/hivemedia_homepage';
                     <button class="portfolio-modal__close" id="modalClose">×</button>
                 </div>
                 <div class="portfolio-modal__body">
-                    <img class="portfolio-modal__image" id="modalImage" src="" alt="">
+                    <!-- Main Image / Gallery -->
+                    <div class="portfolio-modal__gallery" id="modalGallery">
+                        <img class="portfolio-modal__main-image" id="modalMainImage" src="" alt="">
+                    </div>
+
+                    <!-- Thumbnail Grid (for multiple images) -->
+                    <div class="portfolio-modal__thumbnails" id="modalThumbnails">
+                        <!-- Firebase 첨부파일 이미지들이 여기에 표시됩니다 -->
+                    </div>
+
                     <div class="portfolio-modal__meta">
                         <div class="portfolio-modal__meta-item">
                             <div class="portfolio-modal__meta-label">광고주</div>
@@ -1417,21 +1485,79 @@ $base_path = '/01_work/hivemedia_homepage';
 
             const modal = document.getElementById('portfolioModal');
             const modalTitle = document.getElementById('modalTitle');
-            const modalImage = document.getElementById('modalImage');
+            const modalMainImage = document.getElementById('modalMainImage');
+            const modalGallery = document.getElementById('modalGallery');
+            const modalThumbnails = document.getElementById('modalThumbnails');
             const modalClient = document.getElementById('modalClient');
             const modalCategory = document.getElementById('modalCategory');
             const modalYear = document.getElementById('modalYear');
             const modalType = document.getElementById('modalType');
             const modalDescription = document.getElementById('modalDescription');
 
+            // Set text content
             modalTitle.textContent = data.title || '프로젝트';
-            modalImage.src = data.thumbnailUrl || data.imageUrl || '';
-            modalImage.style.display = (data.thumbnailUrl || data.imageUrl) ? 'block' : 'none';
             modalClient.textContent = data.client || data.advertiser || '-';
             modalCategory.textContent = data.category || '-';
             modalYear.textContent = data.year || data.createdAt?.toDate?.()?.getFullYear?.() || '-';
             modalType.textContent = data.projectType || data.type || '-';
             modalDescription.textContent = data.description || data.content || '상세 설명이 없습니다.';
+
+            // Collect all images (attachments, thumbnailUrl, imageUrl, images array)
+            let allImages = [];
+            
+            // Check for attachments array (Firebase Storage)
+            if (data.attachments && Array.isArray(data.attachments)) {
+                allImages = allImages.concat(data.attachments.filter(url => url && typeof url === 'string'));
+            }
+            
+            // Check for images array
+            if (data.images && Array.isArray(data.images)) {
+                allImages = allImages.concat(data.images.filter(url => url && typeof url === 'string'));
+            }
+            
+            // Add thumbnailUrl and imageUrl if not already included
+            if (data.thumbnailUrl && !allImages.includes(data.thumbnailUrl)) {
+                allImages.unshift(data.thumbnailUrl);
+            }
+            if (data.imageUrl && !allImages.includes(data.imageUrl)) {
+                allImages.unshift(data.imageUrl);
+            }
+
+            // Clear previous thumbnails
+            modalThumbnails.innerHTML = '';
+
+            if (allImages.length > 0) {
+                // Show main image
+                modalMainImage.src = allImages[0];
+                modalMainImage.style.display = 'block';
+                modalGallery.querySelector('.portfolio-modal__gallery-placeholder')?.remove();
+
+                // Create thumbnails if multiple images
+                if (allImages.length > 1) {
+                    allImages.forEach((imgUrl, index) => {
+                        const thumb = document.createElement('div');
+                        thumb.className = 'portfolio-modal__thumb' + (index === 0 ? ' active' : '');
+                        thumb.innerHTML = `<img src="${imgUrl}" alt="이미지 ${index + 1}">`;
+                        thumb.addEventListener('click', () => {
+                            // Update main image
+                            modalMainImage.src = imgUrl;
+                            // Update active state
+                            modalThumbnails.querySelectorAll('.portfolio-modal__thumb').forEach(t => t.classList.remove('active'));
+                            thumb.classList.add('active');
+                        });
+                        modalThumbnails.appendChild(thumb);
+                    });
+                }
+            } else {
+                // No images - show placeholder
+                modalMainImage.style.display = 'none';
+                if (!modalGallery.querySelector('.portfolio-modal__gallery-placeholder')) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'portfolio-modal__gallery-placeholder';
+                    placeholder.textContent = '등록된 이미지가 없습니다';
+                    modalGallery.appendChild(placeholder);
+                }
+            }
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1439,10 +1565,10 @@ $base_path = '/01_work/hivemedia_homepage';
 
         // Close modal handlers
         document.getElementById('modalClose').addEventListener('click', closePortfolioModal);
-        document.getElementById('portfolioModal').addEventListener('click', function(e) {
+        document.getElementById('portfolioModal').addEventListener('click', function (e) {
             if (e.target === this) closePortfolioModal();
         });
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closePortfolioModal();
         });
 

@@ -42,11 +42,9 @@ EMAIL_SMTP_SERVER = "smtp.naver.com"
 EMAIL_SMTP_PORT = 587
 # 검색 카테고리별 키워드 (5개 카테고리에서 각 1개씩 = 5개 글)
 TREND_CATEGORIES = [
-    {"name": "마케팅", "keywords": ["마케팅", "광고", "브랜딩", "SNS마케팅"]},
-    {"name": "기술", "keywords": ["AI", "인공지능", "챗GPT", "자동화"]},
-    {"name": "트렌드", "keywords": ["MZ세대", "숏폼", "릴스", "인플루언서"]},
-    {"name": "지역", "keywords": ["부산", "부산관광", "부산맛집", "해운대"]},
-    {"name": "SNS", "keywords": ["인스타그램", "틱톡", "유튜브", "숏츠"]},
+    {"name": "TREND", "keywords": ["마케팅", "광고", "브랜딩", "트렌드", "숏폼"]},
+    {"name": "INSIGHT", "keywords": ["AI", "인공지능", "챗GPT", "자동화", "기술"]},
+    {"name": "CASE STUDY", "keywords": ["부산", "관공서", "성공사례", "지자체"]},
 ]
 
 # ============================================================

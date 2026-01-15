@@ -483,11 +483,11 @@ $base_path = '/01_work/hivemedia_homepage';
             border-bottom-color: #0084ff;
         }
 
-        .category-column--ad .category-column__header {
+        .category-column--insight .category-column__header {
             border-bottom-color: #00C853;
         }
 
-        .category-column--design .category-column__header {
+        .category-column--case .category-column__header {
             border-bottom-color: #7C4DFF;
         }
 
@@ -618,6 +618,17 @@ $base_path = '/01_work/hivemedia_homepage';
             margin-left: 16px;
             white-space: nowrap;
         }
+
+        .active-category-highlight {
+            background: rgba(0, 132, 255, 0.05) !important;
+            border: 1px solid rgba(0, 132, 255, 0.2);
+            padding: 20px !important;
+            border-radius: 12px;
+        }
+
+        .active-category-highlight .category-column__header {
+            border-bottom-width: 3px !important;
+        }
     </style>
 </head>
 
@@ -702,9 +713,9 @@ $base_path = '/01_work/hivemedia_homepage';
 
         // 3개 고정 카테고리
         const fixedCategories = [
-            { key: 'trend', name: '트렌드', theme: 'trend' },
-            { key: 'ad', name: '광고&홍보', theme: 'ad' },
-            { key: 'design', name: '디자인', theme: 'design' }
+            { key: 'trend', name: 'TREND', theme: 'trend' },
+            { key: 'insight', name: 'INSIGHT', theme: 'insight' },
+            { key: 'case', name: 'CASE STUDY', theme: 'case' }
         ];
 
         // 샘플 글 데이터 (Firebase 데이터가 없을 경우 사용)
@@ -716,19 +727,19 @@ $base_path = '/01_work/hivemedia_homepage';
                 { id: 's4', title: 'Z세대 공략을 위한 SNS 마케팅 전략', createdAt: new Date('2025-01-08') },
                 { id: 's5', title: '지속가능한 마케팅: ESG와 브랜드 가치', createdAt: new Date('2025-01-05') }
             ],
-            'ad': [
+            'insight': [
                 { id: 's6', title: '네이버 검색광고 2025 업데이트 정리', createdAt: new Date('2025-01-13') },
                 { id: 's7', title: 'Google Ads 퍼포먼스 맥스 캠페인 활용법', createdAt: new Date('2025-01-11') },
                 { id: 's8', title: '인스타그램 릴스 광고 효과 분석', createdAt: new Date('2025-01-09') },
                 { id: 's9', title: '지역 기반 타겟팅 광고의 모든 것', createdAt: new Date('2025-01-07') },
                 { id: 's10', title: '리타겟팅 광고로 전환율 높이기', createdAt: new Date('2025-01-04') }
             ],
-            'design': [
-                { id: 's11', title: '2025 웹 디자인 트렌드: 미니멀리즘의 진화', createdAt: new Date('2025-01-14') },
-                { id: 's12', title: 'UI/UX 디자인에서 접근성의 중요성', createdAt: new Date('2025-01-11') },
-                { id: 's13', title: '효과적인 랜딩페이지 디자인 가이드', createdAt: new Date('2025-01-09') },
-                { id: 's14', title: '브랜드 아이덴티티 디자인 프로세스', createdAt: new Date('2025-01-06') },
-                { id: 's15', title: '모션 그래픽이 전환율에 미치는 영향', createdAt: new Date('2025-01-03') }
+            'case': [
+                { id: 's11', title: '2025 지자체 브랜딩 성공 사례 분석', createdAt: new Date('2025-01-14') },
+                { id: 's12', title: '부산항만공사 SNS 운영 성과 리포트', createdAt: new Date('2025-01-11') },
+                { id: 's13', title: '해운대구청 홍보영상 캠페인 비하인드', createdAt: new Date('2025-01-09') },
+                { id: 's14', title: '관공서 마케팅 효율 200% 높이기', createdAt: new Date('2025-01-06') },
+                { id: 's15', title: '시니어 클럽 일자리 홍보 프로젝트', createdAt: new Date('2025-01-03') }
             ]
         };
 
@@ -793,19 +804,37 @@ $base_path = '/01_work/hivemedia_homepage';
         function renderCategoryColumns(articles) {
             const columnsEl = document.getElementById('categoryColumns');
 
+            // URL 파라미터에서 카테고리 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeCat = urlParams.get('cat');
+
             // 각 카테고리별 HTML 생성
             columnsEl.innerHTML = fixedCategories.map(cat => {
-                // Firebase 데이터 또는 샘플 데이터 사용
-                let categoryArticles = sampleArticles[cat.key] || [];
+                // Firebase 데이터 필터링 (기존 카테고리명과 새 카테고리명 모두 대응)
+                let categoryArticles = articles.filter(a => {
+                    const articleCat = (a.category || '').toLowerCase();
+                    return articleCat === cat.key ||
+                        articleCat === cat.name.toLowerCase() ||
+                        (cat.key === 'insight' && (articleCat === 'ad' || articleCat === '광고&홍보')) ||
+                        (cat.key === 'case' && (articleCat === 'design' || articleCat === '디자인'));
+                });
+
+                // 데이터가 없을 경우 샘플 데이터 사용
+                if (categoryArticles.length === 0) {
+                    categoryArticles = sampleArticles[cat.key] || [];
+                }
 
                 // 최신 5개만 표시
                 const displayArticles = categoryArticles.slice(0, 5);
 
+                // 해당 카테고리가 활성화된 경우 하이라이트 효과를 위한 클래스
+                const isActive = activeCat === cat.key ? 'active-category-highlight' : '';
+
                 return `
-                    <div class="category-column category-column--${cat.theme}">
+                    <div id="cat-${cat.key}" class="category-column category-column--${cat.theme} ${isActive}">
                         <div class="category-column__header">
                             <h3 class="category-column__title">${cat.name}</h3>
-                            <p class="category-column__count">${displayArticles.length}개 아티클</p>
+                            <p class="category-column__count">${categoryArticles.length}개 아티클</p>
                         </div>
                         <ul class="category-column__list">
                             ${displayArticles.map(article => `
@@ -818,11 +847,23 @@ $base_path = '/01_work/hivemedia_homepage';
                     </div>
                 `;
             }).join('');
+
+            // 파라미터가 있을 경우 해당 위치로 스크롤
+            if (activeCat) {
+                setTimeout(() => {
+                    const el = document.getElementById(`cat-${activeCat}`);
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        el.style.transform = 'scale(1.02)';
+                        el.style.transition = 'transform 0.5s';
+                        setTimeout(() => el.style.transform = 'scale(1)', 1000);
+                    }
+                }, 500);
+            }
         }
 
         // 페이지 로드 시 실행
-        renderStats([]);
-        renderCategoryColumns([]);
+        fetchArticles();
     </script>
 </body>
 
