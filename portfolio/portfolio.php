@@ -168,9 +168,8 @@ $base_path = '/01_work/hivemedia_homepage';
             border: 1px solid #1a1a1a;
             background: transparent;
             color: #1a1a1a;
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            text-transform: uppercase;
+            font-family: NotoSansKR-Light, 'Noto Sans KR', sans-serif;
+            font-size: 1.4rem;
             letter-spacing: 1px;
             text-decoration: none;
             cursor: pointer;
@@ -237,7 +236,8 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         .category-tab {
-            font-size: 11px;
+            font-family: NotoSansKR-Light, 'Noto Sans KR', sans-serif;
+            font-size: 1.3rem;
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -898,6 +898,41 @@ $base_path = '/01_work/hivemedia_homepage';
 
                     showProjectsList(category);
                 });
+            });
+
+            // URL 해시를 읽어서 해당 탭 활성화
+            function activateTabFromHash() {
+                let hash = window.location.hash.replace('#', '');
+                if (hash && hash !== 'all') {
+                    const matchingTab = document.querySelector(`.category-tab[data-category="${hash}"]`);
+                    if (matchingTab) {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        matchingTab.classList.add('active');
+                        showProjectsList(hash);
+                        
+                        // 사이드바 메뉴 닫기
+                        const navWrap = document.querySelector('aside.nav-wrap');
+                        const navBtn = document.querySelector('.btn-nav-open');
+                        if (navWrap && navWrap.classList.contains('open')) {
+                            navWrap.classList.remove('open');
+                            if (navBtn) navBtn.classList.remove('on');
+                        }
+                    }
+                }
+            }
+
+            // 페이지 로드 시 해시 확인
+            setTimeout(activateTabFromHash, 100);
+
+            // 해시 변경 감지
+            window.addEventListener('hashchange', activateTabFromHash);
+
+            // 사이드바 메뉴 클릭 감지 (같은 페이지에서 해시만 변경될 때)
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a[href*="portfolio.php#"]');
+                if (link) {
+                    setTimeout(activateTabFromHash, 200);
+                }
             });
         });
     </script>

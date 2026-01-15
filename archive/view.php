@@ -39,6 +39,16 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             background: #fff !important;
         }
 
+        .Wrap {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
         /* Header 스타일 오버라이드 */
         .header {
             background: #1a1a1a !important;
