@@ -578,6 +578,110 @@ $base_path = '/01_work/hivemedia_homepage';
             display: none;
         }
 
+        /* ========================================
+           Project Image Grid Styles
+        ======================================== */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            background: #f5f5f5;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-card__image {
+            transform: scale(1.1);
+        }
+
+        .project-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover .project-card__overlay {
+            opacity: 1;
+        }
+
+        .project-card__info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            color: #fff;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s, opacity 0.3s;
+        }
+
+        .project-card:hover .project-card__info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-card__title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .project-card__category {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            color: #0084ff;
+        }
+
+        .project-card__placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 48px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* No items message */
+        .no-items-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 16px;
+        }
+
         @media (max-width: 1024px) {
             .bento-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -587,6 +691,11 @@ $base_path = '/01_work/hivemedia_homepage';
             .bento-card--large {
                 grid-column: span 2;
                 grid-row: span 1;
+            }
+
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
             }
         }
 
@@ -601,6 +710,15 @@ $base_path = '/01_work/hivemedia_homepage';
 
             .bento-card {
                 min-height: 160px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .project-card__title {
+                font-size: 16px;
             }
         }
     </style>
@@ -823,10 +941,10 @@ $base_path = '/01_work/hivemedia_homepage';
                     </div>
                 </div>
 
-                <!-- All Projects List (initially hidden) -->
+                <!-- All Projects Grid (initially hidden) -->
                 <div class="section-block hidden" id="projectsSection">
                     <span class="section-title">PROJECTS</span>
-                    <div class="single-col-list" id="projectsList">
+                    <div class="project-grid" id="projectsList">
                         <!-- Firebase 승인된 포트폴리오가 여기에 동적으로 추가됩니다 -->
                     </div>
                 </div>
@@ -856,14 +974,14 @@ $base_path = '/01_work/hivemedia_homepage';
                 projectsSection.classList.remove('hidden');
 
                 // Get items dynamically (to include Firebase-loaded items)
-                const items = document.querySelectorAll('#projectsList .list-row');
+                const items = document.querySelectorAll('#projectsList .project-card');
 
                 // Filter items
                 items.forEach(item => {
                     const itemCategory = item.dataset.category;
                     const filterCategories = category.split(',');
                     if (category === 'all' || filterCategories.includes(itemCategory)) {
-                        item.style.display = 'flex';
+                        item.style.display = 'block';
                     } else {
                         item.style.display = 'none';
                     }
@@ -909,7 +1027,7 @@ $base_path = '/01_work/hivemedia_homepage';
                         tabs.forEach(t => t.classList.remove('active'));
                         matchingTab.classList.add('active');
                         showProjectsList(hash);
-                        
+
                         // 사이드바 메뉴 닫기
                         const navWrap = document.querySelector('aside.nav-wrap');
                         const navBtn = document.querySelector('.btn-nav-open');
@@ -928,7 +1046,7 @@ $base_path = '/01_work/hivemedia_homepage';
             window.addEventListener('hashchange', activateTabFromHash);
 
             // 사이드바 메뉴 클릭 감지 (같은 페이지에서 해시만 변경될 때)
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 const link = e.target.closest('a[href*="portfolio.php#"]');
                 if (link) {
                     setTimeout(activateTabFromHash, 200);
@@ -976,21 +1094,53 @@ $base_path = '/01_work/hivemedia_homepage';
 
                 const projectsList = document.getElementById('projectsList');
 
-                // Add Firebase items to the list
+                // Add Firebase items as image cards
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     const categoryKey = categoryMap[data.category] || 'online_ad';
 
-                    const row = document.createElement('div');
-                    row.className = 'list-row firebase-item';
-                    row.dataset.category = categoryKey;
-                    row.innerHTML = `
-                        <span class="name">${data.title}</span>
-                        <span class="category">${data.category.toUpperCase()}</span>
-                    `;
+                    const card = document.createElement('div');
+                    card.className = 'project-card firebase-item';
+                    card.dataset.category = categoryKey;
 
-                    // Add to beginning of list
-                    projectsList.insertBefore(row, projectsList.firstChild);
+                    // Get thumbnail or use placeholder
+                    const thumbnailUrl = data.thumbnailUrl || data.imageUrl || '';
+                    const firstLetter = data.title ? data.title.charAt(0).toUpperCase() : 'P';
+
+                    if (thumbnailUrl) {
+                        card.innerHTML = `
+                            <img class="project-card__image" src="${thumbnailUrl}" alt="${data.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'project-card__placeholder\\'>${firstLetter}</div><div class=\\'project-card__overlay\\'></div><div class=\\'project-card__info\\'><h3 class=\\'project-card__title\\'>${data.title}</h3><span class=\\'project-card__category\\'>${data.category}</span></div>'">
+                            <div class="project-card__overlay"></div>
+                            <div class="project-card__info">
+                                <h3 class="project-card__title">${data.title}</h3>
+                                <span class="project-card__category">${data.category}</span>
+                            </div>
+                        `;
+                    } else {
+                        // Create colorful placeholder based on category
+                        const colors = {
+                            'online_ad': 'linear-gradient(135deg, #0084ff 0%, #00c6ff 100%)',
+                            'sns': 'linear-gradient(135deg, #E1306C 0%, #F77737 100%)',
+                            'homepage': 'linear-gradient(135deg, #1a1a1a 0%, #434343 100%)',
+                            'video': 'linear-gradient(135deg, #FF0000 0%, #FF5722 100%)',
+                            'eventpage': 'linear-gradient(135deg, #FFC107 0%, #FF9800 100%)',
+                            'print': 'linear-gradient(135deg, #666666 0%, #999999 100%)',
+                            'exhibition': 'linear-gradient(135deg, #9C27B0 0%, #673AB7 100%)'
+                        };
+                        const bgColor = colors[categoryKey] || colors['online_ad'];
+
+                        card.innerHTML = `
+                            <div class="project-card__placeholder" style="background: ${bgColor}">${firstLetter}</div>
+                            <div class="project-card__overlay"></div>
+                            <div class="project-card__info">
+                                <h3 class="project-card__title">${data.title}</h3>
+                                <span class="project-card__category">${data.category}</span>
+                            </div>
+                        `;
+                    }
+
+                    // Add to grid
+                    projectsList.appendChild(card);
                 });
 
                 // Update counts on bento cards
