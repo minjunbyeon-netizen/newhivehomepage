@@ -579,50 +579,84 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         /* ========================================
-           Project Image Grid Styles
+           Modern Masonry Grid Styles
         ======================================== */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            grid-auto-rows: 10px;
         }
 
         .project-card {
             position: relative;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            aspect-ratio: 4/3;
             cursor: pointer;
-            background: #f5f5f5;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Variable heights for masonry effect */
+        .project-card:nth-child(6n+1) {
+            grid-row: span 28;
+        }
+
+        .project-card:nth-child(6n+2) {
+            grid-row: span 32;
+        }
+
+        .project-card:nth-child(6n+3) {
+            grid-row: span 25;
+        }
+
+        .project-card:nth-child(6n+4) {
+            grid-row: span 30;
+        }
+
+        .project-card:nth-child(6n+5) {
+            grid-row: span 26;
+        }
+
+        .project-card:nth-child(6n+6) {
+            grid-row: span 34;
         }
 
         .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
 
         .project-card__image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-card:hover .project-card__image {
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
         .project-card__overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
+            background: linear-gradient(180deg,
+                    transparent 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.7) 100%);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
         }
 
         .project-card:hover .project-card__overlay {
             opacity: 1;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.2) 0%,
+                    rgba(0, 0, 0, 0.4) 40%,
+                    rgba(0, 0, 0, 0.85) 100%);
         }
 
         .project-card__info {
@@ -632,9 +666,9 @@ $base_path = '/01_work/hivemedia_homepage';
             right: 0;
             padding: 24px;
             color: #fff;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: transform 0.4s, opacity 0.3s;
+            transform: translateY(10px);
+            opacity: 0.9;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-card:hover .project-card__info {
@@ -642,44 +676,106 @@ $base_path = '/01_work/hivemedia_homepage';
             opacity: 1;
         }
 
+        .project-card__category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
         .project-card__title {
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             line-height: 1.3;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .project-card__category {
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            color: #0084ff;
+        .project-card__client {
+            font-size: 13px;
+            font-weight: 400;
+            opacity: 0.85;
+            letter-spacing: 0.5px;
         }
 
         .project-card__placeholder {
             width: 100%;
             height: 100%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            gap: 12px;
             color: #fff;
-            font-size: 48px;
-            font-weight: 700;
+            font-size: 56px;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .project-card__placeholder::after {
+            content: attr(data-category);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        /* Category Color Themes */
+        .project-card[data-category="online_ad"] .project-card__placeholder {
+            background: linear-gradient(135deg, #0066ff 0%, #00c6ff 100%);
+        }
+
+        .project-card[data-category="sns"] .project-card__placeholder {
+            background: linear-gradient(135deg, #E1306C 0%, #F77737 100%);
+        }
+
+        .project-card[data-category="homepage"] .project-card__placeholder {
+            background: linear-gradient(135deg, #1a1a1a 0%, #434343 100%);
+        }
+
+        .project-card[data-category="video"] .project-card__placeholder {
+            background: linear-gradient(135deg, #FF0000 0%, #FF5722 100%);
+        }
+
+        .project-card[data-category="eventpage"] .project-card__placeholder {
+            background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+        }
+
+        .project-card[data-category="print"] .project-card__placeholder {
+            background: linear-gradient(135deg, #666666 0%, #999999 100%);
+        }
+
+        .project-card[data-category="exhibition"] .project-card__placeholder {
+            background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
         }
 
         /* No items message */
         .no-items-message {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             color: #888;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 16px;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            border-radius: 20px;
+            border: 1px dashed #ddd;
+        }
+
+        /* Responsive - Tablet */
+        @media (max-width: 1200px) {
+            .project-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         @media (max-width: 1024px) {
@@ -695,7 +791,11 @@ $base_path = '/01_work/hivemedia_homepage';
 
             .project-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+                gap: 12px;
+            }
+
+            .project-card:nth-child(n) {
+                grid-row: span 22;
             }
         }
 
@@ -713,81 +813,24 @@ $base_path = '/01_work/hivemedia_homepage';
             }
 
             .project-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .project-card:nth-child(n) {
+                grid-row: span 18;
             }
 
             .project-card__title {
-                font-size: 16px;
+                font-size: 14px;
+            }
+
+            .project-card__info {
+                padding: 16px;
             }
         }
 
-        /* ========================================
-           Card Bottom Info (Always visible)
-        ======================================== */
-        .project-card {
-            aspect-ratio: unset;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card__image-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4/3;
-            overflow: hidden;
-        }
-
-        .project-card__image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .project-card:hover .project-card__image {
-            transform: scale(1.1);
-        }
-
-        .project-card__placeholder {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .project-card__overlay {
-            position: absolute;
-            inset: 0;
-        }
-
-        .project-card__bottom {
-            padding: 16px;
-            background: #fff;
-            border-top: 1px solid #eee;
-        }
-
-        .project-card__client {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 12px;
-            font-weight: 500;
-            color: #0084ff;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .project-card__project-name {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            color: #1a1a1a;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        /* Note: Card bottom info removed - using overlay info display in masonry grid */
 
         /* ========================================
            Portfolio Modal Popup
@@ -1397,25 +1440,38 @@ $base_path = '/01_work/hivemedia_homepage';
                     };
                     const bgColor = colors[categoryKey] || colors['online_ad'];
 
+                    // Category display name
+                    const categoryDisplayNames = {
+                        'online_ad': 'Online AD',
+                        'sns': 'SNS',
+                        'homepage': 'Homepage',
+                        'video': 'Video',
+                        'eventpage': 'Event',
+                        'print': 'Print',
+                        'exhibition': 'Exhibition'
+                    };
+                    const categoryDisplay = categoryDisplayNames[categoryKey] || 'Project';
+
                     if (thumbnailUrl) {
                         card.innerHTML = `
-                            <div class="project-card__image-wrapper">
-                                <img class="project-card__image" src="${thumbnailUrl}" alt="${projectName}" loading="lazy" 
-                                    onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'project-card__placeholder\\' style=\\'background:${bgColor.replace(/'/g, "\\'")};\\'>${firstLetter}</div>'">
-                            </div>
-                            <div class="project-card__bottom">
+                            <img class="project-card__image" src="${thumbnailUrl}" alt="${projectName}" loading="lazy" 
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="project-card__placeholder" style="background: ${bgColor}; display: none;" data-category="${categoryDisplay}">${firstLetter}</div>
+                            <div class="project-card__overlay"></div>
+                            <div class="project-card__info">
+                                <span class="project-card__category">${categoryDisplay}</span>
+                                <div class="project-card__title">${projectName}</div>
                                 <div class="project-card__client">${client}</div>
-                                <div class="project-card__project-name">${projectName}</div>
                             </div>
                         `;
                     } else {
                         card.innerHTML = `
-                            <div class="project-card__image-wrapper">
-                                <div class="project-card__placeholder" style="background: ${bgColor}; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; color: #fff;">${firstLetter}</div>
-                            </div>
-                            <div class="project-card__bottom">
+                            <div class="project-card__placeholder" data-category="${categoryDisplay}">${firstLetter}</div>
+                            <div class="project-card__overlay"></div>
+                            <div class="project-card__info">
+                                <span class="project-card__category">${categoryDisplay}</span>
+                                <div class="project-card__title">${projectName}</div>
                                 <div class="project-card__client">${client}</div>
-                                <div class="project-card__project-name">${projectName}</div>
                             </div>
                         `;
                     }
