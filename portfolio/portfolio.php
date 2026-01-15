@@ -1438,8 +1438,6 @@ $base_path = '/01_work/hivemedia_homepage';
             }
         }
 
-        }
-
         // Update bento card counts
         function updateBentoCounts(snapshot) {
             const counts = {};
