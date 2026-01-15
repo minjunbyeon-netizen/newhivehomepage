@@ -1220,48 +1220,6 @@ $base_path = '/01_work/hivemedia_homepage';
 
         <div id="footer-placeholder"></div>
 
-        <!-- Portfolio Modal -->
-        <div class="portfolio-modal" id="portfolioModal">
-            <div class="portfolio-modal__content">
-                <div class="portfolio-modal__header">
-                    <h2 class="portfolio-modal__title" id="modalTitle">프로젝트 제목</h2>
-                    <button class="portfolio-modal__close" id="modalClose">×</button>
-                </div>
-                <div class="portfolio-modal__body">
-                    <!-- Main Image / Gallery -->
-                    <div class="portfolio-modal__gallery" id="modalGallery">
-                        <img class="portfolio-modal__main-image" id="modalMainImage" src="" alt="">
-                    </div>
-
-                    <!-- Thumbnail Grid (for multiple images) -->
-                    <div class="portfolio-modal__thumbnails" id="modalThumbnails">
-                        <!-- Firebase 첨부파일 이미지들이 여기에 표시됩니다 -->
-                    </div>
-
-                    <div class="portfolio-modal__meta">
-                        <div class="portfolio-modal__meta-item">
-                            <div class="portfolio-modal__meta-label">광고주</div>
-                            <div class="portfolio-modal__meta-value" id="modalClient">-</div>
-                        </div>
-                        <div class="portfolio-modal__meta-item">
-                            <div class="portfolio-modal__meta-label">카테고리</div>
-                            <div class="portfolio-modal__meta-value" id="modalCategory">-</div>
-                        </div>
-                        <div class="portfolio-modal__meta-item">
-                            <div class="portfolio-modal__meta-label">진행년도</div>
-                            <div class="portfolio-modal__meta-value" id="modalYear">-</div>
-                        </div>
-                        <div class="portfolio-modal__meta-item">
-                            <div class="portfolio-modal__meta-label">프로젝트 유형</div>
-                            <div class="portfolio-modal__meta-value" id="modalType">-</div>
-                        </div>
-                    </div>
-                    <div class="portfolio-modal__description" id="modalDescription">
-                        프로젝트 설명이 여기에 표시됩니다.
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -1462,8 +1420,10 @@ $base_path = '/01_work/hivemedia_homepage';
                         `;
                     }
 
-                    // Add click handler for modal
-                    card.addEventListener('click', () => openPortfolioModal(docId));
+                    // Add click handler for detail page
+                    card.addEventListener('click', () => {
+                        window.location.href = `portfolio_view.php?id=${docId}`;
+                    });
 
                     // Add to grid
                     projectsList.appendChild(card);
@@ -1478,104 +1438,6 @@ $base_path = '/01_work/hivemedia_homepage';
             }
         }
 
-        // Open portfolio modal
-        function openPortfolioModal(docId) {
-            const data = window.portfolioData[docId];
-            if (!data) return;
-
-            const modal = document.getElementById('portfolioModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMainImage = document.getElementById('modalMainImage');
-            const modalGallery = document.getElementById('modalGallery');
-            const modalThumbnails = document.getElementById('modalThumbnails');
-            const modalClient = document.getElementById('modalClient');
-            const modalCategory = document.getElementById('modalCategory');
-            const modalYear = document.getElementById('modalYear');
-            const modalType = document.getElementById('modalType');
-            const modalDescription = document.getElementById('modalDescription');
-
-            // Set text content
-            modalTitle.textContent = data.title || '프로젝트';
-            modalClient.textContent = data.client || data.advertiser || '-';
-            modalCategory.textContent = data.category || '-';
-            modalYear.textContent = data.year || data.createdAt?.toDate?.()?.getFullYear?.() || '-';
-            modalType.textContent = data.projectType || data.type || '-';
-            modalDescription.textContent = data.description || data.content || '상세 설명이 없습니다.';
-
-            // Collect all images (attachments, thumbnailUrl, imageUrl, images array)
-            let allImages = [];
-            
-            // Check for attachments array (Firebase Storage)
-            if (data.attachments && Array.isArray(data.attachments)) {
-                allImages = allImages.concat(data.attachments.filter(url => url && typeof url === 'string'));
-            }
-            
-            // Check for images array
-            if (data.images && Array.isArray(data.images)) {
-                allImages = allImages.concat(data.images.filter(url => url && typeof url === 'string'));
-            }
-            
-            // Add thumbnailUrl and imageUrl if not already included
-            if (data.thumbnailUrl && !allImages.includes(data.thumbnailUrl)) {
-                allImages.unshift(data.thumbnailUrl);
-            }
-            if (data.imageUrl && !allImages.includes(data.imageUrl)) {
-                allImages.unshift(data.imageUrl);
-            }
-
-            // Clear previous thumbnails
-            modalThumbnails.innerHTML = '';
-
-            if (allImages.length > 0) {
-                // Show main image
-                modalMainImage.src = allImages[0];
-                modalMainImage.style.display = 'block';
-                modalGallery.querySelector('.portfolio-modal__gallery-placeholder')?.remove();
-
-                // Create thumbnails if multiple images
-                if (allImages.length > 1) {
-                    allImages.forEach((imgUrl, index) => {
-                        const thumb = document.createElement('div');
-                        thumb.className = 'portfolio-modal__thumb' + (index === 0 ? ' active' : '');
-                        thumb.innerHTML = `<img src="${imgUrl}" alt="이미지 ${index + 1}">`;
-                        thumb.addEventListener('click', () => {
-                            // Update main image
-                            modalMainImage.src = imgUrl;
-                            // Update active state
-                            modalThumbnails.querySelectorAll('.portfolio-modal__thumb').forEach(t => t.classList.remove('active'));
-                            thumb.classList.add('active');
-                        });
-                        modalThumbnails.appendChild(thumb);
-                    });
-                }
-            } else {
-                // No images - show placeholder
-                modalMainImage.style.display = 'none';
-                if (!modalGallery.querySelector('.portfolio-modal__gallery-placeholder')) {
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'portfolio-modal__gallery-placeholder';
-                    placeholder.textContent = '등록된 이미지가 없습니다';
-                    modalGallery.appendChild(placeholder);
-                }
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close modal handlers
-        document.getElementById('modalClose').addEventListener('click', closePortfolioModal);
-        document.getElementById('portfolioModal').addEventListener('click', function (e) {
-            if (e.target === this) closePortfolioModal();
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closePortfolioModal();
-        });
-
-        function closePortfolioModal() {
-            const modal = document.getElementById('portfolioModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
         }
 
         // Update bento card counts

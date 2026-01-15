@@ -943,14 +943,30 @@ $adminPassword = $config['admin']['password'];
                     <select id="archiveCategory">
                         <option value="">카테고리 선택</option>
                         <option value="트렌드">트렌드</option>
-                        <option value="광고&홍보">광고&홍보</option>
-                        <option value="디자인">디자인</option>
+                        <option value="인사이트">인사이트</option>
+                        <option value="케이스스터디">케이스스터디</option>
                     </select>
                 </div>
 
                 <div class="form-group">
+                    <label>작성일</label>
+                    <input type="date" id="archiveDate">
+                </div>
+
+                <div class="form-group">
                     <label>요약</label>
-                    <input type="text" id="archiveSummary" placeholder="글의 간략한 요약">
+                    <input type="text" id="archiveSummary" placeholder="글의 간략한 요약 (리스트 노출용)">
+                </div>
+
+                <div class="form-group">
+                    <label>SEO 설명 (Meta Description)</label>
+                    <textarea id="archiveSeoDescription" style="min-height: 80px;"
+                        placeholder="검색 결과에 노출될 설명 (150자 내외)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>태그 (쉼표로 구분)</label>
+                    <input type="text" id="archiveTags" placeholder="예: 마케팅, 트렌드, 부산">
                 </div>
 
                 <div class="form-group">
@@ -1201,7 +1217,10 @@ $adminPassword = $config['admin']['password'];
         window.submitArchive = async function () {
             const title = document.getElementById('archiveTitle').value.trim();
             const category = document.getElementById('archiveCategory').value;
+            const writingDate = document.getElementById('archiveDate').value;
             const summary = document.getElementById('archiveSummary').value.trim();
+            const seoDescription = document.getElementById('archiveSeoDescription').value.trim();
+            const tags = document.getElementById('archiveTags').value.trim();
             const content = document.getElementById('archiveContent').value.trim();
 
             if (!title) { alert('제목을 입력하세요.'); return; }
@@ -1214,7 +1233,13 @@ $adminPassword = $config['admin']['password'];
 
             try {
                 await addDoc(collection(db, 'articles'), {
-                    title, category, summary: summary || '', content,
+                    title,
+                    category,
+                    summary: summary || '',
+                    seoDescription: seoDescription || '',
+                    tags: tags || '',
+                    content,
+                    publishedDate: writingDate || new Date().toISOString().split('T')[0],
                     status: 'pending',
                     source: 'manual',
                     createdAt: serverTimestamp(),
@@ -1235,7 +1260,10 @@ $adminPassword = $config['admin']['password'];
         window.resetArchiveForm = function () {
             document.getElementById('archiveTitle').value = '';
             document.getElementById('archiveCategory').value = '';
+            document.getElementById('archiveDate').value = '';
             document.getElementById('archiveSummary').value = '';
+            document.getElementById('archiveSeoDescription').value = '';
+            document.getElementById('archiveTags').value = '';
             document.getElementById('archiveContent').value = '';
         };
     </script>

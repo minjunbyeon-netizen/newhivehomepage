@@ -1281,14 +1281,10 @@
                                         <span class="archive-cat-icon"
                                             style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
                                     </button>
-                                    <div class="archive-cat-list"
+                                    <div class="archive-cat-list" id="index-cat-trend"
                                         style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <a href="./archive/archive.php?cat=trend"
-                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">2026년
-                                            SNS 마케팅 트렌드 전망</a>
-                                        <a href="./archive/archive.php?cat=trend"
-                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s; margin-bottom: 12px;">AI
-                                            기반 콘텐츠 자동화 동향</a>
+                                        <div class="loading-placeholder"
+                                            style="padding: 10px 16px; font-size: 13px; color: #999;">로딩 중...</div>
                                     </div>
                                 </div>
 
@@ -1302,14 +1298,10 @@
                                         <span class="archive-cat-icon"
                                             style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
                                     </button>
-                                    <div class="archive-cat-list"
+                                    <div class="archive-cat-list" id="index-cat-insight"
                                         style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <a href="./archive/archive.php?cat=insight"
-                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">효과적인
-                                            홍보영상 제작 가이드</a>
-                                        <a href="./archive/archive.php?cat=insight"
-                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s; margin-bottom: 12px;">공공기관
-                                            SNS 운영 핵심 전략</a>
+                                        <div class="loading-placeholder"
+                                            style="padding: 10px 16px; font-size: 13px; color: #999;">로딩 중...</div>
                                     </div>
                                 </div>
 
@@ -1324,14 +1316,10 @@
                                         <span class="archive-cat-icon"
                                             style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
                                     </button>
-                                    <div class="archive-cat-list"
+                                    <div class="archive-cat-list" id="index-cat-case"
                                         style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <a href="./archive/archive.php?cat=case"
-                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">지자체
-                                            SNS 운영 성공 사례</a>
-                                        <a href="./archive/archive.php?cat=case"
-                                            style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s; margin-bottom: 12px;">부산항만공사
-                                            브랜딩 프로젝트</a>
+                                        <div class="loading-placeholder"
+                                            style="padding: 10px 16px; font-size: 13px; color: #999;">로딩 중...</div>
                                     </div>
                                 </div>
                             </div>
@@ -1759,6 +1747,77 @@
                 item.addEventListener('click', () => selectService(index));
             });
         })();
+    </script>
+    <!-- 파이어베이스 아카이브 데이터 연동 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
+            authDomain: "hivemedia-archive.firebaseapp.com",
+            projectId: "hivemedia-archive",
+            storageBucket: "hivemedia-archive.appspot.com",
+            messagingSenderId: "305221975765",
+            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchIndexArticles() {
+            try {
+                const articlesRef = collection(db, 'articles');
+                const q = query(articlesRef, orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+
+                const articles = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (!data.status || data.status === 'published') {
+                        articles.push({ id: doc.id, ...data });
+                    }
+                });
+
+                renderIndexArchive(articles);
+            } catch (error) {
+                console.error('Error fetching archive articles:', error);
+            }
+        }
+
+        function renderIndexArchive(articles) {
+            const categories = [
+                { id: 'index-cat-trend', key: 'trend', name: 'TREND' },
+                { id: 'index-cat-insight', key: 'insight', name: 'INSIGHT' },
+                { id: 'index-cat-case', key: 'case', name: 'CASE STUDY' }
+            ];
+
+            categories.forEach(cat => {
+                const container = document.getElementById(cat.id);
+                if (!container) return;
+
+                const filtered = articles.filter(a => {
+                    const acat = (a.category || '').toLowerCase();
+                    return acat === cat.key || acat === cat.name.toLowerCase() ||
+                        (cat.key === 'trend' && acat === '트렌드') ||
+                        (cat.key === 'insight' && (acat === 'ad' || acat === '광고&홍보' || acat === '기술')) ||
+                        (cat.key === 'case' && (acat === 'design' || acat === '디자인' || acat === '지역' || acat === '브랜딩'));
+                }).slice(0, 2);
+
+                if (filtered.length > 0) {
+                    container.innerHTML = filtered.map(a => `
+                        <a href="./archive/archive.php?cat=${cat.key}" 
+                           style="display: block; padding: 10px 0 10px 16px; font-size: 14px; color: #555; text-decoration: none; border-left: 2px solid #eee; transition: all 0.2s;">
+                           ${a.title}
+                        </a>
+                    `).join('') + '<div style="margin-bottom: 12px;"></div>';
+                } else {
+                    container.innerHTML = '<div style="padding: 10px 16px; font-size: 13px; color: #999;">준비된 글이 없습니다.</div>';
+                }
+            });
+        }
+
+        fetchIndexArticles();
     </script>
 </body>
 

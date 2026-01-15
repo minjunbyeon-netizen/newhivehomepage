@@ -12,11 +12,13 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 <head>
     <meta charset="utf-8">
-    <title>하이브미디어 아카이브 | 마케팅 인사이트</title>
+    <title id="metaTitle">하이브미디어 아카이브 | 마케팅 인사이트</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta property="og:title" content="하이브미디어 - ARCHIVE" />
-    <meta property="og:description" content="하이브미디어 아카이브" />
+    <meta name="description" id="metaDescription" content="하이브미디어 아카이브 - 마케팅 트렌드 및 인사이트">
+    <meta name="keywords" id="metaKeywords" content="마케팅, 트렌드, 인사이트">
+    <meta property="og:title" id="ogTitle" content="하이브미디어 - ARCHIVE" />
+    <meta property="og:description" id="ogDescription" content="하이브미디어 아카이브" />
     <meta property="og:image" content="../assets/img/orimage.png" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-icon-180x180.png" />
@@ -341,6 +343,69 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             margin-bottom: 12px;
         }
 
+        /* 이전글/다음글 네비게이션 */
+        .article-nav {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid #e0e0e0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            min-height: 120px;
+            /* 공간 확보 */
+        }
+
+        .nav-link {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: #f1f3f5;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.next {
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-title {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: keep-all;
+        }
+
+        .nav-link:hover .nav-title {
+            color: #0066cc;
+        }
+
+        @media (max-width: 576px) {
+            .article-nav {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Footer 스타일 오버라이드 */
         footer,
         .footer {
@@ -391,6 +456,12 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
                     <div class="article-content" id="articleContent"></div>
 
                     <div class="article-tags" id="articleTags" style="display:none"></div>
+
+                    <!-- 이전글 / 다음글 네비게이션 -->
+                    <nav class="article-nav" id="articleNav" style="display:none">
+                        <div id="prevArticle"></div>
+                        <div id="nextArticle"></div>
+                    </nav>
                 </article>
             </div>
         </main>
@@ -401,16 +472,15 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
             authDomain: "hivemedia-archive.firebaseapp.com",
             projectId: "hivemedia-archive",
-            storageBucket: "hivemedia-archive.firebasestorage.app",
-            messagingSenderId: "105246116532",
-            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1",
-            measurementId: "G-1YZDYEPFFN"
+            storageBucket: "hivemedia-archive.appspot.com",
+            messagingSenderId: "305221975765",
+            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -435,6 +505,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         async function fetchArticle() {
+            console.log('Fetching article ID:', articleId);
             const loadingEl = document.getElementById('articleLoading');
             const errorEl = document.getElementById('articleError');
             const viewEl = document.getElementById('articleView');
@@ -451,14 +522,23 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
                 if (docSnap.exists()) {
                     const article = docSnap.data();
+                    console.log('Article data fetched:', article.title);
 
                     document.getElementById('articleCategory').textContent = article.category || '기타';
+                    document.getElementById('articleTitle').textContent = article.title || '제목 없음';
 
-                    const title = article.title || '제목 없음';
-                    document.getElementById('articleTitle').textContent = title;
-                    document.title = title + ' | HIVEMEDIA Archive';
+                    const displayTitle = (article.title || '제목 없음') + ' | HIVEMEDIA Archive';
+                    document.title = displayTitle;
+                    document.getElementById('ogTitle').content = displayTitle;
 
-                    document.getElementById('articleDate').textContent = formatDate(article.createdAt);
+                    if (article.seoDescription) {
+                        document.getElementById('metaDescription').content = article.seoDescription;
+                        document.getElementById('ogDescription').content = article.seoDescription;
+                    }
+
+                    // 날짜 선택이 있으면 최우선, 없으면 생성일
+                    const displayDate = article.publishedDate ? article.publishedDate : formatDate(article.createdAt);
+                    document.getElementById('articleDate').textContent = displayDate;
 
                     if (article.thumbnail) {
                         const thumbEl = document.getElementById('articleThumbnail');
@@ -468,15 +548,41 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
                     document.getElementById('articleContent').innerHTML = article.content || '';
 
-                    if (article.tags && Array.isArray(article.tags) && article.tags.length > 0) {
-                        const tagsEl = document.getElementById('articleTags');
-                        tagsEl.innerHTML = article.tags.map(tag => `<span>#${tag}</span>`).join('');
-                        tagsEl.style.display = 'block';
+                    // 태그 처리 (배열 또는 콤마 구분 문자열)
+                    const tagsEl = document.getElementById('articleTags');
+                    let tagsHtml = '';
+                    let metaKeywords = '';
+
+                    if (article.tags) {
+                        let tagsArray = [];
+                        if (Array.isArray(article.tags)) {
+                            tagsArray = article.tags;
+                        } else if (typeof article.tags === 'string' && article.tags.trim() !== '') {
+                            tagsArray = article.tags.split(',').map(t => t.trim());
+                        }
+
+                        if (tagsArray.length > 0) {
+                            tagsHtml = tagsArray.map(tag => `<span>#${tag}</span>`).join('');
+                            metaKeywords = tagsArray.join(', ');
+                            document.getElementById('metaKeywords').content = metaKeywords;
+                        }
                     }
 
+                    if (tagsHtml) {
+                        tagsEl.innerHTML = tagsHtml;
+                        tagsEl.style.display = 'block';
+                    } else {
+                        tagsEl.style.display = 'none';
+                    }
+
+                    // 상세 내용 표시
                     loadingEl.style.display = 'none';
                     viewEl.style.display = 'block';
+
+                    // 이전글/다음글 가져오기
+                    fetchPrevNextArticles(article.createdAt);
                 } else {
+                    console.log('Article not found');
                     loadingEl.style.display = 'none';
                     errorEl.style.display = 'block';
                 }
@@ -484,6 +590,87 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
                 console.error('Error fetching article:', error);
                 loadingEl.style.display = 'none';
                 errorEl.style.display = 'block';
+            }
+        }
+
+        async function fetchPrevNextArticles(currentCreatedAt) {
+            const navEl = document.getElementById('articleNav');
+            const prevEl = document.getElementById('prevArticle');
+            const nextEl = document.getElementById('nextArticle');
+
+            if (!navEl) return;
+
+            // 로직 시작 전 영역을 표시하여 동작 여부 확인
+            navEl.style.display = 'grid';
+            console.log('fetchPrevNextArticles 시작. createdAt:', currentCreatedAt);
+
+            if (!currentCreatedAt) {
+                console.warn('이 문서에 createdAt 필드가 없습니다.');
+                prevEl.innerHTML = '<div class="nav-link" style="opacity:0.5; cursor:default;"><span class="nav-label">이전글</span><strong class="nav-title">게시일 정보가 없습니다.</strong></div>';
+                nextEl.innerHTML = '<div class="nav-link next" style="opacity:0.5; cursor:default;"><span class="nav-label">다음글</span><strong class="nav-title">게시일 정보가 없습니다.</strong></div>';
+                return;
+            }
+
+            try {
+                // 이전글 쿼리
+                const prevQuery = query(
+                    collection(db, 'articles'),
+                    where('createdAt', '<', currentCreatedAt),
+                    orderBy('createdAt', 'desc'),
+                    limit(1)
+                );
+
+                // 다음글 쿼리
+                const nextQuery = query(
+                    collection(db, 'articles'),
+                    where('createdAt', '>', currentCreatedAt),
+                    orderBy('createdAt', 'asc'),
+                    limit(1)
+                );
+
+                console.log('이전/다음 글 데이터 요청 중...');
+                const [prevSnap, nextSnap] = await Promise.all([
+                    getDocs(prevQuery),
+                    getDocs(nextQuery)
+                ]);
+                console.log('데이터 수신 완료. 이전:', prevSnap.size, '다음:', nextSnap.size);
+
+                if (!prevSnap.empty) {
+                    const d = prevSnap.docs[0];
+                    prevEl.innerHTML = `
+                        <a href="view.php?id=${d.id}" class="nav-link prev">
+                            <span class="nav-label">← 이전글</span>
+                            <strong class="nav-title">${d.data().title || '제목 없음'}</strong>
+                        </a>`;
+                } else {
+                    prevEl.innerHTML = `
+                        <div class="nav-link" style="opacity:0.5; cursor:default;">
+                            <span class="nav-label">← 이전글</span>
+                            <strong class="nav-title">이전 글이 없습니다.</strong>
+                        </div>`;
+                }
+
+                if (!nextSnap.empty) {
+                    const d = nextSnap.docs[0];
+                    nextEl.innerHTML = `
+                        <a href="view.php?id=${d.id}" class="nav-link next">
+                            <span class="nav-label">다음글 →</span>
+                            <strong class="nav-title">${d.data().title || '제목 없음'}</strong>
+                        </a>`;
+                } else {
+                    nextEl.innerHTML = `
+                        <div class="nav-link next" style="opacity:0.5; cursor:default;">
+                            <span class="nav-label">다음글 →</span>
+                            <strong class="nav-title">다음 글이 없습니다.</strong>
+                        </div>`;
+                }
+            } catch (error) {
+                console.error('네비게이션 로드 중 오류 발생:', error);
+                // 인덱스 생성 오류 등이 발생할 수 있으므로 사용자에게 알림
+                prevEl.innerHTML = `<div class="nav-link" style="color:red; font-size:12px;">목록 로드 오류</div>`;
+                if (error.message && error.message.includes('index')) {
+                    console.error('Firestore 복합 인덱스가 필요할 수 있습니다. 콘솔 링크를 확인하세요.');
+                }
             }
         }
 

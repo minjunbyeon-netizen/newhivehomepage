@@ -789,8 +789,9 @@ $base_path = '/01_work/hivemedia_homepage';
 
         // 통계 렌더링
         function renderStats(articles) {
-            const totalCount = articles.length > 0 ? articles.length : 15; // 샘플 포함
-            document.getElementById('totalArticles').textContent = totalCount;
+            const isUsingFirebase = articles.length > 0;
+            const totalCount = isUsingFirebase ? articles.length : 15; // 샘플 포함
+            document.getElementById('totalArticles').textContent = totalCount + (isUsingFirebase ? '' : ' (SAMPLE)');
             document.getElementById('totalCategories').textContent = '3';
 
             if (articles.length > 0 && articles[0].createdAt) {
@@ -815,17 +816,19 @@ $base_path = '/01_work/hivemedia_homepage';
                     const articleCat = (a.category || '').toLowerCase();
                     return articleCat === cat.key ||
                         articleCat === cat.name.toLowerCase() ||
-                        (cat.key === 'insight' && (articleCat === 'ad' || articleCat === '광고&홍보')) ||
-                        (cat.key === 'case' && (articleCat === 'design' || articleCat === '디자인'));
+                        (cat.key === 'trend' && (articleCat === '트렌드')) ||
+                        (cat.key === 'insight' && (articleCat === 'ad' || articleCat === '광고&홍보' || articleCat === '인사이트' || articleCat === '기술')) ||
+                        (cat.key === 'case' && (articleCat === 'design' || articleCat === '디자인' || articleCat === '케이스스터디' || articleCat === '지역' || articleCat === '브랜딩'));
                 });
 
-                // 데이터가 없을 경우 샘플 데이터 사용
-                if (categoryArticles.length === 0) {
+                // 데이터가 없을 경우 샘플 데이터 사용 알림 (디버깅용)
+                const isRealData = categoryArticles.length > 0;
+                if (!isRealData) {
                     categoryArticles = sampleArticles[cat.key] || [];
                 }
 
-                // 최신 5개만 표시
-                const displayArticles = categoryArticles.slice(0, 5);
+                // 최신 10개까지 표시 가능하도록 조정 (기존 5개에서 확대)
+                const displayArticles = categoryArticles.slice(0, 10);
 
                 // 해당 카테고리가 활성화된 경우 하이라이트 효과를 위한 클래스
                 const isActive = activeCat === cat.key ? 'active-category-highlight' : '';
@@ -834,7 +837,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div id="cat-${cat.key}" class="category-column category-column--${cat.theme} ${isActive}">
                         <div class="category-column__header">
                             <h3 class="category-column__title">${cat.name}</h3>
-                            <p class="category-column__count">${categoryArticles.length}개 아티클</p>
+                            <p class="category-column__count">${isRealData ? categoryArticles.length : 'SAMPLE'} 아티클</p>
                         </div>
                         <ul class="category-column__list">
                             ${displayArticles.map(article => `
@@ -843,6 +846,7 @@ $base_path = '/01_work/hivemedia_homepage';
                                     <span class="category-column__item-date">${formatDate(article.createdAt)}</span>
                                 </li>
                             `).join('')}
+                            ${!isRealData ? '<li class="category-column__item" style="opacity:0.5; cursor:default;"><p class="category-column__item-title">실제 데이터가 없어 샘플이 표시됩니다.</p></li>' : ''}
                         </ul>
                     </div>
                 `;
