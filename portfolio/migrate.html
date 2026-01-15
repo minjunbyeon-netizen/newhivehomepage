@@ -313,13 +313,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Category mapping - must match portfolio.php expectations
-        const CATEGORY_MAP = {
-            "Homepage": "Homepage",
-            "Video": "Video",
-            "U": "Online AD",
-            "V": "Video"
-        };
+        // Category mapping - pass through original values, these match hivemedia.co.kr
+        // Available categories: Online AD, SNS, Homepage, Eventpage, Video, Print, Exhibition Art
+        const VALID_CATEGORIES = [
+            "Online AD", "SNS", "Homepage", "Eventpage",
+            "Video", "Print", "Exhibition Art"
+        ];
 
         let portfolioData = [];
 
@@ -335,8 +334,10 @@
             if (!client.trim()) return null;
 
             const projectName = item.hiveboad000031 || client;
-            const categoryCode = item.hiveboad000023 || "";
-            const category = CATEGORY_MAP[categoryCode] || "Online AD";
+            // Use original category value from hiveboad000023 (already in correct format)
+            const rawCategory = item.hiveboad000023 || "";
+            // If category exists in valid list, use it; otherwise default to Online AD
+            const category = VALID_CATEGORIES.includes(rawCategory) ? rawCategory : "Online AD";
             const thumbnail = item.hiveboad000011 || "";
 
             return {
