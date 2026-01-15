@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Migration Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .description {
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .panel {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #4ecca3;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #4ecca3;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #4ecca3;
+            color: #1a1a2e;
+        }
+
+        .btn-primary:hover {
+            background: #3eb489;
+        }
+
+        .btn-secondary {
+            background: #0f3460;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #1a4d7c;
+        }
+
+        .btn-danger {
+            background: #e94560;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .btn-danger:hover {
+            background: #c73851;
+        }
+
+        .log-area {
+            background: #0d0d18;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .log-area .log-entry {
+            margin-bottom: 5px;
+        }
+
+        .log-area .success {
+            color: #4ecca3;
+        }
+
+        .log-area .error {
+            color: #e94560;
+        }
+
+        .log-area .info {
+            color: #4cc9f0;
+        }
+
+        .log-area .warning {
+            color: #feca57;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th,
+        .preview-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #2a2a4a;
+        }
+
+        .preview-table th {
+            background: #0f3460;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .preview-table td {
+            font-size: 13px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #0d0d18;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ecca3, #3eb489);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .category-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            background: #0f3460;
+        }
+
+        #dropZone {
+            border: 2px dashed #4ecca3;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #dropZone:hover,
+        #dropZone.dragover {
+            background: rgba(78, 204, 163, 0.1);
+        }
+
+        #dropZone.loaded {
+            border-color: #4ecca3;
+            background: rgba(78, 204, 163, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔄 Portfolio Migration Tool</h1>
+        <p class="description">
+            기존 MySQL 데이터(portfolio.json)를 Firebase Firestore로 마이그레이션합니다.
+        </p>
+
+        <!-- Step 1: Load JSON -->
+        <div class="panel">
+            <h2>Step 1: JSON 데이터 로드</h2>
+            <div id="dropZone">
+                <p>📁 portfolio.json 파일을 여기에 드래그하거나 클릭하세요</p>
+                <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+            </div>
+            <div style="margin-top: 15px;">
+                <button class="btn btn-secondary" onclick="loadFromPath()">📂 기본 경로에서 로드</button>
+                <span style="color: #666; font-size: 12px; margin-left: 10px;">
+                    (./assets/uploaded/app/portfolio.json)
+                </span>
+            </div>
+        </div>
+
+        <!-- Step 2: Preview & Stats -->
+        <div class="panel" id="previewPanel" style="display: none;">
+            <h2>Step 2: 데이터 미리보기</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number" id="totalCount">0</div>
+                    <div class="label">총 항목</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="activeCount">0</div>
+                    <div class="label">활성 항목</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="categoryCount">0</div>
+                    <div class="label">카테고리</div>
+                </div>
+            </div>
+            <div class="category-badges" id="categoryBadges"></div>
+            <table class="preview-table" id="previewTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>광고주</th>
+                        <th>프로젝트명</th>
+                        <th>카테고리</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Step 3: Migration -->
+        <div class="panel" id="migrationPanel" style="display: none;">
+            <h2>Step 3: Firebase로 마이그레이션</h2>
+            <div class="progress-bar">
+                <div class="fill" id="progressFill"></div>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <span id="progressText">대기 중...</span>
+            </div>
+            <div>
+                <button class="btn btn-primary" id="migrateBtn" onclick="startMigration()">
+                    🚀 마이그레이션 시작
+                </button>
+                <button class="btn btn-danger" id="clearBtn" onclick="clearFirestore()">
+                    🗑️ 기존 데이터 삭제
+                </button>
+            </div>
+            <div class="log-area" id="logArea" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
+            authDomain: "hivemedia-archive.firebaseapp.com",
+            projectId: "hivemedia-archive",
+            storageBucket: "hivemedia-archive.appspot.com",
+            messagingSenderId: "305221975765",
+            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Category mapping
+        const CATEGORY_MAP = {
+            "Homepage": "홈페이지",
+            "Video": "영상",
+            "U": "기타",
+            "V": "영상"
+        };
+
+        let portfolioData = [];
+
+        // Clean HTML tags
+        function cleanHtml(str) {
+            if (!str) return "";
+            return str.replace(/<[^>]*>/g, '').trim();
+        }
+
+        // Transform portfolio item
+        function transformItem(item) {
+            const client = item.hiveboad000001 || "";
+            if (!client.trim()) return null;
+
+            const projectName = item.hiveboad000031 || client;
+            const categoryCode = item.hiveboad000023 || "";
+            const category = CATEGORY_MAP[categoryCode] || "기타";
+            const thumbnail = item.hiveboad000011 || "";
+
+            return {
+                id: String(item.pk_no),
+                client: client.trim(),
+                projectName: projectName.trim(),
+                description: cleanHtml(item.hiveboad000007 || ""),
+                summary: (item.hiveboad000020 || "").trim(),
+                category: category,
+                date: item.hiveboad000021 || "",
+                createdAt: item.hiveboad000021 ? new Date(item.hiveboad000021) : new Date(),
+                thumbnail: thumbnail ? `./assets/uploaded/thumbnail/${thumbnail}` : "",
+                subImage1: item.hiveboad000026 ? `./assets/uploaded/thumbnail/${item.hiveboad000026}` : "",
+                subImage2: item.hiveboad000029 ? `./assets/uploaded/thumbnail/${item.hiveboad000029}` : "",
+                isActive: item.hiveboad000017 === "Y",
+                approved: true,
+                migratedAt: new Date()
+            };
+        }
+
+        // Log message
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('logArea');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logArea.appendChild(entry);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        // Load JSON data
+        window.loadJsonData = function (data) {
+            try {
+                const rows = data.rows || [];
+                portfolioData = rows.map(transformItem).filter(item => item !== null);
+
+                // Update UI
+                document.getElementById('dropZone').classList.add('loaded');
+                document.getElementById('dropZone').innerHTML = `<p>✅ ${portfolioData.length}개 항목 로드됨</p>`;
+                document.getElementById('previewPanel').style.display = 'block';
+                document.getElementById('migrationPanel').style.display = 'block';
+
+                // Stats
+                document.getElementById('totalCount').textContent = portfolioData.length;
+                document.getElementById('activeCount').textContent = portfolioData.filter(i => i.isActive).length;
+
+                // Categories
+                const categories = {};
+                portfolioData.forEach(item => {
+                    categories[item.category] = (categories[item.category] || 0) + 1;
+                });
+                document.getElementById('categoryCount').textContent = Object.keys(categories).length;
+
+                const badgesHtml = Object.entries(categories)
+                    .map(([cat, count]) => `<span class="badge">${cat}: ${count}</span>`)
+                    .join('');
+                document.getElementById('categoryBadges').innerHTML = badgesHtml;
+
+                // Preview table
+                const tbody = document.querySelector('#previewTable tbody');
+                tbody.innerHTML = portfolioData.slice(0, 10).map(item => `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.client}</td>
+                        <td>${item.projectName}</td>
+                        <td>${item.category}</td>
+                        <td>${item.date}</td>
+                    </tr>
+                `).join('');
+
+                log(`✅ ${portfolioData.length}개 포트폴리오 항목 로드 완료`, 'success');
+            } catch (error) {
+                log(`❌ JSON 파싱 오류: ${error.message}`, 'error');
+            }
+        };
+
+        // Load from file path (using fetch)
+        window.loadFromPath = async function () {
+            try {
+                log('📁 기본 경로에서 JSON 로드 중...', 'info');
+                const response = await fetch('../assets/uploaded/app/portfolio.json');
+                if (!response.ok) throw new Error('파일을 찾을 수 없습니다');
+                const data = await response.json();
+                window.loadJsonData(data);
+            } catch (error) {
+                log(`❌ 로드 실패: ${error.message}`, 'error');
+            }
+        };
+
+        // Start migration
+        window.startMigration = async function () {
+            if (portfolioData.length === 0) {
+                log('❌ 마이그레이션할 데이터가 없습니다', 'error');
+                return;
+            }
+
+            const confirmed = confirm(`${portfolioData.length}개 항목을 Firebase에 업로드하시겠습니까?`);
+            if (!confirmed) return;
+
+            document.getElementById('migrateBtn').disabled = true;
+            log('🚀 마이그레이션 시작...', 'info');
+
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (let i = 0; i < portfolioData.length; i++) {
+                const item = portfolioData[i];
+                try {
+                    await setDoc(doc(db, 'portfolios', item.id), item);
+                    successCount++;
+                } catch (error) {
+                    log(`❌ 항목 ${item.id} 업로드 실패: ${error.message}`, 'error');
+                    errorCount++;
+                }
+
+                // Update progress
+                const progress = Math.round(((i + 1) / portfolioData.length) * 100);
+                progressFill.style.width = `${progress}%`;
+                progressText.textContent = `${i + 1} / ${portfolioData.length} (${progress}%)`;
+
+                // Log every 20 items
+                if ((i + 1) % 20 === 0) {
+                    log(`📊 진행률: ${i + 1}/${portfolioData.length}`, 'info');
+                }
+            }
+
+            log(`✅ 마이그레이션 완료! 성공: ${successCount}, 실패: ${errorCount}`, 'success');
+            document.getElementById('migrateBtn').disabled = false;
+        };
+
+        // Clear Firestore
+        window.clearFirestore = async function () {
+            const confirmed = confirm('⚠️ 기존 portfolios 컬렉션의 모든 데이터를 삭제하시겠습니까?');
+            if (!confirmed) return;
+
+            log('🗑️ 기존 데이터 삭제 중...', 'warning');
+
+            try {
+                const querySnapshot = await getDocs(collection(db, 'portfolios'));
+                let deleteCount = 0;
+
+                for (const docSnap of querySnapshot.docs) {
+                    await deleteDoc(doc(db, 'portfolios', docSnap.id));
+                    deleteCount++;
+                }
+
+                log(`✅ ${deleteCount}개 문서 삭제 완료`, 'success');
+            } catch (error) {
+                log(`❌ 삭제 실패: ${error.message}`, 'error');
+            }
+        };
+
+        // File input handling
+        document.getElementById('dropZone').addEventListener('click', () => {
+            document.getElementById('jsonFileInput').click();
+        });
+
+        document.getElementById('jsonFileInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const data = JSON.parse(e.target.result);
+                    window.loadJsonData(data);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Drag and drop
+        const dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const data = JSON.parse(e.target.result);
+                    window.loadJsonData(data);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        log('🎉 마이그레이션 도구 준비 완료', 'success');
+    </script>
+</body>
+
+</html>
