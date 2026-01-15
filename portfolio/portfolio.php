@@ -579,53 +579,28 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         /* ========================================
-           Modern Masonry Grid Styles
+           Clean Square Grid Styles
         ======================================== */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            grid-auto-rows: 10px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
         }
 
         .project-card {
             position: relative;
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             background: linear-gradient(145deg, #f8f9fa, #e9ecef);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Variable heights for masonry effect */
-        .project-card:nth-child(6n+1) {
-            grid-row: span 28;
-        }
-
-        .project-card:nth-child(6n+2) {
-            grid-row: span 32;
-        }
-
-        .project-card:nth-child(6n+3) {
-            grid-row: span 25;
-        }
-
-        .project-card:nth-child(6n+4) {
-            grid-row: span 30;
-        }
-
-        .project-card:nth-child(6n+5) {
-            grid-row: span 26;
-        }
-
-        .project-card:nth-child(6n+6) {
-            grid-row: span 34;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            aspect-ratio: 1 / 1;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             z-index: 10;
         }
 
@@ -633,11 +608,11 @@ $base_path = '/01_work/hivemedia_homepage';
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s ease;
         }
 
         .project-card:hover .project-card__image {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
         .project-card__overlay {
@@ -771,10 +746,10 @@ $base_path = '/01_work/hivemedia_homepage';
             border: 1px dashed #ddd;
         }
 
-        /* Responsive - Tablet */
+        /* Responsive */
         @media (max-width: 1200px) {
             .project-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -790,12 +765,8 @@ $base_path = '/01_work/hivemedia_homepage';
             }
 
             .project-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .project-card:nth-child(n) {
-                grid-row: span 22;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
             }
         }
 
@@ -813,20 +784,28 @@ $base_path = '/01_work/hivemedia_homepage';
             }
 
             .project-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .project-card:nth-child(n) {
-                grid-row: span 18;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
             }
 
             .project-card__title {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .project-card__info {
-                padding: 16px;
+                padding: 10px;
+            }
+
+            .project-card__category {
+                font-size: 8px;
+                padding: 2px 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
             }
         }
 
