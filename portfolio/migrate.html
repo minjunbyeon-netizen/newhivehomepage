@@ -313,12 +313,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Category mapping
+        // Category mapping - must match portfolio.php expectations
         const CATEGORY_MAP = {
-            "Homepage": "홈페이지",
-            "Video": "영상",
-            "U": "기타",
-            "V": "영상"
+            "Homepage": "Homepage",
+            "Video": "Video",
+            "U": "Online AD",
+            "V": "Video"
         };
 
         let portfolioData = [];
@@ -336,21 +336,29 @@
 
             const projectName = item.hiveboad000031 || client;
             const categoryCode = item.hiveboad000023 || "";
-            const category = CATEGORY_MAP[categoryCode] || "기타";
+            const category = CATEGORY_MAP[categoryCode] || "Online AD";
             const thumbnail = item.hiveboad000011 || "";
 
             return {
                 id: String(item.pk_no),
+                // Fields expected by portfolio.php
                 client: client.trim(),
+                advertiser: client.trim(),
+                title: projectName.trim(),
                 projectName: projectName.trim(),
                 description: cleanHtml(item.hiveboad000007 || ""),
                 summary: (item.hiveboad000020 || "").trim(),
                 category: category,
                 date: item.hiveboad000021 || "",
                 createdAt: item.hiveboad000021 ? new Date(item.hiveboad000021) : new Date(),
-                thumbnail: thumbnail ? `./assets/uploaded/thumbnail/${thumbnail}` : "",
-                subImage1: item.hiveboad000026 ? `./assets/uploaded/thumbnail/${item.hiveboad000026}` : "",
-                subImage2: item.hiveboad000029 ? `./assets/uploaded/thumbnail/${item.hiveboad000029}` : "",
+                // Image paths - use full relative path
+                thumbnail: thumbnail ? `../assets/uploaded/thumbnail/${thumbnail}` : "",
+                thumbnailUrl: thumbnail ? `../assets/uploaded/thumbnail/${thumbnail}` : "",
+                imageUrl: thumbnail ? `../assets/uploaded/thumbnail/${thumbnail}` : "",
+                subImage1: item.hiveboad000026 ? `../assets/uploaded/thumbnail/${item.hiveboad000026}` : "",
+                subImage2: item.hiveboad000029 ? `../assets/uploaded/thumbnail/${item.hiveboad000029}` : "",
+                // Status field for portfolio.php filtering
+                status: "approved",
                 isActive: item.hiveboad000017 === "Y",
                 approved: true,
                 migratedAt: new Date()
