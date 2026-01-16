@@ -288,6 +288,49 @@
             .gsap-section-image {
                 max-width: 90%;
             }
+
+            /* 서비스 섹션 모바일 반응형 */
+            .services-right-panel {
+                width: 100% !important;
+            }
+
+            .services-cards-row {
+                flex-wrap: wrap !important;
+                gap: 12px !important;
+            }
+
+            .services-cards-row .service-card {
+                flex: 0 0 calc(50% - 6px) !important;
+                min-width: 140px !important;
+            }
+
+            .services-process-panel .process-flow {
+                flex-wrap: wrap !important;
+                gap: 12px !important;
+            }
+
+            .services-process-panel .process-card {
+                flex: 0 0 calc(50% - 6px) !important;
+                min-width: 140px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* 모바일에서 서비스 카드 1열로 */
+            .services-cards-row .service-card {
+                flex: 0 0 100% !important;
+                min-width: unset !important;
+            }
+
+            .services-process-panel .process-card {
+                flex: 0 0 100% !important;
+                min-width: unset !important;
+            }
+
+            .services-process-panel .process-card>div:last-child {
+                display: none !important;
+            }
         }
 
         /* 섹션별 배경색 */
