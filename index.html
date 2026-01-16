@@ -488,6 +488,82 @@
             margin-top: 4px;
         }
 
+        /* Portfolio Marquee Rows */
+        .portfolio-row {
+            display: flex;
+            width: max-content;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .portfolio-row.slide-right {
+            animation: slideRight 60s linear infinite;
+        }
+
+        .portfolio-row.slide-left {
+            animation: slideLeft 55s linear infinite;
+        }
+
+        .portfolio-item {
+            flex-shrink: 0;
+            width: 280px;
+            height: 180px;
+            margin: 0 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 132, 255, 0.3);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a15 100%);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 16px 16px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item .overlay h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .portfolio-item .overlay span {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
         /* 섹션 타이포그래피 - 통일된 폰트, 굵기로만 구분 */
         .gsap-section h2 {
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
@@ -897,7 +973,10 @@
             <section class="logo-marquee-section" id="portfolioMarquee">
                 <div class="logo-marquee-header">
                     <p>Our Portfolio</p>
-                    <h3>프로젝트 현황</h3>
+                    <a href="./portfolio/portfolio.php"
+                        style="text-decoration: none; color: inherit; display: inline-block; position: relative; z-index: 100;">
+                        <h3 style="cursor: pointer;">프로젝트 현황 <span style="font-size: 0.5em; opacity: 0.6;">→</span></h3>
+                    </a>
                 </div>
 
                 <!-- Row 1: 오른쪽으로 슬라이드 -->
@@ -907,13 +986,79 @@
                 <div class="portfolio-row slide-left" id="portfolioRow2"></div>
             </section>
 
+            <!-- 포트폴리오 마퀴 초기화 스크립트 -->
+            <script>
+                (function () {
+                    const IMAGE_BASE = './assets/uploaded/thumbnail/';
+
+                    async function loadPortfolioMarquee() {
+                        try {
+                            const response = await fetch('./assets/uploaded/app/portfolio.json');
+                            const data = await response.json();
+
+                            // 썸네일이 있는 항목만 필터링 (hiveboad000011이 썸네일)
+                            const items = data.rows.filter(row =>
+                                row.hiveboad000011 && row.hiveboad000017 === 'Y'
+                            ).slice(0, 30); // 최대 30개
+
+                            if (items.length === 0) return;
+
+                            const row1 = document.getElementById('portfolioRow1');
+                            const row2 = document.getElementById('portfolioRow2');
+
+                            // 두 줄로 나누기
+                            const half = Math.ceil(items.length / 2);
+                            const items1 = items.slice(0, half);
+                            const items2 = items.slice(half);
+
+                            function createPortfolioItem(item) {
+                                const title = item.hiveboad000001 || '프로젝트';
+                                const client = item.hiveboad000031 || item.hiveboad000001 || '';
+                                const thumbnail = IMAGE_BASE + item.hiveboad000011;
+
+                                return `
+                                    <div class="portfolio-item">
+                                        <img src="${thumbnail}" alt="${title}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                                        <div class="overlay">
+                                            <h4>${title}</h4>
+                                            <span>${client}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+
+                            // Row 1 렌더링 (무한 루프용 복제)
+                            const html1 = items1.map(createPortfolioItem).join('');
+                            row1.innerHTML = html1 + html1;
+
+                            // Row 2 렌더링 (무한 루프용 복제)
+                            const html2 = items2.map(createPortfolioItem).join('');
+                            row2.innerHTML = html2 + html2;
+
+                        } catch (error) {
+                            console.error('Portfolio marquee load error:', error);
+                        }
+                    }
+
+                    // DOM 로드 후 실행
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', loadPortfolioMarquee);
+                    } else {
+                        loadPortfolioMarquee();
+                    }
+                })();
+            </script>
+
             <div class="slides-wrapper">
                 <!-- Section 1: 회사 소개 (공공 맞춤) -->
                 <section class="gsap-section gsap-section-1">
                     <div class="gsap-section-inner">
                         <div class="gsap-section-text">
                             <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">회사소개</span>
-                            <h2>ABOUT<br><span class="h2-sub">회사소개</span></h2>
+                            <a href="./about.html" style="text-decoration: none; color: inherit;">
+                                <h2>ABOUT<br><span class="h2-sub">회사소개</span> <span
+                                        style="font-size: 0.4em; opacity: 0.6;">→</span></h2>
+                            </a>
                             <p>한국광고협회 회원사이자 <strong>광고대행업 등록 사업자</strong>로서, 2015년 설립 이래 <strong>10년간 공공기관 마케팅에
                                     특화</strong>해왔습니다.</p>
 
@@ -1017,10 +1162,13 @@
                         <!-- 왼쪽 패널: 세로로 긴 텍스트 영역 -->
                         <div class="services-left-panel">
                             <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">서비스</span>
-                            <h2
-                                style="font-size: clamp(36px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px;">
-                                SERVICES<br><span class="h2-sub" style="font-weight: 400;">서비스</span>
-                            </h2>
+                            <a href="./service/marketing.html" style="text-decoration: none; color: inherit;">
+                                <h2
+                                    style="font-size: clamp(36px, 6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px;">
+                                    SERVICES<br><span class="h2-sub" style="font-weight: 400;">서비스</span> <span
+                                        style="font-size: 0.4em; opacity: 0.6;">→</span>
+                                </h2>
+                            </a>
                             <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 24px;">
                                 <strong>공공기관·지자체 입찰 전문</strong> 마케팅 대행사로서<br>
                                 RFP 조건에 맞춘 <strong>통합 마케팅 솔루션</strong>을 제공합니다.
@@ -1202,7 +1350,11 @@
                     <div class="gsap-section-inner">
                         <div class="gsap-section-text">
                             <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">포트폴리오</span>
-                            <h2>PORTFOLIO<br><span class="h2-sub">포트폴리오</span></h2>
+                            <a href="./portfolio/portfolio.php"
+                                style="text-decoration: none; color: inherit; display: inline-block;">
+                                <h2>PORTFOLIO<br><span class="h2-sub">포트폴리오</span> <span
+                                        style="font-size: 0.4em; opacity: 0.6;">→</span></h2>
+                            </a>
                             <p>부산시, 해운대구청, 부산항만공사 등 <strong>380건 이상의 프로젝트</strong>를 성공적으로 수행했습니다.</p>
 
                             <!-- GEO: 구체적 성과 수치 + 구조화 -->
@@ -1246,7 +1398,11 @@
                     <div class="gsap-section-inner">
                         <div class="gsap-section-text">
                             <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">아카이브</span>
-                            <h2>ARCHIVE<br><span class="h2-sub">아카이브</span></h2>
+                            <a href="./archive/archive.php"
+                                style="text-decoration: none; color: inherit; display: inline-block;">
+                                <h2>ARCHIVE<br><span class="h2-sub">아카이브</span> <span
+                                        style="font-size: 0.4em; opacity: 0.6;">→</span></h2>
+                            </a>
                             <p>최신 마케팅 트렌드와 업계 소식을 실시간으로 공유하며, 하이브미디어만의 차별화된 인사이트와 실제 프로젝트 성공 사례를 통해 귀사에 최적화된 비즈니스
                                 솔루션을 제안합니다.</p>
                             <div class="archive-accordion" style="margin-top: 30px;">

@@ -827,8 +827,8 @@ $base_path = '/01_work/hivemedia_homepage';
                     categoryArticles = sampleArticles[cat.key] || [];
                 }
 
-                // 최신 10개까지 표시 가능하도록 조정 (기존 5개에서 확대)
-                const displayArticles = categoryArticles.slice(0, 10);
+                // 최신 5개까지만 표시
+                const displayArticles = categoryArticles.slice(0, 5);
 
                 // 해당 카테고리가 활성화된 경우 하이라이트 효과를 위한 클래스
                 const isActive = activeCat === cat.key ? 'active-category-highlight' : '';
