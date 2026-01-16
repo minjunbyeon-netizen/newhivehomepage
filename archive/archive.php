@@ -647,10 +647,6 @@ $base_path = '/01_work/hivemedia_homepage';
                     하이브미디어의 프로젝트 비하인드 스토리.
                 </p>
 
-                <p class="intro-text">
-                    부산 광고업계의
-                    생생한 현장을 전합니다.
-                </p>
 
                 <div class="stats-box" id="statsBox">
                     <div class="stat-item">
