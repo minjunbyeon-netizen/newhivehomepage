@@ -424,33 +424,44 @@ $base_path = '/01_work/hivemedia_homepage';
             }
         }
 
-        /* Bento Grid Styles */
+        /* ========================================
+           3D Card Style Bento Grid
+        ======================================== */
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 200px);
-            gap: 16px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto auto;
+            gap: 15px;
+            /* Slightly tighter gap to fit more */
             margin-bottom: 40px;
         }
 
         .bento-card {
             position: relative;
-            background: #fff;
-            border-radius: 16px;
+            border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.06),
+                0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+            min-height: 192.5px;
+            /* Half of large card minus gap */
+            backdrop-filter: blur(20px);
         }
 
         .bento-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.12),
+                0 0 0 1px rgba(255, 255, 255, 0.9) inset;
         }
 
         .bento-card--large {
-            grid-column: span 2;
+            grid-column: span 1;
             grid-row: span 2;
+            min-height: 400px;
+            /* Slightly reduced height */
         }
 
         .bento-card__bg {
@@ -458,102 +469,327 @@ $base_path = '/01_work/hivemedia_homepage';
             inset: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0.4;
+            opacity: 0;
             transition: opacity 0.3s, transform 0.5s;
         }
 
         .bento-card:hover .bento-card__bg {
-            opacity: 0.6;
-            transform: scale(1.05);
+            opacity: 0.15;
+            transform: scale(1.1);
         }
 
         .bento-card__content {
             position: relative;
             z-index: 2;
             height: 100%;
-            padding: 24px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
+        /* 3D Icon Badge */
+        .bento-card__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: inherit;
+        }
+
+        .bento-card__badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
         .bento-card__icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
             margin-bottom: 16px;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 500px;
+        }
+
+        /* 3D Icon Floating Effect */
+        .bento-card__icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0.5;
+            transform: translateY(10px) scale(0.9);
+            z-index: -1;
         }
 
         .bento-card__title {
-            font-size: 18px;
-            font-weight: 700;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
             color: #1a1a1a;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            line-height: 1.3;
         }
 
         .bento-card__subtitle {
-            font-size: 12px;
-            color: #888;
-            font-family: NotoSansKR-Light;
+            font-size: 14px;
+            color: #666;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
         }
 
         .bento-card__count {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            color: #0084ff;
+            opacity: 0.9;
         }
 
         .bento-card__count span {
             font-size: 14px;
             font-weight: 400;
-            color: #888;
+            opacity: 0.7;
+        }
+
+        /* 3D Illustration Container */
+        .bento-card__illustration {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: float3d 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+        }
+
+        @keyframes float3d {
+
+            0%,
+            100% {
+                transform: translateY(0) rotateX(5deg) rotateY(-5deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotateX(-5deg) rotateY(5deg);
+            }
+        }
+
+        /* Arrow Button */
+        .bento-card__arrow {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .bento-card:hover .bento-card__arrow {
+            background: #fff;
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .bento-card--large .bento-card__title {
             font-size: 28px;
         }
 
+        .bento-card--large .bento-card__illustration {
+            width: 160px;
+            height: 160px;
+            font-size: 80px;
+        }
+
         .bento-card--large .bento-card__count {
-            font-size: 48px;
+            font-size: 36px;
         }
 
-        /* Card Color Themes */
+        /* ========================================
+           Card Theme Colors - 3D Style
+        ======================================== */
+
+        /* Online AD - Soft Gray/White */
+        .bento-card--online {
+            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
         .bento-card--online .bento-card__icon {
-            background: rgba(0, 132, 255, 0.1);
-            color: #0084ff;
+            background: linear-gradient(135deg, #fff 0%, #f1f3f4 100%);
+            color: #1a1a1a;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
-        .bento-card--sns .bento-card__icon {
-            background: rgba(225, 48, 108, 0.1);
-            color: #E1306C;
+        .bento-card--online .bento-card__badge {
+            color: #666;
         }
 
-        .bento-card--homepage .bento-card__icon {
-            background: rgba(26, 26, 26, 0.1);
+        .bento-card--online .bento-card__title,
+        .bento-card--online .bento-card__count {
             color: #1a1a1a;
         }
 
+        /* SNS - Soft Blue/Purple Gradient */
+        .bento-card--sns {
+            background: linear-gradient(145deg, #e8f4fd 0%, #dbe9f6 100%);
+        }
+
+        .bento-card--sns .bento-card__icon {
+            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(79, 195, 247, 0.4);
+        }
+
+        .bento-card--sns .bento-card__badge {
+            color: #0288d1;
+        }
+
+        .bento-card--sns .bento-card__title,
+        .bento-card--sns .bento-card__count {
+            color: #1a1a1a;
+        }
+
+        /* Homepage - Deep Blue/Purple */
+        .bento-card--homepage {
+            background: linear-gradient(145deg, #5c6bc0 0%, #3949ab 100%);
+        }
+
+        .bento-card--homepage .bento-card__icon {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .bento-card--homepage .bento-card__badge {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bento-card--homepage .bento-card__title,
+        .bento-card--homepage .bento-card__subtitle,
+        .bento-card--homepage .bento-card__count {
+            color: #fff;
+        }
+
+        .bento-card--homepage .bento-card__arrow {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Video - Teal/Green Gradient */
+        .bento-card--video {
+            background: linear-gradient(145deg, #00897b 0%, #00695c 100%);
+        }
+
         .bento-card--video .bento-card__icon {
-            background: rgba(255, 0, 0, 0.1);
-            color: #FF0000;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .bento-card--video .bento-card__badge {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bento-card--video .bento-card__title,
+        .bento-card--video .bento-card__subtitle,
+        .bento-card--video .bento-card__count {
+            color: #fff;
+        }
+
+        .bento-card--video .bento-card__arrow {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Event - Soft Cream/Peach */
+        .bento-card--event {
+            background: linear-gradient(145deg, #fff8e1 0%, #ffecb3 100%);
         }
 
         .bento-card--event .bento-card__icon {
-            background: rgba(255, 193, 7, 0.1);
-            color: #FFC107;
+            background: linear-gradient(135deg, #ffca28 0%, #ffa726 100%);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(255, 167, 38, 0.4);
+        }
+
+        .bento-card--event .bento-card__badge {
+            color: #f57c00;
+        }
+
+        .bento-card--event .bento-card__title,
+        .bento-card--event .bento-card__count {
+            color: #1a1a1a;
+        }
+
+        /* Print - Soft Gray */
+        .bento-card--print {
+            background: linear-gradient(145deg, #f5f5f5 0%, #eeeeee 100%);
         }
 
         .bento-card--print .bento-card__icon {
-            background: rgba(102, 102, 102, 0.1);
-            color: #666;
+            background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(84, 110, 122, 0.4);
+        }
+
+        .bento-card--print .bento-card__badge {
+            color: #546e7a;
+        }
+
+        .bento-card--print .bento-card__title,
+        .bento-card--print .bento-card__count {
+            color: #1a1a1a;
+        }
+
+        /* Exhibition - Purple Gradient */
+        .bento-card--exhibition {
+            background: linear-gradient(145deg, #f3e5f5 0%, #e1bee7 100%);
+        }
+
+        .bento-card--exhibition .bento-card__icon {
+            background: linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(142, 36, 170, 0.4);
+        }
+
+        .bento-card--exhibition .bento-card__badge {
+            color: #8e24aa;
+        }
+
+        .bento-card--exhibition .bento-card__title,
+        .bento-card--exhibition .bento-card__count {
+            color: #1a1a1a;
         }
 
         .bento-card__projects {
@@ -566,7 +802,7 @@ $base_path = '/01_work/hivemedia_homepage';
         .bento-card__projects span {
             display: block;
             padding: 4px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         /* Hide bento grid when category is selected */
@@ -1154,14 +1390,16 @@ $base_path = '/01_work/hivemedia_homepage';
                         </div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">AD</div>
-                                <h3 class="bento-card__title">Online AD</h3>
-                                <p class="bento-card__subtitle">온라인 광고 · 검색광고 · DA · 리타겟팅</p>
+                                <span class="bento-card__badge">온라인 광고</span>
+                                <div class="bento-card__icon">📊</div>
+                                <h3 class="bento-card__title">온라인 광고<br>캠페인 관리</h3>
+                                <p class="bento-card__subtitle">검색광고 · DA · 리타겟팅</p>
                             </div>
                             <div>
                                 <p class="bento-card__count">0 <span>projects</span></p>
                             </div>
                         </div>
+                        <div class="bento-card__arrow">→</div>
                     </div>
 
                     <!-- SNS 운영 -->
@@ -1169,12 +1407,14 @@ $base_path = '/01_work/hivemedia_homepage';
                         <div class="bento-card__bg" style="background-image: url('./img/sns.png');"></div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">SNS</div>
-                                <h3 class="bento-card__title">SNS</h3>
-                                <p class="bento-card__subtitle">채널 운영 · 콘텐츠 제작</p>
+                                <span class="bento-card__badge">SNS 운영</span>
+                                <div class="bento-card__icon">📱</div>
+                                <h3 class="bento-card__title">SNS 채널<br>운영 관리</h3>
+                                <p class="bento-card__subtitle">콘텐츠 제작 · 운영대행</p>
                             </div>
                             <p class="bento-card__count">0 <span>건</span></p>
                         </div>
+                        <div class="bento-card__arrow">→</div>
                     </div>
 
                     <!-- 홈페이지 -->
@@ -1182,12 +1422,14 @@ $base_path = '/01_work/hivemedia_homepage';
                         <div class="bento-card__bg" style="background-image: url('./img/homepage.png');"></div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">WEB</div>
-                                <h3 class="bento-card__title">Homepage</h3>
-                                <p class="bento-card__subtitle">웹사이트 구축 · 포털</p>
+                                <span class="bento-card__badge">웹사이트</span>
+                                <div class="bento-card__icon">🌐</div>
+                                <h3 class="bento-card__title">홈페이지<br>구축 서비스</h3>
+                                <p class="bento-card__subtitle">웹사이트 · 포털 구축</p>
                             </div>
                             <p class="bento-card__count">0 <span>건</span></p>
                         </div>
+                        <div class="bento-card__arrow">→</div>
                     </div>
 
                     <!-- 영상 제작 -->
@@ -1195,12 +1437,14 @@ $base_path = '/01_work/hivemedia_homepage';
                         <div class="bento-card__bg" style="background-image: url('./img/video.png');"></div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">VD</div>
-                                <h3 class="bento-card__title">Video</h3>
+                                <span class="bento-card__badge">영상 제작</span>
+                                <div class="bento-card__icon">🎬</div>
+                                <h3 class="bento-card__title">홍보영상<br>제작 서비스</h3>
                                 <p class="bento-card__subtitle">홍보영상 · 시네마틱</p>
                             </div>
                             <p class="bento-card__count">0 <span>건</span></p>
                         </div>
+                        <div class="bento-card__arrow">→</div>
                     </div>
 
                     <!-- 이벤트페이지 -->
@@ -1208,12 +1452,14 @@ $base_path = '/01_work/hivemedia_homepage';
                         <div class="bento-card__bg" style="background-image: url('./img/event.png');"></div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">EVT</div>
-                                <h3 class="bento-card__title">Event</h3>
-                                <p class="bento-card__subtitle">이벤트 · 프로모션</p>
+                                <span class="bento-card__badge">이벤트 페이지</span>
+                                <div class="bento-card__icon">🎉</div>
+                                <h3 class="bento-card__title">이벤트<br>프로모션</h3>
+                                <p class="bento-card__subtitle">이벤트 · 경품 행사</p>
                             </div>
                             <p class="bento-card__count">0 <span>건</span></p>
                         </div>
+                        <div class="bento-card__arrow">→</div>
                     </div>
 
                     <!-- 인쇄물/전시 -->
@@ -1221,12 +1467,14 @@ $base_path = '/01_work/hivemedia_homepage';
                         <div class="bento-card__bg" style="background-image: url('./img/print.png');"></div>
                         <div class="bento-card__content">
                             <div>
-                                <div class="bento-card__icon">P&E</div>
-                                <h3 class="bento-card__title">Print & Exhibition</h3>
-                                <p class="bento-card__subtitle">인쇄물 · 전시기획</p>
+                                <span class="bento-card__badge">인쇄물 · 전시</span>
+                                <div class="bento-card__icon">🖼️</div>
+                                <h3 class="bento-card__title">인쇄물 제작<br>전시 기획</h3>
+                                <p class="bento-card__subtitle">브로셔 · 리플렛 · 전시</p>
                             </div>
                             <p class="bento-card__count">0 <span>건</span></p>
                         </div>
+                        <div class="bento-card__arrow">→</div>
                     </div>
                 </div>
 
@@ -1381,7 +1629,6 @@ $base_path = '/01_work/hivemedia_homepage';
                     where('status', '==', 'approved')
                 );
                 const snapshot = await getDocs(q);
-
                 const projectsList = document.getElementById('projectsList');
 
                 // Store portfolio data for modal
@@ -1392,7 +1639,6 @@ $base_path = '/01_work/hivemedia_homepage';
                     const data = doc.data();
                     const docId = doc.id;
                     const categoryKey = categoryMap[data.category] || 'online_ad';
-
                     // Store data for modal
                     window.portfolioData[docId] = data;
 

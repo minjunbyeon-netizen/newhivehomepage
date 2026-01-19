@@ -1,0 +1,14 @@
+{
+    "name": "hivemedia/homepage",
+    "description": "Hivemedia Homepage with Firebase Integration",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "google/cloud-firestore": "^1.38"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hivemedia\\": "src/"
+        }
+    }
+}

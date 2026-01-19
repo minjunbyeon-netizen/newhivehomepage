@@ -1,22 +1,20 @@
-/**
- * Firebase Configuration
- * Replace these values with your Firebase project configuration
- */
-
-// Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
+    authDomain: "hivemedia-archive.firebaseapp.com",
+    projectId: "hivemedia-archive",
+    storageBucket: "hivemedia-archive.firebasestorage.app",
+    messagingSenderId: "105246116532",
+    appId: "1:105246116532:web:18aad82490a11b7d4ea5e1"
 };
 
-// Flag to check if Firebase is properly configured
 const isFirebaseConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY";
 
-// Export for module usage
+// Export for module usage or global accessibility
+if (typeof window !== 'undefined') {
+    window.firebaseConfig = firebaseConfig;
+    window.isFirebaseConfigured = isFirebaseConfigured;
+}
+
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { firebaseConfig, isFirebaseConfigured };
 }

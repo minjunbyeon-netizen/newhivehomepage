@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png" />
     <link rel="stylesheet" href="./assets/css/all.css">
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./assets/js/firebase-config.js"></script>
     <script src="./assets/js/common.js" defer=""></script>
     <script src="./assets/js/components.js" defer=""></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -249,7 +250,7 @@
 
                 <div class="contact-form-section" data-aos="fade-up">
                     <h3>문의하기</h3>
-                    <form id="contact-form" action="mailto:hive_ad@hivemedia.co.kr" method="post" enctype="text/plain">
+                    <form id="contact-form">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">이름 / 회사명 *</label>
@@ -279,8 +280,9 @@
                             <label for="message">문의 내용 *</label>
                             <textarea id="message" name="message" required placeholder="문의하실 내용을 자세히 적어주세요"></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">문의 보내기</button>
+                        <button type="submit" class="btn-submit" id="submit-btn">문의 보내기</button>
                     </form>
+                    <div id="form-feedback" style="margin-top: 20px; text-align: center; display: none;"></div>
                 </div>
 
                 <div class="dark_bg"></div>
@@ -290,24 +292,77 @@
         <div id="footer-placeholder"></div>
     </div>
 
-    <script>
-        document.getElementById('contact-form').addEventListener('submit', function (e) {
-            const requiredFields = this.querySelectorAll('[required]');
-            let isValid = true;
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.style.borderColor = '#ff4444';
-                } else {
-                    field.style.borderColor = '#e0e0e0';
+        // Use the standardized config (defined in firebase-config.js or imported via script)
+        // Wait for DOM to ensure config is available if loaded via script
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (typeof firebaseConfig === 'undefined') {
+                console.error('Firebase configuration not found');
+                return;
+            }
+
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const feedback = document.getElementById('form-feedback');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Basic validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ff4444';
+                    } else {
+                        field.style.borderColor = '#e0e0e0';
+                    }
+                });
+
+                if (!isValid) {
+                    alert('필수 항목을 모두 입력해주세요.');
+                    return;
+                }
+
+                // Prepare data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    service: document.getElementById('service').value,
+                    message: document.getElementById('message').value,
+                    status: 'unread',
+                    createdAt: serverTimestamp()
+                };
+
+                // UI Update
+                submitBtn.disabled = true;
+                submitBtn.textContent = '보내는 중...';
+                feedback.style.display = 'none';
+
+                try {
+                    await addDoc(collection(db, 'inquiries'), formData);
+
+                    // Success feedback
+                    feedback.innerHTML = '<p style="color: #4ADE80; font-weight: 600;">문의가 성공적으로 접수되었습니다. 곧 연락드리겠습니다.</p>';
+                    feedback.style.display = 'block';
+                    form.reset();
+                    submitBtn.textContent = '접수 완료';
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    feedback.innerHTML = '<p style="color: #ff4444; font-weight: 600;">오류가 발생했습니다. 잠시 후 다시 시도해주세요.</p>';
+                    feedback.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '다시 시도하기';
                 }
             });
-
-            if (!isValid) {
-                e.preventDefault();
-                alert('필수 항목을 모두 입력해주세요.');
-            }
         });
     </script>
 </body>
