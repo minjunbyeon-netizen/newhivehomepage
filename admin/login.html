@@ -119,8 +119,8 @@
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required autocomplete="email">
+                <label for="username">ID</label>
+                <input type="text" id="username" required autocomplete="username" placeholder="admin or staff">
             </div>
 
             <div class="form-group">
@@ -132,27 +132,24 @@
         </form>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
-            authDomain: "hivemedia-archive.firebaseapp.com",
-            projectId: "hivemedia-archive",
-            storageBucket: "hivemedia-archive.appspot.com",
-            messagingSenderId: "305221975765",
-            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
+    <script>
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const errorMsg = document.getElementById('errorMsg');
+
+        // Simple hardcoded credentials
+        const users = {
+            'admin': {
+                password: '1234',
+                role: 'admin',
+                displayName: 'Admin User'
+            },
+            'staff': {
+                password: '1234',
+                role: 'staff',
+                displayName: 'Staff User'
+            }
+        };
 
         function showError(message) {
             errorMsg.textContent = message;
@@ -163,58 +160,33 @@
             errorMsg.classList.remove('show');
         }
 
-        loginForm.addEventListener('submit', async (e) => {
+        loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             hideError();
 
-            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
             loginBtn.disabled = true;
             loginBtn.textContent = 'Logging in...';
 
-            try {
-                // Sign in with Firebase Auth
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+            // Simple authentication check
+            setTimeout(() => {
+                if (users[username] && users[username].password === password) {
+                    // Store user info in session
+                    sessionStorage.setItem('userEmail', username);
+                    sessionStorage.setItem('userId', username);
+                    sessionStorage.setItem('userRole', users[username].role);
+                    sessionStorage.setItem('displayName', users[username].displayName);
 
-                // Get user role from Firestore
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-
-                if (!userDoc.exists()) {
-                    throw new Error('User profile not found');
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    showError('Invalid username or password');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Login';
                 }
-
-                const userData = userDoc.data();
-                const role = userData.role;
-
-                // Store user info in session
-                sessionStorage.setItem('userEmail', user.email);
-                sessionStorage.setItem('userId', user.uid);
-                sessionStorage.setItem('userRole', role);
-                sessionStorage.setItem('displayName', userData.displayName || user.email);
-
-                // Redirect to dashboard
-                window.location.href = 'dashboard.html';
-
-            } catch (error) {
-                console.error('Login error:', error);
-                let message = 'Login failed. Please check your credentials.';
-
-                if (error.code === 'auth/user-not-found') {
-                    message = 'User not found';
-                } else if (error.code === 'auth/wrong-password') {
-                    message = 'Incorrect password';
-                } else if (error.code === 'auth/invalid-email') {
-                    message = 'Invalid email address';
-                } else if (error.message) {
-                    message = error.message;
-                }
-
-                showError(message);
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Login';
-            }
+            }, 500);
         });
     </script>
 </body>
