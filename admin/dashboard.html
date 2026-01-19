@@ -211,39 +211,16 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    <script>
+        // Simple session-based authentication (no Firebase)
+        const userRole = sessionStorage.getItem('userRole');
+        const displayName = sessionStorage.getItem('displayName');
+        const userEmail = sessionStorage.getItem('userEmail');
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
-            authDomain: "hivemedia-archive.firebaseapp.com",
-            projectId: "hivemedia-archive",
-            storageBucket: "hivemedia-archive.appspot.com",
-            messagingSenderId: "305221975765",
-            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Check authentication
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Get user info from session
-            const userRole = sessionStorage.getItem('userRole');
-            const displayName = sessionStorage.getItem('displayName');
-            const userEmail = sessionStorage.getItem('userEmail');
-
-            if (!userRole) {
-                window.location.href = 'login.html';
-                return;
-            }
-
+        // Check if logged in
+        if (!userRole) {
+            window.location.href = 'login.html';
+        } else {
             // Display user info
             document.getElementById('userName').textContent = displayName || userEmail;
             const roleBadge = document.getElementById('roleBadge');
@@ -257,18 +234,12 @@
                 document.getElementById('migrationCard').classList.add('disabled');
                 document.getElementById('approvalCard').classList.add('disabled');
             }
-        });
+        }
 
         // Logout
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                sessionStorage.clear();
-                window.location.href = 'login.html';
-            } catch (error) {
-                console.error('Logout error:', error);
-                alert('Failed to logout');
-            }
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            sessionStorage.clear();
+            window.location.href = 'login.html';
         });
     </script>
 </body>
