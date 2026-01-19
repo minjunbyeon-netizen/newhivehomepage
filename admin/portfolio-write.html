@@ -392,16 +392,23 @@
                 const thumbnailFile = document.getElementById('thumbnail').files[0];
                 if (!thumbnailFile) {
                     alert('썸네일 이미지를 선택해주세요.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit for Approval';
                     return;
                 }
+
+                console.log('Uploading thumbnail...');
 
                 let thumbnailUrl = '';
                 try {
                     const thumbnailRef = ref(storage, `portfolios/${Date.now()}_${thumbnailFile.name}`);
                     await uploadBytes(thumbnailRef, thumbnailFile);
                     thumbnailUrl = await getDownloadURL(thumbnailRef);
+                    console.log('Thumbnail uploaded:', thumbnailUrl);
                 } catch (uploadError) {
                     console.error('Image upload error:', uploadError);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit for Approval';
                     throw new Error('이미지 업로드 실패: ' + uploadError.message);
                 }
 
