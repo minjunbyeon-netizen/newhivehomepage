@@ -329,7 +329,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
@@ -342,7 +341,6 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         // Simple session check
         const userRole = sessionStorage.getItem('userRole');
@@ -388,7 +386,7 @@
                     period = periodStart;
                 }
 
-                // Upload thumbnail
+                // Convert thumbnail to Base64 (no Firebase Storage needed)
                 const thumbnailFile = document.getElementById('thumbnail').files[0];
                 if (!thumbnailFile) {
                     alert('썸네일 이미지를 선택해주세요.');
@@ -397,20 +395,17 @@
                     return;
                 }
 
-                console.log('Uploading thumbnail...');
+                console.log('Converting image to Base64...');
 
-                let thumbnailUrl = '';
-                try {
-                    const thumbnailRef = ref(storage, `portfolios/${Date.now()}_${thumbnailFile.name}`);
-                    await uploadBytes(thumbnailRef, thumbnailFile);
-                    thumbnailUrl = await getDownloadURL(thumbnailRef);
-                    console.log('Thumbnail uploaded:', thumbnailUrl);
-                } catch (uploadError) {
-                    console.error('Image upload error:', uploadError);
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit for Approval';
-                    throw new Error('이미지 업로드 실패: ' + uploadError.message);
-                }
+                // Convert to Base64
+                const thumbnailUrl = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(thumbnailFile);
+                });
+
+                console.log('Image converted successfully');
 
                 // Create portfolio document
                 const portfolioData = {
