@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Full Migration - HiveMed
-
-        ia</title>
+    <title>Portfolio Migration</title>
     <style>
         * {
             margin: 0;
@@ -15,8 +13,8 @@
         }
 
         body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -26,49 +24,50 @@
 
         .container {
             background: white;
-            border-radius: 20px;
+            border-radius: 8px;
             padding: 40px;
-            max-width: 900px;
+            max-width: 800px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
 
         h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            margin-bottom: 8px;
             color: #1a1a1a;
+            font-weight: 600;
         }
 
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             font-size: 14px;
         }
 
         .alert {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 8px;
-            padding: 15px;
+            background: #f8f9fa;
+            border-left: 3px solid #6c757d;
+            padding: 14px 16px;
             margin-bottom: 20px;
-            font-size: 14px;
-            color: #856404;
+            font-size: 13px;
+            color: #495057;
+            line-height: 1.6;
         }
 
         .status {
             background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 4px;
+            padding: 16px;
             margin-bottom: 20px;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 13px;
-            max-height: 500px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
             overflow-y: auto;
         }
 
         .status-line {
-            margin-bottom: 8px;
-            padding: 4px 0;
+            margin-bottom: 6px;
+            padding: 2px 0;
         }
 
         .success {
@@ -80,83 +79,81 @@
         }
 
         .info {
-            color: #17a2b8;
+            color: #495057;
         }
 
         .warning {
-            color: #ffc107;
+            color: #856404;
         }
 
         button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #1a1a1a;
             color: white;
             border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.2s;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            background: #333;
         }
 
         button:disabled {
             background: #ccc;
             cursor: not-allowed;
-            transform: none;
         }
 
         .progress {
-            margin-top: 20px;
+            margin-top: 16px;
             background: #e9ecef;
-            border-radius: 10px;
+            border-radius: 4px;
             overflow: hidden;
-            height: 30px;
+            height: 24px;
             display: none;
         }
 
         .progress-bar {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: #1a1a1a;
             height: 100%;
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 500;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>🚀 완전 포트폴리오 마이그레이션</h1>
-        <p class="subtitle">portfolio.json의 모든 필드를 Firestore로 완전히 마이그레이션합니다</p>
+        <h1>Portfolio Migration</h1>
+        <p class="subtitle">Migrate portfolio.json data to Firestore</p>
 
         <div class="alert">
-            ⚠️ <strong>주의:</strong> 이 도구는 기존 Firestore 문서를 모두 삭제하고 새로 생성합니다.<br>
-            📋 프로젝트 설명 5개 필드를 모두 하나로 합쳐서 저장합니다. (hiveboad000034, 058-061)
+            <strong>Note:</strong> This will delete existing Firestore documents and recreate them.<br>
+            All 5 description fields (hiveboad000034, 058-061) will be combined into one.
         </div>
 
         <div class="status" id="status">
-            <div class="status-line info">✓ Firebase 연결 준비 완료</div>
-            <div class="status-line info">✓ portfolio.json 로드 대기 중</div>
-            <div class="status-line warning">⚠ 아래 버튼을 클릭하여 마이그레이션을 시작하세요</div>
+            <div class="status-line info">Firebase connection ready</div>
+            <div class="status-line info">portfolio.json ready to load</div>
+            <div class="status-line warning">Click the button below to start migration</div>
         </div>
 
         <div class="progress" id="progress">
             <div class="progress-bar" id="progressBar">0%</div>
         </div>
 
-        <button id="startBtn" onclick="startMigration()">전체 마이그레이션 시작</button>
+        <button id="startBtn" onclick="startMigration()">Start Migration</button>
     </div>
 
     <script type="module">
@@ -182,7 +179,7 @@
         window.deleteDoc = deleteDoc;
         window.getDocs = getDocs;
 
-        addLog('✓ Firebase 초기화 완료', 'success');
+        addLog('Firebase initialized', 'success');
     </script>
 
     <script>
@@ -207,19 +204,17 @@
         async function startMigration() {
             const btn = document.getElementById('startBtn');
             btn.disabled = true;
-            btn.textContent = '마이그레이션 중...';
+            btn.textContent = 'Migrating...';
 
-            addLog('📁 portfolio.json 로드 중...', 'info');
+            addLog('Loading portfolio.json...', 'info');
 
             try {
-                // Load portfolio.json
                 const response = await fetch('../assets/uploaded/app/portfolio.json');
                 const jsonData = await response.json();
                 const portfolios = jsonData.rows;
 
-                addLog(`✓ ${portfolios.length}개의 포트폴리오 항목을 발견했습니다`, 'success');
+                addLog(`Found ${portfolios.length} portfolio items`, 'success');
 
-                // Category mapping
                 const categoryMap = {
                     'Online AD': 'Online AD',
                     'SNS': 'SNS',
@@ -231,19 +226,18 @@
                 };
 
                 addLog('', 'info');
-                addLog('🗑️ 기존 Firestore 문서 삭제 중...', 'warning');
+                addLog('Deleting existing Firestore documents...', 'warning');
 
-                // Delete existing documents
                 const existingDocs = await window.getDocs(window.collection(window.db, 'portfolios'));
                 let deleted = 0;
                 for (const docSnap of existingDocs.docs) {
                     await window.deleteDoc(window.doc(window.db, 'portfolios', docSnap.id));
                     deleted++;
                 }
-                addLog(`✓ ${deleted}개의 기존 문서 삭제 완료`, 'success');
+                addLog(`Deleted ${deleted} existing documents`, 'success');
 
                 addLog('', 'info');
-                addLog('🔄 새로운 포트폴리오 데이터 생성 중...', 'info');
+                addLog('Creating new portfolio data...', 'info');
 
                 let created = 0;
                 let skipped = 0;
@@ -253,17 +247,14 @@
                     const item = portfolios[i];
                     const title = item.hiveboad000001 || '';
 
-                    // Skip if no title or service is not 1
                     if (!title || item.service !== 1) {
                         skipped++;
                         continue;
                     }
 
                     try {
-                        // Map category
                         const category = categoryMap[item.hiveboad000023] || item.hiveboad000023;
 
-                        // Combine all description fields
                         const descriptions = [
                             item.hiveboad000034,
                             item.hiveboad000058,
@@ -272,7 +263,6 @@
                             item.hiveboad000061
                         ].filter(d => d && d.trim()).join('\n\n');
 
-                        // Get all image fields
                         const imageBasePath = 'https://hivemedia.co.kr/hiveoffice/pboard/uploaded/thumbnail/';
                         const thumbnailUrl = item.hiveboad000011 ? imageBasePath + item.hiveboad000011 : '';
                         const mainImageUrl = item.hiveboad000026 ? imageBasePath + item.hiveboad000026 : '';
@@ -288,7 +278,6 @@
 
                         const allImages = [thumbnailUrl, mainImageUrl, detailImageUrl, ...popupImages].filter(url => url);
 
-                        // Prepare document data
                         const docId = 'migrated_' + item.pk_no;
                         const data = {
                             title: title,
@@ -320,37 +309,34 @@
                             migrationDate: new Date()
                         };
 
-                        // Create document
                         await window.setDoc(window.doc(window.db, 'portfolios', docId), data);
                         created++;
-                        addLog(`✓ ${title} (${category})`, 'success');
+                        addLog(`${title} (${category})`, 'success');
 
                         updateProgress(i + 1, portfolios.length);
-
-                        // Small delay
                         await new Promise(resolve => setTimeout(resolve, 100));
 
                     } catch (error) {
                         errors++;
-                        addLog(`✗ 오류: ${title} - ${error.message}`, 'error');
+                        addLog(`Error: ${title} - ${error.message}`, 'error');
                     }
                 }
 
                 addLog('', 'info');
-                addLog('═'.repeat(60), 'info');
-                addLog(`완료! 생성: ${created}, 건너뜀: ${skipped}, 오류: ${errors}`, 'success');
-                addLog('═'.repeat(60), 'info');
+                addLog('='.repeat(60), 'info');
+                addLog(`Complete! Created: ${created}, Skipped: ${skipped}, Errors: ${errors}`, 'success');
+                addLog('='.repeat(60), 'info');
                 addLog('', 'info');
-                addLog('💡 이제 포트폴리오 페이지를 새로고침하여 확인하세요!', 'info');
+                addLog('Refresh the portfolio page to see the results', 'info');
 
-                btn.textContent = '마이그레이션 완료!';
+                btn.textContent = 'Migration Complete';
                 btn.style.background = '#28a745';
 
             } catch (error) {
-                addLog(`✗ 치명적 오류: ${error.message}`, 'error');
-                addLog(`스택: ${error.stack}`, 'error');
+                addLog(`Fatal error: ${error.message}`, 'error');
+                addLog(`Stack: ${error.stack}`, 'error');
                 btn.disabled = false;
-                btn.textContent = '다시 시도';
+                btn.textContent = 'Retry';
             }
         }
     </script>
