@@ -358,6 +358,15 @@
         portfolioForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            console.log('Form submitted');
+
+            // Check if logged in
+            if (!userId) {
+                alert('로그인이 필요합니다. 다시 로그인해주세요.');
+                window.location.href = 'login.html';
+                return;
+            }
+
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
 
@@ -381,9 +390,20 @@
 
                 // Upload thumbnail
                 const thumbnailFile = document.getElementById('thumbnail').files[0];
-                const thumbnailRef = ref(storage, `portfolios/${Date.now()}_${thumbnailFile.name}`);
-                await uploadBytes(thumbnailRef, thumbnailFile);
-                const thumbnailUrl = await getDownloadURL(thumbnailRef);
+                if (!thumbnailFile) {
+                    alert('썸네일 이미지를 선택해주세요.');
+                    return;
+                }
+
+                let thumbnailUrl = '';
+                try {
+                    const thumbnailRef = ref(storage, `portfolios/${Date.now()}_${thumbnailFile.name}`);
+                    await uploadBytes(thumbnailRef, thumbnailFile);
+                    thumbnailUrl = await getDownloadURL(thumbnailRef);
+                } catch (uploadError) {
+                    console.error('Image upload error:', uploadError);
+                    throw new Error('이미지 업로드 실패: ' + uploadError.message);
+                }
 
                 // Create portfolio document
                 const portfolioData = {
@@ -409,7 +429,9 @@
                     updatedAt: serverTimestamp()
                 };
 
+                console.log('Saving to Firestore...', portfolioData);
                 await addDoc(collection(db, 'portfolios'), portfolioData);
+                console.log('Successfully saved to Firestore');
 
                 // Success message
                 successMsg.textContent = '✅ 포트폴리오가 성공적으로 제출되었습니다! 관리자 승인 후 포트폴리오 페이지에 표시됩니다.';
