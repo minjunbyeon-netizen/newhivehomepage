@@ -63,6 +63,23 @@ $adminPassword = $config['admin']['password'];
             font-weight: 300;
         }
 
+        /* Logo Redirect Style */
+        .home-logo {
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-logo:hover {
+            opacity: 0.8;
+        }
+
+        .home-logo img {
+            height: 24px;
+            width: auto;
+        }
+
         .header-back {
             background: transparent;
             border: 1px solid #5f6368;
@@ -689,7 +706,9 @@ $adminPassword = $config['admin']['password'];
 
 <body>
     <header class="header">
-        <div class="header-logo">H</div>
+        <div class="home-logo" onclick="goToHome()">
+            <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
+        </div>
         <h1 class="header-title" id="headerTitle">Content <span>Writer</span></h1>
         <button class="header-back" id="backBtn" onclick="goBackToTypeSelection()">뒤로</button>
     </header>
@@ -1128,6 +1147,68 @@ $adminPassword = $config['admin']['password'];
             btn.textContent = '제출 중...';
 
             try {
+                // --- 이미지 처리 시작 ---
+                const mainImageFile = document.getElementById('mainImage').files[0];
+                if (!mainImageFile) {
+                    showError('대표 이미지를 선택해주세요.');
+                    btn.disabled = false;
+                    btn.textContent = '제출';
+                    return;
+                }
+
+                const processImage = async (file) => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            const MAX_WIDTH = 1000;
+                            const MAX_HEIGHT = 1000;
+                            let width = img.width;
+                            let height = img.height;
+
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
+                            }
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.drawImage(img, 0, 0, width, height);
+                            // 0.6 품질로 압축 (Firestore 1MB 제한 대비)
+                            resolve(canvas.toDataURL('image/jpeg', 0.6));
+                        };
+                        img.onerror = () => reject(new Error('이미지 로드 실패'));
+                        img.src = URL.createObjectURL(file);
+                    });
+                };
+
+                // 대표 이미지 처리
+                const mainImageUrl = await processImage(mainImageFile);
+                if (mainImageUrl.length / 1024 > 900) {
+                    showError('이미지 용량이 너무 큽니다. 다른 이미지를 선택해주세요.');
+                    btn.disabled = false;
+                    btn.textContent = '제출';
+                    return;
+                }
+
+                // 추가 이미지 처리 (최대 4장)
+                const additionalFiles = document.getElementById('additionalImages').files;
+                const additionalImages = [];
+                for (let i = 0; i < Math.min(additionalFiles.length, 4); i++) {
+                    const imgUrl = await processImage(additionalFiles[i]);
+                    if (imgUrl.length / 1024 < 300) { // 추가 이미지는 더 엄격하게 (총합 1MB 제한 때문)
+                        additionalImages.push(imgUrl);
+                    }
+                }
+                // --- 이미지 처리 종료 ---
+
                 await addDoc(collection(db, 'portfolios'), {
                     title,
                     category,
@@ -1138,6 +1219,9 @@ $adminPassword = $config['admin']['password'];
                     client: client || '',
                     region: region || '',
                     author: author || '',
+                    thumbnailUrl: mainImageUrl, // 추가된 부분
+                    imageUrl: mainImageUrl,      // 추가된 부분
+                    images: [mainImageUrl, ...additionalImages], // 추가된 부분
                     status: 'pending',
                     createdAt: serverTimestamp(),
                     createdBy: 'staff'
@@ -1265,6 +1349,12 @@ $adminPassword = $config['admin']['password'];
             document.getElementById('archiveSeoDescription').value = '';
             document.getElementById('archiveTags').value = '';
             document.getElementById('archiveContent').value = '';
+        };
+
+        window.goToHome = function() {
+            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                window.location.href = '../index.html';
+            }
         };
     </script>
 </body>

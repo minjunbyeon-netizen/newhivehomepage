@@ -159,12 +159,40 @@
             color: #666;
             font-weight: 500;
         }
+
+        /* Logo Redirect Style */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .home-logo {
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-logo:hover {
+            opacity: 0.8;
+        }
+
+        .home-logo img {
+            height: 24px;
+            width: auto;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>HiveMedia Admin</h1>
+        <div class="header-left">
+            <div class="home-logo" onclick="goToHome()">
+                <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
+            </div>
+            <h1>HiveMedia Admin</h1>
+        </div>
         <div class="user-info">
             <span class="user-name" id="userName"></span>
             <span class="role-badge" id="roleBadge"></span>
@@ -212,6 +240,12 @@
     </div>
 
     <script>
+        window.goToHome = function () {
+            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                window.location.href = '../index.html';
+            }
+        };
+
         // Simple session-based authentication (no Firebase)
         const userRole = sessionStorage.getItem('userRole');
         const displayName = sessionStorage.getItem('displayName');

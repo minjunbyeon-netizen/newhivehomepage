@@ -185,12 +185,40 @@
             margin-bottom: 16px;
             color: #1a1a1a;
         }
+
+        /* Logo Redirect Style */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .home-logo {
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-logo:hover {
+            opacity: 0.8;
+        }
+
+        .home-logo img {
+            height: 24px;
+            width: auto;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>Portfolio Writing</h1>
+        <div class="header-left">
+            <div class="home-logo" onclick="goToHome()">
+                <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
+            </div>
+            <h1>Portfolio Writing</h1>
+        </div>
         <a href="dashboard.html" class="back-btn">Back to Dashboard</a>
     </div>
 
@@ -326,6 +354,13 @@
         </div>
     </div>
 
+    <script>
+        window.goToHome = function () {
+            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                window.location.href = '../index.html';
+            }
+        };
+    </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -424,9 +459,9 @@
                             const canvas = document.createElement('canvas');
                             const ctx = canvas.getContext('2d');
 
-                            // Max dimensions
-                            const MAX_WIDTH = 1200;
-                            const MAX_HEIGHT = 1200;
+                            // Max dimensions (Reduced to stay within 1MB Firestore limit)
+                            const MAX_WIDTH = 1000;
+                            const MAX_HEIGHT = 1000;
 
                             let width = img.width;
                             let height = img.height;
@@ -447,8 +482,8 @@
                             canvas.height = height;
                             ctx.drawImage(img, 0, 0, width, height);
 
-                            // Convert with compression (0.7 quality)
-                            resolve(canvas.toDataURL('image/jpeg', 0.7));
+                            // Convert with compression (0.6 quality for better safety)
+                            resolve(canvas.toDataURL('image/jpeg', 0.6));
                         };
                         img.onerror = () => reject(new Error('이미지 로드 실패'));
                         img.src = URL.createObjectURL(thumbnailFile);
@@ -457,9 +492,9 @@
                     const compressedSizeKB = Math.round(thumbnailUrl.length / 1024);
                     console.log('Image compressed, size:', compressedSizeKB, 'KB');
 
-                    // Check if compressed size is still too large
-                    if (compressedSizeKB > 1000) {
-                        alert('이미지 압축 후에도 용량이 너무 큽니다.\n\n압축 후 크기: ' + compressedSizeKB + 'KB\n최대 허용: 1000KB\n\n해상도가 낮은 이미지를 사용해주세요.');
+                    // Check if compressed size is still too large (Firestore limit is 1MB total)
+                    if (compressedSizeKB > 900) {
+                        alert('이미지 압축 후에도 용량이 너무 큽니다 (약 ' + compressedSizeKB + 'KB).\n\n파이어베이스 저장 제한(1MB)을 맞추기 위해\n해상도가 더 낮거나 용량이 작은 이미지를 사용해주세요.');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Submit for Approval';
                         return;

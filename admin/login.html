@@ -107,10 +107,33 @@
         .error.show {
             display: block;
         }
+
+        /* Logo Redirect Style */
+        .home-logo {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: opacity 0.2s;
+        }
+
+        .home-logo:hover {
+            opacity: 0.8;
+        }
+
+        .home-logo img {
+            height: 24px;
+            width: auto;
+        }
     </style>
 </head>
 
 <body>
+    <div class="home-logo" onclick="goToHome()">
+        <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
+    </div>
+
     <div class="login-container">
         <h1>Admin Login</h1>
         <p class="subtitle">HiveMedia Content Management</p>
@@ -136,6 +159,12 @@
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const errorMsg = document.getElementById('errorMsg');
+
+        window.goToHome = function () {
+            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                window.location.href = '../index.html';
+            }
+        };
 
         // Simple hardcoded credentials
         const users = {
