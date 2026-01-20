@@ -116,21 +116,28 @@
             cursor: pointer;
             z-index: 1000;
             transition: opacity 0.2s;
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .home-logo:hover {
             opacity: 0.8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .home-logo img {
             height: 24px;
             width: auto;
+            display: block;
+            pointer-events: none;
         }
     </style>
 </head>
 
 <body>
-    <div class="home-logo" onclick="goToHome()">
+    <div class="home-logo">
         <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
     </div>
 
@@ -160,11 +167,27 @@
         const loginBtn = document.getElementById('loginBtn');
         const errorMsg = document.getElementById('errorMsg');
 
-        window.goToHome = function () {
+        // Home redirect function
+        function goToHome() {
+            console.log('goToHome called!'); // 디버깅용
             if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                console.log('Redirecting to index.html'); // 디버깅용
                 window.location.href = '../index.html';
+            } else {
+                console.log('User cancelled'); // 디버깅용
             }
-        };
+        }
+
+        // Attach click event to logo
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoElement = document.querySelector('.home-logo');
+            if (logoElement) {
+                logoElement.addEventListener('click', goToHome);
+                console.log('Logo click event attached'); // 디버깅용
+            } else {
+                console.error('Logo element not found!'); // 디버깅용
+            }
+        });
 
         // Simple hardcoded credentials
         const users = {

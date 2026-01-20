@@ -202,6 +202,21 @@
         }
 
         async function startMigration() {
+            // Show warning confirmation dialog
+            const confirmed = confirm(
+                '⚠️ 경고: 데이터 마이그레이션\n\n' +
+                '이 작업은 다음과 같은 영향을 미칩니다:\n\n' +
+                '1. 기존 Firestore의 모든 포트폴리오 데이터가 삭제됩니다.\n' +
+                '2. portfolio.json 파일의 데이터로 새로 생성됩니다.\n' +
+                '3. 이 작업은 되돌릴 수 없습니다.\n\n' +
+                '정말로 마이그레이션을 진행하시겠습니까?'
+            );
+
+            if (!confirmed) {
+                addLog('Migration cancelled by user', 'warning');
+                return;
+            }
+
             const btn = document.getElementById('startBtn');
             btn.disabled = true;
             btn.textContent = 'Migrating...';

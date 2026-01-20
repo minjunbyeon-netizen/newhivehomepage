@@ -114,13 +114,14 @@
 
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
-            background: #ffc107;
-            color: #856404;
-            border-radius: 12px;
+            padding: 6px 12px;
+            background: #1a1a1a;
+            color: white;
+            border-radius: 4px;
             font-size: 11px;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .item-content {
@@ -136,39 +137,57 @@
         }
 
         .item-actions {
-            display: flex;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
             margin-top: 16px;
         }
 
+        .preview-btn,
         .approve-btn,
         .reject-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 500;
+            padding: 12px 16px;
+            border: 2px solid;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            text-align: center;
+        }
+
+        .preview-btn {
+            background: white;
+            color: #1a1a1a;
+            border-color: #ddd;
+        }
+
+        .preview-btn:hover {
+            background: #f5f5f5;
+            border-color: #1a1a1a;
         }
 
         .approve-btn {
-            background: #28a745;
+            background: #1a1a1a;
             color: white;
+            border-color: #1a1a1a;
         }
 
         .approve-btn:hover {
-            background: #218838;
+            background: #333;
+            border-color: #333;
         }
 
         .reject-btn {
-            background: #dc3545;
-            color: white;
+            background: white;
+            color: #666;
+            border-color: #ddd;
         }
 
         .reject-btn:hover {
-            background: #c82333;
+            background: #f5f5f5;
+            color: #1a1a1a;
+            border-color: #999;
         }
 
         .empty-state {
@@ -324,13 +343,95 @@
             height: 24px;
             width: auto;
         }
+
+        /* Activity Log Section */
+        .activity-log-wrapper {
+            background: #f9f9f9;
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .activity-log-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+        }
+
+        .activity-log {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1a1a1a;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            background: #f5f5f5;
+        }
+
+        .activity-icon.approved {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .activity-icon.rejected {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .activity-meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+        }
+
+        .empty-log {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 14px;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
         <div class="header-left">
-            <div class="home-logo" onclick="goToHome()">
+            <div class="home-logo">
                 <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
             </div>
             <h1>Content Approval</h1>
@@ -353,6 +454,16 @@
         </div>
     </div>
 
+    <!-- Activity Log Section -->
+    <div class="activity-log-wrapper">
+        <div class="container">
+            <h2 class="activity-log-title">최근 활동 내역</h2>
+            <div class="activity-log" id="activityLog">
+                <div class="loading-text">로딩 중...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Preview Modal -->
     <div class="modal-overlay" id="previewModal">
         <div class="modal-content">
@@ -367,11 +478,23 @@
     </div>
 
     <script>
-        window.goToHome = function () {
+        function goToHome() {
+            console.log('goToHome called!');
             if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                console.log('Redirecting to index.html');
                 window.location.href = '../index.html';
+            } else {
+                console.log('User cancelled');
             }
-        };
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoElement = document.querySelector('.home-logo');
+            if (logoElement) {
+                logoElement.addEventListener('click', goToHome);
+                console.log('Logo click event attached');
+            }
+        });
     </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -611,6 +734,122 @@
                 alert('Failed to reject item');
             }
         };
+
+        // Load activity log
+        async function loadActivityLog() {
+            const logContainer = document.getElementById('activityLog');
+
+            try {
+                // Fetch recent approved and rejected items from both collections
+                // Removing orderBy to avoid composite index requirement
+                const portfoliosQuery = query(
+                    collection(db, 'portfolios'),
+                    where('status', 'in', ['approved', 'rejected'])
+                );
+
+                const articlesQuery = query(
+                    collection(db, 'articles'),
+                    where('status', 'in', ['approved', 'rejected'])
+                );
+
+                const [portfoliosSnapshot, articlesSnapshot] = await Promise.all([
+                    getDocs(portfoliosQuery),
+                    getDocs(articlesQuery)
+                ]);
+
+                const activities = [];
+
+                portfoliosSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    activities.push({
+                        type: 'portfolio',
+                        title: data.title,
+                        status: data.status,
+                        author: data.author || data.createdBy || '알 수 없음',
+                        timestamp: data.updatedAt || data.createdAt,
+                        category: data.category
+                    });
+                });
+
+                articlesSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    activities.push({
+                        type: 'archive',
+                        title: data.title,
+                        status: data.status,
+                        author: data.author || data.createdBy || '알 수 없음',
+                        timestamp: data.updatedAt || data.createdAt,
+                        category: data.category
+                    });
+                });
+
+                // Sort by timestamp
+                activities.sort((a, b) => {
+                    const timeA = a.timestamp?.toDate?.() || new Date(a.timestamp);
+                    const timeB = b.timestamp?.toDate?.() || new Date(b.timestamp);
+                    return timeB - timeA;
+                });
+
+                // Display activities
+                if (activities.length === 0) {
+                    logContainer.innerHTML = '<div class="empty-log">아직 활동 내역이 없습니다.</div>';
+                } else {
+                    logContainer.innerHTML = activities.slice(0, 15).map(activity => {
+                        const icon = activity.status === 'approved' ? '✓' : '×';
+                        const iconClass = activity.status === 'approved' ? 'approved' : 'rejected';
+                        const actionText = activity.status === 'approved' ? '승인됨' : '거부됨';
+                        const typeText = activity.type === 'portfolio' ? '포트폴리오' : '아카이브';
+
+                        const timestamp = activity.timestamp?.toDate?.() || new Date(activity.timestamp);
+                        const timeStr = formatDateTime(timestamp);
+
+                        return `
+                            <div class="activity-item">
+                                <div class="activity-icon ${iconClass}">${icon}</div>
+                                <div class="activity-details">
+                                    <div class="activity-title">${activity.title}</div>
+                                    <div class="activity-meta">${typeText} • ${activity.category} • 작성자: ${activity.author} • ${actionText}</div>
+                                </div>
+                                <div class="activity-time">${timeStr}</div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } catch (error) {
+                console.error('Error loading activity log:', error);
+                logContainer.innerHTML = '<div class="empty-log">활동 내역을 불러오는 중 오류가 발생했습니다.</div>';
+            }
+        }
+
+        function formatDateTime(date) {
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return '방금 전';
+            if (minutes < 60) return `${minutes}분 전`;
+            if (hours < 24) return `${hours}시간 전`;
+            if (days < 7) return `${days}일 전`;
+
+            return date.toLocaleDateString('ko-KR', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Update loadPendingContent to also update activity log and show empty state
+        const originalLoadPendingContent = loadPendingContent;
+        loadPendingContent = function () {
+            originalLoadPendingContent();
+            loadActivityLog();
+        };
+
+        // Initial load
+        loadPendingContent();
     </script>
 </body>
 

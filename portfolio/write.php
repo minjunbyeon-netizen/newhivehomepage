@@ -78,6 +78,7 @@ $adminPassword = $config['admin']['password'];
         .home-logo img {
             height: 24px;
             width: auto;
+            pointer-events: none;
         }
 
         .header-back {
@@ -706,7 +707,7 @@ $adminPassword = $config['admin']['password'];
 
 <body>
     <header class="header">
-        <div class="home-logo" onclick="goToHome()">
+        <div class="home-logo">
             <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
         </div>
         <h1 class="header-title" id="headerTitle">Content <span>Writer</span></h1>
@@ -1068,6 +1069,26 @@ $adminPassword = $config['admin']['password'];
             }
         };
 
+        // Home redirect function
+        window.goToHome = function () {
+            console.log('goToHome called!');
+            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                console.log('Redirecting to index.html');
+                window.location.href = '../index.html';
+            } else {
+                console.log('User cancelled');
+            }
+        };
+
+        // Attach click event to logo
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoElement = document.querySelector('.home-logo');
+            if (logoElement) {
+                logoElement.addEventListener('click', window.goToHome);
+                console.log('Logo click event attached');
+            }
+        });
+
         // 유형 선택
         window.currentType = null;
 
@@ -1226,8 +1247,18 @@ $adminPassword = $config['admin']['password'];
                     createdAt: serverTimestamp(),
                     createdBy: 'staff'
                 });
+
+                // 성공 메시지 표시
+                alert('✅ 제출 완료!\n\n포트폴리오가 성공적으로 제출되었습니다.\n관리자 승인 후 사이트에 게시됩니다.');
+
+                // 폼 숨기고 성공 메시지 표시
                 document.getElementById('writeForm').classList.remove('active');
                 document.getElementById('successMessage').classList.add('active');
+
+                // 2초 후 자동으로 유형 선택 화면으로 돌아가기
+                setTimeout(() => {
+                    goBackToTypeSelection();
+                }, 2000);
             } catch (error) {
                 document.getElementById('errorText').textContent = error.message;
                 document.getElementById('writeForm').classList.remove('active');
@@ -1329,8 +1360,18 @@ $adminPassword = $config['admin']['password'];
                     createdAt: serverTimestamp(),
                     createdBy: 'staff'
                 });
+
+                // 성공 메시지 표시
+                alert('✅ 제출 완료!\n\n아카이브가 성공적으로 제출되었습니다.\n관리자 승인 후 사이트에 게시됩니다.');
+
+                // 폼 숨기고 성공 메시지 표시
                 document.getElementById('archiveForm').classList.remove('active');
                 document.getElementById('successMessage').classList.add('active');
+
+                // 2초 후 자동으로 유형 선택 화면으로 돌아가기
+                setTimeout(() => {
+                    goBackToTypeSelection();
+                }, 2000);
             } catch (error) {
                 document.getElementById('errorText').textContent = error.message;
                 document.getElementById('archiveForm').classList.remove('active');
@@ -1351,7 +1392,7 @@ $adminPassword = $config['admin']['password'];
             document.getElementById('archiveContent').value = '';
         };
 
-        window.goToHome = function() {
+        window.goToHome = function () {
             if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
                 window.location.href = '../index.html';
             }

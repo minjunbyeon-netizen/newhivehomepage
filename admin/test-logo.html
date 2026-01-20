@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Logo Click Test</title>
+    <style>
+        .home-logo {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: opacity 0.2s;
+            border: 2px solid red;
+            /* 테스트용 */
+        }
+
+        .home-logo:hover {
+            opacity: 0.8;
+        }
+
+        .home-logo img {
+            height: 24px;
+            width: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="home-logo" onclick="goToHome()">
+        <img src="../assets/img/logo_img_b.png" alt="HiveMedia">
+    </div>
+
+    <h1>Logo Click Test Page</h1>
+    <p>로고를 클릭하면 확인창이 뜨고 홈페이지로 이동해야 합니다.</p>
+
+    <script>
+        window.goToHome = function () {
+            console.log('goToHome function called!');
+            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+                console.log('User confirmed, redirecting...');
+                window.location.href = '../index.html';
+            } else {
+                console.log('User cancelled');
+            }
+        };
+
+        // 페이지 로드 시 함수 확인
+        console.log('goToHome function exists:', typeof window.goToHome);
+    </script>
+</body>
+
+</html>

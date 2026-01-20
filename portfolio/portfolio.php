@@ -1363,7 +1363,7 @@ $base_path = '/01_work/hivemedia_homepage';
                     <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
                     <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
                     <a href="https://www.youtube.com/@hivemedia" target="_blank">YOUTUBE</a>
-                    <a href="./write.php" class="write-link">포트폴리오 등록</a>
+                    <?php /* <a href="./write.php" class="write-link">포트폴리오 등록</a> */ ?>
                     <p class="copyright">© HIVE MEDIA 2025</p>
                 </div>
             </div>
