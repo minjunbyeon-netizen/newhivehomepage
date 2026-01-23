@@ -157,6 +157,32 @@
             font-weight: 500;
         }
 
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .list-item {
+                padding: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .list-item-title {
+                font-size: 16px;
+            }
+
+            .list-item-description {
+                font-size: 13px;
+            }
+
+            .list-item-badge {
+                align-self: flex-start;
+            }
+        }
+
         /* Logo Redirect Style */
         .header-left {
             display: flex;
