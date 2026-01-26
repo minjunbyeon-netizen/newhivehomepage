@@ -45,11 +45,185 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 24px;
         }
 
+        /* Trend Search Section */
+        .trend-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .trend-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .search-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-btn:hover {
+            background: #333;
+        }
+
+        .search-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .trend-results {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .trend-results.show {
+            display: block;
+        }
+
+        .trend-item {
+            padding: 16px;
+            border: 2px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .trend-item:hover {
+            border-color: #FFD93D;
+            background: #fffef8;
+        }
+
+        .trend-item.selected {
+            border-color: #FFD93D;
+            background: #fff9e6;
+        }
+
+        .trend-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .trend-keyword {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .trend-ratio {
+            font-size: 14px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .trend-category {
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* Generate Section */
+        .generate-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+
+        .generate-section.show {
+            display: block;
+        }
+
+        .generate-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .generate-btn:hover {
+            background: #333;
+        }
+
+        .generate-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* Preview Section */
+        .preview-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+
+        .preview-section.show {
+            display: block;
+        }
+
+        .preview-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .preview-content {
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            line-height: 1.6;
+        }
+
+        .preview-content h1,
+        .preview-content h2,
+        .preview-content h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .preview-content p {
+            margin-bottom: 12px;
+        }
+
+        /* Form Card */
         .form-card {
             background: white;
             border-radius: 8px;
@@ -58,16 +232,16 @@
         }
 
         .form-title {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
             color: #1a1a1a;
         }
 
         .form-subtitle {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 32px;
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 24px;
         }
 
         .form-group {
@@ -172,6 +346,16 @@
         .success-msg.show {
             display: block;
         }
+
+        .error-msg {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-top: 12px;
+        }
     </style>
 </head>
 
@@ -182,9 +366,32 @@
     </div>
 
     <div class="container">
+        <!-- Trend Search Section -->
+        <div class="trend-section">
+            <h3>1단계: 네이버 주간 트렌드 검색</h3>
+            <button id="searchTrendsBtn" class="search-btn">트렌드 검색하기</button>
+            <div id="trendResults" class="trend-results"></div>
+        </div>
+
+        <!-- Generate Section -->
+        <div id="generateSection" class="generate-section">
+            <h3>2단계: AI 글 자동 생성</h3>
+            <button id="generateBtn" class="generate-btn">AI로 글 생성하기</button>
+            <div id="loadingText" class="loading-text" style="display:none;">
+                글을 생성하고 있습니다... (약 10초 소요)
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div id="previewSection" class="preview-section">
+            <h3>3단계: 미리보기</h3>
+            <div id="previewContent" class="preview-content"></div>
+        </div>
+
+        <!-- Form Section -->
         <div class="form-card">
-            <h2 class="form-title">New Archive Article</h2>
-            <p class="form-subtitle">Create a new archive entry</p>
+            <h2 class="form-title">4단계: 글 수정 및 발행</h2>
+            <p class="form-subtitle">AI가 생성한 글을 수정하거나 직접 작성할 수 있습니다</p>
 
             <div class="success-msg" id="successMsg"></div>
 
@@ -199,10 +406,16 @@
                         <label for="category">Category *</label>
                         <select id="category" required>
                             <option value="">Select category</option>
-                            <option value="News">News</option>
-                            <option value="Trend">Trend</option>
+                            <option value="TREND">Trend</option>
+                            <option value="INSIGHT">Insight</option>
+                            <option value="CASE STUDY">Case Study</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="summary">Summary</label>
+                    <input type="text" id="summary" placeholder="글 요약 (선택사항)">
                 </div>
 
                 <div class="form-group">
@@ -213,12 +426,12 @@
                 <div class="form-group">
                     <label for="thumbnail">Thumbnail Image *</label>
                     <div class="file-input-wrapper">
-                        <label for="thumbnail" class="file-input-label">Choose file or drag here</label>
+                        <label for="thumbnail" class="file-input-label" id="fileLabel">Choose file or drag here</label>
                         <input type="file" id="thumbnail" accept="image/*" required>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">Submit for Approval</button>
+                <button type="submit" class="submit-btn" id="submitBtn">승인 대기로 발행하기</button>
             </form>
         </div>
     </div>
@@ -241,17 +454,149 @@
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        // Simple session check
+        // Session check
         const userRole = sessionStorage.getItem('userRole');
         const userId = sessionStorage.getItem('userId');
         if (!userRole) {
             window.location.href = 'login.html';
         }
 
+        // Global state
+        let selectedTrend = null;
+        let generatedArticle = null;
+
+        // Elements
+        const searchTrendsBtn = document.getElementById('searchTrendsBtn');
+        const trendResults = document.getElementById('trendResults');
+        const generateSection = document.getElementById('generateSection');
+        const generateBtn = document.getElementById('generateBtn');
+        const loadingText = document.getElementById('loadingText');
+        const previewSection = document.getElementById('previewSection');
+        const previewContent = document.getElementById('previewContent');
         const archiveForm = document.getElementById('archiveForm');
         const submitBtn = document.getElementById('submitBtn');
         const successMsg = document.getElementById('successMsg');
+        const thumbnailInput = document.getElementById('thumbnail');
+        const fileLabel = document.getElementById('fileLabel');
 
+        // 1. Trend Search
+        searchTrendsBtn.addEventListener('click', async () => {
+            searchTrendsBtn.disabled = true;
+            searchTrendsBtn.textContent = '검색 중...';
+            trendResults.innerHTML = '<p style="color:#666;">트렌드를 조회하고 있습니다...</p>';
+            trendResults.classList.add('show');
+
+            try {
+                const response = await fetch('../archive/api/get-trends.php');
+                const data = await response.json();
+
+                if (data.success && data.trends) {
+                    renderTrends(data.trends);
+                } else {
+                    trendResults.innerHTML = `<div class="error-msg">${data.error || '트렌드를 가져올 수 없습니다.'}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                trendResults.innerHTML = '<div class="error-msg">네트워크 오류가 발생했습니다.</div>';
+            } finally {
+                searchTrendsBtn.disabled = false;
+                searchTrendsBtn.textContent = '트렌드 다시 검색';
+            }
+        });
+
+        // Render trends
+        function renderTrends(trends) {
+            trendResults.innerHTML = trends.map((trend, index) => `
+                <div class="trend-item" data-index="${index}">
+                    <div class="trend-item-header">
+                        <span class="trend-keyword">${trend.keyword}</span>
+                        <span class="trend-ratio">인기도 ${trend.avgRatio}</span>
+                    </div>
+                    <div class="trend-category">${trend.category}</div>
+                </div>
+            `).join('');
+
+            // Trend selection
+            document.querySelectorAll('.trend-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.trend-item').forEach(i => i.classList.remove('selected'));
+                    item.classList.add('selected');
+                    selectedTrend = trends[index];
+                    generateSection.classList.add('show');
+                });
+            });
+        }
+
+        // 2. Generate Article
+        generateBtn.addEventListener('click', async () => {
+            if (!selectedTrend) return;
+
+            generateBtn.disabled = true;
+            loadingText.style.display = 'block';
+
+            try {
+                const response = await fetch('../archive/api/generate-article.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        keyword: selectedTrend.keyword,
+                        category: selectedTrend.category,
+                        ratio: selectedTrend.avgRatio
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.article) {
+                    generatedArticle = data.article;
+
+                    // Fill form
+                    document.getElementById('title').value = data.article.title;
+                    document.getElementById('category').value = selectedTrend.category;
+                    document.getElementById('summary').value = data.article.summary || '';
+                    document.getElementById('content').value = data.article.content;
+
+                    // Show preview
+                    showPreview(data.article);
+                    previewSection.classList.add('show');
+                } else {
+                    alert('글 생성에 실패했습니다: ' + (data.error || '알 수 없는 오류'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('네트워크 오류가 발생했습니다.');
+            } finally {
+                generateBtn.disabled = false;
+                loadingText.style.display = 'none';
+            }
+        });
+
+        // Show preview
+        function showPreview(article) {
+            const contentHtml = article.content
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/^(.+)$/gm, '<p>$1</p>');
+
+            previewContent.innerHTML = `
+                <h1>${article.title}</h1>
+                <p style="color:#666; font-style:italic;">${article.summary || ''}</p>
+                <hr style="margin:20px 0; border:none; border-top:1px solid #eee;">
+                ${contentHtml}
+            `;
+        }
+
+        // File input
+        thumbnailInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                fileLabel.textContent = file.name;
+            }
+        });
+
+        // 3. Submit Form
         archiveForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -260,7 +605,7 @@
 
             try {
                 // Upload thumbnail
-                const thumbnailFile = document.getElementById('thumbnail').files[0];
+                const thumbnailFile = thumbnailInput.files[0];
                 const thumbnailRef = ref(storage, `archives/${Date.now()}_${thumbnailFile.name}`);
                 await uploadBytes(thumbnailRef, thumbnailFile);
                 const thumbnailUrl = await getDownloadURL(thumbnailRef);
@@ -269,9 +614,13 @@
                 const archiveData = {
                     title: document.getElementById('title').value,
                     category: document.getElementById('category').value,
+                    summary: document.getElementById('summary').value,
                     content: document.getElementById('content').value,
                     thumbnailUrl: thumbnailUrl,
-                    status: 'pending',
+                    status: 'pending',  // ← 승인 대기 상태
+                    source: selectedTrend ? 'naver_trend' : 'manual',
+                    trendKeyword: selectedTrend?.keyword || '',
+                    trendRatio: selectedTrend?.avgRatio || 0,
                     createdBy: userId,
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp()
@@ -279,9 +628,13 @@
 
                 await addDoc(collection(db, 'archives'), archiveData);
 
-                successMsg.textContent = 'Archive article submitted successfully! Pending approval.';
+                successMsg.textContent = '✅ 글이 승인 대기 상태로 저장되었습니다! 승인 페이지에서 확인하세요.';
                 successMsg.classList.add('show');
                 archiveForm.reset();
+                fileLabel.textContent = 'Choose file or drag here';
+                previewSection.classList.remove('show');
+                generateSection.classList.remove('show');
+                selectedTrend = null;
 
                 setTimeout(() => {
                     successMsg.classList.remove('show');
@@ -292,7 +645,7 @@
                 alert('Failed to submit archive: ' + error.message);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit for Approval';
+                submitBtn.textContent = '승인 대기로 발행하기';
             }
         });
     </script>
