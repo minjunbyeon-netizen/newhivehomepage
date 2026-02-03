@@ -247,6 +247,15 @@
                 </div>
             </a>
 
+            <!-- Content Approval (Admin only) -->
+            <a href="approval.html" class="list-item" id="approvalCard">
+                <div class="list-item-content">
+                    <div class="list-item-title">콘텐츠 승인</div>
+                    <div class="list-item-description">대기 중인 콘텐츠 검토 및 승인</div>
+                </div>
+                <span class="list-item-badge">관리자 전용</span>
+            </a>
+
             <!-- Migration Tools (Admin only) -->
             <a href="../portfolio/migrate_FULL.html" class="list-item" id="migrationCard">
                 <div class="list-item-content">
@@ -256,11 +265,11 @@
                 <span class="list-item-badge">관리자 전용</span>
             </a>
 
-            <!-- Content Approval (Admin only) -->
-            <a href="approval.html" class="list-item" id="approvalCard">
+            <!-- Activity Log (Admin only) -->
+            <a href="activity-log.html" class="list-item" id="activityLogCard">
                 <div class="list-item-content">
-                    <div class="list-item-title">콘텐츠 승인</div>
-                    <div class="list-item-description">대기 중인 콘텐츠 검토 및 승인</div>
+                    <div class="list-item-title">활동 기록</div>
+                    <div class="list-item-description">누가 언제 무슨 작업을 했는지 확인</div>
                 </div>
                 <span class="list-item-badge">관리자 전용</span>
             </a>
@@ -307,6 +316,7 @@
             if (userRole !== 'admin') {
                 document.getElementById('migrationCard').classList.add('disabled');
                 document.getElementById('approvalCard').classList.add('disabled');
+                document.getElementById('activityLogCard').classList.add('disabled');
             }
         }
 

@@ -1,8 +1,6 @@
 <?php
 /**
  * Gemini AI 글 생성 API
- * POST /archive/api/generate-article.php
- * Body: { "keyword": "...", "category": "...", "ratio": 0 }
  */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -10,162 +8,117 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// OPTIONS 요청 처리 (CORS preflight)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-// POST 데이터 받기
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($input['keyword']) || !isset($input['category'])) {
-    echo json_encode([
-        "success" => false,
-        "error" => "keyword와 category가 필요합니다."
-    ], JSON_UNESCAPED_UNICODE);
+    echo json_encode(["success" => false, "error" => "keyword와 category 필요"], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 $keyword = $input['keyword'];
 $category = $input['category'];
 $ratio = $input['ratio'] ?? 0;
+$issue = $input['issue'] ?? $keyword . ' 마케팅 전략';
 
-// Gemini API 키 (환경변수에서 가져오기)
-$gemini_api_key = "AIzaSyAokIXbpair4BoupSzozipNsdgn0PYXeV4";
+$api_key = "AIzaSyAokIXbpair4BoupSzozipNsdgn0PYXeV4";
 
-$article = null;
+$prompt = "당신은 20년 경력의 마케팅 전문 칼럼니스트입니다.
 
-// Gemini API 사용 가능한 경우
-if ($gemini_api_key) {
-    $prompt = "당신은 20년차 마케팅 에이전시 본부장이자, 차분하고 사색적인 칼럼니스트입니다.
+[작성 주제]
+키워드: {$keyword}
+이슈: {$issue}
 
-[페르소나 핵심]
-- 이동진 평론가처럼 차분하고 교양있는 말투
-- 거만하지 않고, 독자와 함께 생각을 나누는 느낌
-- 비유와 은유를 활용해 복잡한 개념을 쉽게 풀어냄
-- 결론을 강요하지 않고, 생각할 거리를 던져줌
+[스타일 가이드 - 반드시 따라주세요]
+아래 예시처럼 깊이 있는 마케팅 칼럼을 작성하세요:
 
-[말투 스타일]
-- 조용하지만 깊이 있는 어조
-- '~입니다', '~죠' 같은 부드러운 종결어미
-- 질문을 던지며 독자의 사고를 유도
-- 은유적 표현 사용 (예: '이건 마치 ~와 같습니다')
+---예시 시작---
+경쟁광고와 관련하여 많은 영향을 준 대표적인 책을 꼽아 보라고 하면, 대부분의 광고인들은 주저하지 않고 '포지셔닝'을 이야기 할 것이다. 이론에 대한 공감은 물론, 소개된 사례들이 광고 전략을 수립하고, 광고 제작물을 만드는 업무에 큰 도움을 주었기 때문이다.
 
-[자주 쓰는 표현]: 결국, 본질적으로, 흥미로운 점은, 생각해볼 만한 것은, 다시 말해
-[피해야 할 표현]: 뻔한, 당연히, 무조건
+잭 트라우트와 알 리스의 [포지셔닝]에 나오는 대표적인 사례는 다음과 같다.
 
-다음 트렌드 키워드로 인사이트 칼럼을 작성하세요:
-- 키워드: {$keyword}
-- 카테고리: {$category}
-- 검색 인기도: {$ratio}/100
+1.아비스의 'No. 2' 캠페인
 
-[글 구조]
-1. Opening: 조용한 관찰로 시작. 현상에 대한 담담한 묘사
-2. Body: 이 트렌드가 왜 주목받는지 본질적인 이유 분석. 과거 사례와 연결하되 교훈적으로
-3. Closing: 섣부른 결론보다는, 독자가 스스로 생각해볼 질문을 던지며 마무리
+아비스(Avis), 허츠(Hertz)는 렌터카의 대표 브랜드들이다. 만년 2위인 아비스가 1위인 허츠를 공격하면서 광고 전쟁은 시작된다.
 
-[출력 규칙]
-- 본문 600-800자
-- 이모지 사용 금지
-- 마크다운 형식
+캠페인의 정식 슬로건은 \"We are only No. 2, so we try harder. (우리는 2등 입니다. 그래서 더 열심히 노력합니다)\" 이다.
 
-JSON 형식으로만 응답:
-{\"title\": \"[인사이트] 제목\", \"summary\": \"요약\", \"content\": \"마크다운 본문\"}";
+우리는 2등이라는 메시지에는 절묘한 두 가지 노림 수가 있다.
 
-    $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=" . $gemini_api_key;
+하나는 쉽게 주목받고 차별화 될 수 있다는 점이다. 꼴등 조차도 일등이라고 우기는 광고판에서, 자신을 2등이라고 말하는 것은 남들과 다르게 보일 뿐만 아니라 관심과 주목의 대상이 될 수 있다.
+---예시 끝---
 
-    $request_body = [
-        "contents" => [
-            [
-                "parts" => [
-                    ["text" => $prompt]
-                ]
-            ]
-        ],
-        "generationConfig" => [
-            "temperature" => 0.7,
-            "maxOutputTokens" => 1024
-        ]
-    ];
+[필수 규칙]
+1. 마크다운 문법 절대 사용 금지 (**, ##, ### 등 절대 금지)
+2. JSON 형식 금지 - 순수 본문 텍스트만 출력
+3. 문단 사이는 빈 줄 하나로 구분
+4. 실제 마케팅 사례 2-3개 포함
+5. 2000자 이상 작성
+6. 칼럼니스트처럼 통찰력 있는 분석
+7. 마지막에 자신만의 인사이트나 결론 제시
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $api_url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request_body));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Content-Type: application/json"
-    ]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+위 주제로 본문만 작성하세요. 제목이나 요약 없이 본문만 출력하세요.";
 
-    $response = curl_exec($ch);
-    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+$url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $api_key;
 
-    if ($http_code == 200 && $response) {
-        $data = json_decode($response, true);
+$data = [
+    "contents" => [["parts" => [["text" => $prompt]]]],
+    "generationConfig" => [
+        "temperature" => 0.8,
+        "maxOutputTokens" => 4096
+    ]
+];
 
-        if (isset($data['candidates'][0]['content']['parts'][0]['text'])) {
-            $text = $data['candidates'][0]['content']['parts'][0]['text'];
+$ch = curl_init($url);
+curl_setopt_array($ch, [
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => json_encode($data, JSON_UNESCAPED_UNICODE),
+    CURLOPT_HTTPHEADER => ["Content-Type: application/json"],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 120,
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYHOST => 0
+]);
 
-            // JSON 파싱 시도
-            $text = trim($text);
-            if (strpos($text, '```') !== false) {
-                preg_match('/```(?:json)?\s*(.*?)\s*```/s', $text, $matches);
-                if (isset($matches[1])) {
-                    $text = trim($matches[1]);
-                }
-            }
+$response = curl_exec($ch);
+$error = curl_error($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
 
-            $article = json_decode($text, true);
-        }
-    }
+if ($error || $httpCode !== 200) {
+    echo json_encode(["success" => false, "error" => "API 오류: " . ($error ?: "HTTP $httpCode")], JSON_UNESCAPED_UNICODE);
+    exit;
 }
 
-// Gemini 실패 또는 API 키 없음 → 템플릿 사용
-if (!$article || !isset($article['title'])) {
-    $article = [
-        "title" => "[{$category}] {$keyword} 주간 분석",
-        "summary" => "검색 인기도 {$ratio}점 - {$keyword} 키워드의 현황과 전략",
-        "content" => "## {$keyword} 검색 트렌드 분석
+$result = json_decode($response, true);
+$content = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
-최근 7일간 '{$keyword}' 키워드가 네이버 검색에서 주목받고 있습니다.
-
-### 현황
-
-**검색 데이터**
-- 인기도: {$ratio}/100
-- 카테고리: {$category}
-- 추이: 상승세
-
-### 분석
-
-이 키워드는 {$category} 분야에서 사용자 수요가 증가하고 있음을 보여줍니다. 특히 주간 검색 패턴에서 일관된 관심도를 유지하고 있어, 지속 가능한 콘텐츠 주제로 적합합니다.
-
-### 전략 제안
-
-**콘텐츠 마케팅**
-1. {$keyword} 중심의 고품질 콘텐츠 제작
-2. 관련 롱테일 키워드 확보
-3. 사용자 검색 의도에 맞춘 정보 제공
-
-**실행 방안**
-- 블로그/SNS 게시물 최적화
-- 검색엔진 최적화(SEO) 강화
-- 정기적인 트렌드 모니터링
-
-### 하이브미디어 서비스
-
-지역 기반 마케팅 전문성을 바탕으로 실질적인 성과를 만들어냅니다.
-
-상담 문의: hivemedia@naver.com"
-    ];
+if (empty($content)) {
+    echo json_encode(["success" => false, "error" => "빈 응답"], JSON_UNESCAPED_UNICODE);
+    exit;
 }
 
-// 응답
+// 마크다운 잔여물 제거
+$content = preg_replace('/^#{1,6}\s+/m', '', $content);
+$content = preg_replace('/\*\*([^*]+)\*\*/', '$1', $content);
+$content = preg_replace('/\*([^*]+)\*/', '$1', $content);
+$content = trim($content);
+
+// 제목과 요약 자동 생성
+$title = "{$keyword} 마케팅 인사이트";
+$summary = "{$issue}에 대한 심층 분석";
+
 echo json_encode([
     "success" => true,
-    "article" => $article,
-    "source" => $gemini_api_key ? "gemini" : "template"
+    "article" => [
+        "title" => $title,
+        "summary" => $summary,
+        "content" => $content
+    ],
+    "source" => "gemini"
 ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 ?>

@@ -714,30 +714,7 @@ $base_path = '/01_work/hivemedia_homepage';
             { key: 'case', name: 'CASE STUDY', theme: 'case' }
         ];
 
-        // 샘플 글 데이터 (Firebase 데이터가 없을 경우 사용)
-        const sampleArticles = {
-            'trend': [
-                { id: 's1', title: '2025년 마케팅 트렌드 전망: AI와 개인화의 시대', createdAt: new Date('2025-01-14') },
-                { id: 's2', title: '숏폼 콘텐츠가 브랜드 마케팅을 바꾸는 방법', createdAt: new Date('2025-01-12') },
-                { id: 's3', title: '메타버스 마케팅, 아직 유효한가?', createdAt: new Date('2025-01-10') },
-                { id: 's4', title: 'Z세대 공략을 위한 SNS 마케팅 전략', createdAt: new Date('2025-01-08') },
-                { id: 's5', title: '지속가능한 마케팅: ESG와 브랜드 가치', createdAt: new Date('2025-01-05') }
-            ],
-            'insight': [
-                { id: 's6', title: '네이버 검색광고 2025 업데이트 정리', createdAt: new Date('2025-01-13') },
-                { id: 's7', title: 'Google Ads 퍼포먼스 맥스 캠페인 활용법', createdAt: new Date('2025-01-11') },
-                { id: 's8', title: '인스타그램 릴스 광고 효과 분석', createdAt: new Date('2025-01-09') },
-                { id: 's9', title: '지역 기반 타겟팅 광고의 모든 것', createdAt: new Date('2025-01-07') },
-                { id: 's10', title: '리타겟팅 광고로 전환율 높이기', createdAt: new Date('2025-01-04') }
-            ],
-            'case': [
-                { id: 's11', title: '2025 지자체 브랜딩 성공 사례 분석', createdAt: new Date('2025-01-14') },
-                { id: 's12', title: '부산항만공사 SNS 운영 성과 리포트', createdAt: new Date('2025-01-11') },
-                { id: 's13', title: '해운대구청 홍보영상 캠페인 비하인드', createdAt: new Date('2025-01-09') },
-                { id: 's14', title: '관공서 마케팅 효율 200% 높이기', createdAt: new Date('2025-01-06') },
-                { id: 's15', title: '시니어 클럽 일자리 홍보 프로젝트', createdAt: new Date('2025-01-03') }
-            ]
-        };
+        // 샘플 데이터 제거됨 - Firebase에서만 데이터 로드
 
         // 날짜 포맷
         function formatDate(timestamp) {
@@ -759,14 +736,14 @@ $base_path = '/01_work/hivemedia_homepage';
         // 아티클 데이터 가져오기
         async function fetchArticles() {
             try {
-                const articlesRef = collection(db, 'articles');
+                const articlesRef = collection(db, 'archives');
                 const q = query(articlesRef, orderBy('createdAt', 'desc'));
                 const querySnapshot = await getDocs(q);
 
                 const articles = [];
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    if (!data.status || data.status === 'published') {
+                    if (data.status === 'approved' || data.status === 'published') {
                         articles.push({
                             id: doc.id,
                             ...data
@@ -785,15 +762,13 @@ $base_path = '/01_work/hivemedia_homepage';
 
         // 통계 렌더링
         function renderStats(articles) {
-            const isUsingFirebase = articles.length > 0;
-            const totalCount = isUsingFirebase ? articles.length : 15; // 샘플 포함
-            document.getElementById('totalArticles').textContent = totalCount + (isUsingFirebase ? '' : ' (SAMPLE)');
+            document.getElementById('totalArticles').textContent = articles.length;
             document.getElementById('totalCategories').textContent = '3';
 
             if (articles.length > 0 && articles[0].createdAt) {
                 document.getElementById('lastUpdated').textContent = formatDate(articles[0].createdAt);
             } else {
-                document.getElementById('lastUpdated').textContent = formatDate(new Date());
+                document.getElementById('lastUpdated').textContent = '—';
             }
         }
 
@@ -817,12 +792,6 @@ $base_path = '/01_work/hivemedia_homepage';
                         (cat.key === 'case' && (articleCat === 'design' || articleCat === '디자인' || articleCat === '케이스스터디' || articleCat === '지역' || articleCat === '브랜딩'));
                 });
 
-                // 데이터가 없을 경우 샘플 데이터 사용 알림 (디버깅용)
-                const isRealData = categoryArticles.length > 0;
-                if (!isRealData) {
-                    categoryArticles = sampleArticles[cat.key] || [];
-                }
-
                 // 최신 5개까지만 표시
                 const displayArticles = categoryArticles.slice(0, 5);
 
@@ -833,16 +802,15 @@ $base_path = '/01_work/hivemedia_homepage';
                     <div id="cat-${cat.key}" class="category-column category-column--${cat.theme} ${isActive}">
                         <div class="category-column__header">
                             <h3 class="category-column__title">${cat.name}</h3>
-                            <p class="category-column__count">${isRealData ? categoryArticles.length : 'SAMPLE'} 아티클</p>
+                            <p class="category-column__count">${categoryArticles.length} 아티클</p>
                         </div>
                         <ul class="category-column__list">
-                            ${displayArticles.map(article => `
+                            ${displayArticles.length > 0 ? displayArticles.map(article => `
                                 <li class="category-column__item" onclick="location.href='${basePath}/archive/view.php?id=${article.id}'">
                                     <p class="category-column__item-title">${article.title || 'Untitled'}</p>
                                     <span class="category-column__item-date">${formatDate(article.createdAt)}</span>
                                 </li>
-                            `).join('')}
-                            ${!isRealData ? '<li class="category-column__item" style="opacity:0.5; cursor:default;"><p class="category-column__item-title">실제 데이터가 없어 샘플이 표시됩니다.</p></li>' : ''}
+                            `).join('') : '<li class="category-column__item" style="opacity:0.5; cursor:default;"><p class="category-column__item-title">아직 등록된 글이 없습니다.</p></li>'}
                         </ul>
                     </div>
                 `;

@@ -356,10 +356,98 @@
             font-size: 13px;
             margin-top: 12px;
         }
+
+        /* 로딩 모달 */
+        .loading-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-modal.show {
+            display: flex;
+        }
+
+        .loading-box {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 48px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 320px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f0f0f0;
+            border-top: 4px solid #1a1a1a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .loading-status {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .loading-progress {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1a1a1a, #444);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s;
+        }
     </style>
 </head>
 
 <body>
+    <!-- 로딩 모달 -->
+    <div id="loadingModal" class="loading-modal">
+        <div class="loading-box">
+            <div class="loading-spinner"></div>
+            <div class="loading-title" id="loadingTitle">로딩 중...</div>
+            <div class="loading-status" id="loadingStatus">잠시만 기다려주세요</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar" id="loadingProgress"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="header">
         <h1>Archive Writing</h1>
         <a href="dashboard.html" class="back-btn">Back to Dashboard</a>
@@ -368,9 +456,16 @@
     <div class="container">
         <!-- Trend Search Section -->
         <div class="trend-section">
-            <h3>1단계: 네이버 주간 트렌드 검색</h3>
+            <h3>1단계: 네이버/구글 주간 트렌드 검색 (검색일로부터 전 7일)</h3>
             <button id="searchTrendsBtn" class="search-btn">트렌드 검색하기</button>
             <div id="trendResults" class="trend-results"></div>
+        </div>
+
+        <!-- Issue Selection Section -->
+        <div id="issueSection" class="generate-section">
+            <h3>1.5단계: 관련 이슈 선택</h3>
+            <p style="color:#666; font-size:13px; margin-bottom:12px;">선택한 트렌드와 관련된 이슈를 선택하세요</p>
+            <div id="issueResults" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
 
         <!-- Generate Section -->
@@ -378,7 +473,7 @@
             <h3>2단계: AI 글 자동 생성</h3>
             <button id="generateBtn" class="generate-btn">AI로 글 생성하기</button>
             <div id="loadingText" class="loading-text" style="display:none;">
-                글을 생성하고 있습니다... (약 10초 소요)
+                글을 생성하고 있습니다... (약 30초 소요)
             </div>
         </div>
 
@@ -386,6 +481,13 @@
         <div id="previewSection" class="preview-section">
             <h3>3단계: 미리보기</h3>
             <div id="previewContent" class="preview-content"></div>
+        </div>
+
+        <!-- Title Selection Section -->
+        <div id="titleSection" class="generate-section">
+            <h3>3.5단계: 제목 선택</h3>
+            <p style="color:#666; font-size:13px; margin-bottom:12px;">AI가 생성한 3가지 제목 중 마음에 드는 것을 선택하세요</p>
+            <div id="titleOptions" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
 
         <!-- Form Section -->
@@ -427,7 +529,7 @@
                     <label for="thumbnail">Thumbnail Image *</label>
                     <div class="file-input-wrapper">
                         <label for="thumbnail" class="file-input-label" id="fileLabel">Choose file or drag here</label>
-                        <input type="file" id="thumbnail" accept="image/*" required>
+                        <input type="file" id="thumbnail" accept="image/*">
                     </div>
                 </div>
 
@@ -457,17 +559,59 @@
         // Session check
         const userRole = sessionStorage.getItem('userRole');
         const userId = sessionStorage.getItem('userId');
+        const displayName = sessionStorage.getItem('displayName');
         if (!userRole) {
             window.location.href = 'login.html';
         }
 
+        // 활동 로그 기록 함수
+        async function logActivity(action, detail, contentType = 'archive') {
+            try {
+                await addDoc(collection(db, 'activity_logs'), {
+                    action: action,
+                    detail: detail,
+                    contentType: contentType,
+                    userId: userId,
+                    userName: displayName || userId,
+                    timestamp: serverTimestamp()
+                });
+            } catch (e) {
+                console.error('Activity log error:', e);
+            }
+        }
+
         // Global state
         let selectedTrend = null;
+        let selectedIssue = null;
         let generatedArticle = null;
+
+        // Loading Modal Functions
+        const loadingModal = document.getElementById('loadingModal');
+        const loadingTitle = document.getElementById('loadingTitle');
+        const loadingStatus = document.getElementById('loadingStatus');
+        const loadingProgress = document.getElementById('loadingProgress');
+
+        function showLoading(title, status, progress = 0) {
+            loadingTitle.textContent = title;
+            loadingStatus.textContent = status;
+            loadingProgress.style.width = progress + '%';
+            loadingModal.classList.add('show');
+        }
+
+        function updateLoading(status, progress) {
+            loadingStatus.textContent = status;
+            loadingProgress.style.width = progress + '%';
+        }
+
+        function hideLoading() {
+            loadingModal.classList.remove('show');
+        }
 
         // Elements
         const searchTrendsBtn = document.getElementById('searchTrendsBtn');
         const trendResults = document.getElementById('trendResults');
+        const issueSection = document.getElementById('issueSection');
+        const issueResults = document.getElementById('issueResults');
         const generateSection = document.getElementById('generateSection');
         const generateBtn = document.getElementById('generateBtn');
         const loadingText = document.getElementById('loadingText');
@@ -482,23 +626,30 @@
         // 1. Trend Search
         searchTrendsBtn.addEventListener('click', async () => {
             searchTrendsBtn.disabled = true;
-            searchTrendsBtn.textContent = '검색 중...';
-            trendResults.innerHTML = '<p style="color:#666;">트렌드를 조회하고 있습니다...</p>';
-            trendResults.classList.add('show');
+            showLoading('🔍 트렌드 검색 중', 'API 연결 중...', 10);
 
             try {
+                updateLoading('네이버/구글 트렌드 조회 중...', 30);
                 const response = await fetch('../archive/api/get-trends.php');
+
+                updateLoading('데이터 분석 중...', 70);
                 const data = await response.json();
 
+                updateLoading('결과 정리 중...', 90);
+
                 if (data.success && data.trends) {
+                    trendResults.classList.add('show');
                     renderTrends(data.trends);
                 } else {
                     trendResults.innerHTML = `<div class="error-msg">${data.error || '트렌드를 가져올 수 없습니다.'}</div>`;
+                    trendResults.classList.add('show');
                 }
             } catch (error) {
                 console.error('Error:', error);
                 trendResults.innerHTML = '<div class="error-msg">네트워크 오류가 발생했습니다.</div>';
+                trendResults.classList.add('show');
             } finally {
+                hideLoading();
                 searchTrendsBtn.disabled = false;
                 searchTrendsBtn.textContent = '트렌드 다시 검색';
             }
@@ -506,15 +657,23 @@
 
         // Render trends
         function renderTrends(trends) {
-            trendResults.innerHTML = trends.map((trend, index) => `
+            trendResults.innerHTML = trends.map((trend, index) => {
+                const sourceLabel = trend.source === 'google' ? '🔵 Google' : '🟢 Naver';
+                const sourceColor = trend.source === 'google' ? '#4285f4' : '#03c75a';
+                const ratioText = trend.avgRatio ? `인기도 ${trend.avgRatio}` : (trend.topKeyword ? `TOP: ${trend.topKeyword}` : '');
+
+                return `
                 <div class="trend-item" data-index="${index}">
                     <div class="trend-item-header">
-                        <span class="trend-keyword">${trend.keyword}</span>
-                        <span class="trend-ratio">인기도 ${trend.avgRatio}</span>
+                        <span class="trend-keyword">${trend.keyword || trend.topKeyword || ''}</span>
+                        <span style="display:flex; gap:8px; align-items:center;">
+                            <span style="font-size:11px; padding:3px 8px; border-radius:10px; background:${sourceColor}; color:white;">${sourceLabel}</span>
+                            ${ratioText ? `<span class="trend-ratio">${ratioText}</span>` : ''}
+                        </span>
                     </div>
                     <div class="trend-category">${trend.category}</div>
                 </div>
-            `).join('');
+            `}).join('');
 
             // Trend selection
             document.querySelectorAll('.trend-item').forEach((item, index) => {
@@ -522,6 +681,76 @@
                     document.querySelectorAll('.trend-item').forEach(i => i.classList.remove('selected'));
                     item.classList.add('selected');
                     selectedTrend = trends[index];
+                    selectedIssue = null;
+                    generateSection.classList.remove('show');
+
+                    // Show issue section and generate issues
+                    issueSection.classList.add('show');
+                    generateIssues(selectedTrend);
+                });
+            });
+        }
+
+        // Generate related issues for selected trend
+        function generateIssues(trend) {
+            // 구글(topKeyword)과 네이버(keyword) 호환
+            const kw = trend.keyword || trend.topKeyword || '';
+
+            const issueTemplates = {
+                '마케팅': [
+                    `${kw} 시장 경쟁 심화와 브랜드 차별화 전략`,
+                    `${kw} 활용한 소비자 참여 캠페인 트렌드`,
+                    `${kw} ROI 측정 및 성과 최적화 방안`
+                ],
+                '기술이슈': [
+                    `${kw} 도입에 따른 업무 효율성 변화`,
+                    `${kw} 시장 확대와 기업 적용 사례`,
+                    `${kw} 발전이 산업에 미치는 영향`
+                ],
+                '해외마케팅': [
+                    `${kw} 글로벌 시장 진출 전략`,
+                    `${kw} 해외 성공 사례와 국내 적용 방안`,
+                    `${kw} 국가별 트렌드 비교 분석`
+                ],
+                '실시간인기': [
+                    `${kw} 화제의 배경과 여론 분석`,
+                    `${kw} 관련 마케팅 기회 포착`,
+                    `${kw} 트렌드가 시사하는 점`
+                ],
+                'default': [
+                    `${kw} 트렌드의 배경과 원인 분석`,
+                    `${kw} 활용한 마케팅 전략 제안`,
+                    `${kw} 시장 전망과 미래 예측`
+                ]
+            };
+
+            const issues = issueTemplates[trend.category] || issueTemplates['default'];
+
+            // 각 이슈에 대한 네이버 뉴스 검색 URL 생성
+            const issuesWithUrls = issues.map(issue => ({
+                title: issue,
+                sourceUrl: `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(issue)}`
+            }));
+
+            issueResults.innerHTML = issuesWithUrls.map((issue, idx) => `
+                <div class="trend-item issue-item" data-issue="${idx}" style="padding:12px 16px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:14px; flex:1;">${issue.title}</span>
+                        <a href="${issue.sourceUrl}" target="_blank" onclick="event.stopPropagation();" 
+                           style="font-size:11px; color:#03c75a; text-decoration:none; padding:4px 8px; 
+                                  border:1px solid #03c75a; border-radius:4px; margin-left:10px; white-space:nowrap;">
+                            🔗 네이버 뉴스
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+            // Issue selection
+            document.querySelectorAll('.issue-item').forEach((item, idx) => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.issue-item').forEach(i => i.classList.remove('selected'));
+                    item.classList.add('selected');
+                    selectedIssue = issuesWithUrls[idx].title;
                     generateSection.classList.add('show');
                 });
             });
@@ -529,32 +758,65 @@
 
         // 2. Generate Article
         generateBtn.addEventListener('click', async () => {
-            if (!selectedTrend) return;
+            if (!selectedTrend || !selectedIssue) {
+                alert('트렌드와 이슈를 먼저 선택해주세요.');
+                return;
+            }
 
             generateBtn.disabled = true;
-            loadingText.style.display = 'block';
+            showLoading('✨ AI 글 생성 중', 'Gemini AI 연결 중...', 5);
+
+            // 진행 상황 시뮬레이션
+            const progressSteps = [
+                { status: '프롬프트 구성 중...', progress: 15, delay: 1000 },
+                { status: '마케팅 사례 분석 중...', progress: 30, delay: 3000 },
+                { status: '칼럼 스타일 적용 중...', progress: 50, delay: 5000 },
+                { status: '본문 생성 중... (30초 소요)', progress: 70, delay: 10000 },
+                { status: '마무리 작업 중...', progress: 90, delay: 20000 }
+            ];
+
+            let progressInterval = null;
+            let currentStep = 0;
+
+            progressInterval = setInterval(() => {
+                if (currentStep < progressSteps.length) {
+                    updateLoading(progressSteps[currentStep].status, progressSteps[currentStep].progress);
+                    currentStep++;
+                }
+            }, 4000);
 
             try {
-                const response = await fetch('../archive/api/generate-article.php', {
+                const response = await fetch('/01_work/hivemedia_homepage/archive/api/generate-article.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         keyword: selectedTrend.keyword,
                         category: selectedTrend.category,
-                        ratio: selectedTrend.avgRatio
+                        ratio: selectedTrend.avgRatio,
+                        issue: selectedIssue
                     })
                 });
+
+                clearInterval(progressInterval);
+                updateLoading('결과 처리 중...', 95);
 
                 const data = await response.json();
 
                 if (data.success && data.article) {
                     generatedArticle = data.article;
 
-                    // Fill form
-                    document.getElementById('title').value = data.article.title;
+                    // Fill form (content & summary first)
                     document.getElementById('category').value = selectedTrend.category;
                     document.getElementById('summary').value = data.article.summary || '';
                     document.getElementById('content').value = data.article.content;
+
+                    // Show title selection if multiple titles available
+                    if (data.article.titles && data.article.titles.length > 1) {
+                        showTitleOptions(data.article.titles);
+                        document.getElementById('titleSection').classList.add('show');
+                    } else {
+                        document.getElementById('title').value = data.article.title;
+                    }
 
                     // Show preview
                     showPreview(data.article);
@@ -563,13 +825,47 @@
                     alert('글 생성에 실패했습니다: ' + (data.error || '알 수 없는 오류'));
                 }
             } catch (error) {
+                clearInterval(progressInterval);
                 console.error('Error:', error);
                 alert('네트워크 오류가 발생했습니다.');
             } finally {
+                hideLoading();
                 generateBtn.disabled = false;
                 loadingText.style.display = 'none';
             }
         });
+
+        // Show title options for selection
+        function showTitleOptions(titles) {
+            const titleOptions = document.getElementById('titleOptions');
+            const titleStyles = ['📊 숫자형', '❓ 질문형', '🔥 감탄형'];
+
+            titleOptions.innerHTML = titles.map((title, idx) => `
+                <div class="trend-item title-option" data-title-idx="${idx}" style="padding:14px 16px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:14px; flex:1;">${title}</span>
+                        <span style="font-size:11px; padding:4px 10px; border-radius:12px; background:#f0f0f0; color:#666; margin-left:10px; white-space:nowrap;">${titleStyles[idx] || '제목'}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Title selection
+            document.querySelectorAll('.title-option').forEach((item, idx) => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.title-option').forEach(i => i.classList.remove('selected'));
+                    item.classList.add('selected');
+                    const selectedTitle = titles[idx];
+                    document.getElementById('title').value = selectedTitle;
+
+                    // Update preview title
+                    const previewTitle = previewContent.querySelector('h1');
+                    if (previewTitle) previewTitle.textContent = selectedTitle;
+                });
+            });
+
+            // Auto-select first title
+            document.querySelector('.title-option')?.click();
+        }
 
         // Show preview
         function showPreview(article) {
@@ -581,7 +877,7 @@
                 .replace(/^(.+)$/gm, '<p>$1</p>');
 
             previewContent.innerHTML = `
-                <h1>${article.title}</h1>
+                <h1>${article.titles ? article.titles[0] : article.title}</h1>
                 <p style="color:#666; font-style:italic;">${article.summary || ''}</p>
                 <hr style="margin:20px 0; border:none; border-top:1px solid #eee;">
                 ${contentHtml}
@@ -597,18 +893,26 @@
         });
 
         // 3. Submit Form
+        let isSubmitting = false;
         archiveForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // 중복 제출 방지
+            if (isSubmitting) return;
+            isSubmitting = true;
 
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
 
             try {
-                // Upload thumbnail
+                // Upload thumbnail (optional)
+                let thumbnailUrl = '';
                 const thumbnailFile = thumbnailInput.files[0];
-                const thumbnailRef = ref(storage, `archives/${Date.now()}_${thumbnailFile.name}`);
-                await uploadBytes(thumbnailRef, thumbnailFile);
-                const thumbnailUrl = await getDownloadURL(thumbnailRef);
+                if (thumbnailFile) {
+                    const thumbnailRef = ref(storage, `archives/${Date.now()}_${thumbnailFile.name}`);
+                    await uploadBytes(thumbnailRef, thumbnailFile);
+                    thumbnailUrl = await getDownloadURL(thumbnailRef);
+                }
 
                 // Create archive document
                 const archiveData = {
@@ -626,24 +930,19 @@
                     updatedAt: serverTimestamp()
                 };
 
-                await addDoc(collection(db, 'archives'), archiveData);
+                const docRef = await addDoc(collection(db, 'archives'), archiveData);
 
-                successMsg.textContent = '✅ 글이 승인 대기 상태로 저장되었습니다! 승인 페이지에서 확인하세요.';
-                successMsg.classList.add('show');
-                archiveForm.reset();
-                fileLabel.textContent = 'Choose file or drag here';
-                previewSection.classList.remove('show');
-                generateSection.classList.remove('show');
-                selectedTrend = null;
+                // 활동 로그 기록
+                await logActivity('create', archiveData.title, 'archive');
 
-                setTimeout(() => {
-                    successMsg.classList.remove('show');
-                }, 5000);
+                alert('✅ 글 작성이 완료되었습니다.\n승인대기 페이지로 글이 이동되었습니다.');
+                window.location.href = 'dashboard.html';
 
             } catch (error) {
                 console.error('Submission error:', error);
                 alert('Failed to submit archive: ' + error.message);
             } finally {
+                isSubmitting = false;
                 submitBtn.disabled = false;
                 submitBtn.textContent = '승인 대기로 발행하기';
             }

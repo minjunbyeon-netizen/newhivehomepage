@@ -517,7 +517,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             }
 
             try {
-                const docRef = doc(db, 'articles', articleId);
+                const docRef = doc(db, 'archives', articleId);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
@@ -546,7 +546,13 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
                         thumbEl.style.display = 'block';
                     }
 
-                    document.getElementById('articleContent').innerHTML = article.content || '';
+                    // 본문 줄바꿈을 문단으로 변환
+                    let contentHtml = (article.content || '')
+                        .split(/\n\n+/)  // 빈 줄로 문단 구분
+                        .filter(p => p.trim())
+                        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                        .join('');
+                    document.getElementById('articleContent').innerHTML = contentHtml;
 
                     // 태그 처리 (배열 또는 콤마 구분 문자열)
                     const tagsEl = document.getElementById('articleTags');
@@ -614,7 +620,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             try {
                 // 이전글 쿼리
                 const prevQuery = query(
-                    collection(db, 'articles'),
+                    collection(db, 'archives'),
                     where('createdAt', '<', currentCreatedAt),
                     orderBy('createdAt', 'desc'),
                     limit(1)
@@ -622,7 +628,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
                 // 다음글 쿼리
                 const nextQuery = query(
-                    collection(db, 'articles'),
+                    collection(db, 'archives'),
                     where('createdAt', '>', currentCreatedAt),
                     orderBy('createdAt', 'asc'),
                     limit(1)

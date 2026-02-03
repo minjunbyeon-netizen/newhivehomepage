@@ -551,7 +551,26 @@
     </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // 활동 로그 기록 함수
+        const userId = sessionStorage.getItem('userId');
+        const displayName = sessionStorage.getItem('displayName');
+
+        async function logActivity(action, detail, contentType = 'archive') {
+            try {
+                await addDoc(collection(db, 'activity_logs'), {
+                    action: action,
+                    detail: detail,
+                    contentType: contentType,
+                    userId: userId,
+                    userName: displayName || userId,
+                    timestamp: serverTimestamp()
+                });
+            } catch (e) {
+                console.error('Activity log error:', e);
+            }
+        }
 
         const firebaseConfig = {
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
@@ -630,6 +649,7 @@
         async function loadPendingArchives() {
             const archiveItems = document.getElementById('archiveItems');
             archiveItems.innerHTML = '';
+            pendingData.archive = {}; // 초기화
 
             try {
                 const q = query(collection(db, 'archives'), where('status', '==', 'pending'));
@@ -645,9 +665,16 @@
                     return;
                 }
 
+                console.log('Firebase에서 받은 문서 개수:', snapshot.size);
+                snapshot.forEach(doc => console.log('문서 ID:', doc.id));
+
+                const addedIds = new Set(); // 중복 방지
                 snapshot.forEach(docSnap => {
+                    if (addedIds.has(docSnap.id)) return; // 중복 건너뛰기
+                    addedIds.add(docSnap.id);
+
                     const data = docSnap.data();
-                    pendingData.archive[docSnap.id] = data; // Store data
+                    pendingData.archive[docSnap.id] = data;
                     const card = createArchiveCard(docSnap.id, data);
                     archiveItems.appendChild(card);
                 });
@@ -762,10 +789,15 @@
 
         window.approveItem = async (collectionName, docId) => {
             try {
+                const data = pendingData[collectionName === 'portfolios' ? 'portfolio' : 'archive'][docId];
                 await updateDoc(doc(db, collectionName, docId), {
                     status: 'approved',
                     approvedAt: new Date()
                 });
+
+                // 활동 로그 기록
+                await logActivity('approve', data?.title || docId, collectionName === 'portfolios' ? 'portfolio' : 'archive');
+
                 loadPendingContent();
             } catch (error) {
                 console.error('Error approving item:', error);
@@ -777,10 +809,15 @@
             if (!confirm('Are you sure you want to reject this item?')) return;
 
             try {
+                const data = pendingData[collectionName === 'portfolios' ? 'portfolio' : 'archive'][docId];
                 await updateDoc(doc(db, collectionName, docId), {
                     status: 'rejected',
                     rejectedAt: new Date()
                 });
+
+                // 활동 로그 기록
+                await logActivity('reject', data?.title || docId, collectionName === 'portfolios' ? 'portfolio' : 'archive');
+
                 loadPendingContent();
             } catch (error) {
                 console.error('Error rejecting item:', error);
@@ -800,14 +837,14 @@
                     where('status', 'in', ['approved', 'rejected'])
                 );
 
-                const articlesQuery = query(
-                    collection(db, 'articles'),
+                const archivesQuery = query(
+                    collection(db, 'archives'),
                     where('status', 'in', ['approved', 'rejected'])
                 );
 
-                const [portfoliosSnapshot, articlesSnapshot] = await Promise.all([
+                const [portfoliosSnapshot, archivesSnapshot] = await Promise.all([
                     getDocs(portfoliosQuery),
-                    getDocs(articlesQuery)
+                    getDocs(archivesQuery)
                 ]);
 
                 const activities = [];
@@ -824,7 +861,7 @@
                     });
                 });
 
-                articlesSnapshot.forEach(doc => {
+                archivesSnapshot.forEach(doc => {
                     const data = doc.data();
                     activities.push({
                         type: 'archive',
@@ -894,15 +931,14 @@
             });
         }
 
-        // Update loadPendingContent to also update activity log and show empty state
+        // loadActivityLog도 호출하도록 확장
         const originalLoadPendingContent = loadPendingContent;
-        loadPendingContent = function () {
-            originalLoadPendingContent();
+        loadPendingContent = async function () {
+            await originalLoadPendingContent();
             loadActivityLog();
         };
 
-        // Initial load
-        loadPendingContent();
+        // 이미 577줄에서 호출됨, 중복 제거
     </script>
 </body>
 

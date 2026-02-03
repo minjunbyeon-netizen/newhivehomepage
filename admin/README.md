@@ -1,153 +1,47 @@
-# Admin System Setup Guide
+# 🔐 관리자 계정 정보
 
-## Access URLs
+## 계정 체계
+- **ID**: 생년월일(6자리) + 입사일(6자리) = 12자리
+- **PW**: 생년월일(6자리)
 
-- **Login Page**: `http://localhost/01_work/hivemedia_homepage/admin/login.html`
-- **Dashboard**: `http://localhost/01_work/hivemedia_homepage/admin/dashboard.html`
+---
 
-## User Roles
+## 관리자 계정
 
-### Admin
-- Full access to all features
-- Portfolio writing
-- Archive writing
-- Migration tools
-- Content approval/review
+| 이름 | ID | PW | 권한 |
+|------|-----|-----|------|
+| 관리자 | `admin` | `admin2026!` | admin |
+| 송태민 | `910412220801` | `910412` | admin |
 
-### Staff
-- Limited access
-- Portfolio writing only
-- Archive writing only
-- Content goes to pending status
+---
 
-## Firebase Setup Required
+## 스태프 계정
 
-### 1. Create User Accounts
+| 이름 | 생년월일 | 입사일 | ID (사원번호) | PW |
+|------|----------|--------|---------------|-----|
+| 김영수 | 91.03.15 | 24.03.01 | `910315240301` | `910315` |
+| 이지현 | 88.07.22 | 23.05.01 | `880722230501` | `880722` |
+| 박준혁 | 95.01.08 | 25.01.01 | `950108250101` | `950108` |
+| 최수진 | 92.12.24 | 23.12.01 | `921224231201` | `921224` |
+| 정민우 | 87.05.03 | 22.06.01 | `870503220601` | `870503` |
+| 강하늘 | 99.09.17 | 25.09.01 | `990917250901` | `990917` |
+| 윤서연 | 93.06.21 | 24.07.01 | `930621240701` | `930621` |
+| 한동욱 | 86.02.14 | 21.03.01 | `860214210301` | `860214` |
+| 조예린 | 94.08.30 | 24.11.01 | `940830241101` | `940830` |
+| 송태민 | 91.04.12 | 22.08.01 | `910412220801` | `910412` |
 
-In Firebase Console, create users in Authentication:
+---
 
-```
-Admin example:
-- Email: admin@hivemedia.com
-- Password: (your choice)
+## 계정 추가 방법
 
-Staff example:
-- Email: staff@hivemedia.com
-- Password: (your choice)
-```
-
-### 2. Add User Role Documents
-
-In Firestore, create documents in the `users` collection:
-
-```
-users/{admin-user-uid}
-{
-  email: "admin@hivemedia.com",
-  role: "admin",
-  displayName: "Admin User",
-  createdAt: (timestamp)
-}
-
-users/{staff-user-uid}
-{
-  email: "staff@hivemedia.com",
-  role: "staff",
-  displayName: "Staff User",
-  createdAt: (timestamp)
-}
-```
-
-### 3. Firebase Storage Rules
-
-Update Storage rules to allow authenticated uploads:
-
-```
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /portfolios/{allPaths=**} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /archives/{allPaths=**} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-  }
-}
-```
-
-### 4. Firestore Security Rules
-
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    
-    // Users collection - readable by authenticated, writable by admins
-    match /users/{userId} {
-      allow read: if request.auth != null;
-      allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-    }
-    
-    // Portfolios - readable by all, writable by authenticated
-    match /portfolios/{portfolioId} {
-      allow read: if true;
-      allow create: if request.auth != null && request.resource.data.status == 'pending';
-      allow update: if request.auth != null && 
-                       (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
-                        resource.data.createdBy == request.auth.uid);
-      allow delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-    }
-    
-    // Archives - readable by all, writable by authenticated
-    match /archives/{archiveId} {
-      allow read: if true;
-      allow create: if request.auth != null && request.resource.data.status == 'pending';
-      allow update: if request.auth != null && 
-                       (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
-                        resource.data.createdBy == request.auth.uid);
-      allow delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-    }
-  }
-}
-```
-
-## Workflow
-
-### Staff Workflow
-1. Login at `/admin/login.html`
-2. Access dashboard
-3. Write portfolio or archive content
-4. Submit (status: pending)
-5. Wait for admin approval
-
-### Admin Workflow
-1. Login at `/admin/login.html`
-2. Access dashboard
-3. Options:
-   - Write content (auto-approved)
-   - Review pending content in Approval page
-   - Run migration tools
-   - Approve or reject staff submissions
-
-## Testing
-
-1. Create both admin and staff accounts in Firebase
-2. Test staff access (should only see 2 cards)
-3. Test admin access (should see all 4 cards)
-4. Submit content as staff (should be pending)
-5. Approve content as admin
-6. Verify approved content appears on public site
-
-## Public Display
-
-Update public portfolio and archive pages to only show approved content:
+`admin/login.html` 파일의 `users` 객체에 추가:
 
 ```javascript
-const q = query(
-  collection(db, 'portfolios'),
-  where('status', '==', 'approved')
-);
+'생년월일입사일': { password: '생년월일', role: 'staff', displayName: '이름' }
+```
+
+예시:
+```javascript
+'001225260301': { password: '001225', role: 'staff', displayName: '홍길동' }
+// 2000년 12월 25일생, 2026년 3월 1일 입사
 ```

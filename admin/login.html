@@ -189,18 +189,27 @@
             }
         });
 
-        // Simple hardcoded credentials
+        // 직원 계정 정보
+        // ID: 생년월일(6자리) + 입사일(6자리) = 12자리
+        // PW: 생년월일(6자리)
         const users = {
+            // 관리자 계정
             'admin': {
-                password: '1234',
+                password: 'admin2026!',
                 role: 'admin',
-                displayName: 'Admin User'
+                displayName: '관리자'
             },
-            'staff': {
-                password: '1234',
-                role: 'staff',
-                displayName: 'Staff User'
-            }
+            // 스태프 계정 (ID: 생년월일+입사일, PW: 생년월일)
+            '910315240301': { password: '910315', role: 'staff', displayName: '김영수' },
+            '880722230501': { password: '880722', role: 'staff', displayName: '이지현' },
+            '950108250101': { password: '950108', role: 'staff', displayName: '박준혁' },
+            '921224231201': { password: '921224', role: 'staff', displayName: '최수진' },
+            '870503220601': { password: '870503', role: 'staff', displayName: '정민우' },
+            '990917250901': { password: '990917', role: 'staff', displayName: '강하늘' },
+            '930621240701': { password: '930621', role: 'staff', displayName: '윤서연' },
+            '860214210301': { password: '860214', role: 'staff', displayName: '한동욱' },
+            '940830241101': { password: '940830', role: 'staff', displayName: '조예린' },
+            '910412220801': { password: '910412', role: 'admin', displayName: '송태민' }
         };
 
         function showError(message) {
