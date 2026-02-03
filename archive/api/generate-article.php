@@ -108,14 +108,74 @@ $content = preg_replace('/\*\*([^*]+)\*\*/', '$1', $content);
 $content = preg_replace('/\*([^*]+)\*/', '$1', $content);
 $content = trim($content);
 
-// 제목과 요약 자동 생성
-$title = "{$keyword} 마케팅 인사이트";
+// 제목 3개 생성 (별도 API 호출)
+$titlePrompt = "다음 키워드와 이슈에 대해 매력적인 글 제목 3개를 생성해주세요.
+
+키워드: {$keyword}
+이슈: {$issue}
+
+[제목 작성 규칙]
+1. '마케팅 인사이트', '트렌드 분석' 같은 진부한 표현 절대 금지
+2. 각각 다른 스타일로 작성:
+   - 첫번째: 숫자 활용 (예: '성공하는 브랜드의 3가지 공통점')
+   - 두번째: 질문형 (예: '왜 MZ세대는 이것에 열광할까?')
+   - 세번째: 강조형 (예: '지금 당장 알아야 할 핵심 전략')
+3. 각 제목 40자 이내
+4. 클릭하고 싶게 호기심 유발
+5. 자연스러운 한국어
+
+반드시 아래 JSON 형식으로만 응답:
+{\"titles\": [\"첫번째 제목\", \"두번째 제목\", \"세번째 제목\"]}";
+
+$titleData = [
+    "contents" => [["parts" => [["text" => $titlePrompt]]]],
+    "generationConfig" => [
+        "temperature" => 0.9,
+        "maxOutputTokens" => 500
+    ]
+];
+
+$ch2 = curl_init($url);
+curl_setopt_array($ch2, [
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => json_encode($titleData, JSON_UNESCAPED_UNICODE),
+    CURLOPT_HTTPHEADER => ["Content-Type: application/json"],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYHOST => 0
+]);
+
+$titleResponse = curl_exec($ch2);
+curl_close($ch2);
+
+// Fallback 제목 (AI 실패 시)
+$titles = [
+    "{$keyword}, 성공하는 브랜드는 이렇게 활용한다",
+    "왜 지금 {$keyword}에 주목해야 할까?",
+    "{$keyword}로 고객을 사로잡는 3가지 방법"
+];
+
+if ($titleResponse) {
+    $titleResult = json_decode($titleResponse, true);
+    $titleText = $titleResult['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
+    // JSON 추출
+    if (preg_match('/\{.*"titles".*\}/s', $titleText, $matches)) {
+        $parsedTitles = json_decode($matches[0], true);
+        if (isset($parsedTitles['titles']) && count($parsedTitles['titles']) >= 3) {
+            $titles = $parsedTitles['titles'];
+        }
+    }
+}
+
 $summary = "{$issue}에 대한 심층 분석";
 
 echo json_encode([
     "success" => true,
     "article" => [
-        "title" => $title,
+        "title" => $titles[0],
+        "titles" => $titles,
         "summary" => $summary,
         "content" => $content
     ],

@@ -18,9 +18,12 @@ function getNaverTrends()
     $client_id = "EvH6w6EzcnGPuxS1NbnV";
     $client_secret = "DdcoUaQUy_";
 
+    // 4개 카테고리 키워드 그룹
     $keyword_groups = [
-        ["name" => "해외마케팅", "keywords" => ["글로벌마케팅", "해외광고", "브랜드캠페인", "바이럴마케팅", "SNS광고"]],
-        ["name" => "기술이슈", "keywords" => ["AI", "챗GPT", "생성형AI", "딥러닝", "클로드"]]
+        ["name" => "마케팅전략", "keywords" => ["바이럴마케팅", "인플루언서마케팅", "퍼포먼스마케팅", "브랜딩", "리타겟팅"]],
+        ["name" => "콘텐츠마케팅", "keywords" => ["숏폼콘텐츠", "유튜브마케팅", "인스타그램릴스", "틱톡광고", "라이브커머스"]],
+        ["name" => "기술트렌드", "keywords" => ["AI마케팅", "챗GPT", "생성형AI", "개인화추천", "데이터분석"]],
+        ["name" => "소비자트렌드", "keywords" => ["MZ세대", "친환경소비", "가심비", "갓생", "소확행"]]
     ];
 
     $end_date = date('Y-m-d');
