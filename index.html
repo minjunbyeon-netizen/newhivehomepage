@@ -1043,82 +1043,162 @@
             <!-- ========================================
              GSAP 슬라이드 섹션들 (스크롤 효과 적용)
         ======================================== -->
-            <!-- ===== 포트폴리오 이미지 마퀴 섹션 ===== -->
-            <section class="logo-marquee-section" id="portfolioMarquee">
-                <div class="logo-marquee-header">
-                    <p>Our Portfolio</p>
-                    <a href="./portfolio/portfolio.php"
-                        style="text-decoration: none; color: inherit; display: inline-block; position: relative; z-index: 100;">
-                        <h3 style="cursor: pointer;">프로젝트 현황</h3>
-                    </a>
+            <!-- ===== 포트폴리오 3x3 그리드 섹션 ===== -->
+            <section class="portfolio-grid-section" id="portfolioGrid" style="background: #0a0a0a; padding: 80px 60px;">
+                <div class="portfolio-grid-container" style="max-width: 1800px; margin: 0 auto;">
+
+                    <!-- 3x3 그리드 -->
+                    <div class="portfolio-grid" id="portfolioGridItems"
+                        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+                        <!-- JavaScript로 동적 로드 -->
+                    </div>
+
+                    <!-- 더보기 버튼 -->
+                    <div style="text-align: center; margin-top: 48px;">
+                        <a href="./portfolio/portfolio.php"
+                            style="display: inline-block; padding: 16px 48px; background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 1px; transition: all 0.3s ease;">
+                            전체 포트폴리오 보기 →
+                        </a>
+                    </div>
+
                 </div>
 
-                <!-- Row 1: 오른쪽으로 슬라이드 -->
-                <div class="portfolio-row slide-right" id="portfolioRow1"></div>
+                <!-- 스타일 -->
+                <style>
+                    .portfolio-grid {
+                        gap: 32px !important;
+                    }
 
-                <!-- Row 2: 왼쪽으로 슬라이드 -->
-                <div class="portfolio-row slide-left" id="portfolioRow2"></div>
+                    .portfolio-card {
+                        position: relative;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        background: #111;
+                        transition: all 0.4s ease;
+                        cursor: pointer;
+                    }
+
+                    .portfolio-card:hover {
+                        transform: translateY(-6px);
+                        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+                    }
+
+                    .portfolio-card-image {
+                        width: 100%;
+                        aspect-ratio: 16/9;
+                        object-fit: cover;
+                        display: block;
+                        transition: transform 0.4s ease;
+                    }
+
+                    .portfolio-card:hover .portfolio-card-image {
+                        transform: scale(1.03);
+                    }
+
+                    .portfolio-card-info {
+                        padding: 16px 4px 8px 4px;
+                        background: transparent;
+                    }
+
+                    .portfolio-card-title {
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #fff;
+                        margin: 0 0 6px 0;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        letter-spacing: -0.3px;
+                    }
+
+                    .portfolio-card-tags {
+                        display: flex;
+                        gap: 12px;
+                        flex-wrap: wrap;
+                    }
+
+                    .portfolio-card-tag {
+                        font-size: 12px;
+                        color: #666;
+                        font-weight: 400;
+                    }
+
+                    .portfolio-grid-section a:hover {
+                        background: rgba(255, 255, 255, 0.1) !important;
+                        border-color: #0084ff !important;
+                    }
+
+                    @media (max-width: 991px) {
+                        .portfolio-grid {
+                            grid-template-columns: repeat(2, 1fr) !important;
+                            gap: 24px !important;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        .portfolio-grid {
+                            grid-template-columns: 1fr !important;
+                            gap: 20px !important;
+                        }
+
+                        .portfolio-grid-section {
+                            padding: 60px 20px !important;
+                        }
+                    }
+                </style>
             </section>
 
-            <!-- 포트폴리오 마퀴 초기화 스크립트 -->
+            <!-- 포트폴리오 그리드 초기화 스크립트 -->
             <script>
                 (function () {
                     const IMAGE_BASE = './assets/uploaded/thumbnail/';
 
-                    async function loadPortfolioMarquee() {
+                    async function loadPortfolioGrid() {
                         try {
                             const response = await fetch('./assets/uploaded/app/portfolio.json');
                             const data = await response.json();
 
-                            // 썸네일이 있는 항목만 필터링 (hiveboad000011이 썸네일)
+                            // 썸네일이 있는 항목만 필터링
                             const items = data.rows.filter(row =>
                                 row.hiveboad000011 && row.hiveboad000017 === 'Y'
-                            ).slice(0, 30); // 최대 30개
+                            ).slice(0, 9); // 3x3 = 9개
 
                             if (items.length === 0) return;
 
-                            const row1 = document.getElementById('portfolioRow1');
-                            const row2 = document.getElementById('portfolioRow2');
+                            const grid = document.getElementById('portfolioGridItems');
 
-                            // 두 줄로 나누기
-                            const half = Math.ceil(items.length / 2);
-                            const items1 = items.slice(0, half);
-                            const items2 = items.slice(half);
-
-                            function createPortfolioItem(item) {
+                            function createPortfolioCard(item) {
                                 const title = item.hiveboad000001 || '프로젝트';
-                                const client = item.hiveboad000031 || item.hiveboad000001 || '';
+                                const client = item.hiveboad000031 || '';
+                                const category = item.hiveboad000041 || '마케팅';
                                 const thumbnail = IMAGE_BASE + item.hiveboad000011;
 
                                 return `
-                                    <div class="portfolio-item">
-                                        <img src="${thumbnail}" alt="${title}" loading="lazy" onerror="this.parentElement.style.display='none'">
-                                        <div class="overlay">
-                                            <h4>${title}</h4>
-                                            <span>${client}</span>
+                                    <div class="portfolio-card">
+                                        <img class="portfolio-card-image" src="${thumbnail}" alt="${title}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                                        <div class="portfolio-card-info">
+                                            <h4 class="portfolio-card-title">${title}</h4>
+                                            <div class="portfolio-card-tags">
+                                                ${client ? `<span class="portfolio-card-tag">#${client}</span>` : ''}
+                                                <span class="portfolio-card-tag">#${category}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 `;
                             }
 
-                            // Row 1 렌더링 (무한 루프용 복제)
-                            const html1 = items1.map(createPortfolioItem).join('');
-                            row1.innerHTML = html1 + html1;
-
-                            // Row 2 렌더링 (무한 루프용 복제)
-                            const html2 = items2.map(createPortfolioItem).join('');
-                            row2.innerHTML = html2 + html2;
+                            grid.innerHTML = items.map(createPortfolioCard).join('');
 
                         } catch (error) {
-                            console.error('Portfolio marquee load error:', error);
+                            console.error('Portfolio grid load error:', error);
                         }
                     }
 
                     // DOM 로드 후 실행
                     if (document.readyState === 'loading') {
-                        document.addEventListener('DOMContentLoaded', loadPortfolioMarquee);
+                        document.addEventListener('DOMContentLoaded', loadPortfolioGrid);
                     } else {
-                        loadPortfolioMarquee();
+                        loadPortfolioGrid();
                     }
                 })();
             </script>
@@ -1127,7 +1207,7 @@
                 <!-- Section 1: 회사 소개 (3컬럼 풀스크린) -->
                 <section class="about-fullscreen-section"
                     style="min-height: 100vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 80px 40px;">
-                    <div class="about-fullscreen-container" style="max-width: 1400px; width: 100%;">
+                    <div class="about-fullscreen-container" style="max-width: 1800px; width: 100%;">
 
                         <!-- 상단 타이틀 영역 -->
                         <div class="about-header" style="text-align: center; margin-bottom: 80px;">
@@ -1284,7 +1364,7 @@
                 <!-- Section 2: 서비스 소개 (3컬럼 풀스크린) -->
                 <section class="services-fullscreen-section"
                     style="min-height: 100vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 80px 40px;">
-                    <div class="services-fullscreen-container" style="max-width: 1400px; width: 100%;">
+                    <div class="services-fullscreen-container" style="max-width: 1800px; width: 100%;">
 
                         <!-- 상단 타이틀 영역 -->
                         <div class="services-header" style="text-align: center; margin-bottom: 80px;">
