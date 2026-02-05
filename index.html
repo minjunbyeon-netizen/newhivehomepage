@@ -1509,12 +1509,36 @@
 
                         </div>
 
-                        <!-- 호버 효과 스타일 -->
+                        <!-- 호버 효과 및 슬라이드 애니메이션 스타일 -->
                         <style>
                             .services-column:hover {
                                 background: rgba(255, 255, 255, 0.06) !important;
                                 transform: translateY(-8px);
                                 border-color: rgba(0, 132, 255, 0.3) !important;
+                            }
+
+                            /* 슬라이드 애니메이션 초기 상태 */
+                            .services-column {
+                                opacity: 0;
+                                transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            }
+
+                            .services-column.slide-from-left {
+                                transform: translateX(-80px);
+                            }
+
+                            .services-column.slide-from-right {
+                                transform: translateX(80px);
+                            }
+
+                            /* 애니메이션 완료 상태 */
+                            .services-column.animate-in {
+                                opacity: 1 !important;
+                                transform: translateX(0) !important;
+                            }
+
+                            .services-column.animate-in:hover {
+                                transform: translateY(-8px) !important;
                             }
 
                             @media (max-width: 991px) {
@@ -1538,8 +1562,71 @@
                                 .services-fullscreen-section {
                                     padding: 60px 20px !important;
                                 }
+
+                                .services-column.slide-from-left,
+                                .services-column.slide-from-right {
+                                    transform: translateY(40px);
+                                }
                             }
                         </style>
+
+                        <!-- 서비스 카드 스크롤 슬라이드 애니메이션 -->
+                        <script>
+                            (function () {
+                                // 페이지 로드 후 실행
+                                function initServicesAnimation() {
+                                    const threeColumns = document.querySelectorAll('.services-three-columns .services-column');
+                                    const twoColumns = document.querySelectorAll('.services-two-columns .services-column');
+
+                                    // 3컬럼: 좌 -> 중앙 <- 우 (교차)
+                                    threeColumns.forEach((col, index) => {
+                                        if (index % 2 === 0) {
+                                            col.classList.add('slide-from-left');
+                                        } else {
+                                            col.classList.add('slide-from-right');
+                                        }
+                                    });
+
+                                    // 2컬럼: 좌 <- 우 (교차)
+                                    twoColumns.forEach((col, index) => {
+                                        if (index % 2 === 0) {
+                                            col.classList.add('slide-from-left');
+                                        } else {
+                                            col.classList.add('slide-from-right');
+                                        }
+                                    });
+
+                                    // Intersection Observer로 스크롤 감지
+                                    const observer = new IntersectionObserver((entries) => {
+                                        entries.forEach(entry => {
+                                            if (entry.isIntersecting) {
+                                                // 순차적으로 애니메이션 실행
+                                                const columns = entry.target.querySelectorAll('.services-column');
+                                                columns.forEach((col, index) => {
+                                                    setTimeout(() => {
+                                                        col.classList.add('animate-in');
+                                                    }, index * 150); // 150ms 간격으로 순차 등장
+                                                });
+                                                observer.unobserve(entry.target);
+                                            }
+                                        });
+                                    }, { threshold: 0.2 });
+
+                                    // 3컬럼과 2컬럼 그리드 각각 관찰
+                                    const threeColContainer = document.querySelector('.services-three-columns');
+                                    const twoColContainer = document.querySelector('.services-two-columns');
+
+                                    if (threeColContainer) observer.observe(threeColContainer);
+                                    if (twoColContainer) observer.observe(twoColContainer);
+                                }
+
+                                if (document.readyState === 'loading') {
+                                    document.addEventListener('DOMContentLoaded', initServicesAnimation);
+                                } else {
+                                    initServicesAnimation();
+                                }
+                            })();
+                        </script>
 
                     </div>
                 </section>

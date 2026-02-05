@@ -169,6 +169,190 @@ footer * {
     background: #0a0a0a !important;
 }
 
+/* ===== 서비스 하위 페이지 (marketing, video, agency 등) ===== */
+.service-con,
+.marketing-con,
+.about-con {
+    background: #0a0a0a !important;
+}
+
+/* 서비스 페이지 본문 영역 */
+.conbody {
+    background: #0a0a0a !important;
+}
+
+.conbody .contents {
+    background: transparent !important;
+}
+
+/* om-zone 텍스트 스타일 */
+.om-zone,
+.om-zone1,
+.om-zone2,
+.om-zone3 {
+    background: transparent !important;
+}
+
+.om-zone h3,
+.om-zone h4,
+.om-zone p,
+.om-zone span,
+.om-zone strong,
+.om-zone b {
+    color: #fff !important;
+}
+
+.om-text-box h3,
+.om-text-box p {
+    color: #fff !important;
+}
+
+.om-title h3,
+.om-title h3 span,
+.om-title p,
+.om-title p span {
+    color: #fff !important;
+}
+
+/* om-point 영역 */
+.om-point h4,
+.om-point p {
+    color: #fff !important;
+}
+
+.om-point-item h4,
+.om-point-item p {
+    color: #fff !important;
+}
+
+/* om-working-items */
+.om-working-items li {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.om-working-items li:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.om-working-items h4,
+.om-working-items p,
+.om-working-items a {
+    color: #fff !important;
+}
+
+/* om-process-items */
+.om-process-items li .inner {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.om-process-items h4,
+.om-process-items p {
+    color: #fff !important;
+}
+
+/* process-flow (work process section) */
+.work-process-section {
+    background: transparent !important;
+}
+
+.process-flow {
+    background: transparent !important;
+}
+
+.process-step {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.process-step h4,
+.process-step p,
+.step-number {
+    color: #fff !important;
+}
+
+.process-arrow {
+    color: #0084ff !important;
+}
+
+/* about 페이지 */
+.about-con .contents h3,
+.about-con .contents h4,
+.about-con .contents p,
+.about-con .contents strong,
+.about-con .contents span {
+    color: #fff !important;
+}
+
+.about-con .about-title h3,
+.about-con .about-title .main-tit,
+.about-con .about-title .sub-tit {
+    color: #fff !important;
+}
+
+.about-list .text h4,
+.about-list .text p {
+    color: #fff !important;
+}
+
+.about-direction strong,
+.about-direction span,
+.about-cpInfo li,
+.about-cpInfo strong {
+    color: #fff !important;
+}
+
+/* sub-top 영역 (서브페이지 상단) */
+.sub-top {
+    background: #0a0a0a !important;
+}
+
+.sub-top .path li,
+.sub-top .sub-text h2,
+.sub-top .sub-text p,
+.sub-top .sub-text strong,
+.sub-top .scroll-con p {
+    color: #fff !important;
+}
+
+/* contact 페이지 */
+.contact-con {
+    background: #0a0a0a !important;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.contact-card h4,
+.contact-card p {
+    color: #fff !important;
+}
+
+.contact-form-section {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.contact-form-section h3,
+.contact-form-section label {
+    color: #fff !important;
+}
+
+.contact-form-section input,
+.contact-form-section textarea,
+.contact-form-section select {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+}
+
+.contact-form-section input::placeholder,
+.contact-form-section textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
 /* ===== 기타 요소들 ===== */
 .conbody,
 .content,
