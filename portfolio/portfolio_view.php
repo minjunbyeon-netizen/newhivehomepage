@@ -59,15 +59,16 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 	<style>
 		:root {
-			--primary-color: #0084ff;
+			--primary-color: #1a1a1a;
 			--text-dark: #1a1a1a;
 			--text-light: #666;
+			--border-color: #e5e5e5;
 			--bg-light: #f8f9fa;
 		}
 
 		body,
 		.Wrap {
-			background: #ffffff !important;
+			background: #fff !important;
 			font-family: 'Noto Sans KR', sans-serif;
 			color: var(--text-dark);
 		}
@@ -81,280 +82,246 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			background: #1a1a1a !important;
 		}
 
+		/* ========================================
+		   Compact Center-Aligned Layout
+		======================================== */
 		.portfolio-view-container {
-			max-width: 1400px;
+			max-width: 800px;
 			margin: 0 auto;
-			padding: 120px 40px 100px;
-			display: grid;
-			grid-template-columns: 350px 1fr;
-			gap: 60px;
+			padding: 110px 16px 60px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 
-		/* Project Info Sidebar */
-		.project-info-sidebar {
-			position: sticky;
-			top: 120px;
-			height: fit-content;
-			max-width: 350px;
-			overflow: hidden;
-			word-wrap: break-word;
-			word-break: keep-all;
-		}
-
+		/* Back Button - Right Aligned, More Visible */
 		.back-to-list {
 			display: inline-flex;
 			align-items: center;
-			gap: 8px;
+			gap: 6px;
 			font-size: 13px;
-			color: var(--text-light);
+			font-weight: 600;
+			color: #333;
 			text-decoration: none;
-			margin-bottom: 40px;
-			transition: color 0.2s;
+			margin-bottom: 16px;
+			padding: 8px 16px;
+			background: #f5f5f5;
+			border: 1px solid #ddd;
+			border-radius: 6px;
+			align-self: flex-end;
+			transition: all 0.2s;
 		}
 
 		.back-to-list:hover {
-			color: var(--primary-color);
+			background: #333;
+			color: #fff;
+			border-color: #333;
 		}
 
-		.project-category {
-			font-family: 'Space Mono', monospace;
-			font-size: 12px;
-			font-weight: 700;
-			color: var(--primary-color);
-			text-transform: uppercase;
-			letter-spacing: 2px;
-			margin-bottom: 16px;
+		/* Hide original sidebar */
+		.project-info-sidebar {
+			display: none;
 		}
 
-		.project-title {
-			font-size: 42px;
-			font-weight: 700;
-			line-height: 1.2;
-			margin-bottom: 30px;
-			word-break: keep-all;
+		/* ========================================
+		   Campaign Card - Compact Design
+		======================================== */
+		.campaign-card {
+			width: 100%;
+			max-width: 700px;
+			background: #fff;
+			border: 1px solid var(--border-color);
+			border-radius: 8px;
+			overflow: hidden;
 		}
 
-		.project-meta-list {
-			list-style: none;
-			margin-bottom: 40px;
-			border-top: 1px solid #eee;
-		}
-
-		.meta-item {
-			padding: 16px 0;
-			border-bottom: 1px solid #eee;
-			display: flex;
-			flex-direction: column;
-			gap: 4px;
-		}
-
-		.meta-label {
-			font-size: 11px;
-			color: #aaa;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-		}
-
-		.meta-value {
-			font-size: 15px;
+		/* Campaign Header - Compact */
+		.campaign-header {
+			background: #fff;
 			color: var(--text-dark);
-			font-weight: 500;
+			padding: 20px 24px 16px;
+			text-align: center;
+			border-bottom: 1px solid var(--border-color);
 		}
 
-		.project-description {
-			font-size: 16px;
-			line-height: 1.8;
+		.campaign-header .campaign-category {
+			font-size: 11px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
 			color: var(--text-light);
-			white-space: pre-wrap;
-			margin-bottom: 40px;
+			margin-bottom: 8px;
 		}
 
-		/* Project Content (Main Body) */
-		.project-content {
-			min-width: 0;
-			overflow: hidden;
+		.campaign-header .campaign-title {
+			font-size: 24px;
+			font-weight: 700;
+			line-height: 1.3;
+			margin: 0;
+			color: var(--text-dark);
 		}
 
-		/* Image Slider */
-		.project-image-slider {
+		/* Image Section - Compact */
+		.campaign-image-section {
+			background: #f0f0f0;
+			padding: 0;
+			position: relative;
+		}
+
+		.campaign-image-section .swiper {
 			width: 100%;
-			margin-bottom: 60px;
-			border-radius: 12px;
-			overflow: hidden;
-			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+			height: 350px;
 		}
 
-		.swiper {
-			width: 100%;
-			height: 600px;
-			border-radius: 12px;
-		}
-
-		.swiper-slide {
+		.campaign-image-section .swiper-slide {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: #f8f9fa;
+			background: #f0f0f0;
 		}
 
-		.swiper-slide img {
+		.campaign-image-section .swiper-slide img {
 			width: 100%;
 			height: 100%;
-			object-fit: cover;
+			object-fit: contain;
 			display: block;
 		}
 
-		.swiper-button-next,
-		.swiper-button-prev {
-			color: #fff;
-			background: rgba(0, 0, 0, 0.5);
-			width: 50px;
-			height: 50px;
-			border-radius: 50%;
-			transition: all 0.3s ease;
+		/* Navigation Arrows - VISIBLE */
+		.campaign-image-section .swiper-button-next,
+		.campaign-image-section .swiper-button-prev {
+			color: #fff !important;
+			background: rgba(0, 0, 0, 0.6) !important;
+			width: 40px !important;
+			height: 40px !important;
+			border-radius: 50% !important;
+			transition: all 0.2s ease;
+			top: 50% !important;
+			margin-top: -20px !important;
 		}
 
-		.swiper-button-next:after,
-		.swiper-button-prev:after {
-			font-size: 20px;
+		.campaign-image-section .swiper-button-next:after,
+		.campaign-image-section .swiper-button-prev:after {
+			font-size: 16px !important;
+			font-weight: bold;
 		}
 
-		.swiper-button-next:hover,
-		.swiper-button-prev:hover {
-			background: rgba(0, 132, 255, 0.9);
-			transform: scale(1.1);
+		.campaign-image-section .swiper-button-next:hover,
+		.campaign-image-section .swiper-button-prev:hover {
+			background: rgba(0, 0, 0, 0.85) !important;
+		}
+
+		.campaign-image-section .swiper-button-next {
+			right: 12px !important;
+		}
+
+		.campaign-image-section .swiper-button-prev {
+			left: 12px !important;
+		}
+
+		/* Slide Pagination - Compact */
+		.swiper-pagination {
+			bottom: 12px !important;
 		}
 
 		.swiper-pagination-bullet {
-			width: 12px;
-			height: 12px;
+			width: 8px;
+			height: 8px;
 			background: #fff;
-			opacity: 0.7;
-			transition: all 0.3s ease;
+			opacity: 0.5;
+			margin: 0 4px !important;
+			border: 1px solid rgba(0, 0, 0, 0.2);
 		}
 
 		.swiper-pagination-bullet-active {
-			background: var(--primary-color);
+			background: #fff;
 			opacity: 1;
-			transform: scale(1.2);
 		}
 
-		.project-content-body {
-			font-family: 'Noto Sans KR', sans-serif;
-			font-size: 16px;
-			line-height: 2;
+		/* Slide Counter Text */
+		.slide-counter {
+			position: absolute;
+			bottom: 10px;
+			right: 12px;
+			background: rgba(0, 0, 0, 0.6);
+			color: #fff;
+			padding: 4px 10px;
+			border-radius: 12px;
+			font-size: 11px;
+			font-weight: 500;
+			z-index: 10;
+		}
+
+		/* Content Section - Compact */
+		.campaign-content-section {
+			background: #fff;
+			padding: 20px;
+		}
+
+		.campaign-meta-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 10px;
+			margin-bottom: 16px;
+		}
+
+		.campaign-meta-item {
+			background: var(--bg-light);
+			padding: 12px 14px;
+			border-radius: 6px;
+			border: 1px solid var(--border-color);
+		}
+
+		.campaign-meta-item .meta-label {
+			font-size: 10px;
+			color: #999;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			margin-bottom: 4px;
+		}
+
+		.campaign-meta-item .meta-value {
+			font-size: 13px;
+			font-weight: 600;
 			color: var(--text-dark);
 		}
 
-		.project-content-body p {
-			margin-bottom: 1.5em;
+		.campaign-description {
+			background: var(--bg-light);
+			padding: 16px;
+			border-radius: 6px;
+			border: 1px solid var(--border-color);
+			font-size: 13px;
+			line-height: 1.7;
+			color: var(--text-dark);
+			white-space: pre-wrap;
 		}
 
-		.project-content-body h2,
-		.project-content-body h3 {
-			margin-top: 2em;
-			margin-bottom: 1em;
-			font-weight: 700;
-		}
-
-		.project-content-body ul,
-		.project-content-body ol {
-			margin-left: 1.5em;
-			margin-bottom: 1.5em;
-		}
-
-		.project-content-body li {
-			margin-bottom: 0.5em;
-		}
-
-		.content-loading {
-			color: #888;
-			font-size: 14px;
-		}
-
-		.content-empty {
-			color: #aaa;
-			font-size: 14px;
-			font-style: italic;
-		}
-
-		/* Project Gallery (Masonry Layout) */
-		.project-gallery {
-			min-width: 0;
-			overflow: hidden;
-			margin-top: 60px;
-			padding-top: 40px;
-			border-top: 1px solid #eee;
-		}
-
-		.gallery-title {
-			font-size: 12px;
-			font-weight: 700;
+		.campaign-description h4 {
+			font-size: 10px;
+			font-weight: 600;
+			color: #999;
 			text-transform: uppercase;
-			letter-spacing: 2px;
-			color: #888;
-			margin-bottom: 30px;
+			letter-spacing: 0.5px;
+			margin-bottom: 8px;
 		}
 
-		.masonry-grid {
-			column-count: 3;
-			column-gap: 20px;
+		/* Hide original content area */
+		.project-content {
+			display: none;
 		}
 
-		.masonry-item {
-			break-inside: avoid;
-			margin-bottom: 20px;
-			display: inline-block;
-			width: 100%;
+		/* Hide original gallery */
+		.project-gallery {
+			display: none !important;
 		}
 
-		.gallery-image {
-			width: 100%;
-			height: auto;
-			border-radius: 8px;
-			background: #f5f5f5;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			cursor: pointer;
-		}
-
-		.gallery-image:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-		}
-
-		/* Responsive Masonry */
-		@media (max-width: 1024px) {
-			.masonry-grid {
-				column-count: 2;
-			}
-
-			.swiper {
-				height: 450px;
-			}
-		}
-
-		@media (max-width: 768px) {
-			.masonry-grid {
-				column-count: 1;
-			}
-
-			.swiper {
-				height: 350px;
-			}
-
-			.swiper-button-next,
-			.swiper-button-prev {
-				width: 40px;
-				height: 40px;
-			}
-		}
-
-		/* Navigation */
+		/* Navigation - Compact */
 		.project-navigation {
-			grid-column: 1 / -1;
-			margin-top: 100px;
-			padding-top: 40px;
+			width: 100%;
+			max-width: 700px;
+			margin-top: 24px;
+			padding-top: 20px;
 			border-top: 1px solid #eee;
 			display: flex;
 			justify-content: space-between;
@@ -364,7 +331,7 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			text-decoration: none;
 			display: flex;
 			flex-direction: column;
-			gap: 8px;
+			gap: 6px;
 			max-width: 45%;
 		}
 
@@ -374,15 +341,15 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		}
 
 		.nav-btn .label {
-			font-size: 12px;
-			color: #aaa;
+			font-size: 11px;
+			color: #888;
 			text-transform: uppercase;
 			letter-spacing: 1px;
 		}
 
 		.nav-btn .title {
-			font-size: 18px;
-			font-weight: 700;
+			font-size: 16px;
+			font-weight: 600;
 			color: var(--text-dark);
 			transition: color 0.2s;
 		}
@@ -392,19 +359,36 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		}
 
 		/* Mobile Responsive */
-		@media (max-width: 1024px) {
+		@media (max-width: 768px) {
 			.portfolio-view-container {
+				padding: 100px 16px 60px;
+			}
+
+			.campaign-header {
+				padding: 20px 24px;
+			}
+
+			.campaign-header .campaign-title {
+				font-size: 22px;
+			}
+
+			.campaign-image-section .swiper {
+				height: 300px;
+			}
+
+			.campaign-content-section {
+				padding: 24px 20px;
+			}
+
+			.campaign-meta-grid {
 				grid-template-columns: 1fr;
-				padding-top: 100px;
+				gap: 12px;
 			}
 
-			.project-info-sidebar {
-				position: relative;
-				top: 0;
-			}
-
-			.project-title {
-				font-size: 32px;
+			.swiper-button-next,
+			.swiper-button-prev {
+				width: 36px;
+				height: 36px;
 			}
 		}
 
@@ -450,58 +434,63 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 		<main>
 			<div class="portfolio-view-container">
-				<aside class="project-info-sidebar">
-					<a href="portfolio.php" class="back-to-list">← BACK TO LIST</a>
+				<a href="portfolio.php?skip=1" class="back-to-list">← BACK TO LIST</a>
 
+				<!-- Campaign Card (New Layout) -->
+				<div class="campaign-card" id="campaignCard">
+					<!-- Green Header: Campaign Name -->
+					<div class="campaign-header">
+						<div id="campaignCategory" class="campaign-category">---</div>
+						<h1 id="campaignTitle" class="campaign-title">Loading...</h1>
+					</div>
+
+					<!-- Image Section: Slider -->
+					<div class="campaign-image-section" id="campaignImageSection">
+						<div class="swiper projectSwiper">
+							<div class="swiper-wrapper" id="swiperWrapper"></div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
+						<!-- Slide Counter (1/5 format) -->
+						<div class="slide-counter" id="slideCounter" style="display:none;"></div>
+					</div>
+
+					<!-- Yellow Section: Content & Meta Info -->
+					<div class="campaign-content-section">
+						<div class="campaign-meta-grid">
+							<div class="campaign-meta-item">
+								<div class="meta-label">광고주</div>
+								<div id="metaClient" class="meta-value">-</div>
+							</div>
+							<div class="campaign-meta-item">
+								<div class="meta-label">게시기간</div>
+								<div id="metaYear" class="meta-value">-</div>
+							</div>
+							<div class="campaign-meta-item">
+								<div class="meta-label">캠페인 유형</div>
+								<div id="metaType" class="meta-value">-</div>
+							</div>
+							<div class="campaign-meta-item">
+								<div class="meta-label">카테고리</div>
+								<div id="metaCategoryInfo" class="meta-value">-</div>
+							</div>
+						</div>
+						<div class="campaign-description">
+							<h4>활동 설명</h4>
+							<div id="campaignDescription">-</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Hidden Original Elements (Keep for JS compatibility) -->
+				<aside class="project-info-sidebar" style="display:none;">
 					<div id="projectCategory" class="project-category">---</div>
 					<h1 id="projectTitle" class="project-title">Loading...</h1>
-
 					<div id="projectDescription" class="project-description"></div>
-
-					<div class="project-meta-list">
-						<div class="meta-item">
-							<span class="meta-label">Client</span>
-							<span id="metaClient" class="meta-value">-</span>
-						</div>
-						<div class="meta-item">
-							<span class="meta-label">Collaborated with</span>
-							<span id="metaType" class="meta-value">-</span>
-						</div>
-						<div class="meta-item">
-							<span class="meta-label">Release Date</span>
-							<span id="metaYear" class="meta-value">-</span>
-						</div>
-					</div>
 				</aside>
 
-				<div id="projectContent" class="project-content">
-					<div class="content-loading">Loading content...</div>
-				</div>
-
-				<!-- HARDCODED SAMPLE: Masonry Gallery (Remove after testing) -->
-				<div id="projectGallery" class="project-gallery">
-					<div class="gallery-title">Related Images</div>
-					<div class="masonry-grid">
-						<div class="masonry-item">
-							<img src="https://picsum.photos/400/300" class="gallery-image" alt="Sample 1">
-						</div>
-						<div class="masonry-item">
-							<img src="https://picsum.photos/400/500" class="gallery-image" alt="Sample 2">
-						</div>
-						<div class="masonry-item">
-							<img src="https://picsum.photos/400/350" class="gallery-image" alt="Sample 3">
-						</div>
-						<div class="masonry-item">
-							<img src="https://picsum.photos/400/600" class="gallery-image" alt="Sample 4">
-						</div>
-						<div class="masonry-item">
-							<img src="https://picsum.photos/400/400" class="gallery-image" alt="Sample 5">
-						</div>
-						<div class="masonry-item">
-							<img src="https://picsum.photos/400/450" class="gallery-image" alt="Sample 6">
-						</div>
-					</div>
-				</div>
+				<div id="projectContent" class="project-content" style="display:none;"></div>
 
 				<nav class="project-navigation">
 					<div id="prevProject"></div>
@@ -558,13 +547,19 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 						: `${clientName} ${category} 프로젝트 - ${projectTitle} | 하이브미디어 공공기관 마케팅 전문`;
 					const seoKeywords = `${clientName}, ${projectTitle}, ${category}, 공공기관마케팅, SNS마케팅, 하이브미디어, 마케팅에이전시`;
 
-					// Update UI
+					// Update NEW Campaign Card UI
+					document.getElementById('campaignTitle').textContent = projectTitle;
+					document.getElementById('campaignCategory').textContent = category;
+					document.getElementById('campaignDescription').textContent = description || '상세 내용이 없습니다.';
+					document.getElementById('metaClient').textContent = clientName;
+					document.getElementById('metaType').textContent = data.projectType || data.type || '-';
+					document.getElementById('metaYear').textContent = year || '-';
+					document.getElementById('metaCategoryInfo').textContent = category;
+
+					// Update OLD UI (for backward compatibility)
 					document.getElementById('projectTitle').textContent = projectTitle;
 					document.getElementById('projectCategory').textContent = category;
 					document.getElementById('projectDescription').textContent = description;
-					document.getElementById('metaClient').textContent = clientName;
-					document.getElementById('metaType').textContent = data.projectType || data.type || '-';
-					document.getElementById('metaYear').textContent = year;
 
 					// SEO: Update Meta Tags
 					document.title = seoTitle;
@@ -588,54 +583,14 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 					let sliderImages = [];
 					if (data.attachments && Array.isArray(data.attachments)) sliderImages = sliderImages.concat(data.attachments);
 					if (data.images && Array.isArray(data.images)) sliderImages = sliderImages.concat(data.images);
-
-					// Display main content body
-					const contentArea = document.getElementById('projectContent');
-					const contentBody = data.content || data.body || data.fullContent || '';
-
-					let contentHTML = '';
-
-					// Add image slider if images exist
-					if (sliderImages.length > 0) {
-						contentHTML += `
-							<div class="project-image-slider">
-								<div class="swiper projectSwiper">
-									<div class="swiper-wrapper" id="swiperWrapper"></div>
-									<div class="swiper-button-next"></div>
-									<div class="swiper-button-prev"></div>
-									<div class="swiper-pagination"></div>
-								</div>
-							</div>
-						`;
+					// Also check for thumbnail if no other images
+					if (sliderImages.length === 0 && data.thumbnailUrl) {
+						sliderImages.push(data.thumbnailUrl);
 					}
 
-					if (contentBody) {
-						// If content is HTML, render it directly; otherwise wrap in paragraphs
-						const isHTML = /<[a-z][\s\S]*>/i.test(contentBody);
-						if (isHTML) {
-							contentHTML += `<div class="project-content-body">${contentBody}</div>`;
-						} else {
-							// Convert plain text to paragraphs
-							const paragraphs = contentBody.split('\n\n').filter(p => p.trim());
-							const formattedContent = paragraphs.map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-							contentHTML += `<div class="project-content-body">${formattedContent}</div>`;
-						}
-					} else {
-						// If no content, show the description as fallback
-						if (description) {
-							const paragraphs = description.split('\n\n').filter(p => p.trim());
-							const formattedContent = paragraphs.map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-							contentHTML += `<div class="project-content-body">${formattedContent}</div>`;
-						} else {
-							contentHTML += '<div class="content-empty">상세 내용이 없습니다.</div>';
-						}
-					}
-
-					contentArea.innerHTML = contentHTML;
-
-					// Initialize Swiper after adding slides
+					// ADD slides to swiper (already in HTML)
+					const swiperWrapper = document.getElementById('swiperWrapper');
 					if (sliderImages.length > 0) {
-						const swiperWrapper = document.getElementById('swiperWrapper');
 						sliderImages.forEach((url, index) => {
 							if (url) {
 								const slide = document.createElement('div');
@@ -645,32 +600,58 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 							}
 						});
 
-						// Initialize Swiper
+						// Initialize Swiper with slide counter
 						const swiper = new Swiper('.projectSwiper', {
 							loop: sliderImages.length > 1,
-							autoplay: {
+							autoplay: sliderImages.length > 1 ? {
 								delay: 5000,
 								disableOnInteraction: false,
-							},
+							} : false,
 							pagination: {
 								el: '.swiper-pagination',
 								clickable: true,
+								type: 'bullets',
 							},
 							navigation: {
 								nextEl: '.swiper-button-next',
 								prevEl: '.swiper-button-prev',
 							},
-							speed: 800,
+							speed: 600,
 							effect: 'slide',
 							keyboard: {
 								enabled: true,
 							},
+							on: {
+								init: function () {
+									updateSlideCounter(this);
+								},
+								slideChange: function () {
+									updateSlideCounter(this);
+								}
+							}
 						});
+
+						// Slide Counter Update Function
+						function updateSlideCounter(swiperInstance) {
+							const counterEl = document.getElementById('slideCounter');
+							if (counterEl && sliderImages.length > 1) {
+								const currentSlide = swiperInstance.realIndex + 1;
+								counterEl.textContent = `${currentSlide} / ${sliderImages.length}`;
+								counterEl.style.display = 'block';
+							}
+						}
+
+						// Hide navigation if only 1 image
+						if (sliderImages.length <= 1) {
+							document.querySelector('.swiper-button-next')?.style.setProperty('display', 'none');
+							document.querySelector('.swiper-button-prev')?.style.setProperty('display', 'none');
+							document.querySelector('.swiper-pagination')?.style.setProperty('display', 'none');
+						}
+					} else {
+						// Hide image section if no images
+						document.getElementById('campaignImageSection').style.display = 'none';
 					}
 
-					// Hide the bottom gallery since we're showing images in slider
-					const gallery = document.getElementById('projectGallery');
-					gallery.style.display = 'none';
 
 					// SEO: Update OG Image with first image
 					if (sliderImages.length > 0) {

@@ -1279,11 +1279,9 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         .video-intro video {
-            width: 80%;
-            height: auto;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .skip-btn {
@@ -1314,6 +1312,13 @@ $base_path = '/01_work/hivemedia_homepage';
             const intro = document.getElementById('videoIntro');
             const video = document.getElementById('introVideo');
             const skipBtn = document.getElementById('skipBtn');
+
+            // Check if skip parameter is present - skip intro immediately
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('skip') === '1') {
+                intro.style.display = 'none';
+                return;
+            }
 
             // Set playback speed to 1.5x
             video.playbackRate = 1.5;

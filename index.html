@@ -1124,739 +1124,697 @@
             </script>
 
             <div class="slides-wrapper">
-                <!-- Section 1: 회사 소개 (공공 맞춤) -->
-                <section class="gsap-section gsap-section-1">
-                    <div class="gsap-section-inner">
-                        <div class="gsap-section-text">
-                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">회사소개</span>
-                            <a href="./about.html" style="text-decoration: none; color: inherit;">
-                                <h2>ABOUT<br><span class="h2-sub">회사소개</span></h2>
-                            </a>
-                            <p>한국광고협회 회원사이자 <strong>광고대행업 등록 사업자</strong>로서, 2015년 설립 이래 <strong>10년간 공공기관 마케팅에
-                                    특화</strong>해왔습니다.</p>
+                <!-- Section 1: 회사 소개 (3컬럼 풀스크린) -->
+                <section class="about-fullscreen-section"
+                    style="min-height: 100vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 80px 40px;">
+                    <div class="about-fullscreen-container" style="max-width: 1400px; width: 100%;">
 
-                            <!-- GEO: 통계 데이터 - 애니메이션 카운터 -->
-                            <div style="margin: 20px 0;">
-                                <p
-                                    style="font-size: 11px; font-weight: 600; color: #888; margin-bottom: 12px; letter-spacing: 1px;">
-                                    KEY METRICS — 하이브미디어 성과 지표 (2025년 기준)</p>
-                                <div class="about-stats-grid"
-                                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                                    <div class="stat-card"
-                                        style="padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
-                                        <p class="stat-number" data-target="380" data-suffix="건+"
-                                            style="font-size: 32px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 11px; color: #666;">누적 수행 프로젝트</p>
-                                    </div>
-                                    <div class="stat-card"
-                                        style="padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
-                                        <p class="stat-number" data-target="52" data-suffix="개 기관"
-                                            style="font-size: 32px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 11px; color: #666;">공공기관 협력 경험</p>
-                                    </div>
-                                    <div class="stat-card"
-                                        style="padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
-                                        <p class="stat-number" data-target="87.3" data-suffix="%" data-decimal="true"
-                                            style="font-size: 32px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 11px; color: #666;">평균 계약 재연장률</p>
-                                    </div>
-                                    <div class="stat-card"
-                                        style="padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;">
-                                        <p
-                                            style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                            3개</p>
-                                        <p style="font-size: 11px; color: #666;">전국 거점<br><span
-                                                style="font-size: 9px; color: #999;">부산 · 서울 · 대구</span></p>
-                                    </div>
+                        <!-- 상단 타이틀 영역 -->
+                        <div class="about-header" style="text-align: center; margin-bottom: 80px;">
+                            <span
+                                style="display: inline-block; padding: 8px 20px; background: rgba(255,255,255,0.1); border-radius: 30px; font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 20px;">ABOUT
+                                HIVEMEDIA</span>
+                            <a href="./about.html" style="text-decoration: none; color: inherit;">
+                                <h2
+                                    style="font-size: clamp(48px, 6vw, 80px); font-weight: 700; color: #fff; margin: 0; letter-spacing: -2px;">
+                                    공공기관 마케팅,<br><span style="color: #0084ff;">10년의 노하우</span>
+                                </h2>
+                            </a>
+                            <p
+                                style="font-size: 16px; color: #888; margin-top: 24px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                                한국광고협회 회원사이자 광고대행업 등록 사업자로서,<br>
+                                2015년 설립 이래 공공기관 마케팅에 특화해왔습니다.
+                            </p>
+                        </div>
+
+                        <!-- 3컬럼 그리드 -->
+                        <div class="about-three-columns"
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; text-align: center;">
+
+                            <!-- Column 1: 전문성 -->
+                            <div class="about-column" style="padding: 40px 20px;">
+                                <div class="about-icon"
+                                    style="width: 120px; height: 120px; margin: 0 auto 30px; position: relative;">
+                                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                                        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="none" stroke="#fff"
+                                            stroke-width="2" />
+                                        <text x="50" y="45" text-anchor="middle" fill="#fff" font-size="10"
+                                            font-weight="600">EXPERTISE</text>
+                                        <text x="50" y="60" text-anchor="middle" fill="#888" font-size="8">380+</text>
+                                    </svg>
                                 </div>
+                                <h3
+                                    style="font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 16px; letter-spacing: 2px;">
+                                    EXPERTISE</h3>
+                                <p class="stat-number" data-target="380" data-suffix="건+"
+                                    style="font-size: 48px; font-weight: 700; color: #0084ff; margin-bottom: 12px;">0
+                                </p>
+                                <p style="font-size: 14px; color: #888; line-height: 1.8;">
+                                    누적 수행 프로젝트<br>
+                                    공공기관, 지자체, 공기업 대상<br>
+                                    통합 마케팅 솔루션 제공
+                                </p>
                             </div>
 
-                            <script>
-                                // ABOUT 섹션 숫자 카운트 애니메이션
-                                (function () {
-                                    const counters = document.querySelectorAll('.stat-number[data-target]');
-                                    let animated = false;
+                            <!-- Column 2: 신뢰 -->
+                            <div class="about-column"
+                                style="padding: 40px 20px; border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);">
+                                <div class="about-icon"
+                                    style="width: 120px; height: 120px; margin: 0 auto 30px; position: relative;">
+                                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                                        <polygon points="50,5 61,40 98,40 68,62 79,97 50,75 21,97 32,62 2,40 39,40"
+                                            fill="none" stroke="#fff" stroke-width="2" />
+                                        <text x="50" y="55" text-anchor="middle" fill="#fff" font-size="9"
+                                            font-weight="600">TRUST</text>
+                                    </svg>
+                                </div>
+                                <h3
+                                    style="font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 16px; letter-spacing: 2px;">
+                                    TRUST</h3>
+                                <p class="stat-number" data-target="87.3" data-suffix="%" data-decimal="true"
+                                    style="font-size: 48px; font-weight: 700; color: #0084ff; margin-bottom: 12px;">0
+                                </p>
+                                <p style="font-size: 14px; color: #888; line-height: 1.8;">
+                                    평균 계약 재연장률<br>
+                                    장기 파트너십 기반<br>
+                                    지속 성장하는 신뢰
+                                </p>
+                            </div>
 
-                                    function animateCounters() {
-                                        counters.forEach(counter => {
-                                            const target = parseFloat(counter.dataset.target);
-                                            const suffix = counter.dataset.suffix || '';
-                                            const isDecimal = counter.dataset.decimal === 'true';
-                                            const duration = 2000;
-                                            const step = target / (duration / 16);
-                                            let current = 0;
+                            <!-- Column 3: 네트워크 -->
+                            <div class="about-column" style="padding: 40px 20px;">
+                                <div class="about-icon"
+                                    style="width: 120px; height: 120px; margin: 0 auto 30px; position: relative;">
+                                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                                        <polygon points="50,15 85,85 15,85" fill="none" stroke="#fff"
+                                            stroke-width="2" />
+                                        <text x="50" y="60" text-anchor="middle" fill="#fff" font-size="9"
+                                            font-weight="600">NETWORK</text>
+                                    </svg>
+                                </div>
+                                <h3
+                                    style="font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 16px; letter-spacing: 2px;">
+                                    NETWORK</h3>
+                                <p style="font-size: 48px; font-weight: 700; color: #0084ff; margin-bottom: 12px;">3개
+                                </p>
+                                <p style="font-size: 14px; color: #888; line-height: 1.8;">
+                                    전국 거점 (부산·서울·대구)<br>
+                                    52개 공공기관 협력 경험<br>
+                                    전국 단위 프로젝트 수행
+                                </p>
+                            </div>
 
-                                            const timer = setInterval(() => {
-                                                current += step;
-                                                if (current >= target) {
-                                                    current = target;
-                                                    clearInterval(timer);
-                                                }
-                                                counter.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-                                            }, 16);
-                                        });
-                                    }
+                        </div>
 
-                                    const observer = new IntersectionObserver((entries) => {
-                                        entries.forEach(entry => {
-                                            if (entry.isIntersecting && !animated) {
-                                                animated = true;
-                                                animateCounters();
+                        <!-- 하단 인용문 -->
+                        <div
+                            style="text-align: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <p
+                                style="font-size: 16px; color: #666; font-style: italic; max-width: 700px; margin: 0 auto;">
+                                "공공기관 마케팅은 단순 실적이 아닌 신뢰 구축이 핵심입니다.<br>하이브미디어는 10년간 그 신뢰를 증명해왔습니다."
+                            </p>
+                            <cite
+                                style="display: block; font-size: 12px; color: #555; margin-top: 16px; font-style: normal;">—
+                                하이브미디어 대표 인터뷰 中, 2024</cite>
+                        </div>
+
+                        <!-- 숫자 카운트 애니메이션 -->
+                        <script>
+                            (function () {
+                                const counters = document.querySelectorAll('.about-fullscreen-section .stat-number[data-target]');
+                                let animated = false;
+
+                                function animateCounters() {
+                                    counters.forEach(counter => {
+                                        const target = parseFloat(counter.dataset.target);
+                                        const suffix = counter.dataset.suffix || '';
+                                        const isDecimal = counter.dataset.decimal === 'true';
+                                        const duration = 2000;
+                                        const step = target / (duration / 16);
+                                        let current = 0;
+
+                                        const timer = setInterval(() => {
+                                            current += step;
+                                            if (current >= target) {
+                                                current = target;
+                                                clearInterval(timer);
                                             }
-                                        });
-                                    }, { threshold: 0.1 });
+                                            counter.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+                                        }, 16);
+                                    });
+                                }
 
-                                    const statsGrid = document.querySelector('.about-stats-grid');
-                                    if (statsGrid) observer.observe(statsGrid);
-                                })();
-                            </script>
+                                const observer = new IntersectionObserver((entries) => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting && !animated) {
+                                            animated = true;
+                                            animateCounters();
+                                        }
+                                    });
+                                }, { threshold: 0.1 });
 
-                            <!-- GEO: 전문가 인용 -->
-                            <blockquote
-                                style="font-size: 13px; color: #555; border-left: 3px solid #0084ff; padding-left: 16px; margin: 16px 0; font-style: italic;">
-                                "공공기관 마케팅은 단순 실적이 아닌 신뢰 구축이 핵심입니다. 하이브미디어는 10년간 그 신뢰를 증명해왔습니다."
-                                <cite
-                                    style="display: block; font-size: 11px; color: #888; margin-top: 6px; font-style: normal;">—
-                                    하이브미디어 대표 인터뷰 中, 2024</cite>
-                            </blockquote>
+                                const section = document.querySelector('.about-fullscreen-section');
+                                if (section) observer.observe(section);
+                            })();
+                        </script>
 
-                        </div>
-                        <div class="gsap-section-image">
-                            <img src="./assets/uploaded/thumbnail/about_01.jpg" alt="공공기관 마케팅 전문 하이브미디어" loading="lazy">
-                        </div>
                     </div>
                 </section>
 
-                <!-- Section 2: 서비스 소개 -->
-                <section class="gsap-section gsap-section-2 services-pin-section" id="servicesPinSection">
-                    <div class="gsap-section-inner services-pin-container">
-                        <!-- 왼쪽 패널: 세로로 긴 텍스트 영역 -->
-                        <div class="services-left-panel">
-                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">서비스</span>
+                <!-- Section 2: 서비스 소개 (3컬럼 풀스크린) -->
+                <section class="services-fullscreen-section"
+                    style="min-height: 100vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 80px 40px;">
+                    <div class="services-fullscreen-container" style="max-width: 1400px; width: 100%;">
+
+                        <!-- 상단 타이틀 영역 -->
+                        <div class="services-header" style="text-align: center; margin-bottom: 80px;">
+                            <span
+                                style="display: inline-block; padding: 8px 20px; background: rgba(255,255,255,0.1); border-radius: 30px; font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 20px;">OUR
+                                SERVICES</span>
                             <a href="./service/marketing.html" style="text-decoration: none; color: inherit;">
-                                <h2>SERVICES<br><span class="h2-sub">서비스</span></h2>
+                                <h2
+                                    style="font-size: clamp(48px, 6vw, 80px); font-weight: 700; color: #fff; margin: 0; letter-spacing: -2px;">
+                                    통합 마케팅,<br><span style="color: #0084ff;">맞춤 솔루션</span>
+                                </h2>
                             </a>
-                            <p>마케팅 대행사로서 RFP 조건에 맞춘 <strong>통합 마케팅 솔루션</strong>을 제공합니다</p>
-                            <p>SNS 채널 운영·영상 콘텐츠 제작·온라인 광고·웹사이트 개발까지 <strong>10년 이상 380건+</strong> 공공 프로젝트 수행 경험을 바탕으로 맞춤
-                                전략을 설계합니다
+                            <p
+                                style="font-size: 16px; color: #888; margin-top: 24px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                                RFP 조건에 맞춘 통합 마케팅 솔루션을 제공합니다.<br>
+                                SNS 채널 운영부터 영상 제작, 웹사이트 개발까지.
                             </p>
-                            <div class="services-progress">
-                                <div class="progress-item active" data-index="0">검색 광고(SA), 디스플레이 광고(DA), SNS 광고 등 다양한
-                                    채널을 믹스하여 기간 내에 최대의 전환율(CVR)과 매출 증대를 이끌어냅니다</div>
-                                <div class="progress-item" data-index="1">단순한 홈페이지 제작을 넘어, 사용자 경험(UX)과 인터페이스(UI) 최적화를
-                                    통해 브랜드의 거점을 구축합니다
-                                </div>
-                                <div class="progress-item" data-index="2">텍스트보다 강력한 시각적 스토리텔링으로 브랜드의 가치를 각인시킵니다
-                                </div>
-                                <div class="progress-item" data-index="3">오프라인 공간을 브랜드의 정체성이 담긴 예술적 경험의 장으로 탈바꿈합니다</div>
-                                <div class="progress-item" data-index="4">철저한 시장 분석과 소비자 심리 데이터를 바탕으로 브랜드 전략을 수립합니다
-                                </div>
-                            </div>
                         </div>
 
+                        <!-- 3컬럼 그리드 (상단) -->
+                        <div class="services-three-columns"
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; margin-bottom: 40px;">
 
-                        <!-- 오른쪽 패널: 벤토 그리드 스타일 -->
-                        <div class="services-right-panel">
-                            <!-- 벤토 그리드: 5개 카드 비대칭 배치 -->
-                            <div class="services-bento-grid">
-                                <!-- Card 1: 온라인 마케팅 (큰 카드) -->
-                                <div class="bento-card bento-large" data-service="0">
-                                    <div class="bento-content"
-                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white"
+                            <!-- Column 1: 온라인 마케팅 -->
+                            <a href="./service/marketing.html" style="text-decoration: none; color: inherit;">
+                                <div class="services-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="services-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
                                             stroke-width="1.5">
                                             <path
                                                 d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
                                             <path d="M12 18v4M8 22h8" />
                                             <circle cx="12" cy="11" r="3" />
                                         </svg>
-                                        <h3>온라인 마케팅</h3>
-                                        <p>SNS 채널 운영 및 온라인 광고 전문</p>
                                     </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">온라인
+                                        마케팅</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        검색 광고(SA), 디스플레이 광고(DA),<br>
+                                        SNS 광고 등 다양한 채널 믹스로<br>
+                                        최대의 전환율(CVR) 달성
+                                    </p>
                                 </div>
+                            </a>
 
-                                <!-- Card 2: 웹에이전시 (중간 카드) -->
-                                <div class="bento-card bento-medium" data-service="1">
-                                    <div class="bento-content"
-                                        style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                            <!-- Column 2: 웹에이전시 -->
+                            <a href="./service/web.html" style="text-decoration: none; color: inherit;">
+                                <div class="services-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="services-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
                                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
                                             stroke-width="1.5">
                                             <circle cx="12" cy="12" r="10" />
                                             <path
                                                 d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                                         </svg>
-                                        <h3>웹에이전시</h3>
                                     </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        웹에이전시</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        단순 홈페이지 제작을 넘어<br>
+                                        UX/UI 최적화를 통해<br>
+                                        브랜드의 거점 구축
+                                    </p>
                                 </div>
+                            </a>
 
-                                <!-- Card 3: 홍보영상 (중간 카드) -->
-                                <div class="bento-card bento-medium" data-service="2">
-                                    <div class="bento-content"
-                                        style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);">
+                            <!-- Column 3: 홍보영상 -->
+                            <a href="./service/video.html" style="text-decoration: none; color: inherit;">
+                                <div class="services-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="services-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
                                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
                                             stroke-width="1.5">
                                             <rect x="2" y="4" width="20" height="14" rx="2" />
                                             <path d="M2 8h20M7 4v4" />
                                             <polygon points="10,10 16,13 10,16" fill="white" />
                                         </svg>
-                                        <h3>홍보영상</h3>
                                     </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        홍보영상</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        텍스트보다 강력한<br>
+                                        시각적 스토리텔링으로<br>
+                                        브랜드 가치 각인
+                                    </p>
                                 </div>
+                            </a>
 
-                                <!-- Card 4: 전시아트 (작은 카드) -->
-                                <div class="bento-card bento-small" data-service="3">
-                                    <div class="bento-content"
-                                        style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white"
+                        </div>
+
+                        <!-- 2컬럼 그리드 (하단) -->
+                        <div class="services-two-columns"
+                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; text-align: center; max-width: 900px; margin: 0 auto;">
+
+                            <!-- Column 4: 전시아트 -->
+                            <a href="./service/exhibition.html" style="text-decoration: none; color: inherit;">
+                                <div class="services-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="services-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
                                             stroke-width="1.5">
                                             <circle cx="13.5" cy="6.5" r="2.5" />
                                             <circle cx="7" cy="13" r="2" />
                                             <circle cx="17" cy="16" r="2" />
                                             <path d="M3 21l3-9 6 6-3 3z" />
                                         </svg>
-                                        <h3>전시아트</h3>
                                     </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        전시아트</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        오프라인 공간을 브랜드 정체성이 담긴<br>
+                                        예술적 경험의 장으로 탈바꿈
+                                    </p>
                                 </div>
+                            </a>
 
-                                <!-- Card 5: 광고전략연구소 (넓은 카드) -->
-                                <div class="bento-card bento-wide" data-service="4">
-                                    <div class="bento-content"
-                                        style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <!-- Column 5: 광고전략연구소 -->
+                            <a href="./service/research.html" style="text-decoration: none; color: inherit;">
+                                <div class="services-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="services-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
                                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
                                             stroke-width="1.5">
                                             <path d="M18 20V10M12 20V4M6 20v-6" />
                                         </svg>
-                                        <h3>광고전략연구소</h3>
-                                        <p>데이터 기반 전략 수립</p>
+                                    </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        광고전략연구소</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        철저한 시장 분석과 소비자 심리 데이터를 바탕으로<br>
+                                        브랜드 전략 수립
+                                    </p>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <!-- 호버 효과 스타일 -->
+                        <style>
+                            .services-column:hover {
+                                background: rgba(255, 255, 255, 0.06) !important;
+                                transform: translateY(-8px);
+                                border-color: rgba(0, 132, 255, 0.3) !important;
+                            }
+
+                            @media (max-width: 991px) {
+                                .services-three-columns {
+                                    grid-template-columns: repeat(2, 1fr) !important;
+                                }
+
+                                .services-two-columns {
+                                    grid-template-columns: 1fr !important;
+                                    max-width: 400px !important;
+                                }
+                            }
+
+                            @media (max-width: 768px) {
+
+                                .services-three-columns,
+                                .services-two-columns {
+                                    grid-template-columns: 1fr !important;
+                                }
+
+                                .services-fullscreen-section {
+                                    padding: 60px 20px !important;
+                                }
+                            }
+                        </style>
+
+                    </div>
+                </section>
+
+                <!-- Section 3: 대표 수행사례 -->
+                <section class="gsap-section gsap-section-3">
+                    <div class="gsap-section-inner">
+                        <div class="gsap-section-text">
+                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">포트폴리오</span>
+                            <a href="./portfolio/portfolio.php"
+                                style="text-decoration: none; color: inherit; display: inline-block;">
+                                <h2>PORTFOLIO<br><span class="h2-sub">포트폴리오</span></h2>
+                            </a>
+                            <p>부산시, 해운대구청, 부산항만공사 등 <strong>380건 이상의 프로젝트</strong>를 성공적으로 수행했습니다.</p>
+
+                            <!-- GEO: 구체적 성과 수치 + 구조화 -->
+                            <div style="margin-top: 20px;">
+                                <p>RESULTS 대표 성과 (측정 가능한 KPI)</p>
+                                <ul style="padding-left: 20px; margin: 0;">
+                                    <li><strong>부산항만공사 SNS</strong> — 12개월 운영, 팔로워 <strong>+312%</strong> 증가, 평균 도달률
+                                        23.4%</li>
+                                    <li><strong>해운대구청 홍보영상</strong> — 제작 기간 3개월, 유튜브 조회수 <strong>52만회</strong> 달성</li>
+                                    <li><strong>부산시 온라인 캠페인</strong> — 6개월 집행, CTR <strong>4.2%</strong> (업계 평균 대비 +68%)
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- GEO: Q&A 형식 -->
+                            <div
+                                style="margin-top: 24px; padding: 16px; background: rgba(0,132,255,0.05); border-radius: 8px;">
+                                <p><strong>공공기관 마케팅은 일반 기업과 무엇이 다른가요?</strong></p>
+                                <li>공공기관 마케팅은 예산 집행의 투명성, 정량적 성과 증빙, 내부 결재 프로세스 대응이 필수입니다. 하이브미디어는 이 세 가지를 모두 충족하는
+                                    체계화된 보고 시스템을 운영합니다.</li>
+                            </div>
+                        </div>
+                        <div class="gsap-section-image">
+                            <video autoplay muted loop playsinline
+                                style="border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                                <source src="./assets/img/viedo/1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </section>
+
+
+
+                <!-- Section 4: 아카이브 프리뷰 -->
+                <section class="gsap-section archive-preview-section" style="background: #f5f5f0; color: #111;">
+                    <div class="gsap-section-inner">
+                        <div class="gsap-section-text">
+                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">아카이브</span>
+                            <a href="./archive/archive.php"
+                                style="text-decoration: none; color: inherit; display: inline-block;">
+                                <h2>ARCHIVE<br><span class="h2-sub">아카이브</span></h2>
+                            </a>
+                            <p>최신 마케팅 트렌드와 업계 소식을 실시간으로 공유하며, 하이브미디어만의 차별화된 인사이트와 실제 프로젝트 성공 사례를 통해 귀사에 최적화된 비즈니스
+                                솔루션을 제안합니다.</p>
+                            <div class="archive-accordion" style="margin-top: 12px;">
+                                <!-- TREND 카테고리 -->
+                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
+                                    <button class="archive-cat-btn"
+                                        onclick="this.parentElement.classList.toggle('active')"
+                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
+                                        <span
+                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">TREND</span>
+                                        <span class="archive-cat-icon"
+                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
+                                    </button>
+                                    <div class="archive-cat-list" id="index-cat-trend"
+                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <div class="loading-placeholder"
+                                            style="padding: 10px 16px; font-size: 13px; color: #999;">
+                                            로딩 중...</div>
+                                    </div>
+                                </div>
+
+                                <!-- INSIGHT 카테고리 -->
+                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
+                                    <button class="archive-cat-btn"
+                                        onclick="this.parentElement.classList.toggle('active')"
+                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
+                                        <span
+                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">INSIGHT</span>
+                                        <span class="archive-cat-icon"
+                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
+                                    </button>
+                                    <div class="archive-cat-list" id="index-cat-insight"
+                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <div class="loading-placeholder"
+                                            style="padding: 10px 16px; font-size: 13px; color: #999;">
+                                            로딩 중...</div>
+                                    </div>
+                                </div>
+
+                                <!-- CASE STUDY 카테고리 -->
+                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
+                                    <button class="archive-cat-btn"
+                                        onclick="this.parentElement.classList.toggle('active')"
+                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
+                                        <span
+                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">CASE
+                                            STUDY</span>
+                                        <span class="archive-cat-icon"
+                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
+                                    </button>
+                                    <div class="archive-cat-list" id="index-cat-case"
+                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <div class="loading-placeholder"
+                                            style="padding: 10px 16px; font-size: 13px; color: #999;">
+                                            로딩 중...</div>
                                     </div>
                                 </div>
                             </div>
 
                             <style>
-                                /* 벤토 그리드 레이아웃 */
-                                .services-bento-grid {
-                                    display: grid;
-                                    grid-template-columns: repeat(3, 1fr);
-                                    grid-template-rows: repeat(3, 140px);
-                                    gap: 16px;
-                                    width: 100%;
+                                .archive-category.active .archive-cat-list {
+                                    max-height: 200px !important;
                                 }
 
-                                /* 큰 카드 - 2x2 */
-                                .bento-large {
-                                    grid-column: span 2;
-                                    grid-row: span 2;
+                                .archive-category.active .archive-cat-icon {
+                                    transform: rotate(45deg);
                                 }
 
-                                /* 중간 카드 - 1x1 */
-                                .bento-medium {
-                                    grid-column: span 1;
-                                    grid-row: span 1;
-                                }
-
-                                /* 작은 카드 - 1x1 */
-                                .bento-small {
-                                    grid-column: span 1;
-                                    grid-row: span 1;
-                                }
-
-                                /* 넓은 카드 - 2x1 */
-                                .bento-wide {
-                                    grid-column: span 2;
-                                    grid-row: span 1;
-                                }
-
-                                /* 벤토 카드 스타일 */
-                                .bento-card {
-                                    border-radius: 20px;
-                                    overflow: hidden;
-                                    cursor: pointer;
-                                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                                }
-
-                                .bento-card:hover {
-                                    transform: translateY(-4px);
-                                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-                                }
-
-                                .bento-card.active {
-                                    transform: translateY(-4px) scale(1.02);
-                                    box-shadow: 0 20px 50px rgba(0, 132, 255, 0.3);
-                                    outline: 3px solid rgba(0, 132, 255, 0.5);
-                                }
-
-                                .bento-content {
-                                    width: 100%;
-                                    height: 100%;
-                                    padding: 24px;
-                                    display: flex;
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: center;
-                                    text-align: center;
-                                    color: white;
-                                    position: relative;
-                                }
-
-                                .bento-content svg {
-                                    margin-bottom: 16px;
-                                    opacity: 0.95;
-                                }
-
-                                .bento-content h3 {
-                                    font-size: 18px;
-                                    font-weight: 700;
-                                    margin: 0;
-                                    line-height: 1.3;
-                                }
-
-                                .bento-content p {
-                                    font-size: 13px;
-                                    margin: 8px 0 0 0;
-                                    opacity: 0.9;
-                                    line-height: 1.4;
-                                }
-
-                                /* 큰 카드 특별 스타일 */
-                                .bento-large .bento-content h3 {
-                                    font-size: 24px;
-                                }
-
-                                .bento-large .bento-content p {
-                                    font-size: 14px;
-                                }
-
-                                /* 반응형 */
-                                @media (max-width: 991px) {
-                                    .services-bento-grid {
-                                        grid-template-columns: repeat(2, 1fr);
-                                        grid-template-rows: repeat(4, 120px);
-                                    }
-
-                                    .bento-large {
-                                        grid-column: span 2;
-                                        grid-row: span 2;
-                                    }
-
-                                    .bento-wide {
-                                        grid-column: span 2;
-                                    }
-                                }
-
-                                @media (max-width: 768px) {
-                                    .services-bento-grid {
-                                        grid-template-columns: 1fr;
-                                        grid-template-rows: auto;
-                                    }
-
-                                    .bento-large,
-                                    .bento-medium,
-                                    .bento-small,
-                                    .bento-wide {
-                                        grid-column: span 1;
-                                        grid-row: span 1;
-                                    }
-
-                                    .bento-card {
-                                        min-height: 180px;
-                                    }
+                                .archive-cat-list a:hover {
+                                    color: #0084ff !important;
+                                    border-left-color: #0084ff !important;
+                                    padding-left: 20px !important;
                                 }
                             </style>
+                        </div>
+                        <!-- 아카이브 오른쪽 이미지 영역 -->
+                        <div class="gsap-section-image">
+                            <div style="position: relative;">
+                                <!-- 트렌드 카드 스타일 그리드 -->
+                                <div class="archive-stats-grid"
+                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    <div
+                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                                        <p
+                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
+                                            GROWTH</p>
+                                        <p class="archive-stat-number" data-target="47" data-prefix="+" data-suffix="%"
+                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #333;">숏폼 콘텐츠 성장률<br>(2025 vs 2024)</p>
+                                    </div>
+                                    <div
+                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                                        <p
+                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
+                                            SOCIAL</p>
+                                        <p class="archive-stat-number" data-target="82" data-suffix="%"
+                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #333;">공공기관 SNS<br>활용 증가율</p>
+                                    </div>
+                                    <div
+                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                                        <p
+                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
+                                            VIDEO</p>
+                                        <p class="archive-stat-number" data-target="3.2" data-suffix="x"
+                                            data-decimal="true"
+                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #333;">영상 콘텐츠<br>전환율 상승</p>
+                                    </div>
+                                    <div
+                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                                        <p
+                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
+                                            TREND</p>
+                                        <p class="archive-stat-number" data-target="1" data-prefix="#"
+                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
+                                            0</p>
+                                        <p style="font-size: 12px; color: #333;">인스타그램 릴스<br>마케팅 채널 선호도</p>
+                                    </div>
+                                </div>
+                                <p style="font-size: 11px; color: #999; text-align: center; margin-top: 16px;">* 2025
+                                    디지털 마케팅 트렌드 리포트 기준</p>
 
-                            <script>
-                                // 벤토 카드 클릭 시 왼쪽 progress-item 활성화
-                                (function () {
-                                    const bentoCards = document.querySelectorAll('.bento-card');
-                                    const progressItems = document.querySelectorAll('.progress-item');
+                                <!-- 아카이브 숫자 카운트 애니메이션 -->
+                                <script>
+                                    (function () {
+                                        const counters = document.querySelectorAll('.archive-stat-number[data-target]');
+                                        let animated = false;
 
-                                    bentoCards.forEach(card => {
-                                        card.addEventListener('click', function () {
-                                            const serviceIndex = this.getAttribute('data-service');
+                                        function animateCounters() {
+                                            counters.forEach(counter => {
+                                                const target = parseFloat(counter.dataset.target);
+                                                const prefix = counter.dataset.prefix || '';
+                                                const suffix = counter.dataset.suffix || '';
+                                                const isDecimal = counter.dataset.decimal === 'true';
+                                                const duration = 2000;
+                                                const steps = duration / 16;
+                                                const step = target / steps;
+                                                let current = 0;
 
-                                            // 모든 progress-item에서 active 제거
-                                            progressItems.forEach(item => {
-                                                item.classList.remove('active');
+                                                const timer = setInterval(() => {
+                                                    current += step;
+                                                    if (current >= target) {
+                                                        current = target;
+                                                        clearInterval(timer);
+                                                    }
+                                                    counter.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+                                                }, 16);
                                             });
-
-                                            // 해당 인덱스의 progress-item에 active 추가
-                                            const targetItem = document.querySelector(`.progress-item[data-index="${serviceIndex}"]`);
-                                            if (targetItem) {
-                                                targetItem.classList.add('active');
-                                            }
-
-                                            // 모든 벤토 카드에서 active 제거
-                                            bentoCards.forEach(c => c.classList.remove('active'));
-
-                                            // 클릭한 카드에 active 추가
-                                            this.classList.add('active');
-                                        });
-                                    });
-
-                                    // progress-item 클릭 시 벤토 카드도 활성화
-                                    progressItems.forEach(item => {
-                                        item.addEventListener('click', function () {
-                                            const itemIndex = this.getAttribute('data-index');
-
-                                            // 모든 progress-item에서 active 제거
-                                            progressItems.forEach(i => {
-                                                i.classList.remove('active');
-                                            });
-
-                                            // 클릭한 progress-item에 active 추가
-                                            this.classList.add('active');
-
-                                            // 해당 벤토 카드 활성화
-                                            bentoCards.forEach(c => c.classList.remove('active'));
-                                            const targetCard = document.querySelector(`.bento-card[data-service="${itemIndex}"]`);
-                                            if (targetCard) {
-                                                targetCard.classList.add('active');
-                                            }
-                                        });
-                                    });
-                                })();
-                            </script>
-                        </div>
-                    </div>
-            </div>
-    </div>
-    </section>
-
-    <!-- Section 3: 대표 수행사례 -->
-    <section class="gsap-section gsap-section-3">
-        <div class="gsap-section-inner">
-            <div class="gsap-section-text">
-                <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">포트폴리오</span>
-                <a href="./portfolio/portfolio.php"
-                    style="text-decoration: none; color: inherit; display: inline-block;">
-                    <h2>PORTFOLIO<br><span class="h2-sub">포트폴리오</span></h2>
-                </a>
-                <p>부산시, 해운대구청, 부산항만공사 등 <strong>380건 이상의 프로젝트</strong>를 성공적으로 수행했습니다.</p>
-
-                <!-- GEO: 구체적 성과 수치 + 구조화 -->
-                <div style="margin-top: 20px;">
-                    <p>RESULTS 대표 성과 (측정 가능한 KPI)</p>
-                    <ul style="padding-left: 20px; margin: 0;">
-                        <li><strong>부산항만공사 SNS</strong> — 12개월 운영, 팔로워 <strong>+312%</strong> 증가, 평균 도달률
-                            23.4%</li>
-                        <li><strong>해운대구청 홍보영상</strong> — 제작 기간 3개월, 유튜브 조회수 <strong>52만회</strong> 달성</li>
-                        <li><strong>부산시 온라인 캠페인</strong> — 6개월 집행, CTR <strong>4.2%</strong> (업계 평균 대비 +68%)
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- GEO: Q&A 형식 -->
-                <div style="margin-top: 24px; padding: 16px; background: rgba(0,132,255,0.05); border-radius: 8px;">
-                    <p><strong>공공기관 마케팅은 일반 기업과 무엇이 다른가요?</strong></p>
-                    <li>공공기관 마케팅은 예산 집행의 투명성, 정량적 성과 증빙, 내부 결재 프로세스 대응이 필수입니다. 하이브미디어는 이 세 가지를 모두 충족하는
-                        체계화된 보고 시스템을 운영합니다.</li>
-                </div>
-            </div>
-            <div class="gsap-section-image">
-                <video autoplay muted loop playsinline
-                    style="border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
-                    <source src="./assets/img/viedo/1.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Section 4: 아카이브 프리뷰 -->
-    <section class="gsap-section archive-preview-section" style="background: #f5f5f0; color: #111;">
-        <div class="gsap-section-inner">
-            <div class="gsap-section-text">
-                <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">아카이브</span>
-                <a href="./archive/archive.php" style="text-decoration: none; color: inherit; display: inline-block;">
-                    <h2>ARCHIVE<br><span class="h2-sub">아카이브</span></h2>
-                </a>
-                <p>최신 마케팅 트렌드와 업계 소식을 실시간으로 공유하며, 하이브미디어만의 차별화된 인사이트와 실제 프로젝트 성공 사례를 통해 귀사에 최적화된 비즈니스
-                    솔루션을 제안합니다.</p>
-                <div class="archive-accordion" style="margin-top: 12px;">
-                    <!-- TREND 카테고리 -->
-                    <div class="archive-category" style="border-bottom: 1px solid #ddd;">
-                        <button class="archive-cat-btn" onclick="this.parentElement.classList.toggle('active')"
-                            style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span
-                                style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">TREND</span>
-                            <span class="archive-cat-icon"
-                                style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
-                        </button>
-                        <div class="archive-cat-list" id="index-cat-trend"
-                            style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <div class="loading-placeholder" style="padding: 10px 16px; font-size: 13px; color: #999;">
-                                로딩 중...</div>
-                        </div>
-                    </div>
-
-                    <!-- INSIGHT 카테고리 -->
-                    <div class="archive-category" style="border-bottom: 1px solid #ddd;">
-                        <button class="archive-cat-btn" onclick="this.parentElement.classList.toggle('active')"
-                            style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span
-                                style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">INSIGHT</span>
-                            <span class="archive-cat-icon"
-                                style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
-                        </button>
-                        <div class="archive-cat-list" id="index-cat-insight"
-                            style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <div class="loading-placeholder" style="padding: 10px 16px; font-size: 13px; color: #999;">
-                                로딩 중...</div>
-                        </div>
-                    </div>
-
-                    <!-- CASE STUDY 카테고리 -->
-                    <div class="archive-category" style="border-bottom: 1px solid #ddd;">
-                        <button class="archive-cat-btn" onclick="this.parentElement.classList.toggle('active')"
-                            style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">CASE
-                                STUDY</span>
-                            <span class="archive-cat-icon"
-                                style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
-                        </button>
-                        <div class="archive-cat-list" id="index-cat-case"
-                            style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <div class="loading-placeholder" style="padding: 10px 16px; font-size: 13px; color: #999;">
-                                로딩 중...</div>
-                        </div>
-                    </div>
-                </div>
-
-                <style>
-                    .archive-category.active .archive-cat-list {
-                        max-height: 200px !important;
-                    }
-
-                    .archive-category.active .archive-cat-icon {
-                        transform: rotate(45deg);
-                    }
-
-                    .archive-cat-list a:hover {
-                        color: #0084ff !important;
-                        border-left-color: #0084ff !important;
-                        padding-left: 20px !important;
-                    }
-                </style>
-            </div>
-            <!-- 아카이브 오른쪽 이미지 영역 -->
-            <div class="gsap-section-image">
-                <div style="position: relative;">
-                    <!-- 트렌드 카드 스타일 그리드 -->
-                    <div class="archive-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <div
-                            style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                            <p
-                                style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                GROWTH</p>
-                            <p class="archive-stat-number" data-target="47" data-prefix="+" data-suffix="%"
-                                style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                0</p>
-                            <p style="font-size: 12px; color: #666;">숏폼 콘텐츠 성장률<br>(2025 vs 2024)</p>
-                        </div>
-                        <div
-                            style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                            <p
-                                style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                SOCIAL</p>
-                            <p class="archive-stat-number" data-target="82" data-suffix="%"
-                                style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                0</p>
-                            <p style="font-size: 12px; color: #666;">공공기관 SNS<br>활용 증가율</p>
-                        </div>
-                        <div
-                            style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                            <p
-                                style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                VIDEO</p>
-                            <p class="archive-stat-number" data-target="3.2" data-suffix="x" data-decimal="true"
-                                style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                0</p>
-                            <p style="font-size: 12px; color: #666;">영상 콘텐츠<br>전환율 상승</p>
-                        </div>
-                        <div
-                            style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                            <p
-                                style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                TREND</p>
-                            <p class="archive-stat-number" data-target="1" data-prefix="#"
-                                style="font-size: 24px; font-weight: 700; color: #0084ff; margin-bottom: 4px;">
-                                0</p>
-                            <p style="font-size: 12px; color: #666;">인스타그램 릴스<br>마케팅 채널 선호도</p>
-                        </div>
-                    </div>
-                    <p style="font-size: 11px; color: #999; text-align: center; margin-top: 16px;">* 2025
-                        디지털 마케팅 트렌드 리포트 기준</p>
-
-                    <!-- 아카이브 숫자 카운트 애니메이션 -->
-                    <script>
-                        (function () {
-                            const counters = document.querySelectorAll('.archive-stat-number[data-target]');
-                            let animated = false;
-
-                            function animateCounters() {
-                                counters.forEach(counter => {
-                                    const target = parseFloat(counter.dataset.target);
-                                    const prefix = counter.dataset.prefix || '';
-                                    const suffix = counter.dataset.suffix || '';
-                                    const isDecimal = counter.dataset.decimal === 'true';
-                                    const duration = 2000;
-                                    const steps = duration / 16;
-                                    const step = target / steps;
-                                    let current = 0;
-
-                                    const timer = setInterval(() => {
-                                        current += step;
-                                        if (current >= target) {
-                                            current = target;
-                                            clearInterval(timer);
                                         }
-                                        counter.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-                                    }, 16);
-                                });
-                            }
 
-                            const observer = new IntersectionObserver((entries) => {
-                                entries.forEach(entry => {
-                                    if (entry.isIntersecting && !animated) {
-                                        animated = true;
-                                        animateCounters();
-                                    }
-                                });
-                            }, { threshold: 0.1 });
+                                        const observer = new IntersectionObserver((entries) => {
+                                            entries.forEach(entry => {
+                                                if (entry.isIntersecting && !animated) {
+                                                    animated = true;
+                                                    animateCounters();
+                                                }
+                                            });
+                                        }, { threshold: 0.1 });
 
-                            const statsGrid = document.querySelector('.archive-stats-grid');
-                            if (statsGrid) observer.observe(statsGrid);
-                        })();
-                    </script>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 5: FAQ -->
-    <section class="gsap-section gsap-section-5" style="background: #fff; color: #111;">
-        <div class="gsap-section-inner">
-            <div class="gsap-section-text" style="max-width: 800px;">
-                <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">자주 묻는
-                    질문</span>
-                <h2>FAQ<br><span class="h2-sub">자주 묻는 질문</span></h2>
-
-                <!-- FAQ 아코디언 -->
-                <div class="faq-accordion" style="text-align: left;">
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
-                            <span>관공서 입찰도 가능한가요?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p>네, 하이브미디어는 <strong>2015년부터 52개 공공기관과 협력</strong>해온 경험을 바탕으로 G2B 입찰을 전문적으로
-                                지원합니다. 제안서 작성, PT 자료 제작, 발표 리허설까지 원스톱으로 지원하며, 평균 낙찰률은
-                                <strong>34.7%</strong>입니다. (업계 평균 15~20% 대비 약 2배)
-                            </p>
+                                        const statsGrid = document.querySelector('.archive-stats-grid');
+                                        if (statsGrid) observer.observe(statsGrid);
+                                    })();
+                                </script>
+                            </div>
                         </div>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
-                            <span>수행실적서를 받을 수 있나요?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p>제공됩니다. <strong>내부 보고용 수행실적서</strong>는 사업 종료 후 3영업일 이내 발급되며, 연간 수행실적증명서(누적)도
-                                요청 시 제공합니다. 실적서에는 수행 기간, 계약 금액, 주요 성과 지표(KPI)가 포함됩니다.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
-                            <span>세금계산서 발급이 가능한가요?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p>가능합니다. 하이브미디어는 <strong>한국광고협회 회원사</strong>이자 광고대행업 등록 사업자(등록번호
-                                제2024-000000호)로서, 세금계산서 발행 요건을 충족합니다. 전자세금계산서는 사업 종료 후 익월 10일까지 발행됩니다.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
-                            <span>전국 어디서든 가능한가요?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p>전국 어디서든 가능합니다. <strong>부산 본사</strong>를 중심으로 <strong>서울지사(순화동)</strong>,
-                                <strong>대구지사(신천동)</strong>을 운영 중이며, 원격 미팅 및 화상회의도 적극 지원합니다. 지역 무관하게 380건 이상의
-                                프로젝트를 성공적으로 수행했습니다.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </section>
 
-            <!-- FAQ 오른쪽: 빠른 문의 카드 -->
-            <div class="gsap-section-image" style="display: flex; align-items: center;">
-                <div style="width: 100%; max-width: 600px;">
-                    <!-- 빠른 상담 카드 -->
-                    <div
-                        style="background: linear-gradient(135deg, #0084ff 0%, #0066cc 100%); padding: 27px 32px; border-radius: 16px; color: #fff; margin-bottom: 20px;">
-                        <p style="font-size: 12px; opacity: 0.8; margin-bottom: 8px; letter-spacing: 1px;">
-                            QUICK INQUIRY</p>
-                        <p style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">궁금한 점이<br>더
-                            있으신가요?</p>
-                        <p style="font-size: 14px; line-height: 1.6; opacity: 0.9; margin-bottom: 24px;">
-                            평균 응답 시간 <strong>2시간 이내</strong><br>
-                            영업일 기준 24시간 내 회신
-                        </p>
-                        <a href="./contact.html"
-                            style="display: inline-block; background: #fff; color: #0084ff; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 14px;">무료
-                            상담 신청</a>
-                    </div>
+                <!-- Section 5: FAQ -->
+                <section class="gsap-section gsap-section-5" style="background: #fff; color: #111;">
+                    <div class="gsap-section-inner">
+                        <div class="gsap-section-text" style="max-width: 800px;">
+                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">자주 묻는
+                                질문</span>
+                            <h2>FAQ<br><span class="h2-sub">자주 묻는 질문</span></h2>
 
-                    <!-- 연락처 정보 -->
-                    <div style="background: #f8f8f8; padding: 20px 24px; border-radius: 12px;">
-                        <p
-                            style="font-size: 12px; color: #888; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">
-                            DIRECT CONTACT</p>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">T.</span>
-                                <div>
-                                    <p style="font-size: 11px; color: #888;">전화</p>
-                                    <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">
-                                        070-7728-6334</p>
+                            <!-- FAQ 아코디언 -->
+                            <div class="faq-accordion" style="text-align: left;">
+                                <div class="faq-item">
+                                    <button class="faq-question"
+                                        onclick="this.parentElement.classList.toggle('active')">
+                                        <span>관공서 입찰도 가능한가요?</span>
+                                        <span class="faq-icon">+</span>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>네, 하이브미디어는 <strong>2015년부터 52개 공공기관과 협력</strong>해온 경험을 바탕으로 G2B 입찰을 전문적으로
+                                            지원합니다. 제안서 작성, PT 자료 제작, 발표 리허설까지 원스톱으로 지원하며, 평균 낙찰률은
+                                            <strong>34.7%</strong>입니다. (업계 평균 15~20% 대비 약 2배)
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <button class="faq-question"
+                                        onclick="this.parentElement.classList.toggle('active')">
+                                        <span>수행실적서를 받을 수 있나요?</span>
+                                        <span class="faq-icon">+</span>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>제공됩니다. <strong>내부 보고용 수행실적서</strong>는 사업 종료 후 3영업일 이내 발급되며, 연간 수행실적증명서(누적)도
+                                            요청 시 제공합니다. 실적서에는 수행 기간, 계약 금액, 주요 성과 지표(KPI)가 포함됩니다.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <button class="faq-question"
+                                        onclick="this.parentElement.classList.toggle('active')">
+                                        <span>세금계산서 발급이 가능한가요?</span>
+                                        <span class="faq-icon">+</span>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>가능합니다. 하이브미디어는 <strong>한국광고협회 회원사</strong>이자 광고대행업 등록 사업자(등록번호
+                                            제2024-000000호)로서, 세금계산서 발행 요건을 충족합니다. 전자세금계산서는 사업 종료 후 익월 10일까지 발행됩니다.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <button class="faq-question"
+                                        onclick="this.parentElement.classList.toggle('active')">
+                                        <span>전국 어디서든 가능한가요?</span>
+                                        <span class="faq-icon">+</span>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p>전국 어디서든 가능합니다. <strong>부산 본사</strong>를 중심으로 <strong>서울지사(순화동)</strong>,
+                                            <strong>대구지사(신천동)</strong>을 운영 중이며, 원격 미팅 및 화상회의도 적극 지원합니다. 지역 무관하게 380건 이상의
+                                            프로젝트를 성공적으로 수행했습니다.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">E.</span>
-                                <div>
-                                    <p style="font-size: 11px; color: #888;">이메일</p>
-                                    <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">
-                                        hive_ad@hivemedia.co.kr</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">K.</span>
-                                <div>
-                                    <p style="font-size: 11px; color: #888;">카카오톡</p>
-                                    <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">@하이브미디어
+                        </div>
+
+                        <!-- FAQ 오른쪽: 빠른 문의 카드 -->
+                        <div class="gsap-section-image" style="display: flex; align-items: center;">
+                            <div style="width: 100%; max-width: 600px;">
+                                <!-- 빠른 상담 카드 -->
+                                <div
+                                    style="background: linear-gradient(135deg, #0084ff 0%, #0066cc 100%); padding: 27px 32px; border-radius: 16px; color: #fff; margin-bottom: 20px;">
+                                    <p style="font-size: 12px; opacity: 0.8; margin-bottom: 8px; letter-spacing: 1px;">
+                                        QUICK INQUIRY</p>
+                                    <p style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">궁금한 점이<br>더
+                                        있으신가요?</p>
+                                    <p style="font-size: 14px; line-height: 1.6; opacity: 0.9; margin-bottom: 24px;">
+                                        평균 응답 시간 <strong>2시간 이내</strong><br>
+                                        영업일 기준 24시간 내 회신
                                     </p>
+                                    <a href="./contact.html"
+                                        style="display: inline-block; background: #fff; color: #0084ff; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 14px;">무료
+                                        상담 신청</a>
+                                </div>
+
+                                <!-- 연락처 정보 -->
+                                <div style="background: #f8f8f8; padding: 20px 24px; border-radius: 12px;">
+                                    <p
+                                        style="font-size: 12px; color: #888; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">
+                                        DIRECT CONTACT</p>
+                                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span
+                                                style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">T.</span>
+                                            <div>
+                                                <p style="font-size: 11px; color: #888;">전화</p>
+                                                <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">
+                                                    070-7728-6334</p>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span
+                                                style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">E.</span>
+                                            <div>
+                                                <p style="font-size: 11px; color: #888;">이메일</p>
+                                                <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">
+                                                    hive_ad@hivemedia.co.kr</p>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span
+                                                style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">K.</span>
+                                            <div>
+                                                <p style="font-size: 11px; color: #888;">카카오톡</p>
+                                                <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">@하이브미디어
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <style>
-            .gsap-section-5 .faq-answer p {
-                font-size: 12px !important;
-                line-height: 1.7;
-            }
-        </style>
-    </section>
+                    <style>
+                        .gsap-section-5 .faq-answer p {
+                            font-size: 12px !important;
+                            line-height: 1.7;
+                        }
+                    </style>
+                </section>
 
-    <!-- Section 6: Contact (완전 제거 - 유령 공간 해결)
+                <!-- Section 6: Contact (완전 제거 - 유령 공간 해결)
                 <section class="gsap-section gsap-section-6"
                     style="background: #1a1a1a; color: #fff; min-height: 50vh;">
                     <div class="gsap-section-inner">
@@ -1899,12 +1857,12 @@
                     </div>
                 </section>
                 -->
-    </div>
+            </div>
 
-    </main>
+        </main>
 
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
+        <!-- Footer -->
+        <div id="footer-placeholder"></div>
     </div>
 
     <!-- 기존 타이핑 애니메이션 스크립트 -->
