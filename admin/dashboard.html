@@ -299,21 +299,31 @@
         const userRole = sessionStorage.getItem('userRole');
         const displayName = sessionStorage.getItem('displayName');
         const userEmail = sessionStorage.getItem('userEmail');
+        const userTeam = sessionStorage.getItem('userTeam');
 
         // Check if logged in
         if (!userRole) {
             window.location.href = 'login.html';
         } else {
-            // Display user info
-            document.getElementById('userName').textContent = displayName || userEmail;
+            // Display user info with team
+            const teamText = userTeam ? ` (${userTeam})` : '';
+            document.getElementById('userName').textContent = (displayName || userEmail) + teamText;
             const roleBadge = document.getElementById('roleBadge');
-            roleBadge.textContent = userRole;
+
+            // Role badge text
+            const roleLabels = {
+                'super_admin': '최고관리자',
+                'admin': '관리자',
+                'staff': '사원'
+            };
+            roleBadge.textContent = roleLabels[userRole] || userRole;
+
             if (userRole === 'staff') {
                 roleBadge.classList.add('staff');
             }
 
-            // Hide admin-only cards for staff
-            if (userRole !== 'admin') {
+            // Hide admin-only cards for staff (super_admin and admin can access)
+            if (userRole === 'staff') {
                 document.getElementById('migrationCard').classList.add('disabled');
                 document.getElementById('approvalCard').classList.add('disabled');
                 document.getElementById('activityLogCard').classList.add('disabled');

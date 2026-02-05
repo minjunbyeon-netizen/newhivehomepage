@@ -190,26 +190,31 @@
         });
 
         // 직원 계정 정보
-        // ID: 생년월일(6자리) + 입사일(6자리) = 12자리
-        // PW: 생년월일(6자리)
+        // ID: hive_2026XXX (사원번호)
+        // PW: 1234 (초기 비밀번호, 본인이 재설정)
+        // 권한: super_admin(최고관리자), admin(관리자), staff(사원)
         const users = {
+            // 최고관리자 계정
+            'hive_2026001': { password: '1234', role: 'super_admin', displayName: '이혜리', team: '개발팀' },
+
             // 관리자 계정
-            'admin': {
-                password: 'admin2026!',
-                role: 'admin',
-                displayName: '관리자'
-            },
-            // 스태프 계정 (ID: 생년월일+입사일, PW: 생년월일)
-            '910315240301': { password: '910315', role: 'staff', displayName: '김영수' },
-            '880722230501': { password: '880722', role: 'staff', displayName: '이지현' },
-            '950108250101': { password: '950108', role: 'staff', displayName: '박준혁' },
-            '921224231201': { password: '921224', role: 'staff', displayName: '최수진' },
-            '870503220601': { password: '870503', role: 'staff', displayName: '정민우' },
-            '990917250901': { password: '990917', role: 'staff', displayName: '강하늘' },
-            '930621240701': { password: '930621', role: 'staff', displayName: '윤서연' },
-            '860214210301': { password: '860214', role: 'staff', displayName: '한동욱' },
-            '940830241101': { password: '940830', role: 'staff', displayName: '조예린' },
-            '910412220801': { password: '910412', role: 'admin', displayName: '송태민' }
+            'hive_2026002': { password: '1234', role: 'admin', displayName: '진성희', team: '콘텐츠팀' },
+            'hive_2026003': { password: '1234', role: 'admin', displayName: '김기훈', team: '기획1팀' },
+            'hive_2026004': { password: '1234', role: 'admin', displayName: '한민희', team: '디자인팀' },
+            'hive_2026005': { password: '1234', role: 'admin', displayName: '백수정', team: '개발팀' },
+            'hive_2026006': { password: '1234', role: 'admin', displayName: '나현연', team: '기획1팀' },
+            'hive_2026007': { password: '1234', role: 'admin', displayName: '이다슬', team: '경영관리팀' },
+            'hive_2026008': { password: '1234', role: 'admin', displayName: '이종성', team: '기획2팀' },
+
+            // 사원 계정
+            'hive_2026009': { password: '1234', role: 'staff', displayName: '심정우', team: '기획2팀' },
+            'hive_2026010': { password: '1234', role: 'staff', displayName: '강민희', team: '기획2팀' },
+            'hive_2026011': { password: '1234', role: 'staff', displayName: '김서연', team: '콘텐츠팀' },
+            'hive_2026012': { password: '1234', role: 'staff', displayName: '정승은', team: '기획1팀' },
+            'hive_2026013': { password: '1234', role: 'staff', displayName: '배수빈', team: '개발팀' },
+            'hive_2026014': { password: '1234', role: 'staff', displayName: '조서원', team: '경영관리팀' },
+            'hive_2026015': { password: '1234', role: 'staff', displayName: '이수림', team: '콘텐츠팀' },
+            'hive_2026016': { password: '1234', role: 'staff', displayName: '변제환', team: '기획1팀' }
         };
 
         function showError(message) {
@@ -239,6 +244,7 @@
                     sessionStorage.setItem('userId', username);
                     sessionStorage.setItem('userRole', users[username].role);
                     sessionStorage.setItem('displayName', users[username].displayName);
+                    sessionStorage.setItem('userTeam', users[username].team || '');
 
                     // Redirect to dashboard
                     window.location.href = 'dashboard.html';

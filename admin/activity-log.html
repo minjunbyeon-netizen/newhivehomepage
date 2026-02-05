@@ -229,9 +229,11 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 권한 체크
+        // 권한 체크 (super_admin, admin 모두 허용)
         const userRole = sessionStorage.getItem('userRole');
-        if (userRole !== 'admin') {
+        const userTeam = sessionStorage.getItem('userTeam');
+
+        if (userRole === 'staff') {
             alert('관리자만 접근할 수 있습니다.');
             window.location.href = 'dashboard.html';
         }

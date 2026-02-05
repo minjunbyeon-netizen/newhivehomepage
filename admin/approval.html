@@ -586,13 +586,15 @@
 
         // Simple session check (no Firebase Auth)
         const userRole = sessionStorage.getItem('userRole');
+        const userTeam = sessionStorage.getItem('userTeam');
+
         if (!userRole) {
             window.location.href = 'login.html';
-        } else if (userRole !== 'admin') {
-            alert('Access denied. Admin only.');
+        } else if (userRole === 'staff') {
+            alert('관리자만 접근할 수 있습니다.');
             window.location.href = 'dashboard.html';
         } else {
-            // Load content if admin
+            // Load content if super_admin or admin
             loadPendingContent();
         }
 
