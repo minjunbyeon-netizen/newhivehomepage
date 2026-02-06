@@ -45,9 +45,229 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 40px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-panel {
+                display: none;
+            }
+        }
+
+        .form-column {
+            max-width: 600px;
+        }
+
+        .preview-panel {
+            background: #0a0a0a;
+            border-radius: 8px;
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .preview-header {
+            background: #1a1a1a;
+            padding: 12px 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .preview-header span {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .preview-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .preview-content {
+            padding: 40px 30px;
+            color: white;
+        }
+
+        .preview-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: white;
+        }
+
+        .preview-meta {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .preview-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .preview-meta-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .preview-meta-value {
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .preview-desc {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #aaa;
+            margin-bottom: 30px;
+            white-space: pre-line;
+        }
+
+        .preview-direction {
+            background: #111;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .preview-direction-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .preview-direction-main {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .preview-direction-main strong {
+            color: #c4a77d;
+        }
+
+        .preview-direction-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview-direction-item {
+            display: grid;
+            grid-template-columns: 24px 1fr;
+            gap: 12px;
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .preview-direction-item .num {
+            color: #666;
+            font-size: 11px;
+        }
+
+        .preview-direction-item strong {
+            color: #c4a77d;
+        }
+
+        .preview-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #555;
+        }
+
+        .preview-empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .preview-empty-text {
+            font-size: 14px;
+        }
+
+        .preview-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .preview-metrics {
+            background: #111;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .preview-metrics-title {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .preview-metric-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+            font-size: 13px;
+        }
+
+        .preview-metric-item:last-child {
+            border-bottom: none;
+        }
+
+        .preview-metric-type {
+            color: #888;
+        }
+
+        .preview-metric-value {
+            color: #c4a77d;
+            font-weight: 600;
         }
 
         .form-card {
@@ -445,179 +665,279 @@
     </div>
 
     <div class="container">
-        <div class="form-card">
-            <h2 class="form-title">New Portfolio Item</h2>
-            <p class="form-subtitle">Create a new portfolio entry</p>
+        <div class="form-column">
+            <div class="form-card">
+                <h2 class="form-title">New Portfolio Item</h2>
+                <p class="form-subtitle">Create a new portfolio entry</p>
 
-            <div class="success-msg" id="successMsg"></div>
+                <div class="success-msg" id="successMsg"></div>
 
-            <form id="portfolioForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="title">Title *</label>
-                        <input type="text" id="title" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">Category *</label>
-                        <select id="category" required>
-                            <option value="">Select category</option>
-                            <option value="Online AD">Online AD</option>
-                            <option value="SNS">SNS</option>
-                            <option value="Homepage">Homepage</option>
-                            <option value="Eventpage">Eventpage</option>
-                            <option value="Video">Video</option>
-                            <option value="Print">Print</option>
-                            <option value="Exhibition Art">Exhibition Art</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="client">Client Name *</label>
-                        <input type="text" id="client" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="periodStart">Period Start</label>
-                        <input type="date" id="periodStart">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="periodEnd">Period End</label>
-                        <input type="date" id="periodEnd">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="subtitle">Subtitle</label>
-                    <input type="text" id="subtitle">
-                </div>
-
-                <div class="descriptions-section">
-                    <div class="section-title">Project Descriptions</div>
-
-                    <div class="form-group">
-                        <label for="description1">프로젝트 개요 *</label>
-                        <textarea id="description1" required
-                            placeholder="예: 본 캠페인은 신제품 런칭을 위한 통합 마케팅 프로젝트로, SNS 광고와 인플루언서 마케팅을 결합하여 브랜드 인지도를 높이고 구매 전환율을 증대시키는 것을 목표로 합니다."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description2">주요 성과 지표</label>
-                        <div id="metricsContainer">
-                            <div class="metric-row">
-                                <select class="metric-type">
-                                    <option value="">지표 선택</option>
-                                    <option value="ROAS">ROAS (광고 투자 수익률)</option>
-                                    <option value="조회수">조회수</option>
-                                    <option value="이벤트 참여자">이벤트 참여자 수</option>
-                                    <option value="전환율">전환율 (%)</option>
-                                    <option value="클릭률">클릭률 (CTR %)</option>
-                                    <option value="도달">도달 수</option>
-                                    <option value="참여율">참여율 (%)</option>
-                                    <option value="구매 전환">구매 전환 수</option>
-                                    <option value="매출">매출 증가율 (%)</option>
-                                    <option value="트래픽">웹사이트 트래픽 증가 (%)</option>
-                                    <option value="브랜드 언급">브랜드 언급량 증가 (%)</option>
-                                    <option value="팔로워">팔로워 증가 수</option>
-                                </select>
-                                <input type="text" class="metric-value" placeholder="수치 입력 (예: 450, 3.2)">
-                                <button type="button" class="remove-metric-btn" onclick="removeMetric(this)">×</button>
-                            </div>
-                        </div>
-                        <button type="button" class="add-metric-btn" onclick="addMetric()">+ 성과 지표 추가</button>
-                    </div>
-                </div>
-
-                <div class="descriptions-section">
-                    <div class="section-title">Images</div>
-
-                    <div class="form-group">
-                        <label for="thumbnail">Thumbnail Image *</label>
-                        <div class="file-input-wrapper">
-                            <label for="thumbnail" class="file-input-label" id="thumbnailLabel">
-                                <span class="upload-icon">📎</span>
-                                <span class="upload-text">Choose file or drag here</span>
-                            </label>
-                            <input type="file" id="thumbnail" accept="image/*" required>
-                        </div>
-                        <div id="thumbnailPreview" class="image-preview" style="display: none;">
-                            <img id="thumbnailPreviewImg" src="" alt="Preview">
-                            <div class="image-info">
-                                <span class="image-filename" id="thumbnailFilename"></span>
-                                <span class="image-size" id="thumbnailSize"></span>
-                                <button type="button" class="remove-image-btn" onclick="removeImage('thumbnail')">×
-                                    제거</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="descriptions-section">
-                    <div class="section-title">본문 이미지 (선택사항)</div>
-
-                    <div class="form-group">
-                        <label for="additionalImages">추가 이미지 (최대 5장)</label>
-                        <div class="file-input-wrapper">
-                            <label for="additionalImages" class="file-input-label" id="additionalImagesLabel">
-                                <span class="upload-icon">📎</span>
-                                <span class="upload-text">여러 이미지 선택 가능 (최대 5장)</span>
-                            </label>
-                            <input type="file" id="additionalImages" accept="image/*" multiple>
-                        </div>
-                        <div id="additionalImagesPreview" class="additional-images-preview"></div>
-                    </div>
-                </div>
-
-                <div class="descriptions-section">
-                    <div class="section-title">Links (Optional)</div>
-
-                    <div class="form-group">
-                        <label for="homepageUrl">Homepage URL</label>
-                        <input type="url" id="homepageUrl">
-                    </div>
-
+                <form id="portfolioForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="instagramUrl">Instagram</label>
-                            <input type="url" id="instagramUrl">
+                            <label for="title">Title *</label>
+                            <input type="text" id="title" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="facebookUrl">Facebook</label>
-                            <input type="url" id="facebookUrl">
+                            <label for="category">Category *</label>
+                            <select id="category" required>
+                                <option value="">Select category</option>
+                                <option value="Online AD">Online AD</option>
+                                <option value="SNS">SNS</option>
+                                <option value="Homepage">Homepage</option>
+                                <option value="Eventpage">Eventpage</option>
+                                <option value="Video">Video</option>
+                                <option value="Print">Print</option>
+                                <option value="Exhibition Art">Exhibition Art</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="youtubeUrl">YouTube</label>
-                            <input type="url" id="youtubeUrl">
+                            <label for="client">Client Name *</label>
+                            <input type="text" id="client" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="blogUrl">Blog</label>
-                            <input type="url" id="blogUrl">
+                            <label for="projectType">Project Type *</label>
+                            <input type="text" id="projectType" required
+                                placeholder="예: Brand Identity, Campaign, Web Design">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="year">Year *</label>
+                            <input type="text" id="year" required placeholder="예: 2024">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="periodStart">Period Start</label>
+                            <input type="date" id="periodStart">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="periodEnd">Period End</label>
+                            <input type="date" id="periodEnd">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subtitle">Subtitle</label>
+                        <input type="text" id="subtitle">
+                    </div>
+
+                    <div class="descriptions-section">
+                        <div class="section-title">Project Descriptions</div>
+
+                        <div class="form-group">
+                            <label for="description1">프로젝트 개요 *</label>
+                            <textarea id="description1" required
+                                placeholder="예: 본 캠페인은 신제품 런칭을 위한 통합 마케팅 프로젝트로, SNS 광고와 인플루언서 마케팅을 결합하여 브랜드 인지도를 높이고 구매 전환율을 증대시키는 것을 목표로 합니다."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description2">주요 성과 지표</label>
+                            <div id="metricsContainer">
+                                <div class="metric-row">
+                                    <select class="metric-type">
+                                        <option value="">지표 선택</option>
+                                        <option value="ROAS">ROAS (광고 투자 수익률)</option>
+                                        <option value="조회수">조회수</option>
+                                        <option value="이벤트 참여자">이벤트 참여자 수</option>
+                                        <option value="전환율">전환율 (%)</option>
+                                        <option value="클릭률">클릭률 (CTR %)</option>
+                                        <option value="도달">도달 수</option>
+                                        <option value="참여율">참여율 (%)</option>
+                                        <option value="구매 전환">구매 전환 수</option>
+                                        <option value="매출">매출 증가율 (%)</option>
+                                        <option value="트래픽">웹사이트 트래픽 증가 (%)</option>
+                                        <option value="브랜드 언급">브랜드 언급량 증가 (%)</option>
+                                        <option value="팔로워">팔로워 증가 수</option>
+                                    </select>
+                                    <input type="text" class="metric-value" placeholder="수치 입력 (예: 450, 3.2)">
+                                    <button type="button" class="remove-metric-btn"
+                                        onclick="removeMetric(this)">×</button>
+                                </div>
+                            </div>
+                            <button type="button" class="add-metric-btn" onclick="addMetric()">+ 성과 지표 추가</button>
                         </div>
                     </div>
 
                     <div class="descriptions-section">
-                        <div class="section-title">작성자 정보</div>
+                        <div class="section-title">Images</div>
 
                         <div class="form-group">
-                            <label for="author">작성자 이름 *</label>
-                            <input type="text" id="author" required placeholder="홍길동">
+                            <label for="thumbnail">Thumbnail Image *</label>
+                            <div class="file-input-wrapper">
+                                <label for="thumbnail" class="file-input-label" id="thumbnailLabel">
+                                    <span class="upload-icon">📎</span>
+                                    <span class="upload-text">Choose file or drag here</span>
+                                </label>
+                                <input type="file" id="thumbnail" accept="image/*" required>
+                            </div>
+                            <div id="thumbnailPreview" class="image-preview" style="display: none;">
+                                <img id="thumbnailPreviewImg" src="" alt="Preview">
+                                <div class="image-info">
+                                    <span class="image-filename" id="thumbnailFilename"></span>
+                                    <span class="image-size" id="thumbnailSize"></span>
+                                    <button type="button" class="remove-image-btn" onclick="removeImage('thumbnail')">×
+                                        제거</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">Submit for Approval</button>
-            </form>
+                    <div class="descriptions-section">
+                        <div class="section-title">Direction Section (선택사항)</div>
+                        <p style="font-size:12px;color:#666;margin-bottom:16px;">이미지 사이에 표시될 프로젝트 방향성 설명입니다. "강조 키워드"에
+                            입력한
+                            단어가 골드색으로 표시됩니다.</p>
+
+                        <div class="form-group">
+                            <label for="directionMain">Direction 메인 설명</label>
+                            <textarea id="directionMain" rows="3"
+                                placeholder="예: 실무진과의 인터뷰를 통해 개선 방향을 구체화하는 과정을 거쳤습니다."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>강조 키워드 (메인 설명에서 강조할 단어)</label>
+                            <input type="text" id="directionKeyword" placeholder="예: 소비자·운영·브랜드"
+                                style="margin-bottom:4px;">
+                            <p style="font-size:11px;color:#999;">위 메인 설명에 포함된 단어를 입력하면 골드색으로 강조됩니다</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Direction 항목 (최대 3개)</label>
+                            <div
+                                style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-bottom:8px;align-items:center;">
+                                <input type="text" id="directionItem1Key" placeholder="강조 키워드" style="font-size:13px;">
+                                <input type="text" id="directionItem1Text"
+                                    placeholder="설명 텍스트 (예: 원하는 제품을 찾을 수 있게 하고 싶어요)">
+                            </div>
+                            <div
+                                style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-bottom:8px;align-items:center;">
+                                <input type="text" id="directionItem2Key" placeholder="강조 키워드" style="font-size:13px;">
+                                <input type="text" id="directionItem2Text" placeholder="설명 텍스트">
+                            </div>
+                            <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;">
+                                <input type="text" id="directionItem3Key" placeholder="강조 키워드" style="font-size:13px;">
+                                <input type="text" id="directionItem3Text" placeholder="설명 텍스트">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="descriptions-section">
+                        <div class="section-title">본문 이미지 (선택사항)</div>
+
+                        <div class="form-group">
+                            <label for="additionalImages">추가 이미지 (최대 5장)</label>
+                            <div class="file-input-wrapper">
+                                <label for="additionalImages" class="file-input-label" id="additionalImagesLabel">
+                                    <span class="upload-icon">📎</span>
+                                    <span class="upload-text">여러 이미지 선택 가능 (최대 5장)</span>
+                                </label>
+                                <input type="file" id="additionalImages" accept="image/*" multiple>
+                            </div>
+                            <div id="additionalImagesPreview" class="additional-images-preview"></div>
+                        </div>
+                    </div>
+
+                    <div class="descriptions-section">
+                        <div class="section-title">Links (Optional)</div>
+
+                        <div class="form-group">
+                            <label for="homepageUrl">Homepage URL</label>
+                            <input type="url" id="homepageUrl">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="instagramUrl">Instagram</label>
+                                <input type="url" id="instagramUrl">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="facebookUrl">Facebook</label>
+                                <input type="url" id="facebookUrl">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="youtubeUrl">YouTube</label>
+                                <input type="url" id="youtubeUrl">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="blogUrl">Blog</label>
+                                <input type="url" id="blogUrl">
+                            </div>
+                        </div>
+
+                        <div class="descriptions-section">
+                            <div class="section-title">작성자 정보</div>
+
+                            <div class="form-group">
+                                <label for="author">작성자 이름 *</label>
+                                <input type="text" id="author" required placeholder="홍길동">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Submit for Approval</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Live Preview Panel -->
+        <div class="preview-panel">
+            <div class="preview-header">
+                <div class="preview-dot"></div>
+                <span>Live Preview</span>
+            </div>
+            <div class="preview-content" id="previewContent">
+                <div class="preview-empty" id="previewEmpty">
+                    <div class="preview-empty-icon">📝</div>
+                    <div class="preview-empty-text">왼쪽 양식에 내용을 입력하면<br>여기서 미리보기가 표시됩니다</div>
+                </div>
+                <div id="previewData" style="display:none;">
+                    <img id="previewImage" class="preview-image" style="display:none;" alt="썸네일 미리보기">
+                    <h1 class="preview-title" id="previewTitle">제목을 입력하세요</h1>
+                    <div class="preview-meta">
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Client</span>
+                            <span class="preview-meta-value" id="previewClient">-</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Category</span>
+                            <span class="preview-meta-value" id="previewCategory">-</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Year</span>
+                            <span class="preview-meta-value" id="previewYear">-</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Type</span>
+                            <span class="preview-meta-value" id="previewType">-</span>
+                        </div>
+                    </div>
+                    <div class="preview-desc" id="previewDesc"></div>
+                    <div class="preview-metrics" id="previewMetrics" style="display:none;">
+                        <div class="preview-metrics-title">주요 성과 지표</div>
+                        <div id="previewMetricsList"></div>
+                    </div>
+                    <div class="preview-direction" id="previewDirection" style="display:none;">
+                        <div class="preview-direction-label">DIRECTION</div>
+                        <div class="preview-direction-main" id="previewDirectionMain"></div>
+                        <div class="preview-direction-items" id="previewDirectionItems"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
     <script>
         function goToHome() {
             console.log('goToHome called!');
@@ -635,6 +955,148 @@
                 logoElement.addEventListener('click', goToHome);
                 console.log('Logo click event attached');
             }
+
+            // Live Preview Update Function
+            function updatePreview() {
+                const title = document.getElementById('title').value.trim();
+                const client = document.getElementById('client').value.trim();
+                const category = document.getElementById('category').value;
+                const year = document.getElementById('year').value.trim();
+                const projectType = document.getElementById('projectType').value.trim();
+                const description = document.getElementById('description1').value.trim();
+
+                // Direction fields
+                const directionMain = document.getElementById('directionMain').value.trim();
+                const directionKeyword = document.getElementById('directionKeyword').value.trim();
+                const item1Key = document.getElementById('directionItem1Key').value.trim();
+                const item1Text = document.getElementById('directionItem1Text').value.trim();
+                const item2Key = document.getElementById('directionItem2Key').value.trim();
+                const item2Text = document.getElementById('directionItem2Text').value.trim();
+                const item3Key = document.getElementById('directionItem3Key').value.trim();
+                const item3Text = document.getElementById('directionItem3Text').value.trim();
+
+                // Show/hide empty state
+                const hasContent = title || client || category || description || directionMain;
+                document.getElementById('previewEmpty').style.display = hasContent ? 'none' : 'block';
+                document.getElementById('previewData').style.display = hasContent ? 'block' : 'none';
+
+                // Update basic fields
+                document.getElementById('previewTitle').textContent = title || '제목을 입력하세요';
+                document.getElementById('previewClient').textContent = client || '-';
+                document.getElementById('previewCategory').textContent = category || '-';
+                document.getElementById('previewYear').textContent = year || '-';
+                document.getElementById('previewType').textContent = projectType || '-';
+                document.getElementById('previewDesc').textContent = description || '';
+
+                // Update Direction section
+                const hasDirection = directionMain || item1Text || item2Text || item3Text;
+                document.getElementById('previewDirection').style.display = hasDirection ? 'block' : 'none';
+
+                if (hasDirection) {
+                    // Main text with highlighted keyword
+                    let mainHtml = directionMain;
+                    if (directionKeyword && directionMain.includes(directionKeyword)) {
+                        mainHtml = directionMain.replace(directionKeyword, `<strong>${directionKeyword}</strong>`);
+                    }
+                    document.getElementById('previewDirectionMain').innerHTML = mainHtml;
+
+                    // Build items
+                    let itemsHtml = '';
+                    let itemNum = 1;
+                    if (item1Text) {
+                        const keyHtml = item1Key ? `<strong>${item1Key}</strong> ` : '';
+                        itemsHtml += `<div class="preview-direction-item"><span class="num">${itemNum}</span><span>${keyHtml}${item1Text}</span></div>`;
+                        itemNum++;
+                    }
+                    if (item2Text) {
+                        const keyHtml = item2Key ? `<strong>${item2Key}</strong> ` : '';
+                        itemsHtml += `<div class="preview-direction-item"><span class="num">${itemNum}</span><span>${keyHtml}${item2Text}</span></div>`;
+                        itemNum++;
+                    }
+                    if (item3Text) {
+                        const keyHtml = item3Key ? `<strong>${item3Key}</strong> ` : '';
+                        itemsHtml += `<div class="preview-direction-item"><span class="num">${itemNum}</span><span>${keyHtml}${item3Text}</span></div>`;
+                    }
+                    document.getElementById('previewDirectionItems').innerHTML = itemsHtml;
+                }
+
+                // Update Metrics section
+                const metricsContainer = document.getElementById('metricsContainer');
+                const metricRows = metricsContainer ? metricsContainer.querySelectorAll('.metric-row') : [];
+                let metricsHtml = '';
+                let hasMetrics = false;
+
+                metricRows.forEach(row => {
+                    const typeSelect = row.querySelector('.metric-type');
+                    const valueInput = row.querySelector('.metric-value');
+                    if (typeSelect && valueInput) {
+                        const type = typeSelect.value;
+                        const value = valueInput.value.trim();
+                        if (type && value) {
+                            hasMetrics = true;
+                            metricsHtml += `<div class="preview-metric-item">
+                                <span class="preview-metric-type">${type}</span>
+                                <span class="preview-metric-value">${value}</span>
+                            </div>`;
+                        }
+                    }
+                });
+
+                document.getElementById('previewMetrics').style.display = hasMetrics ? 'block' : 'none';
+                document.getElementById('previewMetricsList').innerHTML = metricsHtml;
+            }
+
+            // Thumbnail preview update function
+            function updateThumbnailPreview(file) {
+                const previewImg = document.getElementById('previewImage');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        previewImg.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.style.display = 'none';
+                }
+            }
+
+            // Listen for thumbnail changes
+            const thumbnailInput = document.getElementById('thumbnailImage');
+            if (thumbnailInput) {
+                thumbnailInput.addEventListener('change', function (e) {
+                    if (e.target.files && e.target.files[0]) {
+                        updateThumbnailPreview(e.target.files[0]);
+                    }
+                });
+            }
+
+            // Listen for metric changes (using event delegation)
+            const metricsContainer = document.getElementById('metricsContainer');
+            if (metricsContainer) {
+                metricsContainer.addEventListener('input', updatePreview);
+                metricsContainer.addEventListener('change', updatePreview);
+            }
+
+            // Attach event listeners to all input fields
+            const fieldsToWatch = [
+                'title', 'client', 'category', 'year', 'projectType', 'description1',
+                'directionMain', 'directionKeyword',
+                'directionItem1Key', 'directionItem1Text',
+                'directionItem2Key', 'directionItem2Text',
+                'directionItem3Key', 'directionItem3Text'
+            ];
+
+            fieldsToWatch.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', updatePreview);
+                    field.addEventListener('change', updatePreview);
+                }
+            });
+
+            // Initial update
+            updatePreview();
         });
 
         // Metric management functions
@@ -981,14 +1443,62 @@
                     }
                 }
 
+                // Build directions array (if any direction fields are filled)
+                const directionMain = document.getElementById('directionMain').value.trim();
+                const directionKeyword = document.getElementById('directionKeyword').value.trim();
+
+                // Get item key/text pairs
+                const item1Key = document.getElementById('directionItem1Key').value.trim();
+                const item1Text = document.getElementById('directionItem1Text').value.trim();
+                const item2Key = document.getElementById('directionItem2Key').value.trim();
+                const item2Text = document.getElementById('directionItem2Text').value.trim();
+                const item3Key = document.getElementById('directionItem3Key').value.trim();
+                const item3Text = document.getElementById('directionItem3Text').value.trim();
+
+                // Helper function to wrap keyword with strong tag
+                function wrapKeyword(text, keyword) {
+                    if (!keyword || !text) return text;
+                    return text.replace(keyword, `<strong>${keyword}</strong>`);
+                }
+
+                // Build main text with highlighted keyword
+                let mainText = directionMain;
+                if (directionKeyword && directionMain) {
+                    mainText = wrapKeyword(directionMain, directionKeyword);
+                }
+
+                // Build items array with highlighted keywords
+                const items = [];
+                if (item1Text) {
+                    items.push(item1Key ? `<strong>${item1Key}</strong> ${item1Text}` : item1Text);
+                }
+                if (item2Text) {
+                    items.push(item2Key ? `<strong>${item2Key}</strong> ${item2Text}` : item2Text);
+                }
+                if (item3Text) {
+                    items.push(item3Key ? `<strong>${item3Key}</strong> ${item3Text}` : item3Text);
+                }
+
+                let directions = [];
+                if (directionMain || items.length > 0) {
+                    directions = [{
+                        label: 'DIRECTION',
+                        main: mainText,
+                        items: items
+                    }];
+                }
+
                 // Create portfolio document
                 const portfolioData = {
                     title: document.getElementById('title').value,
                     category: document.getElementById('category').value,
                     client: document.getElementById('client').value,
                     advertiser: document.getElementById('client').value,
+                    projectType: document.getElementById('projectType').value,
+                    year: document.getElementById('year').value,
                     subtitle: document.getElementById('subtitle').value,
                     description: description,
+                    directions: directions,
                     metrics: metrics,
                     period: period,
                     author: document.getElementById('author').value,

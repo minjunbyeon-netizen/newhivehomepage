@@ -80,9 +80,9 @@ $base_path = '/01_work/hivemedia_homepage';
 
         body,
         .Wrap {
-            background: #ffffff !important;
+            background: #0a0a0a !important;
             font-family: 'Space Mono', 'Courier New', monospace;
-            color: #1a1a1a;
+            color: #fff;
             line-height: 1.6;
         }
 
@@ -103,156 +103,96 @@ $base_path = '/01_work/hivemedia_homepage';
             background: #fff !important;
         }
 
-        /* Main Layout - 20:80 Split */
+        /* Main Layout - Left Nav + Masonry Grid */
         .portfolio-main {
             display: flex;
             min-height: 100vh;
             padding-top: 80px;
+            background: #0a0a0a;
         }
 
-        /* Left Panel - 20% */
+        /* Left Panel - Vertical Navigation */
         .left-panel {
-            width: 20%;
-            padding: 40px 30px 40px 40px;
-            position: sticky;
+            width: 400px;
+            min-width: 400px;
+            padding: 40px 30px;
+            position: fixed;
+            left: 0;
             top: 80px;
             height: calc(100vh - 80px);
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 100;
         }
 
-        .company-name {
-            font-size: 48px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .company-name-sub {
+        /* Large Typography Navigation - Impact Style */
+        .nav-category {
             font-size: 72px;
-            font-weight: 700;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -4px;
-            line-height: 0.9;
-            margin-bottom: 40px;
-        }
-
-        .profile-image {
-            width: 80px;
-            height: 80px;
-            background: #ddd;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%);
-        }
-
-        .intro-text {
-            font-family: NotoSansKR-Light;
-            font-size: 1.6rem;
-            line-height: 1.8;
-            color: var(--text-color);
-            margin-bottom: 20px;
-            max-width: 320px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 12px 24px;
-            border: 1px solid #1a1a1a;
-            background: transparent;
-            color: #1a1a1a;
-            font-family: NotoSansKR-Light, 'Noto Sans KR', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            text-decoration: none;
+            line-height: 0.95;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 30px;
+            transition: all 0.3s ease;
+            margin-bottom: 0;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+            font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+            white-space: nowrap;
         }
 
-        .cta-button:hover {
-            background: #1a1a1a;
-            color: #f5f5f0;
+        .nav-category:hover {
+            -webkit-text-stroke-color: #fff;
+            transform: translateX(5px);
         }
 
+        .nav-category.active {
+            font-size: 120px;
+            color: #fff;
+            -webkit-text-stroke: none;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            letter-spacing: -6px;
+        }
+
+        /* Hide old elements */
+        .company-name,
+        .company-name-sub,
+        .profile-image,
+        .intro-text,
+        .cta-button,
         .left-footer {
-            position: relative;
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid #ddd;
-        }
-
-        .left-footer a {
-            display: block;
-            font-size: 11px;
-            color: #1a1a1a;
-            text-decoration: none;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .left-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .left-footer .write-link {
-            color: #bbb !important;
-            font-size: 10px;
-        }
-
-        .left-footer .write-link:hover {
-            color: #888 !important;
+            display: none;
         }
 
         .copyright {
-            margin-top: 20px;
-            font-size: 10px;
-            color: #888;
+            display: none;
         }
 
-        /* Right Panel - 80% */
+        /* Right Panel - Masonry Grid */
         .right-panel {
-            width: 80%;
-            padding: 60px 60px 60px 40px;
-            border-left: 1px solid #ddd;
+            width: calc(100% - 400px);
+            margin-left: 400px;
+            padding: 20px;
+            background: #0a0a0a;
+            border-left: none;
         }
 
-        /* Category Tabs */
+        /* Hide category tabs */
         .category-tabs {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-            flex-wrap: wrap;
+            display: none;
         }
 
         .category-tab {
-            font-family: NotoSansKR-Light, 'Noto Sans KR', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #999;
-            cursor: pointer;
-            transition: all 0.2s;
-            padding: 5px 0;
+            display: none;
         }
 
         .category-tab:hover {
-            color: #1a1a1a;
+            color: #fff;
         }
 
         .category-tab.active {
-            color: #1a1a1a;
+            color: #fff;
             font-weight: 700;
         }
 
@@ -376,92 +316,144 @@ $base_path = '/01_work/hivemedia_homepage';
                 flex-direction: column;
             }
 
-            .left-panel,
-            .right-panel {
+            .left-panel {
                 width: 100%;
                 position: relative;
                 top: 0;
                 height: auto;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 20px;
+                gap: 20px;
             }
 
-            .left-panel {
-                padding: 40px 30px;
+            .nav-category {
+                font-size: 32px;
             }
 
             .right-panel {
-                padding: 40px 30px;
-                border-left: none;
-                border-top: 1px solid #ddd;
-            }
-
-            .left-footer {
-                position: relative;
-                bottom: 0;
-                left: 0;
-                margin-top: 40px;
-            }
-
-            .company-name {
-                font-size: 36px;
-            }
-
-            .company-name-sub {
-                font-size: 48px;
+                width: 100%;
+                margin-left: 0;
+                padding: 10px;
             }
         }
 
         @media (max-width: 768px) {
-            .two-col-list {
-                grid-template-columns: 1fr;
+            .left-panel {
+                padding: 15px;
+                gap: 15px;
             }
 
-            .category-tabs {
-                gap: 10px;
+            .nav-category {
+                font-size: 24px;
             }
 
-            .category-tab {
-                font-size: 10px;
+            .bento-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 6px;
+            }
+
+            .bento-card:nth-child(1) {
+                grid-row: span 25;
+            }
+
+            .bento-card:nth-child(2) {
+                grid-row: span 18;
+            }
+
+            .bento-card:nth-child(3) {
+                grid-row: span 22;
+            }
+
+            .bento-card:nth-child(4) {
+                grid-row: span 16;
+            }
+
+            .bento-card:nth-child(5) {
+                grid-row: span 24;
+            }
+
+            .bento-card:nth-child(6) {
+                grid-row: span 20;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel {
+                flex-wrap: wrap;
+            }
+
+            .nav-category {
+                font-size: 20px;
+            }
+
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
             }
         }
 
         /* ========================================
-           3D Card Style Bento Grid
+           Masonry Grid Layout (Reference Style)
         ======================================== */
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto;
-            gap: 15px;
-            /* Slightly tighter gap to fit more */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-auto-rows: 10px;
+            gap: 8px;
             margin-bottom: 40px;
         }
 
         .bento-card {
             position: relative;
-            border-radius: 24px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow:
-                0 4px 20px rgba(0, 0, 0, 0.06),
-                0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-            min-height: 192.5px;
-            /* Half of large card minus gap */
-            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            border-radius: 0;
+            background: #1a1a1a;
         }
 
         .bento-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow:
-                0 30px 60px rgba(0, 0, 0, 0.12),
-                0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+            transform: scale(1.02);
+            z-index: 10;
         }
 
+        /* Variable heights for masonry effect */
         .bento-card--large {
-            grid-column: span 1;
-            grid-row: span 2;
-            min-height: 400px;
-            /* Slightly reduced height */
+            grid-row: span 40;
+        }
+
+        .bento-card--medium {
+            grid-row: span 25;
+        }
+
+        .bento-card--small {
+            grid-row: span 18;
+        }
+
+        /* Default sizing */
+        .bento-card:nth-child(1) {
+            grid-row: span 35;
+        }
+
+        .bento-card:nth-child(2) {
+            grid-row: span 22;
+        }
+
+        .bento-card:nth-child(3) {
+            grid-row: span 28;
+        }
+
+        .bento-card:nth-child(4) {
+            grid-row: span 20;
+        }
+
+        .bento-card:nth-child(5) {
+            grid-row: span 32;
+        }
+
+        .bento-card:nth-child(6) {
+            grid-row: span 25;
         }
 
         .bento-card__bg {
@@ -469,89 +461,57 @@ $base_path = '/01_work/hivemedia_homepage';
             inset: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s, transform 0.5s;
         }
 
         .bento-card:hover .bento-card__bg {
-            opacity: 0.15;
-            transform: scale(1.1);
+            opacity: 0.9;
+            transform: scale(1.05);
         }
 
         .bento-card__content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* 3D Icon Badge */
-        .bento-card__badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            color: inherit;
-        }
-
-        .bento-card__badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: currentColor;
-        }
-
-        .bento-card__icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            position: relative;
-            transform-style: preserve-3d;
-            perspective: 500px;
-        }
-
-        /* 3D Icon Floating Effect */
-        .bento-card__icon::after {
-            content: '';
             position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: inherit;
-            filter: blur(20px);
-            opacity: 0.5;
-            transform: translateY(10px) scale(0.9);
-            z-index: -1;
+            z-index: 2;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .bento-card:hover .bento-card__content {
+            opacity: 1;
+        }
+
+        /* Hide badge and icon for image-based design */
+        .bento-card__badge,
+        .bento-card__icon {
+            display: none;
+        }
+
+        /* 3D Icon Floating Effect - Hidden */
+        .bento-card__icon::after {
+            display: none;
         }
 
         .bento-card__title {
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            color: #1a1a1a;
-            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
             line-height: 1.3;
         }
 
         .bento-card__subtitle {
-            font-size: 14px;
-            color: #666;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
             font-family: 'Noto Sans KR', sans-serif;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         .bento-card__count {
@@ -806,6 +766,10 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         /* Hide bento grid when category is selected */
+        .bento-grid {
+            display: none;
+        }
+
         .bento-grid.hidden {
             display: none;
         }
@@ -815,23 +779,23 @@ $base_path = '/01_work/hivemedia_homepage';
         }
 
         /* ========================================
-           Clean Square Grid Styles
+           Clean Grid Styles - 9:16 Uniform Cards
         ======================================== */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
         }
 
         .project-card {
             position: relative;
-            border-radius: 12px;
+            border-radius: 0;
             overflow: hidden;
             cursor: pointer;
-            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            background: #1a1a1a;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-            aspect-ratio: 1 / 1;
+            box-shadow: none;
+            aspect-ratio: 9 / 16;
         }
 
         .project-card:hover {
@@ -1341,36 +1305,16 @@ $base_path = '/01_work/hivemedia_homepage';
         <div id="header-placeholder"></div>
 
         <main class="portfolio-main">
-            <!-- Left Panel - 40% -->
+            <!-- Left Panel - Vertical Navigation -->
             <div class="left-panel">
-                <h1 class="company-name">HIVE</h1>
-                <h1 class="company-name-sub">MEDIA</h1>
-
-                <p class="intro-text">
-                    10년간 쌓아온 신뢰와 결과물.
-                </p>
-
-                <p class="intro-text">
-                    하이브미디어는 부산을 기반으로
-                    다양한 기관과 기업의 브랜드 가치를
-                    높여왔습니다.
-                </p>
-
-                <p class="intro-text">
-                    강한 컨셉과 세련된 실행력으로
-                    프리미엄 결과물을 만들어갑니다.
-                </p>
-
-                <a href="<?php echo $base_path; ?>/contact.html" class="cta-button">문의하기</a>
-
-                <div class="left-footer">
-                    <a href="mailto:hivemedia@naver.com">EMAIL</a>
-                    <a href="https://blog.naver.com/hivemedia" target="_blank">BLOG</a>
-                    <a href="https://www.instagram.com/hivemedia_official" target="_blank">INSTAGRAM</a>
-                    <a href="https://www.youtube.com/@hivemedia" target="_blank">YOUTUBE</a>
-                    <?php /* <a href="./write.php" class="write-link">포트폴리오 등록</a> */ ?>
-                    <p class="copyright">© HIVE MEDIA 2025</p>
-                </div>
+                <div class="nav-category active" data-category="all">ALL</div>
+                <div class="nav-category" data-category="online_ad">ONLINE AD</div>
+                <div class="nav-category" data-category="sns">SNS</div>
+                <div class="nav-category" data-category="homepage">HOMEPAGE</div>
+                <div class="nav-category" data-category="eventpage">EVENTPAGE</div>
+                <div class="nav-category" data-category="video">VIDEO</div>
+                <div class="nav-category" data-category="print">PRINT</div>
+                <div class="nav-category" data-category="exhibition">EXHIBITION</div>
             </div>
 
             <!-- Right Panel - 60% -->
@@ -1483,9 +1427,8 @@ $base_path = '/01_work/hivemedia_homepage';
                     </div>
                 </div>
 
-                <!-- All Projects Grid (initially hidden) -->
-                <div class="section-block hidden" id="projectsSection">
-                    <span class="section-title">PROJECTS</span>
+                <!-- All Projects Grid (shown by default) -->
+                <div class="section-block" id="projectsSection">
                     <div class="project-grid" id="projectsList">
                         <!-- Firebase 승인된 포트폴리오가 여기에 동적으로 추가됩니다 -->
                     </div>
@@ -1501,6 +1444,7 @@ $base_path = '/01_work/hivemedia_homepage';
         // Category Tab & Bento Grid Filtering
         document.addEventListener('DOMContentLoaded', function () {
             const tabs = document.querySelectorAll('.category-tab');
+            const navCategories = document.querySelectorAll('.nav-category');
             const bentoGrid = document.getElementById('bentoGrid');
             const projectsSection = document.getElementById('projectsSection');
             const bentoCards = document.querySelectorAll('.bento-card');
@@ -1509,6 +1453,9 @@ $base_path = '/01_work/hivemedia_homepage';
             function showBentoGrid() {
                 bentoGrid.classList.remove('hidden');
                 projectsSection.classList.add('hidden');
+
+                // Show all bento cards
+                bentoCards.forEach(card => card.style.display = 'block');
             }
 
             // Show projects list, hide bento grid
@@ -1531,7 +1478,41 @@ $base_path = '/01_work/hivemedia_homepage';
                 });
             }
 
-            // Tab click handler
+            // Filter bento cards by category
+            function filterBentoCards(category) {
+                bentoCards.forEach(card => {
+                    const cardCategory = card.dataset.category;
+                    if (category === 'all' || cardCategory.includes(category)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+
+            // Left nav category click handler (new design)
+            navCategories.forEach(nav => {
+                nav.addEventListener('click', function () {
+                    navCategories.forEach(n => n.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+
+                    // Filter project cards (Firebase portfolios)
+                    const items = document.querySelectorAll('#projectsList .project-card');
+                    items.forEach(item => {
+                        const itemCategory = item.dataset.category;
+                        if (category === 'all' || itemCategory === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Tab click handler (hidden but kept for compatibility)
             tabs.forEach(tab => {
                 tab.addEventListener('click', function () {
                     tabs.forEach(t => t.classList.remove('active'));
