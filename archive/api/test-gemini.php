@@ -2,8 +2,8 @@
 // 간단한 Gemini API 테스트
 header('Content-Type: application/json; charset=utf-8');
 
-$api_key = "AIzaSyAokIXbpair4BoupSzozipNsdgn0PYXeV4";
-$url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $api_key;
+$api_key = "AIzaSyANkbjijNAgygfxT2UNCu2t4ugIxvH0i4s";
+$url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . $api_key;
 
 $data = [
     "contents" => [["parts" => [["text" => "안녕하세요라고 말해주세요"]]]]

@@ -53,7 +53,7 @@
         justify-content: center;
         padding: 6px 14px;
         background: #fff;
-        color: #0084ff;
+        color: #111;
         font-size: 12px;
         font-weight: 600;
         font-family: 'Noto Sans KR', sans-serif;
@@ -101,109 +101,421 @@
         }
     }
 
-    /* 네비게이션 서브타이틀 (한글) 스타일 */
+    /* 네비게이션 서브타이틀 (한글) 스타일 - 숨김 처리 */
     .gnb .nav-sub {
-        display: inline;
-        font-size: 0.3em;
-        font-weight: 300;
-        opacity: 0.5;
-        margin-left: 8px;
-        letter-spacing: 0;
+        display: none;
     }
 
-    .gnb .nav-sub::before {
-        content: "/ ";
+    /* ===== 새로운 풀스크린 네비게이션 레이아웃 ===== */
+    .nav-wrap .inner {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        max-width: 1600px !important;
+        margin: 0 auto !important;
+        padding: 120px 80px !important;
+        height: 100vh !important;
+    }
+
+    /* 왼쪽: 대메뉴 (큰 글자) */
+    .nav-wrap .gnb {
+        order: 1 !important;
+        width: 60% !important;
+    }
+
+    .nav-wrap .gnb .inn {
+        min-width: auto !important;
+    }
+
+    .nav-wrap .gnb>.inn>ul {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+    }
+
+    .nav-wrap .gnb>.inn>ul>li {
+        margin-bottom: 0 !important;
+    }
+
+    .nav-wrap .gnb>.inn>ul>li>a {
+        font-size: clamp(48px, 8vw, 90px) !important;
+        font-family: 'Poppins', Poppins-Bold, sans-serif !important;
+        font-weight: 800 !important;
+        color: rgba(255, 255, 255, 0.2) !important;
+        line-height: 1.1 !important;
+        letter-spacing: -2px !important;
+        transition: color 0.3s ease, transform 0.3s ease !important;
+        display: inline-block !important;
+    }
+
+    .nav-wrap .gnb>.inn>ul>li>a:hover {
+        color: #fff !important;
+        transform: translateX(10px) !important;
+    }
+
+    /* depth2 서브메뉴 - 숨김 (오른쪽에 별도 표시) */
+    .nav-wrap .gnb .depth2 {
+        display: none !important;
+    }
+
+    /* 오른쪽: 회사정보 + 서브메뉴 */
+    .nav-wrap .company-info {
+        order: 2 !important;
+        width: 35% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        text-align: right !important;
+    }
+
+    .nav-wrap .company-info .cpName {
+        margin-bottom: 40px !important;
+    }
+
+    .nav-wrap .company-info .cpName h2 {
+        font-size: 2rem !important;
+        color: #fff !important;
+    }
+
+    .nav-wrap .company-info .cpName p {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    .nav-wrap .company-info ul li {
+        margin-bottom: 8px !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+
+    .nav-wrap .company-info .copy {
+        margin-top: 30px !important;
+    }
+
+    /* 닫기 버튼 스타일 */
+    .nav-wrap .btn-nav-close {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 100;
+    }
+
+    /* 모바일 반응형 */
+    @media (max-width: 991px) {
+        .nav-wrap .inner {
+            flex-direction: column !important;
+            padding: 100px 30px !important;
+            overflow-y: auto !important;
+        }
+
+        .nav-wrap .gnb {
+            width: 100% !important;
+            order: 1 !important;
+        }
+
+        .nav-wrap .gnb>.inn>ul>li>a {
+            font-size: clamp(36px, 10vw, 60px) !important;
+        }
+
+        .nav-wrap .company-info {
+            width: 100% !important;
+            order: 2 !important;
+            align-items: flex-start !important;
+            text-align: left !important;
+            margin-top: 40px !important;
+        }
+
+        .nav-wrap .company-info ul li {
+            justify-content: flex-start !important;
+        }
     }
 </style>
 
 <aside class="nav-wrap">
-    <div class="inner">
-        <div class="company-info">
-            <div class="inn">
-                <div class="cpName">
-                    <h2>HIVEMEDIA</h2>
-                    <p>하이브미디어</p>
-                </div>
-                <ul>
-                    <li>
-                        <span>Tel.</span>
-                        <p>070.7728.6334</p>
-                    </li>
-                    <li>
-                        <span>Fax.</span>
-                        <p>070.4850.8223</p>
-                    </li>
-                    <li>
-                        <span>E-mail.</span>
-                        <p>hive_ad@hivemedia.co.kr</p>
-                    </li>
-                </ul>
-
-                <div class="sns-icon" style="display: flex; gap: 10px; flex-direction: row; padding-top: 15px;">
-                    <div class="iblog">
-                        <a href="https://blog.naver.com/hivemedia_official" target="_blank">
-                            <img src="./assets/img/iblog.png">
-                        </a>
-                    </div>
-                    <div class="iinsta">
-                        <a href="https://www.instagram.com/hivemedia_official" target="_blank">
-                            <img src="./assets/img/iinsta.png">
-                        </a>
-                    </div>
-                    <div class="iyoutube">
-                        <a href="https://www.youtube.com/@%ED%95%98%EC%9D%B4%EB%B8%8C%EB%AF%B8%EB%94%94%EC%96%B4"
-                            target="_blank">
-                            <img src="./assets/img/iyoutube.png">
-                        </a>
-                    </div>
-                </div>
-
-                <p class="copy" style="padding-top: 15px;">Copyright © 2023 HIVEMEDIA. All rights reserved</p>
-
-            </div>
-        </div>
-        <nav class="gnb">
+    <div class="nav-main-content">
+        <!-- 왼쪽: 대메뉴 -->
+        <nav class="gnb nav-left">
             <div class="inn">
                 <ul>
-                    <li>
-                        <a href="./">HOME<span class="nav-sub">메인</span></a>
-                    </li>
-                    <li>
-                        <a href="./about.html">ABOUT<span class="nav-sub">회사소개</span></a>
-                    </li>
-                    <li>
-                        <a href="./service/marketing.html">SERVICES<span class="nav-sub">서비스</span></a>
-                        <ul class="depth2">
-                            <li><a href="./service/marketing.html">온라인 마케팅</a></li>
-                            <li><a href="./service/agency.html">웹에이전시</a></li>
-                            <li><a href="./service/video.html">홍보영상</a></li>
-                            <li><a href="./service/exhibition.html">전시아트</a></li>
-                            <li><a href="./service/ad_strategy.html">광고전략연구소</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="./portfolio/portfolio.php">PORTFOLIO<span class="nav-sub">포트폴리오</span></a>
-                        <ul class="depth2">
-                            <li><a href="./portfolio/portfolio.php#online_ad">온라인광고</a></li>
-                            <li><a href="./portfolio/portfolio.php#sns">SNS</a></li>
-                            <li><a href="./portfolio/portfolio.php#homepage">홈페이지</a></li>
-                            <li><a href="./portfolio/portfolio.php#eventpage">이벤트페이지</a></li>
-                            <li><a href="./portfolio/portfolio.php#video">영상제작</a></li>
-                            <li><a href="./portfolio/portfolio.php#print">인쇄물</a></li>
-                            <li><a href="./portfolio/portfolio.php#exhibition">전시아트</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="./archive/archive.php">ARCHIVE<span class="nav-sub">아카이브</span></a>
-                    </li>
-                    <li>
-                        <a href="./contact.html">CONTACT<span class="nav-sub">문의하기</span></a>
-                    </li>
+                    <li><a href="./" data-menu="home">HOME</a></li>
+                    <li><a href="./about.html" data-menu="about">ABOUT</a></li>
+                    <li><a href="./service/marketing.html" data-menu="services">SERVICES</a></li>
+                    <li><a href="./portfolio/portfolio.php" data-menu="portfolio">PORTFOLIO</a></li>
+                    <li><a href="./archive/archive.php" data-menu="archive">ARCHIVE</a></li>
+                    <li><a href="./contact.html" data-menu="contact">CONTACT</a></li>
                 </ul>
             </div>
         </nav>
+
+        <!-- 오른쪽: 서브메뉴 -->
+        <div class="nav-right">
+            <div class="nav-submenu-group" data-for="services">
+                <h4>SERVICES</h4>
+                <ul>
+                    <li><a href="./service/marketing.html">온라인 마케팅</a></li>
+                    <li><a href="./service/agency.html">웹에이전시</a></li>
+                    <li><a href="./service/video.html">홍보영상</a></li>
+                    <li><a href="./service/exhibition.html">전시아트</a></li>
+                    <li><a href="./service/ad_strategy.html">광고전략연구소</a></li>
+                </ul>
+            </div>
+            <div class="nav-submenu-group" data-for="portfolio">
+                <h4>PORTFOLIO</h4>
+                <ul>
+                    <li><a href="./portfolio/portfolio.php#online_ad">온라인광고</a></li>
+                    <li><a href="./portfolio/portfolio.php#sns">SNS</a></li>
+                    <li><a href="./portfolio/portfolio.php#homepage">홈페이지</a></li>
+                    <li><a href="./portfolio/portfolio.php#eventpage">이벤트페이지</a></li>
+                    <li><a href="./portfolio/portfolio.php#video">영상제작</a></li>
+                    <li><a href="./portfolio/portfolio.php#print">인쇄물</a></li>
+                    <li><a href="./portfolio/portfolio.php#exhibition">전시아트</a></li>
+                </ul>
+            </div>
+            <div class="nav-submenu-group" data-for="archive">
+                <h4>ARCHIVE</h4>
+                <ul>
+                    <li><a href="./archive/archive.php?cat=trend">TREND</a></li>
+                    <li><a href="./archive/archive.php?cat=insight">INSIGHT</a></li>
+                    <li><a href="./archive/archive.php?cat=case">CASE STUDY</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단: 회사정보 푸터 -->
+    <div class="nav-footer">
+        <div class="nav-footer-left">
+            <h2>HIVEMEDIA</h2>
+            <p>하이브미디어</p>
+        </div>
+        <div class="nav-footer-center">
+            <span>Tel. 070.7728.6334</span>
+            <span>Fax. 070.4850.8223</span>
+            <span>E-mail. hive_ad@hivemedia.co.kr</span>
+        </div>
+        <div class="nav-footer-right">
+            <div class="sns-icon">
+                <a href="https://blog.naver.com/hivemedia_official" target="_blank"><img src="./assets/img/iblog.png"
+                        alt="Blog"></a>
+                <a href="https://www.instagram.com/hivemedia_official" target="_blank"><img
+                        src="./assets/img/iinsta.png" alt="Instagram"></a>
+                <a href="https://www.youtube.com/@%ED%95%98%EC%9D%B4%EB%B8%8C%EB%AF%B8%EB%94%94%EC%96%B4"
+                    target="_blank"><img src="./assets/img/iyoutube.png" alt="YouTube"></a>
+            </div>
+            <p class="copy">© 2025 HIVEMEDIA. All rights reserved</p>
+        </div>
     </div>
 </aside>
+
+<style>
+    /* ===== 새로운 네비게이션 레이아웃 ===== */
+    .nav-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+
+    .nav-main-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 1600px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 100px 80px 40px;
+        flex: 1;
+    }
+
+    /* 대메뉴 → 오른쪽으로 이동 */
+    .nav-left {
+        width: 55%;
+        order: 2;
+        text-align: right;
+    }
+
+    .nav-left .inn>ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        align-items: flex-end;
+    }
+
+    .nav-left .inn>ul>li>a {
+        font-size: clamp(42px, 7vw, 80px) !important;
+        font-family: 'Poppins', Poppins-Bold, sans-serif !important;
+        font-weight: 800 !important;
+        color: rgba(255, 255, 255, 0.15) !important;
+        line-height: 1.15 !important;
+        letter-spacing: -2px !important;
+        transition: all 0.3s ease !important;
+        display: inline-block !important;
+    }
+
+    .nav-left .inn>ul>li>a:hover {
+        color: #fff !important;
+        transform: translateX(-15px) !important;
+    }
+
+    /* 서브메뉴 → 왼쪽으로 이동 */
+    .nav-right {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-top: 20px;
+        order: 1;
+    }
+
+    .nav-submenu-group {
+        padding-bottom: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-submenu-group:last-child {
+        border-bottom: none;
+    }
+
+    .nav-submenu-group h4 {
+        display: none;
+    }
+
+    .nav-submenu-group ul {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .nav-submenu-group ul li a {
+        font-size: 15px !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+        transition: color 0.2s ease !important;
+    }
+
+    .nav-submenu-group ul li a:hover {
+        color: #fff !important;
+    }
+
+    /* 하단 푸터 */
+    .nav-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        max-width: 1600px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 30px 80px 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-footer-left h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .nav-footer-left p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .nav-footer-center {
+        display: flex;
+        gap: 30px;
+    }
+
+    .nav-footer-center span {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .nav-footer-right {
+        text-align: right;
+    }
+
+    .nav-footer-right .sns-icon {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-bottom: 8px;
+    }
+
+    .nav-footer-right .sns-icon a {
+        display: inline-block;
+    }
+
+    .nav-footer-right .sns-icon img {
+        width: 24px;
+        height: 24px;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+
+    .nav-footer-right .sns-icon img:hover {
+        opacity: 1;
+    }
+
+    .nav-footer-right .copy {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* 기존 .inner 숨기기 */
+    .nav-wrap>.inner {
+        display: none !important;
+    }
+
+    /* 모바일 반응형 */
+    @media (max-width: 991px) {
+        .nav-main-content {
+            flex-direction: column;
+            padding: 80px 30px 30px;
+        }
+
+        .nav-left,
+        .nav-right {
+            width: 100%;
+        }
+
+        .nav-left .inn>ul>li>a {
+            font-size: clamp(32px, 10vw, 50px) !important;
+        }
+
+        .nav-right {
+            margin-top: 30px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-submenu-group {
+            width: calc(50% - 10px);
+        }
+
+        .nav-footer {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px 30px 30px;
+        }
+
+        .nav-footer-center {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-footer-right {
+            text-align: left;
+        }
+
+        .nav-footer-right .sns-icon {
+            justify-content: flex-start;
+        }
+    }
+</style>
 
 <script>
     $('.ready').click(function () {

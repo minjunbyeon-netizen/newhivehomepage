@@ -25,7 +25,7 @@ $category = $input['category'];
 $ratio = $input['ratio'] ?? 0;
 $issue = $input['issue'] ?? $keyword . ' 마케팅 전략';
 
-$api_key = "AIzaSyAokIXbpair4BoupSzozipNsdgn0PYXeV4";
+$api_key = "AIzaSyANkbjijNAgygfxT2UNCu2t4ugIxvH0i4s";
 
 $prompt = "당신은 20년 경력의 마케팅 전문 칼럼니스트입니다.
 
@@ -63,7 +63,7 @@ $prompt = "당신은 20년 경력의 마케팅 전문 칼럼니스트입니다.
 
 위 주제로 본문만 작성하세요. 제목이나 요약 없이 본문만 출력하세요.";
 
-$url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $api_key;
+$url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . $api_key;
 
 $data = [
     "contents" => [["parts" => [["text" => $prompt]]]],

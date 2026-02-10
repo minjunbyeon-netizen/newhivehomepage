@@ -550,7 +550,14 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
                     let contentHtml = (article.content || '')
                         .split(/\n\n+/)  // 빈 줄로 문단 구분
                         .filter(p => p.trim())
-                        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                        .map(p => {
+                            // [IMAGE: url] 마커를 이미지 태그로 변환
+                            if (/^\[IMAGE:\s*(https?:\/\/[^\]]+)\]$/.test(p.trim())) {
+                                const url = p.trim().match(/^\[IMAGE:\s*(https?:\/\/[^\]]+)\]$/)[1];
+                                return `<figure style="text-align:center; margin:32px 0;"><img src="${url}" alt="관련 이미지" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08);" loading="lazy" /></figure>`;
+                            }
+                            return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+                        })
                         .join('');
                     document.getElementById('articleContent').innerHTML = contentHtml;
 

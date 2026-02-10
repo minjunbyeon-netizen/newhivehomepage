@@ -991,7 +991,6 @@
 
         .archive-preview-section p {
             line-height: 1.6 !important;
-            color: #666;
             margin-bottom: 12px;
         }
     </style>
@@ -1631,226 +1630,278 @@
                     </div>
                 </section>
 
-                <!-- Section 3: 대표 수행사례 -->
-                <section class="gsap-section gsap-section-3">
-                    <div class="gsap-section-inner">
-                        <div class="gsap-section-text">
-                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">포트폴리오</span>
-                            <a href="./portfolio/portfolio.php"
-                                style="text-decoration: none; color: inherit; display: inline-block;">
-                                <h2>PORTFOLIO<br><span class="h2-sub">포트폴리오</span></h2>
+                <!-- Section 3: 대표 수행사례 (중앙정렬) -->
+                <section class="portfolio-fullscreen-section"
+                    style="min-height: 100vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 80px 40px;">
+                    <div class="portfolio-fullscreen-container" style="max-width: 1800px; width: 100%;">
+
+                        <!-- 상단 타이틀 영역 -->
+                        <div class="portfolio-header" style="text-align: center; margin-bottom: 60px;">
+                            <span
+                                style="display: inline-block; padding: 8px 20px; background: rgba(255,255,255,0.1); border-radius: 30px; font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 20px;">PORTFOLIO</span>
+                            <a href="./portfolio/portfolio.php" style="text-decoration: none; color: inherit;">
+                                <h2
+                                    style="font-size: clamp(48px, 6vw, 80px); font-weight: 700; color: #fff; margin: 0; letter-spacing: -2px;">
+                                    380건+ 프로젝트,<br><span style="color: #0084ff;">검증된 성과</span>
+                                </h2>
                             </a>
-                            <p>부산시, 해운대구청, 부산항만공사 등 <strong>380건 이상의 프로젝트</strong>를 성공적으로 수행했습니다.</p>
+                            <p
+                                style="font-size: 16px; color: #888; margin-top: 24px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                                부산시, 해운대구청, 부산항만공사 등 공공기관과 함께<br>
+                                10년간 축적한 마케팅 노하우를 바탕으로 성과를 만들어갑니다.
+                            </p>
+                        </div>
 
-                            <!-- GEO: 구체적 성과 수치 + 구조화 -->
-                            <div style="margin-top: 20px;">
-                                <p>RESULTS 대표 성과 (측정 가능한 KPI)</p>
-                                <ul style="padding-left: 20px; margin: 0;">
-                                    <li><strong>부산항만공사 SNS</strong> — 12개월 운영, 팔로워 <strong>+312%</strong> 증가, 평균 도달률
-                                        23.4%</li>
-                                    <li><strong>해운대구청 홍보영상</strong> — 제작 기간 3개월, 유튜브 조회수 <strong>52만회</strong> 달성</li>
-                                    <li><strong>부산시 온라인 캠페인</strong> — 6개월 집행, CTR <strong>4.2%</strong> (업계 평균 대비 +68%)
-                                    </li>
-                                </ul>
+                        <!-- 3컬럼 성과 카드 -->
+                        <div class="portfolio-three-columns"
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center;">
+
+                            <!-- Column 1: 부산항만공사 SNS -->
+                            <div class="portfolio-column"
+                                style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                <div class="portfolio-icon"
+                                    style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                                        stroke-width="1.5">
+                                        <path
+                                            d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
+                                        <path d="M12 18h.01" />
+                                    </svg>
+                                </div>
+                                <h3 style="font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px;">부산항만공사
+                                    SNS</h3>
+                                <p style="font-size: 36px; font-weight: 700; color: #0084ff; margin-bottom: 12px;">+312%
+                                </p>
+                                <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                    12개월 운영<br>
+                                    팔로워 증가율<br>
+                                    평균 도달률 23.4%
+                                </p>
                             </div>
 
-                            <!-- GEO: Q&A 형식 -->
-                            <div
-                                style="margin-top: 24px; padding: 16px; background: rgba(0,132,255,0.05); border-radius: 8px;">
-                                <p><strong>공공기관 마케팅은 일반 기업과 무엇이 다른가요?</strong></p>
-                                <li>공공기관 마케팅은 예산 집행의 투명성, 정량적 성과 증빙, 내부 결재 프로세스 대응이 필수입니다. 하이브미디어는 이 세 가지를 모두 충족하는
-                                    체계화된 보고 시스템을 운영합니다.</li>
+                            <!-- Column 2: 해운대구청 홍보영상 -->
+                            <div class="portfolio-column"
+                                style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                <div class="portfolio-icon"
+                                    style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                                        stroke-width="1.5">
+                                        <rect x="2" y="4" width="20" height="14" rx="2" />
+                                        <polygon points="10,9 16,12 10,15" fill="white" />
+                                    </svg>
+                                </div>
+                                <h3 style="font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px;">해운대구청
+                                    홍보영상</h3>
+                                <p style="font-size: 36px; font-weight: 700; color: #0084ff; margin-bottom: 12px;">52만회
+                                </p>
+                                <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                    제작 기간 3개월<br>
+                                    유튜브 조회수<br>
+                                    바이럴 확산 성과
+                                </p>
                             </div>
+
+                            <!-- Column 3: 부산시 온라인 캠페인 -->
+                            <div class="portfolio-column"
+                                style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                <div class="portfolio-icon"
+                                    style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                                        stroke-width="1.5">
+                                        <path d="M18 20V10M12 20V4M6 20v-6" />
+                                    </svg>
+                                </div>
+                                <h3 style="font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px;">부산시 온라인
+                                    캠페인</h3>
+                                <p style="font-size: 36px; font-weight: 700; color: #0084ff; margin-bottom: 12px;">CTR
+                                    4.2%</p>
+                                <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                    6개월 집행<br>
+                                    업계 평균 대비<br>
+                                    +68% 성과
+                                </p>
+                            </div>
+
                         </div>
-                        <div class="gsap-section-image">
-                            <video autoplay muted loop playsinline
-                                style="border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
-                                <source src="./assets/img/viedo/1.mp4" type="video/mp4">
-                            </video>
+
+                        <!-- 더보기 버튼 -->
+                        <div style="text-align: center; margin-top: 48px;">
+                            <a href="./portfolio/portfolio.php"
+                                style="display: inline-block; padding: 16px 48px; background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 1px; transition: all 0.3s ease;">
+                                전체 포트폴리오 보기 →
+                            </a>
                         </div>
+
+                        <!-- 호버 효과 스타일 -->
+                        <style>
+                            .portfolio-column:hover {
+                                background: rgba(255, 255, 255, 0.06) !important;
+                                transform: translateY(-8px);
+                                border-color: rgba(0, 132, 255, 0.3) !important;
+                            }
+
+                            .portfolio-fullscreen-section a:hover {
+                                background: rgba(255, 255, 255, 0.1) !important;
+                                border-color: #0084ff !important;
+                            }
+
+                            @media (max-width: 991px) {
+                                .portfolio-three-columns {
+                                    grid-template-columns: repeat(2, 1fr) !important;
+                                }
+                            }
+
+                            @media (max-width: 768px) {
+                                .portfolio-three-columns {
+                                    grid-template-columns: 1fr !important;
+                                }
+
+                                .portfolio-fullscreen-section {
+                                    padding: 60px 20px !important;
+                                }
+                            }
+                        </style>
+
                     </div>
                 </section>
 
 
 
-                <!-- Section 4: 아카이브 프리뷰 -->
-                <section class="gsap-section archive-preview-section" style="background: #f5f5f0; color: #111;">
-                    <div class="gsap-section-inner">
-                        <div class="gsap-section-text">
-                            <span class="section-label" style="background: rgba(0,0,0,0.08); color: #666;">아카이브</span>
-                            <a href="./archive/archive.php"
-                                style="text-decoration: none; color: inherit; display: inline-block;">
-                                <h2>ARCHIVE<br><span class="h2-sub">아카이브</span></h2>
+                <!-- Section 4: 아카이브 프리뷰 (중앙정렬) -->
+                <section class="archive-fullscreen-section"
+                    style="min-height: 100vh; background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 80px 40px;">
+                    <div class="archive-fullscreen-container" style="max-width: 1800px; width: 100%;">
+
+                        <!-- 상단 타이틀 영역 -->
+                        <div class="archive-header" style="text-align: center; margin-bottom: 60px;">
+                            <span
+                                style="display: inline-block; padding: 8px 20px; background: rgba(255,255,255,0.1); border-radius: 30px; font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 20px;">ARCHIVE</span>
+                            <a href="./archive/archive.php" style="text-decoration: none; color: inherit;">
+                                <h2
+                                    style="font-size: clamp(48px, 6vw, 80px); font-weight: 700; color: #fff; margin: 0; letter-spacing: -2px;">
+                                    마케팅 트렌드,<br><span style="color: #0084ff;">인사이트 아카이브</span>
+                                </h2>
                             </a>
-                            <p>최신 마케팅 트렌드와 업계 소식을 실시간으로 공유하며, 하이브미디어만의 차별화된 인사이트와 실제 프로젝트 성공 사례를 통해 귀사에 최적화된 비즈니스
-                                솔루션을 제안합니다.</p>
-                            <div class="archive-accordion" style="margin-top: 12px;">
-                                <!-- TREND 카테고리 -->
-                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
-                                    <button class="archive-cat-btn"
-                                        onclick="this.parentElement.classList.toggle('active')"
-                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
-                                        <span
-                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">TREND</span>
-                                        <span class="archive-cat-icon"
-                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
-                                    </button>
-                                    <div class="archive-cat-list" id="index-cat-trend"
-                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <div class="loading-placeholder"
-                                            style="padding: 10px 16px; font-size: 13px; color: #999;">
-                                            로딩 중...</div>
-                                    </div>
-                                </div>
-
-                                <!-- INSIGHT 카테고리 -->
-                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
-                                    <button class="archive-cat-btn"
-                                        onclick="this.parentElement.classList.toggle('active')"
-                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
-                                        <span
-                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">INSIGHT</span>
-                                        <span class="archive-cat-icon"
-                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
-                                    </button>
-                                    <div class="archive-cat-list" id="index-cat-insight"
-                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <div class="loading-placeholder"
-                                            style="padding: 10px 16px; font-size: 13px; color: #999;">
-                                            로딩 중...</div>
-                                    </div>
-                                </div>
-
-                                <!-- CASE STUDY 카테고리 -->
-                                <div class="archive-category" style="border-bottom: 1px solid #ddd;">
-                                    <button class="archive-cat-btn"
-                                        onclick="this.parentElement.classList.toggle('active')"
-                                        style="width: 100%; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left;">
-                                        <span
-                                            style="font-size: 13px; font-weight: 600; color: #333; letter-spacing: 1px;">CASE
-                                            STUDY</span>
-                                        <span class="archive-cat-icon"
-                                            style="font-size: 14px; color: #888; transition: transform 0.3s;">+</span>
-                                    </button>
-                                    <div class="archive-cat-list" id="index-cat-case"
-                                        style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                                        <div class="loading-placeholder"
-                                            style="padding: 10px 16px; font-size: 13px; color: #999;">
-                                            로딩 중...</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <style>
-                                .archive-category.active .archive-cat-list {
-                                    max-height: 200px !important;
-                                }
-
-                                .archive-category.active .archive-cat-icon {
-                                    transform: rotate(45deg);
-                                }
-
-                                .archive-cat-list a:hover {
-                                    color: #0084ff !important;
-                                    border-left-color: #0084ff !important;
-                                    padding-left: 20px !important;
-                                }
-                            </style>
+                            <p
+                                style="font-size: 16px; color: #888; margin-top: 24px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                                최신 마케팅 트렌드와 업계 소식을 실시간으로 공유하며,<br>
+                                하이브미디어만의 차별화된 인사이트를 제공합니다.
+                            </p>
                         </div>
-                        <!-- 아카이브 오른쪽 이미지 영역 -->
-                        <div class="gsap-section-image">
-                            <div style="position: relative;">
-                                <!-- 트렌드 카드 스타일 그리드 -->
-                                <div class="archive-stats-grid"
-                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                                    <div
-                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                                        <p
-                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                            GROWTH</p>
-                                        <p class="archive-stat-number" data-target="47" data-prefix="+" data-suffix="%"
-                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 12px; color: #333;">숏폼 콘텐츠 성장률<br>(2025 vs 2024)</p>
+
+                        <!-- 3컬럼 그리드 -->
+                        <div class="archive-three-columns"
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center;">
+
+                            <!-- Column 1: TREND -->
+                            <a href="./archive/archive.php?category=trend"
+                                style="text-decoration: none; color: inherit;">
+                                <div class="archive-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="archive-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                                            stroke-width="1.5">
+                                            <path d="M23 6l-9.5 9.5-5-5L1 18" />
+                                            <path d="M17 6h6v6" />
+                                        </svg>
                                     </div>
-                                    <div
-                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                                        <p
-                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                            SOCIAL</p>
-                                        <p class="archive-stat-number" data-target="82" data-suffix="%"
-                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 12px; color: #333;">공공기관 SNS<br>활용 증가율</p>
-                                    </div>
-                                    <div
-                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                                        <p
-                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                            VIDEO</p>
-                                        <p class="archive-stat-number" data-target="3.2" data-suffix="x"
-                                            data-decimal="true"
-                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 12px; color: #333;">영상 콘텐츠<br>전환율 상승</p>
-                                    </div>
-                                    <div
-                                        style="background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                                        <p
-                                            style="font-size: 12px; font-weight: 600; color: #888; margin-bottom: 8px; letter-spacing: 1px;">
-                                            TREND</p>
-                                        <p class="archive-stat-number" data-target="1" data-prefix="#"
-                                            style="font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px;">
-                                            0</p>
-                                        <p style="font-size: 12px; color: #333;">인스타그램 릴스<br>마케팅 채널 선호도</p>
-                                    </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        TREND</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        최신 마케팅 트렌드와<br>
+                                        업계 동향을 빠르게<br>
+                                        분석하여 전달합니다
+                                    </p>
                                 </div>
-                                <p style="font-size: 11px; color: #999; text-align: center; margin-top: 16px;">* 2025
-                                    디지털 마케팅 트렌드 리포트 기준</p>
+                            </a>
 
-                                <!-- 아카이브 숫자 카운트 애니메이션 -->
-                                <script>
-                                    (function () {
-                                        const counters = document.querySelectorAll('.archive-stat-number[data-target]');
-                                        let animated = false;
+                            <!-- Column 2: INSIGHT -->
+                            <a href="./archive/archive.php?category=insight"
+                                style="text-decoration: none; color: inherit;">
+                                <div class="archive-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="archive-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                                            stroke-width="1.5">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path d="M12 16v-4M12 8h.01" />
+                                        </svg>
+                                    </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        INSIGHT</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        하이브미디어만의<br>
+                                        차별화된 전략적<br>
+                                        인사이트를 공유합니다
+                                    </p>
+                                </div>
+                            </a>
 
-                                        function animateCounters() {
-                                            counters.forEach(counter => {
-                                                const target = parseFloat(counter.dataset.target);
-                                                const prefix = counter.dataset.prefix || '';
-                                                const suffix = counter.dataset.suffix || '';
-                                                const isDecimal = counter.dataset.decimal === 'true';
-                                                const duration = 2000;
-                                                const steps = duration / 16;
-                                                const step = target / steps;
-                                                let current = 0;
+                            <!-- Column 3: CASE STUDY -->
+                            <a href="./archive/archive.php?category=case"
+                                style="text-decoration: none; color: inherit;">
+                                <div class="archive-column"
+                                    style="padding: 40px 20px; background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease;">
+                                    <div class="archive-icon"
+                                        style="width: 100px; height: 100px; margin: 0 auto 24px; background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white"
+                                            stroke-width="1.5">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+                                        </svg>
+                                    </div>
+                                    <h3 style="font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;">
+                                        CASE STUDY</h3>
+                                    <p style="font-size: 14px; color: #888; line-height: 1.7;">
+                                        실제 프로젝트<br>
+                                        성공 사례를 통한<br>
+                                        솔루션을 제안합니다
+                                    </p>
+                                </div>
+                            </a>
 
-                                                const timer = setInterval(() => {
-                                                    current += step;
-                                                    if (current >= target) {
-                                                        current = target;
-                                                        clearInterval(timer);
-                                                    }
-                                                    counter.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-                                                }, 16);
-                                            });
-                                        }
-
-                                        const observer = new IntersectionObserver((entries) => {
-                                            entries.forEach(entry => {
-                                                if (entry.isIntersecting && !animated) {
-                                                    animated = true;
-                                                    animateCounters();
-                                                }
-                                            });
-                                        }, { threshold: 0.1 });
-
-                                        const statsGrid = document.querySelector('.archive-stats-grid');
-                                        if (statsGrid) observer.observe(statsGrid);
-                                    })();
-                                </script>
-                            </div>
                         </div>
+
+                        <!-- 더보기 버튼 -->
+                        <div style="text-align: center; margin-top: 48px;">
+                            <a href="./archive/archive.php"
+                                style="display: inline-block; padding: 16px 48px; background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 1px; transition: all 0.3s ease;">
+                                전체 아카이브 보기 →
+                            </a>
+                        </div>
+
+                        <!-- 호버 효과 스타일 -->
+                        <style>
+                            .archive-column:hover {
+                                background: rgba(255, 255, 255, 0.06) !important;
+                                transform: translateY(-8px);
+                                border-color: rgba(0, 132, 255, 0.3) !important;
+                            }
+
+                            .archive-fullscreen-section a:hover {
+                                background: rgba(255, 255, 255, 0.1) !important;
+                                border-color: #0084ff !important;
+                            }
+
+                            @media (max-width: 991px) {
+                                .archive-three-columns {
+                                    grid-template-columns: repeat(2, 1fr) !important;
+                                }
+                            }
+
+                            @media (max-width: 768px) {
+                                .archive-three-columns {
+                                    grid-template-columns: 1fr !important;
+                                }
+
+                                .archive-fullscreen-section {
+                                    padding: 60px 20px !important;
+                                }
+                            }
+                        </style>
+
                     </div>
                 </section>
 
@@ -1934,41 +1985,7 @@
                                         상담 신청</a>
                                 </div>
 
-                                <!-- 연락처 정보 -->
-                                <div style="background: #f8f8f8; padding: 20px 24px; border-radius: 12px;">
-                                    <p
-                                        style="font-size: 12px; color: #888; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">
-                                        DIRECT CONTACT</p>
-                                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                                        <div style="display: flex; align-items: center; gap: 12px;">
-                                            <span
-                                                style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">T.</span>
-                                            <div>
-                                                <p style="font-size: 11px; color: #888;">전화</p>
-                                                <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">
-                                                    070-7728-6334</p>
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; align-items: center; gap: 12px;">
-                                            <span
-                                                style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">E.</span>
-                                            <div>
-                                                <p style="font-size: 11px; color: #888;">이메일</p>
-                                                <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">
-                                                    hive_ad@hivemedia.co.kr</p>
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; align-items: center; gap: 12px;">
-                                            <span
-                                                style="font-size: 12px; font-weight: 600; color: #0084ff; width: 20px;">K.</span>
-                                            <div>
-                                                <p style="font-size: 11px; color: #888;">카카오톡</p>
-                                                <p style="font-size: 15px; font-weight: 600; color: #1a1a1a;">@하이브미디어
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- DIRECT CONTACT 삭제됨 -->
                             </div>
                         </div>
                     </div>
@@ -2234,6 +2251,291 @@
         }
 
         fetchIndexArticles();
+    </script>
+
+    <!-- ===== GSAP Reveal Wipe Section Transitions ===== -->
+    <style>
+        /* 섹션 전환을 위한 기본 스타일 */
+        .reveal-section {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* 커튼 오버레이 (위에서 내려오는 효과) */
+        .reveal-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: inherit;
+            transform: translateY(-100%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* 섹션 콘텐츠 페이드 효과 */
+        .reveal-section>* {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        /* 활성화된 섹션 */
+        .reveal-section.is-active>* {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 풀스크린 섹션들 z-index 설정 */
+        .services-fullscreen-section {
+            z-index: 10;
+        }
+
+        .portfolio-fullscreen-section {
+            z-index: 20;
+        }
+
+        .archive-fullscreen-section {
+            z-index: 30;
+        }
+
+        .gsap-section-5 {
+            z-index: 40;
+        }
+
+        /* FAQ */
+    </style>
+
+    <script>
+        // GSAP ScrollTrigger Reveal Wipe 효과
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 모든 풀스크린 섹션 선택
+        const revealSections = [
+            '.services-fullscreen-section',
+            '.portfolio-fullscreen-section',
+            '.archive-fullscreen-section'
+        ];
+
+        revealSections.forEach((selector, index) => {
+            const section = document.querySelector(selector);
+            if (!section) return;
+
+            // 섹션 컨테이너 찾기
+            const container = section.querySelector('[class*="-container"]') || section.firstElementChild;
+            const header = section.querySelector('[class*="-header"]');
+            const columns = section.querySelector('[class*="-columns"]');
+            const button = section.querySelector('a[href*=".php"]');
+
+            // 초기 상태 설정
+            gsap.set(container, { opacity: 0, y: 80 });
+
+            // 스크롤 시 섹션이 나타나는 애니메이션
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: 1,
+                    // markers: true, // 디버그용
+                }
+            });
+
+            // 커튼처럼 위에서 아래로 내려오며 나타남
+            tl.to(container, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power2.out'
+            });
+
+            // 개별 요소 순차 등장 (헤더 → 카드 → 버튼)
+            if (header) {
+                gsap.from(header, {
+                    scrollTrigger: {
+                        trigger: header,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+            }
+
+            if (columns) {
+                const cards = columns.querySelectorAll('[class*="-column"]');
+                cards.forEach((card, i) => {
+                    gsap.from(card, {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 90%',
+                            toggleActions: 'play none none reverse'
+                        },
+                        opacity: 0,
+                        y: 60,
+                        duration: 0.6,
+                        delay: i * 0.15,
+                        ease: 'power3.out'
+                    });
+                });
+            }
+
+            if (button) {
+                gsap.from(button.parentElement, {
+                    scrollTrigger: {
+                        trigger: button,
+                        start: 'top 95%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            }
+        });
+
+        // 포트폴리오 그리드 섹션 애니메이션
+        const portfolioGrid = document.querySelector('.portfolio-grid-section');
+        if (portfolioGrid) {
+            gsap.from(portfolioGrid, {
+                scrollTrigger: {
+                    trigger: portfolioGrid,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 100,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        }
+
+        // 히어로 섹션 → 서비스 섹션 자연스러운 전환
+        const heroSection = document.querySelector('.hero-slider-container, .hero-section');
+        if (heroSection) {
+            gsap.to(heroSection, {
+                scrollTrigger: {
+                    trigger: heroSection,
+                    start: 'bottom center',
+                    end: 'bottom top',
+                    scrub: true
+                },
+                opacity: 0.3,
+                scale: 0.95,
+                ease: 'none'
+            });
+        }
+
+        console.log('✅ GSAP Reveal Wipe 효과 초기화 완료');
+
+        // ===== 섹션 타이틀 타이핑 효과 =====
+        function initTypingEffect() {
+            const typingTargets = [
+                { selector: '.services-fullscreen-section h2', text: '통합 마케팅,\n맞춤 솔루션' },
+                { selector: '.portfolio-fullscreen-section h2', text: '380건+ 프로젝트,\n검증된 성과' },
+                { selector: '.archive-fullscreen-section h2', text: '마케팅 트렌드,\n인사이트 아카이브' }
+            ];
+
+            typingTargets.forEach(target => {
+                const element = document.querySelector(target.selector);
+                if (!element) return;
+
+                // 원본 HTML 저장
+                const originalHTML = element.innerHTML;
+                let hasTyped = false;
+
+                // ScrollTrigger로 뷰포트 진입 감지
+                ScrollTrigger.create({
+                    trigger: element,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        if (hasTyped) return;
+                        hasTyped = true;
+
+                        // 타이핑 효과 시작
+                        element.innerHTML = '';
+                        element.style.minHeight = '120px'; // 깜빡임 방지
+
+                        // 줄바꿈 처리하여 타이핑
+                        const lines = target.text.split('\n');
+                        let currentLine = 0;
+                        let currentChar = 0;
+
+                        function typeChar() {
+                            if (currentLine >= lines.length) {
+                                // 타이핑 완료 후 원본 HTML 복원 (스타일 유지)
+                                setTimeout(() => {
+                                    element.innerHTML = originalHTML;
+                                    element.style.minHeight = '';
+                                }, 300);
+                                return;
+                            }
+
+                            const line = lines[currentLine];
+                            if (currentChar < line.length) {
+                                // 현재 줄 업데이트
+                                let displayHTML = '';
+                                for (let i = 0; i < lines.length; i++) {
+                                    if (i < currentLine) {
+                                        displayHTML += lines[i];
+                                    } else if (i === currentLine) {
+                                        displayHTML += line.substring(0, currentChar + 1);
+                                    }
+                                    if (i < lines.length - 1 && i <= currentLine) {
+                                        displayHTML += '<br>';
+                                    }
+                                }
+
+                                // 강조 색상 적용
+                                if (displayHTML.includes('맞춤 솔루션') ||
+                                    displayHTML.includes('검증된 성과') ||
+                                    displayHTML.includes('인사이트 아카이브')) {
+                                    displayHTML = displayHTML
+                                        .replace('맞춤 솔루션', '<span style="color: #0084ff;">맞춤 솔루션</span>')
+                                        .replace('검증된 성과', '<span style="color: #0084ff;">검증된 성과</span>')
+                                        .replace('인사이트 아카이브', '<span style="color: #0084ff;">인사이트 아카이브</span>');
+                                }
+
+                                element.innerHTML = displayHTML + '<span class="typing-cursor">|</span>';
+                                currentChar++;
+                                setTimeout(typeChar, 50); // 타이핑 속도
+                            } else {
+                                currentLine++;
+                                currentChar = 0;
+                                setTimeout(typeChar, 100); // 줄 바꿈 딜레이
+                            }
+                        }
+
+                        // 약간의 딜레이 후 시작
+                        setTimeout(typeChar, 200);
+                    }
+                });
+            });
+        }
+
+        // 타이핑 커서 스타일
+        const cursorStyle = document.createElement('style');
+        cursorStyle.textContent = `
+            .typing-cursor {
+                animation: blink 0.7s infinite;
+                color: #0084ff;
+                font-weight: 300;
+            }
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(cursorStyle);
+
+        // 초기화 - 타이핑 효과 비활성화
+        // initTypingEffect();
+        // console.log('✅ 타이틀 타이핑 효과 초기화 완료');
     </script>
 </body>
 

@@ -59,37 +59,38 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 	<style>
 		:root {
-			--bg-dark: #0a0a0a;
-			--text-white: #fff;
+			--bg-light: #0a0a0a;
+			--bg-gray: #111111;
+			--text-black: #ffffff;
 			--text-gray: rgba(255, 255, 255, 0.6);
+			--accent: #8ab4f8;
 		}
 
 		body,
 		.Wrap {
-			background: var(--bg-dark) !important;
+			background: var(--bg-light) !important;
 			font-family: 'Noto Sans KR', sans-serif;
-			color: var(--text-white);
+			color: var(--text-black);
 		}
 
-		/* Header Overrides */
+		/* Header Overrides - Dark Mode */
 		.header {
-			background: #1a1a1a !important;
+			background: rgba(255, 255, 255, 0.95) !important;
+			backdrop-filter: blur(10px);
 		}
 
 		.header .conbox {
-			background: #1a1a1a !important;
+			background: transparent !important;
 		}
 
 		/* ========================================
-		   Full-Width Minimal Layout
+		   Portfolio View Container
 		======================================== */
 		.portfolio-view-container {
 			width: 100%;
 			max-width: 100%;
 			margin: 0;
 			padding: 0;
-			display: flex;
-			flex-direction: column;
 		}
 
 		/* Back Button - Fixed Top Right */
@@ -119,221 +120,346 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		}
 
 		/* ========================================
-		   Section 1: Hero Intro Section
+		   Section 1: Hero - Large Typography
 		======================================== */
 		.section-hero {
-			min-height: 100vh;
+			min-height: 80vh;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			padding: 120px 60px 80px;
-			position: relative;
+			padding: 160px 80px 100px;
+			background: var(--bg-light);
 		}
 
 		.hero-category {
-			font-size: 14px;
-			font-weight: 500;
-			text-transform: uppercase;
-			letter-spacing: 3px;
-			color: var(--text-gray);
-			margin-bottom: 30px;
+			display: none;
+			/* Hide category in light design */
 		}
 
 		.hero-title {
-			font-size: clamp(48px, 8vw, 120px);
-			font-weight: 900;
-			line-height: 1.0;
-			letter-spacing: -3px;
-			margin: 0 0 40px 0;
-			color: var(--text-white);
+			font-size: clamp(60px, 10vw, 140px);
+			font-weight: 300;
+			line-height: 1.05;
+			letter-spacing: -4px;
+			margin: 0;
+			color: var(--text-black);
+			word-break: keep-all;
 		}
 
 		.hero-meta {
-			display: flex;
-			gap: 60px;
-			margin-bottom: 40px;
+			display: none;
+			/* Hide old meta in new design */
 		}
 
-		.hero-meta-item {
-			display: flex;
-			flex-direction: column;
-			gap: 8px;
+		.hero-meta-extended {
+			display: none !important;
 		}
 
-		.hero-meta-label {
-			font-size: 11px;
+		.hero-description {
+			display: none;
+			/* Hero description is moved to PROJECT APPROACH */
+		}
+
+		/* ========================================
+		   Section: Project Approach (Label + Text)
+		======================================== */
+		.section-approach {
+			padding: 80px;
+			background: var(--bg-light);
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.approach-inner {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 200px 1fr;
+			gap: 80px;
+			align-items: start;
+		}
+
+		.approach-label {
+			font-size: 12px;
+			font-weight: 600;
 			text-transform: uppercase;
 			letter-spacing: 2px;
 			color: var(--text-gray);
 		}
 
-		.hero-meta-value {
-			font-size: 16px;
-			font-weight: 600;
-			color: var(--text-white);
+		.approach-content {
+			font-size: 15px;
+			line-height: 1.9;
+			color: var(--text-black);
+			max-width: 800px;
 		}
 
-		.hero-description {
-			max-width: 800px;
-			font-size: 18px;
-			line-height: 1.8;
-			color: var(--text-gray);
-			margin-top: 20px;
+		.approach-content strong {
+			color: var(--accent);
 		}
 
 		/* ========================================
-		   Section 2, 3, 4: Full-Width Image Sections
+		   Section: Image Gallery (Asymmetric Grid)
 		======================================== */
-		.section-images {
-			width: 100%;
-			padding: 0;
+		.section-gallery {
+			padding: 60px 0;
+			background: var(--bg-gray);
 		}
 
-		.image-row {
-			display: flex;
-			width: 100%;
-			gap: 4px;
-			margin-bottom: 4px;
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(12, 1fr);
+			gap: 40px;
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0 80px;
+			align-items: center;
 		}
 
-		.image-row.single {
-			height: 100vh;
-		}
-
-		.image-row.double {
-			height: 70vh;
-		}
-
-		.image-row.triple {
-			height: 50vh;
-		}
-
-		.image-item {
-			flex: 1;
-			overflow: hidden;
-			background: #111;
+		.gallery-item {
 			position: relative;
 		}
 
-		.image-item.large {
-			flex: 2;
+		.gallery-item.span-5 {
+			grid-column: span 5;
 		}
 
-		.image-item img {
+		.gallery-item.span-4 {
+			grid-column: span 4;
+		}
+
+		.gallery-item.span-3 {
+			grid-column: span 3;
+		}
+
+		.gallery-item.span-6 {
+			grid-column: span 6;
+		}
+
+		.gallery-item.span-7 {
+			grid-column: span 7;
+		}
+
+		.gallery-item img {
 			width: 100%;
-			height: 100%;
-			object-fit: cover;
+			height: auto;
 			display: block;
-			transition: transform 0.6s ease;
 		}
 
-		.image-item:hover img {
-			transform: scale(1.02);
+		.gallery-keyword {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 11px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: var(--text-black);
+			padding: 20px 0;
+		}
+
+		.gallery-keyword::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			background: var(--accent);
 		}
 
 		/* ========================================
-		   Direction / Text Sections Between Images
+		   Section: Content Block (Text + Description)
 		======================================== */
-		.section-direction {
-			width: 100%;
-			padding: 100px 60px;
-			background: var(--bg-dark);
-			color: var(--text-white);
+		.section-content {
+			padding: 100px 80px;
+			background: var(--bg-light);
 		}
 
-		.direction-inner {
-			max-width: 1200px;
+		.content-inner {
+			max-width: 1400px;
 			margin: 0 auto;
 			display: grid;
 			grid-template-columns: 200px 1fr;
-			gap: 60px;
+			gap: 80px;
+			align-items: start;
 		}
 
-		.direction-label {
-			font-size: 13px;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 3px;
-			color: var(--text-gray);
-		}
-
-		.direction-content {
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-		}
-
-		.direction-main {
-			font-size: 16px;
-			line-height: 1.8;
-			color: var(--text-white);
-			margin-bottom: 30px;
-		}
-
-		.direction-main strong,
-		.direction-main b {
-			color: #c4a77d;
-			font-weight: 600;
-		}
-
-		.direction-list {
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-		}
-
-		.direction-item {
-			display: grid;
-			grid-template-columns: 30px 1fr;
-			gap: 20px;
-			font-size: 15px;
-			line-height: 1.7;
-			color: var(--text-white);
-		}
-
-		.direction-item .num {
+		.content-label {
 			font-size: 12px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 2px;
 			color: var(--text-gray);
 		}
 
-		.direction-item strong,
-		.direction-item b {
-			color: #c4a77d;
+		.content-body {
+			font-size: 15px;
+			line-height: 1.9;
+			color: var(--text-black);
+		}
+
+		.content-body strong {
+			color: var(--accent);
+		}
+
+		/* Numbered List */
+		.content-list {
+			margin-top: 40px;
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+		}
+
+		.content-list-item {
+			display: grid;
+			grid-template-columns: 24px 1fr;
+			gap: 16px;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+
+		.content-list-item .num {
+			font-size: 11px;
+			color: var(--text-gray);
+		}
+
+		.content-list-item strong {
+			color: var(--accent);
+		}
+
+		/* ========================================
+		   Section: Full Width Image
+		======================================== */
+		.section-fullimage {
+			width: 100%;
+		}
+
+		.section-fullimage img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		/* ========================================
+		   Section: KPI Metrics (Light Theme)
+		======================================== */
+		.section-kpi {
+			padding: 80px;
+			background: var(--bg-gray);
+		}
+
+		.kpi-container {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.kpi-label {
+			font-size: 12px;
 			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: var(--text-gray);
+			margin-bottom: 40px;
 		}
 
-		@media (max-width: 768px) {
-			.section-direction {
-				padding: 60px 24px;
-			}
-
-			.direction-inner {
-				grid-template-columns: 1fr;
-				gap: 30px;
-			}
-
-			.direction-item {
-				grid-template-columns: 24px 1fr;
-				gap: 12px;
-			}
+		.kpi-cards {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 24px;
 		}
 
-		/* Hide old campaign card */
-		.campaign-card,
-		.project-info-sidebar,
-		.project-content,
-		.project-gallery {
-			display: none !important;
+		.kpi-card {
+			background: linear-gradient(145deg, #1a1a1a 0%, #222 100%);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 16px;
+			padding: 40px;
+			text-align: center;
+			transition: all 0.3s ease;
 		}
 
-		/* Navigation - Bottom */
+		.kpi-card:hover {
+			transform: translateY(-4px);
+			border-color: rgba(255, 255, 255, 0.2);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+		}
+
+		.kpi-value {
+			font-size: 48px;
+			font-weight: 700;
+			color: var(--text-black);
+			line-height: 1;
+			margin-bottom: 8px;
+		}
+
+		.kpi-value .unit {
+			font-size: 24px;
+			font-weight: 400;
+			color: var(--text-gray);
+		}
+
+		.kpi-type {
+			font-size: 12px;
+			font-weight: 600;
+			color: var(--text-gray);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		/* ========================================
+		   Section: Platforms (Dark Theme)
+		======================================== */
+		.section-platforms {
+			padding: 40px 80px;
+			background: var(--bg-light);
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.platforms-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			gap: 24px;
+			flex-wrap: wrap;
+		}
+
+		.platforms-label {
+			font-size: 11px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: var(--text-gray);
+		}
+
+		.platform-tags {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+		}
+
+		.platform-tag {
+			padding: 8px 16px;
+			background: rgba(138, 180, 248, 0.15);
+			border: 1px solid rgba(138, 180, 248, 0.3);
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 500;
+			color: var(--accent);
+			transition: all 0.2s;
+		}
+
+		.platform-tag:hover {
+			background: rgba(138, 180, 248, 0.3);
+			transform: translateY(-2px);
+		}
+
+		/* ========================================
+		   Project Navigation (Dark Theme)
+		======================================== */
 		.project-navigation {
 			width: 100%;
-			padding: 60px;
+			padding: 60px 80px;
 			border-top: 1px solid rgba(255, 255, 255, 0.1);
 			display: flex;
 			justify-content: space-between;
-			background: var(--bg-dark);
+			background: var(--bg-light);
 		}
 
 		.nav-btn {
@@ -359,19 +485,21 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		.nav-btn .title {
 			font-size: 20px;
 			font-weight: 600;
-			color: var(--text-white);
+			color: var(--text-black);
 			transition: opacity 0.3s;
 		}
 
 		.nav-btn:hover .title {
-			opacity: 0.7;
+			opacity: 0.5;
 		}
 
-		/* Hide loading overlay */
+		/* ========================================
+		   Loading Overlay (Dark)
+		======================================== */
 		#loadingOverlay {
 			position: fixed;
 			inset: 0;
-			background: var(--bg-dark);
+			background: var(--bg-light);
 			z-index: 9999;
 			display: flex;
 			align-items: center;
@@ -397,24 +525,77 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			}
 		}
 
+		/* Hide old sections */
+		.section-images,
+		.section-direction,
+		.campaign-card,
+		.project-info-sidebar,
+		.project-content,
+		.project-gallery {
+			display: none !important;
+		}
+
 		/* Mobile Responsive */
 		@media (max-width: 768px) {
 			.section-hero {
-				padding: 100px 24px 60px;
+				padding: 120px 24px 60px;
 			}
 
 			.hero-title {
-				font-size: 42px;
+				font-size: 36px;
 				letter-spacing: -1px;
 			}
 
-			.hero-meta {
-				flex-wrap: wrap;
-				gap: 30px;
+			.section-approach,
+			.section-content {
+				padding: 60px 24px;
 			}
 
-			.hero-description {
-				font-size: 15px;
+			.approach-inner,
+			.content-inner {
+				grid-template-columns: 1fr;
+				gap: 24px;
+			}
+
+			.gallery-grid {
+				grid-template-columns: 1fr;
+				padding: 0 24px;
+				gap: 24px;
+			}
+
+			.gallery-item.span-5,
+			.gallery-item.span-4,
+			.gallery-item.span-3,
+			.gallery-item.span-6,
+			.gallery-item.span-7 {
+				grid-column: span 1;
+			}
+
+			.section-kpi {
+				padding: 60px 24px;
+			}
+
+			.kpi-cards {
+				grid-template-columns: 1fr;
+				gap: 16px;
+			}
+
+			.kpi-card {
+				padding: 30px;
+			}
+
+			.kpi-value {
+				font-size: 36px;
+			}
+
+			.section-platforms {
+				padding: 30px 24px;
+			}
+
+			.platforms-container {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 16px;
 			}
 
 			.back-to-list {
@@ -422,17 +603,6 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 				right: 16px;
 				font-size: 11px;
 				padding: 8px 12px;
-			}
-
-			.image-row.single,
-			.image-row.double,
-			.image-row.triple {
-				height: auto;
-				flex-direction: column;
-			}
-
-			.image-item {
-				height: 50vh;
 			}
 
 			.project-navigation {
@@ -465,30 +635,56 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			<div class="portfolio-view-container">
 				<a href="portfolio.php?skip=1" class="back-to-list">← BACK</a>
 
-				<!-- Section 1: Hero Intro -->
+				<!-- Section 1: Hero - Large Typography -->
 				<section class="section-hero" id="sectionHero">
-					<div class="hero-category" id="heroCategory">LOADING...</div>
 					<h1 class="hero-title" id="heroTitle">Loading...</h1>
-					<div class="hero-meta">
-						<div class="hero-meta-item">
-							<span class="hero-meta-label">Client</span>
-							<span class="hero-meta-value" id="metaClient">-</span>
-						</div>
-						<div class="hero-meta-item">
-							<span class="hero-meta-label">Year</span>
-							<span class="hero-meta-value" id="metaYear">-</span>
-						</div>
-						<div class="hero-meta-item">
-							<span class="hero-meta-label">Type</span>
-							<span class="hero-meta-value" id="metaType">-</span>
-						</div>
-					</div>
-					<p class="hero-description" id="heroDescription"></p>
 				</section>
 
-				<!-- Section 2, 3, 4: Full-Width Images -->
-				<section class="section-images" id="sectionImages">
-					<!-- Images will be dynamically inserted here -->
+				<!-- Section: Project Approach -->
+				<section class="section-approach" id="sectionApproach">
+					<div class="approach-inner">
+						<div class="approach-label">PROJECT APPROACH</div>
+						<div class="approach-content" id="approachContent">
+							<!-- Description will be dynamically inserted here -->
+						</div>
+					</div>
+				</section>
+
+				<!-- Section: Platform Tags -->
+				<section class="section-platforms" id="sectionPlatforms" style="display:none;">
+					<div class="platforms-container">
+						<span class="platforms-label">Platforms</span>
+						<div class="platform-tags" id="platformTags">
+							<!-- Tags will be dynamically inserted here -->
+						</div>
+					</div>
+				</section>
+
+				<!-- Section: Gallery (Alternating Images + Text) -->
+				<section class="section-gallery" id="sectionGallery">
+					<div class="gallery-grid" id="galleryGrid">
+						<!-- Images with keywords will be dynamically inserted here -->
+					</div>
+				</section>
+
+				<!-- Section: KPI Metrics -->
+				<section class="section-kpi" id="sectionKpi" style="display:none;">
+					<div class="kpi-container">
+						<div class="kpi-label">Key Performance</div>
+						<div class="kpi-cards" id="kpiCards">
+							<!-- KPI cards will be dynamically inserted here -->
+						</div>
+					</div>
+				</section>
+
+				<!-- Section: Direction (if directions data exists) -->
+				<section class="section-content" id="sectionDirection" style="display:none;">
+					<div class="content-inner">
+						<div class="content-label" id="directionLabel">DIRECTION</div>
+						<div class="content-body" id="directionContent">
+							<!-- Direction content will be dynamically inserted here -->
+						</div>
+					</div>
 				</section>
 
 				<nav class="project-navigation">
@@ -584,13 +780,34 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 						: `${clientName} ${category} 프로젝트 - ${projectTitle} | 하이브미디어 공공기관 마케팅 전문`;
 					const seoKeywords = `${clientName}, ${projectTitle}, ${category}, 공공기관마케팅, SNS마케팅, 하이브미디어, 마케팅에이전시`;
 
-					// Update NEW Hero Section UI
+					// Update NEW Hero Section UI (title only for minimalist design)
 					document.getElementById('heroTitle').textContent = projectTitle;
-					document.getElementById('heroCategory').textContent = category.toUpperCase();
-					document.getElementById('heroDescription').textContent = description || '';
-					document.getElementById('metaClient').textContent = clientName;
-					document.getElementById('metaType').textContent = data.projectType || data.type || '-';
-					document.getElementById('metaYear').textContent = year || '-';
+
+					// Update PROJECT APPROACH section (description goes here now)
+					document.getElementById('approachContent').innerHTML = description.replace(/\n/g, '<br>');
+
+					// Platform Tags
+					if (data.platforms && Array.isArray(data.platforms) && data.platforms.length > 0) {
+						const platformSection = document.getElementById('sectionPlatforms');
+						const platformContainer = document.getElementById('platformTags');
+						platformSection.style.display = 'block';
+						platformContainer.innerHTML = data.platforms.map(p =>
+							`<span class="platform-tag">${p}</span>`
+						).join('');
+					}
+
+					// KPI Metrics (3 cards)
+					if (data.metrics && Array.isArray(data.metrics) && data.metrics.length > 0) {
+						const kpiSection = document.getElementById('sectionKpi');
+						const kpiContainer = document.getElementById('kpiCards');
+						kpiSection.style.display = 'block';
+						kpiContainer.innerHTML = data.metrics.map(m => `
+							<div class="kpi-card">
+								<div class="kpi-value">${m.value}<span class="unit">${m.unit}</span></div>
+								<div class="kpi-type">${m.type}</div>
+							</div>
+						`).join('');
+					}
 
 					// SEO: Update Meta Tags
 					document.title = seoTitle;
@@ -618,59 +835,58 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 						allImages.push(data.thumbnailUrl);
 					}
 
-					// Build full-width image sections
-					const sectionImages = document.getElementById('sectionImages');
+					// Build asymmetric gallery grid (new light design)
+					const galleryGrid = document.getElementById('galleryGrid');
 					if (allImages.length > 0) {
 						let html = '';
-						const total = allImages.length;
+						const keywords = ['Concept', 'Brand Identity', 'Visual Design', 'UI Elements', 'Typography', 'Color System'];
 
-						// First image - full width
-						html += `<div class="image-row single"><div class="image-item"><img src="${allImages[0]}" alt="${projectTitle}" loading="lazy" /></div></div>`;
+						allImages.forEach((img, idx) => {
+							// Determine grid span class based on index for asymmetric layout
+							let spanClass = 'span-6'; // default half-width
+							if (idx === 0) spanClass = 'span-7';
+							else if (idx === 1) spanClass = 'span-5';
+							else if (idx % 3 === 0) spanClass = 'span-4';
+							else if (idx % 3 === 1) spanClass = 'span-5';
+							else spanClass = 'span-3';
 
-						// Add Direction section after first image (if exists)
-						if (data.directions && data.directions.length > 0) {
-							data.directions.forEach(dir => {
-								html += `
-								<section class="section-direction">
-									<div class="direction-inner">
-										<div class="direction-label">${dir.label}</div>
-										<div class="direction-content">
-											<p class="direction-main">${dir.main}</p>
-											<div class="direction-list">
-												${dir.items.map((item, idx) => `
-													<div class="direction-item">
-														<span class="num">${idx + 1}</span>
-														<span>${item}</span>
-													</div>
-												`).join('')}
-											</div>
-										</div>
+							const keyword = keywords[idx % keywords.length];
+							html += `
+								<div class="gallery-item ${spanClass}">
+									<div class="gallery-keyword">${keyword}</div>
+									<img src="${img}" alt="${projectTitle} - ${keyword}" loading="lazy" />
+								</div>
+							`;
+						});
+
+						galleryGrid.innerHTML = html;
+					}
+
+					// Direction section (if exists)
+					if (data.directions && data.directions.length > 0) {
+						const directionSection = document.getElementById('sectionDirection');
+						const directionLabel = document.getElementById('directionLabel');
+						const directionContent = document.getElementById('directionContent');
+
+						directionSection.style.display = 'block';
+
+						const dir = data.directions[0]; // Use first direction
+						directionLabel.textContent = dir.label || 'DIRECTION';
+
+						let dirHtml = `<p>${dir.main}</p>`;
+						if (dir.items && dir.items.length > 0) {
+							dirHtml += '<div class="content-list">';
+							dir.items.forEach((item, idx) => {
+								dirHtml += `
+									<div class="content-list-item">
+										<span class="num">${idx + 1}</span>
+										<span>${item}</span>
 									</div>
-								</section>`;
+								`;
 							});
+							dirHtml += '</div>';
 						}
-
-						// Remaining images in rows (pairs or singles)
-						for (let i = 1; i < total; i += 3) {
-							const remaining = total - i;
-							if (remaining >= 3) {
-								// Three images in a row
-								html += `<div class="image-row triple">`;
-								html += `<div class="image-item"><img src="${allImages[i]}" alt="${projectTitle}" loading="lazy" /></div>`;
-								html += `<div class="image-item"><img src="${allImages[i + 1]}" alt="${projectTitle}" loading="lazy" /></div>`;
-								html += `<div class="image-item"><img src="${allImages[i + 2]}" alt="${projectTitle}" loading="lazy" /></div>`;
-								html += `</div>`;
-							} else if (remaining === 2) {
-								html += `<div class="image-row double">`;
-								html += `<div class="image-item"><img src="${allImages[i]}" alt="${projectTitle}" loading="lazy" /></div>`;
-								html += `<div class="image-item"><img src="${allImages[i + 1]}" alt="${projectTitle}" loading="lazy" /></div>`;
-								html += `</div>`;
-							} else if (remaining === 1) {
-								html += `<div class="image-row single"><div class="image-item"><img src="${allImages[i]}" alt="${projectTitle}" loading="lazy" /></div></div>`;
-							}
-						}
-
-						sectionImages.innerHTML = html;
+						directionContent.innerHTML = dirHtml;
 					}
 
 

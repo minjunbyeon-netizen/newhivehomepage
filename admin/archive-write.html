@@ -432,6 +432,167 @@
             width: 0%;
             transition: width 0.3s;
         }
+
+        /* ===== AI 이미지 생성 섹션 ===== */
+        .image-gen-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: none;
+        }
+
+        .image-gen-section.show {
+            display: block;
+        }
+
+        .image-gen-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .image-gen-section .section-desc {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 16px;
+        }
+
+        .suggest-btn {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .suggest-btn:hover {
+            background: #5a4bd1;
+        }
+
+        .suggest-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .image-prompt-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .image-prompt-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            background: #fafafa;
+        }
+
+        .prompt-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .prompt-position {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 10px;
+            background: #6c5ce7;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .prompt-description {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .prompt-textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 8px;
+        }
+
+        .prompt-textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+
+        .prompt-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .gen-img-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .gen-img-btn:hover {
+            background: #333;
+        }
+
+        .gen-img-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .gen-img-btn.insert-btn {
+            background: #00b894;
+        }
+
+        .gen-img-btn.insert-btn:hover {
+            background: #00a383;
+        }
+
+        .gen-status {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .image-preview-box {
+            margin-top: 12px;
+            display: none;
+        }
+
+        .image-preview-box.show {
+            display: block;
+        }
+
+        .image-preview-box img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            display: block;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 
@@ -523,6 +684,14 @@
                 <div class="form-group">
                     <label for="content">Content *</label>
                     <textarea id="content" required placeholder="Write your article here..."></textarea>
+                </div>
+
+                <!-- 3.7단계: AI 이미지 삽입 -->
+                <div id="imageGenSection" class="image-gen-section">
+                    <h3>🖼 3.7단계: AI 이미지 삽입</h3>
+                    <p class="section-desc">AI가 글 내용을 분석하여 적합한 이미지를 제안합니다. 프롬프트를 수정한 후 생성할 수 있습니다.</p>
+                    <button type="button" id="suggestImagesBtn" class="suggest-btn">🖼 AI 이미지 제안받기</button>
+                    <div id="imagePromptCards" class="image-prompt-cards"></div>
                 </div>
 
                 <div class="form-group">
@@ -870,6 +1039,7 @@
         // Show preview
         function showPreview(article) {
             const contentHtml = article.content
+                .replace(/\[IMAGE:\s*(https?:\/\/[^\]]+)\]/g, '<div style=\"text-align:center; margin:20px 0;\"><img src=\"$1\" alt=\"AI 생성 이미지\" style=\"max-width:100%; border-radius:6px;\" /></div>')
                 .replace(/^## (.+)$/gm, '<h2>$1</h2>')
                 .replace(/^### (.+)$/gm, '<h3>$1</h3>')
                 .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -891,6 +1061,205 @@
                 fileLabel.textContent = file.name;
             }
         });
+
+        // ========================================
+        // AI 이미지 생성 기능
+        // ========================================
+        const imageGenSection = document.getElementById('imageGenSection');
+        const suggestImagesBtn = document.getElementById('suggestImagesBtn');
+        const imagePromptCards = document.getElementById('imagePromptCards');
+
+        // 글 내용이 채워지면 이미지 생성 섹션 표시
+        const contentTextarea = document.getElementById('content');
+        const contentObserver = new MutationObserver(() => {
+            if (contentTextarea.value.trim().length > 50) {
+                imageGenSection.classList.add('show');
+            }
+        });
+        // textarea value 변경 감지 (programmatic)
+        const origSetValue = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+        Object.defineProperty(contentTextarea, 'value', {
+            set: function (v) {
+                origSetValue.call(this, v);
+                if (v && v.trim().length > 50) {
+                    imageGenSection.classList.add('show');
+                }
+            },
+            get: function () {
+                return Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').get.call(this);
+            }
+        });
+        // 수동 입력도 감지
+        contentTextarea.addEventListener('input', () => {
+            if (contentTextarea.value.trim().length > 50) {
+                imageGenSection.classList.add('show');
+            }
+        });
+
+        // 프롬프트 제안받기
+        suggestImagesBtn.addEventListener('click', async () => {
+            const content = contentTextarea.value;
+            const title = document.getElementById('title').value;
+
+            if (!content || content.trim().length < 50) {
+                alert('글 내용이 충분하지 않습니다. 먼저 글을 작성하거나 AI로 생성해주세요.');
+                return;
+            }
+
+            suggestImagesBtn.disabled = true;
+            suggestImagesBtn.textContent = '⏳ 이미지 프롬프트 분석 중...';
+
+            try {
+                const response = await fetch('/01_work/hivemedia_homepage/archive/api/generate-image.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'suggest', content, title })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.prompts) {
+                    renderPromptCards(data.prompts);
+                } else {
+                    alert('프롬프트 제안 실패: ' + (data.error || '알 수 없는 오류'));
+                }
+            } catch (error) {
+                console.error('Suggest error:', error);
+                alert('네트워크 오류가 발생했습니다.');
+            } finally {
+                suggestImagesBtn.disabled = false;
+                suggestImagesBtn.textContent = '🖼 AI 이미지 제안받기';
+            }
+        });
+
+        // 프롬프트 카드 렌더링
+        function renderPromptCards(prompts) {
+            imagePromptCards.innerHTML = prompts.map((p, idx) => `
+                <div class="image-prompt-card" id="promptCard${idx}">
+                    <div class="prompt-card-header">
+                        <span style="font-size:14px; font-weight:600;">이미지 ${idx + 1}</span>
+                        <span class="prompt-position">${p.position || '본문'}</span>
+                    </div>
+                    <div class="prompt-description">${p.description}</div>
+                    <textarea class="prompt-textarea" id="promptText${idx}">${p.prompt}</textarea>
+                    <div class="prompt-actions">
+                        <button type="button" class="gen-img-btn" onclick="generateImage(${idx})">🎨 생성</button>
+                        <span class="gen-status" id="genStatus${idx}"></span>
+                    </div>
+                    <div class="image-preview-box" id="imagePreview${idx}">
+                        <img id="previewImg${idx}" src="" alt="생성된 이미지" />
+                        <button type="button" class="gen-img-btn insert-btn" onclick="insertImageToContent(${idx})">📥 콘텐츠에 삽입</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 이미지 생성
+        window.generateImage = async function (idx) {
+            const promptText = document.getElementById(`promptText${idx}`).value;
+            const statusEl = document.getElementById(`genStatus${idx}`);
+            const previewBox = document.getElementById(`imagePreview${idx}`);
+            const previewImg = document.getElementById(`previewImg${idx}`);
+            const genBtn = document.querySelector(`#promptCard${idx} .gen-img-btn`);
+
+            if (!promptText.trim()) {
+                alert('프롬프트를 입력해주세요.');
+                return;
+            }
+
+            genBtn.disabled = true;
+            statusEl.textContent = '이미지 생성 중... (최대 60초)';
+            previewBox.classList.remove('show');
+
+            try {
+                const response = await fetch('/01_work/hivemedia_homepage/archive/api/generate-image.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'generate', prompt: promptText })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.image) {
+                    // base64 이미지를 Firebase Storage에 업로드
+                    statusEl.textContent = 'Firebase에 업로드 중...';
+
+                    const byteString = atob(data.image.base64);
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    const blob = new Blob([ab], { type: data.image.mimeType });
+
+                    const ext = data.image.mimeType.includes('png') ? 'png' : 'jpg';
+                    const fileName = `archives/ai_img_${Date.now()}_${idx}.${ext}`;
+                    const storageRef = ref(storage, fileName);
+                    await uploadBytes(storageRef, blob);
+                    const downloadUrl = await getDownloadURL(storageRef);
+
+                    // 미리보기 표시
+                    previewImg.src = downloadUrl;
+                    previewImg.dataset.url = downloadUrl;
+                    previewBox.classList.add('show');
+                    statusEl.textContent = '✅ 생성 완료!';
+                } else {
+                    statusEl.textContent = '❌ ' + (data.error || '생성 실패');
+                }
+            } catch (error) {
+                console.error('Generate error:', error);
+                statusEl.textContent = '❌ 네트워크 오류';
+            } finally {
+                genBtn.disabled = false;
+            }
+        };
+
+        // 콘텐츠에 이미지 삽입
+        window.insertImageToContent = function (idx) {
+            const previewImg = document.getElementById(`previewImg${idx}`);
+            const imageUrl = previewImg.dataset.url;
+
+            if (!imageUrl) {
+                alert('먼저 이미지를 생성해주세요.');
+                return;
+            }
+
+            const content = contentTextarea.value;
+            const imageMarker = `\n\n[IMAGE: ${imageUrl}]\n\n`;
+
+            // 콘텐츠의 대략적 위치에 삽입 (문단 기준)
+            const paragraphs = content.split('\n\n');
+            const totalParagraphs = paragraphs.length;
+
+            // 위치에 따라 삽입 위치 결정
+            const card = document.getElementById(`promptCard${idx}`);
+            const positionLabel = card.querySelector('.prompt-position')?.textContent || '';
+
+            let insertIdx;
+            if (positionLabel.includes('도입') || positionLabel.includes('intro')) {
+                insertIdx = Math.max(1, Math.floor(totalParagraphs * 0.2));
+            } else if (positionLabel.includes('결론') || positionLabel.includes('conclusion')) {
+                insertIdx = Math.floor(totalParagraphs * 0.85);
+            } else {
+                insertIdx = Math.floor(totalParagraphs * 0.5);
+            }
+
+            paragraphs.splice(insertIdx, 0, `[IMAGE: ${imageUrl}]`);
+            contentTextarea.value = paragraphs.join('\n\n');
+
+            // 삽입 버튼 비활성화
+            const insertBtn = card.querySelector('.insert-btn');
+            if (insertBtn) {
+                insertBtn.textContent = '✅ 삽입됨';
+                insertBtn.disabled = true;
+            }
+
+            // 미리보기 갱신
+            if (generatedArticle) {
+                generatedArticle.content = contentTextarea.value;
+                showPreview(generatedArticle);
+            }
+        };
 
         // 3. Submit Form
         let isSubmitting = false;

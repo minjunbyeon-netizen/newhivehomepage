@@ -378,7 +378,10 @@ a,
 body {
     color: #222
 }
-a { display: block}
+
+a {
+    display: block
+}
 
 .bd,
 b,
@@ -499,8 +502,8 @@ table td a {
     --theme-button-img-b: url(../img/mode_btn_night_blue.png);
     --video-icon01: url(../img/sub/video_icon01_w.png);
     --video-icon02: url(../img/sub/video_icon02_w.png);
-    /*--inquiry-bg: url(../img/inQuiry_btn_b_n.png);
-    --inquiry-circle: url(../img/inQuiry_circle_b.png);*/
+    --inquiry-bg: url(../img/inQuiry_btn_w.png);
+    --inquiry-circle: url(../img/inQuiry_circle_w.png);
     --parallax-bg: #000;
     --parallax-bgw: #fff;
     --parallax-bg2: #000;
@@ -541,8 +544,8 @@ table td a {
         --theme-button-img-b: url(../img/mode_btn_night_blue.png);
         --video-icon01: url(../img/sub/video_icon01_w.png);
         --video-icon02: url(../img/sub/video_icon02_w.png);
-        /*--inquiry-bg: url(../img/inQuiry_btn_b_n.png);
-        --inquiry-circle: url(../img/inQuiry_circle_b.png);*/
+        --inquiry-bg: url(../img/inQuiry_btn_w.png);
+        --inquiry-circle: url(../img/inQuiry_circle_w.png);
         --parallax-bg: #000;
         --parallax-bgw: #fff;
         --parallax-bg2: #000;
@@ -619,7 +622,3 @@ table td a {
         --strategy03-color: #252738;
     }
 }
-
-
-
-
