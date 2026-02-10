@@ -554,7 +554,7 @@
     </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc, serverTimestamp, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // 활동 로그 기록 함수
         const userId = sessionStorage.getItem('userId');
@@ -599,6 +599,7 @@
         } else {
             // Load content if super_admin or admin
             loadPendingContent();
+            loadActivityLog();
         }
 
         const pendingData = {
@@ -830,89 +831,95 @@
             }
         };
 
-        // Load activity log
+        // Load activity log — activity_logs 컬렉션에서 영구 기록 조회
         async function loadActivityLog() {
             const logContainer = document.getElementById('activityLog');
 
             try {
-                // Fetch recent approved and rejected items from both collections
-                // Removing orderBy to avoid composite index requirement
-                const portfoliosQuery = query(
-                    collection(db, 'portfolios'),
-                    where('status', 'in', ['approved', 'rejected'])
+                // activity_logs 컬렉션에서 최근 30건 조회
+                const logsQuery = query(
+                    collection(db, 'activity_logs'),
+                    orderBy('timestamp', 'desc'),
+                    limit(30)
                 );
 
-                const archivesQuery = query(
-                    collection(db, 'archives'),
-                    where('status', 'in', ['approved', 'rejected'])
-                );
+                const snapshot = await getDocs(logsQuery);
 
-                const [portfoliosSnapshot, archivesSnapshot] = await Promise.all([
-                    getDocs(portfoliosQuery),
-                    getDocs(archivesQuery)
+                if (snapshot.empty) {
+                    // activity_logs가 비어있으면 문서 컬렉션에서 폴백
+                    await loadActivityLogFallback(logContainer);
+                    return;
+                }
+
+                const rows = [];
+                snapshot.forEach(docSnap => {
+                    const d = docSnap.data();
+                    const ts = d.timestamp?.toDate?.() || new Date(d.timestamp);
+                    const mm = String(ts.getMonth() + 1).padStart(2, '0');
+                    const dd = String(ts.getDate()).padStart(2, '0');
+                    const hh = String(ts.getHours()).padStart(2, '0');
+                    const mi = String(ts.getMinutes()).padStart(2, '0');
+                    const dateStr = `${mm}/${dd} ${hh}:${mi}`;
+
+                    const isOk = d.action === 'approve' || d.action === 'create';
+                    const statusLabel = isOk ? (d.action === 'create' ? 'NEW' : 'OK') : 'DENY';
+                    const statusClass = isOk ? 'ok' : 'fail';
+                    const typeTag = (d.contentType || '').includes('portfolio') ? 'PTF' : 'ARC';
+
+                    rows.push(`
+                        <div class="log-row">
+                            <span class="log-status ${statusClass}">${statusLabel}</span>
+                            <span class="log-body">[${typeTag}] ${d.detail || d.title || '-'}</span>
+                            <span class="log-meta">${dateStr} · ${d.userName || d.userId || '-'}</span>
+                        </div>
+                    `);
+                });
+
+                logContainer.innerHTML = rows.join('');
+            } catch (error) {
+                console.error('Error loading activity log:', error);
+                // 인덱스 미생성 등 에러 시 폴백
+                await loadActivityLogFallback(logContainer);
+            }
+        }
+
+        // 폴백: portfolios/archives 문서 상태에서 읽기
+        async function loadActivityLogFallback(logContainer) {
+            try {
+                const [pSnap, aSnap] = await Promise.all([
+                    getDocs(query(collection(db, 'portfolios'), where('status', 'in', ['approved', 'rejected']))),
+                    getDocs(query(collection(db, 'archives'), where('status', 'in', ['approved', 'rejected'])))
                 ]);
 
                 const activities = [];
+                pSnap.forEach(d => activities.push({ ...d.data(), type: 'portfolio', timestamp: d.data().updatedAt || d.data().createdAt }));
+                aSnap.forEach(d => activities.push({ ...d.data(), type: 'archive', timestamp: d.data().updatedAt || d.data().createdAt }));
 
-                portfoliosSnapshot.forEach(doc => {
-                    const data = doc.data();
-                    activities.push({
-                        type: 'portfolio',
-                        title: data.title,
-                        status: data.status,
-                        author: data.author || data.createdBy || '알 수 없음',
-                        timestamp: data.updatedAt || data.createdAt,
-                        category: data.category
-                    });
-                });
-
-                archivesSnapshot.forEach(doc => {
-                    const data = doc.data();
-                    activities.push({
-                        type: 'archive',
-                        title: data.title,
-                        status: data.status,
-                        author: data.author || data.createdBy || '알 수 없음',
-                        timestamp: data.updatedAt || data.createdAt,
-                        category: data.category
-                    });
-                });
-
-                // Sort by timestamp
                 activities.sort((a, b) => {
-                    const timeA = a.timestamp?.toDate?.() || new Date(a.timestamp);
-                    const timeB = b.timestamp?.toDate?.() || new Date(b.timestamp);
-                    return timeB - timeA;
+                    const tA = a.timestamp?.toDate?.() || new Date(a.timestamp || 0);
+                    const tB = b.timestamp?.toDate?.() || new Date(b.timestamp || 0);
+                    return tB - tA;
                 });
 
-                // Display activities
                 if (activities.length === 0) {
                     logContainer.innerHTML = '<div class="empty-log">아직 활동 내역이 없습니다.</div>';
-                } else {
-                    logContainer.innerHTML = activities.slice(0, 20).map(activity => {
-                        const statusLabel = activity.status === 'approved' ? 'OK' : 'DENY';
-                        const statusClass = activity.status === 'approved' ? 'ok' : 'fail';
-                        const typeTag = activity.type === 'portfolio' ? 'PTF' : 'ARC';
-
-                        const timestamp = activity.timestamp?.toDate?.() || new Date(activity.timestamp);
-                        const mm = String(timestamp.getMonth() + 1).padStart(2, '0');
-                        const dd = String(timestamp.getDate()).padStart(2, '0');
-                        const hh = String(timestamp.getHours()).padStart(2, '0');
-                        const mi = String(timestamp.getMinutes()).padStart(2, '0');
-                        const dateStr = `${mm}/${dd} ${hh}:${mi}`;
-
-                        return `
-                            <div class="log-row">
-                                <span class="log-status ${statusClass}">${statusLabel}</span>
-                                <span class="log-body">[${typeTag}] ${activity.title}</span>
-                                <span class="log-meta">${dateStr} · ${activity.author}</span>
-                            </div>
-                        `;
-                    }).join('');
+                    return;
                 }
-            } catch (error) {
-                console.error('Error loading activity log:', error);
-                logContainer.innerHTML = '<div class="empty-log">활동 내역을 불러오는 중 오류가 발생했습니다.</div>';
+
+                logContainer.innerHTML = activities.slice(0, 20).map(a => {
+                    const ts = a.timestamp?.toDate?.() || new Date(a.timestamp);
+                    const mm = String(ts.getMonth() + 1).padStart(2, '0');
+                    const dd = String(ts.getDate()).padStart(2, '0');
+                    const hh = String(ts.getHours()).padStart(2, '0');
+                    const mi = String(ts.getMinutes()).padStart(2, '0');
+                    const statusLabel = a.status === 'approved' ? 'OK' : 'DENY';
+                    const statusClass = a.status === 'approved' ? 'ok' : 'fail';
+                    const typeTag = a.type === 'portfolio' ? 'PTF' : 'ARC';
+                    return `<div class="log-row"><span class="log-status ${statusClass}">${statusLabel}</span><span class="log-body">[${typeTag}] ${a.title}</span><span class="log-meta">${mm}/${dd} ${hh}:${mi} · ${a.author || a.createdBy || '-'}</span></div>`;
+                }).join('');
+            } catch (e) {
+                console.error('Fallback activity log error:', e);
+                logContainer.innerHTML = '<div class="empty-log">활동 내역을 불러올 수 없습니다.</div>';
             }
         }
 
@@ -936,14 +943,6 @@
             });
         }
 
-        // loadActivityLog도 호출하도록 확장
-        const originalLoadPendingContent = loadPendingContent;
-        loadPendingContent = async function () {
-            await originalLoadPendingContent();
-            loadActivityLog();
-        };
-
-        // 이미 577줄에서 호출됨, 중복 제거
     </script>
 </body>
 
