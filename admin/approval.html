@@ -774,7 +774,7 @@
                     </div>
                     <div class="preview-section">
                         <div class="preview-label">Content</div>
-                        <div class="preview-value">${data.content}</div>
+                        <div class="preview-value">${(data.content || '').replace(/\[IMAGE:\s*([^\]]+)\]/g, '<div style="text-align:center; margin:16px 0;"><img src="$1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" /></div>')}</div>
                     </div>
                     ${data.thumbnailUrl ? `
                         <div class="preview-section">
