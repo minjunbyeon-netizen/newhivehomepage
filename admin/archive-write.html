@@ -1181,26 +1181,12 @@
                 const data = await response.json();
 
                 if (data.success && data.image) {
-                    // base64 이미지를 Firebase Storage에 업로드
-                    statusEl.textContent = 'Firebase에 업로드 중...';
-
-                    const byteString = atob(data.image.base64);
-                    const ab = new ArrayBuffer(byteString.length);
-                    const ia = new Uint8Array(ab);
-                    for (let i = 0; i < byteString.length; i++) {
-                        ia[i] = byteString.charCodeAt(i);
-                    }
-                    const blob = new Blob([ab], { type: data.image.mimeType });
-
-                    const ext = data.image.mimeType.includes('png') ? 'png' : 'jpg';
-                    const fileName = `archives/ai_img_${Date.now()}_${idx}.${ext}`;
-                    const storageRef = ref(storage, fileName);
-                    await uploadBytes(storageRef, blob);
-                    const downloadUrl = await getDownloadURL(storageRef);
+                    // 서버에서 저장된 이미지 URL 사용
+                    const imageUrl = data.image.url;
 
                     // 미리보기 표시
-                    previewImg.src = downloadUrl;
-                    previewImg.dataset.url = downloadUrl;
+                    previewImg.src = imageUrl;
+                    previewImg.dataset.url = imageUrl;
                     previewBox.classList.add('show');
                     statusEl.textContent = '✅ 생성 완료!';
                 } else {

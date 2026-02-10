@@ -173,13 +173,26 @@ if ($action === 'generate') {
         exit;
     }
 
-    // base64 이미지를 data URI로 반환 (클라이언트에서 Firebase Storage에 업로드)
+    // 이미지를 로컬 서버에 저장
+    $uploadDir = __DIR__ . '/../../assets/img/ai-generated/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    $ext = strpos($mimeType, 'png') !== false ? 'png' : 'jpg';
+    $fileName = 'ai_img_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+    $filePath = $uploadDir . $fileName;
+
+    file_put_contents($filePath, base64_decode($imageData));
+
+    // 웹 접근 URL 생성
+    $webUrl = '/01_work/hivemedia_homepage/assets/img/ai-generated/' . $fileName;
+
     echo json_encode([
         "success" => true,
         "image" => [
-            "base64" => $imageData,
-            "mimeType" => $mimeType,
-            "dataUri" => "data:{$mimeType};base64,{$imageData}"
+            "url" => $webUrl,
+            "fileName" => $fileName
         ]
     ], JSON_UNESCAPED_UNICODE);
     exit;
