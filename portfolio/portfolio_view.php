@@ -93,32 +93,6 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			padding: 0;
 		}
 
-		/* Back Button - Fixed Top Right */
-		.back-to-list {
-			position: fixed;
-			top: 100px;
-			right: 30px;
-			z-index: 1000;
-			display: inline-flex;
-			align-items: center;
-			gap: 6px;
-			font-size: 12px;
-			font-weight: 500;
-			color: var(--text-gray);
-			text-decoration: none;
-			padding: 10px 16px;
-			background: rgba(255, 255, 255, 0.1);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			border-radius: 30px;
-			transition: all 0.3s;
-		}
-
-		.back-to-list:hover {
-			background: #fff;
-			color: #000;
-			border-color: #fff;
-		}
-
 		/* ========================================
 		   Section 1: Hero - Large Typography
 		======================================== */
@@ -598,12 +572,7 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 				gap: 16px;
 			}
 
-			.back-to-list {
-				top: 90px;
-				right: 16px;
-				font-size: 11px;
-				padding: 8px 12px;
-			}
+
 
 			.project-navigation {
 				padding: 40px 24px;
@@ -633,7 +602,7 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 		<main>
 			<div class="portfolio-view-container">
-				<a href="portfolio.php?skip=1" class="back-to-list">← BACK</a>
+
 
 				<!-- Section 1: Hero - Large Typography -->
 				<section class="section-hero" id="sectionHero">
