@@ -3,7 +3,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', '0');
 
 // 프로젝트 루트 경로 설정
-$base_path = '/01_work/hivemedia_homepage';
+$base_path = '';
 
 $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 ?>

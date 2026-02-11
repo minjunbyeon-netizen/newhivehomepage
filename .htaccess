@@ -1,0 +1,56 @@
+# Hivemedia Homepage - Apache Configuration
+# Hostinger Deployment
+
+# HTTPS 강제 리다이렉트
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# www → non-www 리다이렉트 (hivemedia.co.kr 기준)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# config.php 직접 접근 차단
+<FilesMatch "config\.php$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# .git 폴더 접근 차단
+RedirectMatch 404 /\.git
+
+# Python 스크립트 접근 차단
+<FilesMatch "\.py$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 백업 폴더 접근 차단
+<DirectoryMatch "_backup">
+    Order deny,allow
+    Deny from all
+</DirectoryMatch>
+
+# 404 에러 페이지
+ErrorDocument 404 /404.html
+
+# 브라우저 캐싱 최적화
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType video/mp4 "access plus 1 month"
+</IfModule>
+
+# Gzip 압축
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>

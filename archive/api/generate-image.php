@@ -186,7 +186,7 @@ if ($action === 'generate') {
     file_put_contents($filePath, base64_decode($imageData));
 
     // 웹 접근 URL 생성
-    $webUrl = '/01_work/hivemedia_homepage/assets/img/ai-generated/' . $fileName;
+    $webUrl = '/assets/img/ai-generated/' . $fileName;
 
     echo json_encode([
         "success" => true,

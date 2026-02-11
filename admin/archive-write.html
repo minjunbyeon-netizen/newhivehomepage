@@ -955,7 +955,7 @@
             }, 4000);
 
             try {
-                const response = await fetch('/01_work/hivemedia_homepage/archive/api/generate-article.php', {
+                const response = await fetch('/archive/api/generate-article.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1110,7 +1110,7 @@
             suggestImagesBtn.textContent = '⏳ 이미지 프롬프트 분석 중...';
 
             try {
-                const response = await fetch('/01_work/hivemedia_homepage/archive/api/generate-image.php', {
+                const response = await fetch('/archive/api/generate-image.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'suggest', content, title })
@@ -1172,7 +1172,7 @@
             previewBox.classList.remove('show');
 
             try {
-                const response = await fetch('/01_work/hivemedia_homepage/archive/api/generate-image.php', {
+                const response = await fetch('/archive/api/generate-image.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'generate', prompt: promptText })

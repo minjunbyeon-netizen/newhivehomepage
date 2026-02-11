@@ -3,7 +3,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', '0');
 
 // 프로젝트 루트 경로 설정
-$base_path = '/01_work/hivemedia_homepage';
+$base_path = '';
 
 // 포트폴리오 ID (파이어베이스 문서 ID)
 $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
