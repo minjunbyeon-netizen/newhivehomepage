@@ -1,35 +1,27 @@
 # Hivemedia Homepage - Apache Configuration
-# Hostinger Deployment
+# Hostinger Test Deployment
 
 # HTTPS 강제 리다이렉트
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# www → non-www 리다이렉트 (hivemedia.co.kr 기준)
+# www → non-www 리다이렉트
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-# config.php 직접 접근 차단
+# config.php 직접 접근 차단 (Apache 2.4)
 <FilesMatch "config\.php$">
-    Order deny,allow
-    Deny from all
+    Require all denied
 </FilesMatch>
-
-# .git 폴더 접근 차단
-RedirectMatch 404 /\.git
 
 # Python 스크립트 접근 차단
 <FilesMatch "\.py$">
-    Order deny,allow
-    Deny from all
+    Require all denied
 </FilesMatch>
 
-# 백업 폴더 접근 차단
-<DirectoryMatch "_backup">
-    Order deny,allow
-    Deny from all
-</DirectoryMatch>
+# .git 폴더 접근 차단
+RewriteRule ^\.git - [F,L]
 
 # 404 에러 페이지
 ErrorDocument 404 /404.html
