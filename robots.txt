@@ -1,12 +1,3 @@
+# TEST SERVER - Block all crawlers
 User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://hivemedia.co.kr/sitemap.xml
-
-# Crawl-delay for politeness (optional)
-Crawl-delay: 1
-
-# Disallow admin/private areas (if any)
-Disallow: /assets/js/
-Disallow: /.git/
+Disallow: /
