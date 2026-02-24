@@ -7,11 +7,7 @@
         <a href="./assets/download/hivemedia_about.pdf" class="btn-brochure" download="하이브미디어_회사소개서.pdf">
             <span>회사소개서</span>
         </a>
-        <button class="switch btn-dark-light">
-            <span class="blind">밝기 모드</span>
-            <input type="checkbox" class="light">
-            <span class="slider"></span>
-        </button>
+
         <button type="button" class="btn-nav-open">
             <span><em class="blind">Menu</em></span>
         </button>
@@ -286,7 +282,8 @@
         </div>
     </div>
 
-    <!-- 하단: 회사정보 푸터 -->
+    <!-- 하단: 회사정보 푸터 (주석처리) -->
+    <!--
     <div class="nav-footer">
         <div class="nav-footer-left">
             <h2>HIVEMEDIA</h2>
@@ -309,6 +306,7 @@
             <p class="copy">© 2025 HIVEMEDIA. All rights reserved</p>
         </div>
     </div>
+    -->
 </aside>
 
 <style>
@@ -358,21 +356,60 @@
     .nav-left .inn>ul>li>a:hover {
         color: #fff !important;
         transform: translateX(-15px) !important;
+        animation: none !important;
+    }
+
+    /* SERVICES, PORTFOLIO 클릭 유도 효과 */
+    .nav-left .inn>ul>li>a[data-menu="services"],
+    .nav-left .inn>ul>li>a[data-menu="portfolio"] {
+        color: rgba(255, 255, 255, 0.9) !important;
+        animation: subtleGlow 1.5s ease-in-out infinite;
+    }
+
+    .nav-left .inn>ul>li>a[data-menu="services"]:hover,
+    .nav-left .inn>ul>li>a[data-menu="portfolio"]:hover {
+        animation: none;
+        opacity: 1;
+        color: #fff !important;
+    }
+
+    @keyframes subtleGlow {
+
+        0%,
+        100% {
+            opacity: 0.4;
+        }
+
+        50% {
+            opacity: 1;
+        }
     }
 
     /* 서브메뉴 → 왼쪽으로 이동 */
     .nav-right {
         width: 20%;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        padding-top: 20px;
+        position: relative;
         order: 1;
+        height: 100%;
     }
 
+    /* 하위메뉴 기본 숨김 */
     .nav-submenu-group {
-        padding-bottom: 25px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        position: absolute;
+        top: 42%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* 호버 시 하위메뉴 표시 */
+    .nav-submenu-group.active {
+        opacity: 1;
+        visibility: visible;
     }
 
     .nav-submenu-group:last-child {
@@ -386,13 +423,17 @@
     .nav-submenu-group ul {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 10px;
+        align-items: center;
     }
 
+    /* 글자 크기 2배 (15px → 30px) */
     .nav-submenu-group ul li a {
-        font-size: 15px !important;
+        font-size: 30px !important;
         color: rgba(255, 255, 255, 0.6) !important;
         transition: color 0.2s ease !important;
+        font-weight: 500 !important;
+        letter-spacing: -0.5px;
     }
 
     .nav-submenu-group ul li a:hover {
@@ -402,23 +443,25 @@
     /* 하단 푸터 */
     .nav-footer {
         display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         max-width: 1600px;
         width: 100%;
         margin: 0 auto;
         padding: 30px 80px 40px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        gap: 60px;
     }
 
     .nav-footer-left h2 {
-        font-size: 18px;
+        font-size: 27px;
         font-weight: 700;
         color: #fff;
     }
 
     .nav-footer-left p {
-        font-size: 12px;
+        font-size: 18px;
         color: rgba(255, 255, 255, 0.5);
     }
 
@@ -428,18 +471,18 @@
     }
 
     .nav-footer-center span {
-        font-size: 13px;
+        font-size: 20px;
         color: rgba(255, 255, 255, 0.6);
     }
 
     .nav-footer-right {
-        text-align: right;
+        text-align: center;
     }
 
     .nav-footer-right .sns-icon {
         display: flex;
-        gap: 12px;
-        justify-content: flex-end;
+        gap: 18px;
+        justify-content: center;
         margin-bottom: 8px;
     }
 
@@ -448,8 +491,8 @@
     }
 
     .nav-footer-right .sns-icon img {
-        width: 24px;
-        height: 24px;
+        width: 36px;
+        height: 36px;
         opacity: 0.7;
         transition: opacity 0.2s;
     }
@@ -459,7 +502,7 @@
     }
 
     .nav-footer-right .copy {
-        font-size: 11px;
+        font-size: 17px;
         color: rgba(255, 255, 255, 0.4);
     }
 
@@ -495,6 +538,10 @@
             width: calc(50% - 10px);
         }
 
+        .nav-submenu-group ul li a {
+            font-size: 22px !important;
+        }
+
         .nav-footer {
             flex-direction: column;
             align-items: flex-start;
@@ -516,9 +563,3 @@
         }
     }
 </style>
-
-<script>
-    $('.ready').click(function () {
-        alert('준비중입니다.');
-    });
-</script>

@@ -12,7 +12,9 @@ $adminPassword = $config['admin']['password'] ?? '1234';
     <title>Inquiry Admin - Hivemedia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-color: #1a1a1a;
@@ -32,7 +34,7 @@ $adminPassword = $config['admin']['password'] ?? '1234';
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
             background: var(--bg-color);
             color: var(--text-primary);
             min-height: 100vh;

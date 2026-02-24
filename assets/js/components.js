@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initializeNavigation();
     initializeDarkMode();
     initializeMoveTop();
+    initializeSubmenuHover();
 });
 
 // Get the base path based on current page location
@@ -117,4 +118,38 @@ function initializeMoveTop() {
             }
         });
     }
+}
+
+// Submenu hover functionality
+function initializeSubmenuHover() {
+    const menuItems = document.querySelectorAll('.nav-left .inn > ul > li > a[data-menu]');
+    const submenuGroups = document.querySelectorAll('.nav-submenu-group[data-for]');
+
+    if (!menuItems.length || !submenuGroups.length) return;
+
+    menuItems.forEach(function (item) {
+        const menuKey = item.getAttribute('data-menu');
+        const target = document.querySelector('.nav-submenu-group[data-for="' + menuKey + '"]');
+
+        if (target) {
+            item.parentElement.addEventListener('mouseenter', function () {
+                submenuGroups.forEach(function (g) { g.classList.remove('active'); });
+                target.classList.add('active');
+            });
+
+            item.parentElement.addEventListener('mouseleave', function () {
+                target.classList.remove('active');
+            });
+        }
+    });
+
+    // Keep submenu visible when hovering over it
+    submenuGroups.forEach(function (group) {
+        group.addEventListener('mouseenter', function () {
+            group.classList.add('active');
+        });
+        group.addEventListener('mouseleave', function () {
+            group.classList.remove('active');
+        });
+    });
 }

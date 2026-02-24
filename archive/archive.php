@@ -69,10 +69,12 @@ $base_path = '';
     <script src="../assets/js/common.js" defer=""></script>
     <script src="../assets/js/components.js" defer=""></script>
 
-    <!-- Google Fonts - Mono -->
+    <!-- Google Fonts - Montserrat + Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
     <style>
         * {
@@ -84,7 +86,7 @@ $base_path = '';
         body,
         .Wrap {
             background: #f5f5f0 !important;
-            font-family: 'Space Mono', 'Courier New', monospace;
+            font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
             color: #1a1a1a;
             line-height: 1.6;
         }

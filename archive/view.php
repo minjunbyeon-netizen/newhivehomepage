@@ -28,11 +28,11 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
     <script src="../assets/js/common.js" defer=""></script>
     <script src="../assets/js/components.js" defer=""></script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="//fonts.googleapis.com">
-    <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts - Montserrat + Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-        href="//fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
 
     <style>
         /* ===== 미니멀 뉴스 기사 스타일 ===== */
@@ -102,7 +102,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .article-title {
-            font-family: 'Noto Serif KR', Georgia, serif;
+            font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
             font-size: 32px;
             font-weight: 700;
             color: #111;
@@ -154,7 +154,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
         /* 헤딩 */
         .article-content h2 {
-            font-family: 'Noto Serif KR', Georgia, serif;
+            font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
             font-size: 24px;
             font-weight: 700;
             color: #111;
