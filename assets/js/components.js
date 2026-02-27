@@ -15,7 +15,12 @@ async function loadComponent(elementId, componentPath, basePath) {
         // Fix paths in the loaded HTML based on the current page's base path
         // Replace ./ with the appropriate base path
         html = html.replace(/href="\.\//g, `href="${basePath}`)
-            .replace(/src="\.\//g, `src="${basePath}`);
+            .replace(/src="\.\//g, `src="${basePath}`)
+            .replace(/href="portfolio\//g, `href="${basePath}portfolio/`)
+            .replace(/href="archive\//g, `href="${basePath}archive/`)
+            .replace(/href="service\//g, `href="${basePath}service/`)
+            .replace(/href="about\.html"/g, `href="${basePath}about.html"`)
+            .replace(/href="contact\.html"/g, `href="${basePath}contact.html"`);
 
         const element = document.getElementById(elementId);
         if (element) {

@@ -175,7 +175,8 @@ $base_path = '';
         .right-panel {
             width: calc(100% - 400px);
             margin-left: 400px;
-            padding: 20px;
+            padding: 20px 40px 40px 100px;
+            /* Increased left padding from 20px to 100px to shift grid right */
             background: #0a0a0a;
             border-left: none;
         }
@@ -785,8 +786,9 @@ $base_path = '';
         ======================================== */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(5, 1fr);
+            /* Fixed 5 columns as requested */
+            gap: 12px;
         }
 
         .project-card {

@@ -1954,7 +1954,7 @@ SERVICE
 	line-height: 100%;
 	overflow: hidden;
 	/* 3D Depth Effect */
-	text-shadow:
+	/* text-shadow:
 		0 1px 0 rgba(255, 255, 255, 0.1),
 		0 2px 0 rgba(0, 0, 0, 0.1),
 		0 3px 0 rgba(0, 0, 0, 0.08),
@@ -1965,7 +1965,7 @@ SERVICE
 		0 1px 3px rgba(0, 0, 0, 0.1),
 		0 3px 5px rgba(0, 0, 0, 0.08),
 		0 5px 10px rgba(0, 0, 0, 0.1),
-		0 10px 20px rgba(0, 0, 0, 0.15);
+		0 10px 20px rgba(0, 0, 0, 0.15); */
 	transform: rotateX(5deg);
 	transform-origin: center bottom;
 }

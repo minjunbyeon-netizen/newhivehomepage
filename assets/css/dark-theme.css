@@ -14,7 +14,7 @@ body {
 /* ===== 헤더 ===== */
 .header,
 header {
-    background-color: #ffffff !important;
+    /* background-color: #ffffff !important; */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -235,18 +235,18 @@ footer * {
 
 /* om-working-items */
 .om-working-items li {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: none !important;
+    border: none !important;
 }
 
 .om-working-items li:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: transparent !important;
 }
 
 .om-working-items h4,
 .om-working-items p,
 .om-working-items a {
-    color: #fff !important;
+    color: #fff
 }
 
 /* om-process-items */
@@ -257,6 +257,13 @@ footer * {
 .om-process-items h4,
 .om-process-items p {
     color: #fff !important;
+}
+
+/* 서브페이지 아이콘 흰색으로 변환 */
+.om-working-items .om-image img,
+.om-process-items .om-image img {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
 }
 
 /* process-flow (work process section) */

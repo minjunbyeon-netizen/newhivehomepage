@@ -93,6 +93,7 @@ Header
 =======================*/
 .header {}
 
+.header header .conbox,
 .header .conbox {
 	position: fixed;
 	left: 0;
@@ -101,8 +102,9 @@ Header
 	display: flex;
 	align-items: center;
 	width: 100%;
-	height: 100px;
-	z-index: 97
+	height: 75px;
+	z-index: 97;
+	background: #d4d2d257 !important;
 }
 
 .header h1.color {
@@ -125,7 +127,7 @@ Header
 
 .header .util-btn {
 	position: fixed;
-	top: 35px;
+	top: 25px;
 	right: 60px;
 	display: flex;
 	align-items: center;

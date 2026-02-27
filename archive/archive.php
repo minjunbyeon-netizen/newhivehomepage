@@ -73,22 +73,56 @@ $base_path = '';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
         rel="stylesheet">
 
+
     <style>
+        /* Force light color scheme to prevent browser dark mode tinting */
+        :root {
+            color-scheme: light only !important;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html,
         body,
-        .Wrap {
-            background: #f5f5f0 !important;
-            font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
-            color: #1a1a1a;
-            line-height: 1.6;
+        .Wrap,
+        .main-con,
+        .archive-main,
+        .left-panel,
+        .right-panel,
+        .Wrap *:not(.header):not(.header *):not(footer):not(footer *):not(.section-title):not(.cta-button):not(.article-modal__close):not(.nav-wrap):not(.nav-wrap *) {
+            background: #ffffff !important;
+            background-color: #ffffff !important;
+        }
+
+        html,
+        body {
+            font-family: 'Noto Sans KR', 'Montserrat', Malgun Gothic, 맑은 고딕, Apple SD Gothic Neo, sans-serif;
+            color: #000;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        /* Override OS dark mode for this page */
+        @media (prefers-color-scheme: dark) {
+
+            html,
+            body,
+            .Wrap,
+            .main-con,
+            .archive-main,
+            .left-panel,
+            .right-panel {
+                background: #ffffff !important;
+                background-color: #ffffff !important;
+                color: #000 !important;
+            }
         }
 
         /* Header Override - Dark */
@@ -144,7 +178,6 @@ $base_path = '';
         }
 
         .intro-text {
-            font-family: NotoSansKR-Light;
             font-size: 1.6rem;
             line-height: 1.8;
             color: var(--text-color);
@@ -161,7 +194,6 @@ $base_path = '';
         .stat-item {
             display: flex;
             justify-content: space-between;
-            font-family: NotoSansKR-Light, 'Noto Sans KR', sans-serif;
             font-size: 1.3rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -183,7 +215,6 @@ $base_path = '';
             border: 1px solid #1a1a1a;
             background: transparent;
             color: #1a1a1a;
-            font-family: NotoSansKR-Light, 'Noto Sans KR', sans-serif;
             font-size: 1.4rem;
             letter-spacing: 1px;
             text-decoration: none;
@@ -194,7 +225,7 @@ $base_path = '';
 
         .cta-button:hover {
             background: #1a1a1a;
-            color: #f5f5f0;
+            color: #ffffff;
         }
 
         .left-footer {
@@ -253,7 +284,7 @@ $base_path = '';
             letter-spacing: 1px;
             padding: 4px 10px;
             background: #1a1a1a;
-            color: #f5f5f0;
+            color: #ffffff;
             margin-bottom: 20px;
         }
 
@@ -262,7 +293,6 @@ $base_path = '';
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            font-family: NotoSansKR-Light;
             font-size: 1.6rem;
             padding: 12px 0;
             border-bottom: 1px solid #ddd;
@@ -301,7 +331,6 @@ $base_path = '';
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: NotoSansKR-Light;
             font-size: 1.6rem;
             padding: 12px 0;
             border-bottom: 1px solid #ddd;
@@ -429,7 +458,6 @@ $base_path = '';
         .category-column__count {
             font-size: 12px;
             color: #888;
-            font-family: NotoSansKR-Light;
         }
 
         .category-column__list {
@@ -465,7 +493,6 @@ $base_path = '';
         }
 
         .category-column__item-title {
-            font-family: NotoSansKR-Light;
             font-size: 14px;
             color: #333;
             line-height: 1.5;
@@ -480,17 +507,11 @@ $base_path = '';
             white-space: nowrap;
         }
 
-        /* Category Color Accents */
-        .category-column--trend .category-column__header {
-            border-bottom-color: #0084ff;
-        }
-
-        .category-column--insight .category-column__header {
-            border-bottom-color: #00C853;
-        }
-
+        /* Category Color Accents - All Blue */
+        .category-column--trend .category-column__header,
+        .category-column--insight .category-column__header,
         .category-column--case .category-column__header {
-            border-bottom-color: #7C4DFF;
+            border-bottom-color: #0084ff;
         }
 
         /* Responsive */
@@ -607,7 +628,8 @@ $base_path = '';
         }
 
         .article-modal__item-title {
-            font-family: NotoSansKR-Light;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 300;
             font-size: 14px;
             color: #333;
             line-height: 1.5;
@@ -634,8 +656,8 @@ $base_path = '';
     </style>
 </head>
 
-<body>
-    <div class="Wrap">
+<body style="background-color:#ffffff !important;">
+    <div class="Wrap" style="background-color:#ffffff !important;">
         <div id="header-placeholder"></div>
 
         <main class="archive-main">
