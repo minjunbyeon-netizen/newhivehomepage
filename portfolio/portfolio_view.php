@@ -97,24 +97,29 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		   Section 1: Hero - Large Typography
 		======================================== */
 		.section-hero {
-			min-height: 80vh;
+			min-height: auto;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			padding: 160px 80px 100px;
+			padding: 160px 80px 60px;
 			background: var(--bg-light);
 		}
 
 		.hero-category {
-			display: none;
-			/* Hide category in light design */
+			display: block;
+			font-size: 14px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			color: var(--text-gray);
+			margin-bottom: 24px;
 		}
 
 		.hero-title {
-			font-size: clamp(60px, 10vw, 140px);
+			font-size: clamp(36px, 6vw, 80px);
 			font-weight: 300;
-			line-height: 1.05;
-			letter-spacing: -4px;
+			line-height: 1.1;
+			letter-spacing: -2px;
 			margin: 0;
 			color: var(--text-black);
 			word-break: keep-all;
@@ -138,9 +143,10 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		   Section: Project Approach (Label + Text)
 		======================================== */
 		.section-approach {
-			padding: 80px;
+			padding: 50px 80px 60px;
 			background: var(--bg-light);
-			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			border-top: 1px solid rgba(255, 255, 255, 0.15);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 		}
 
 		.approach-inner {
@@ -148,12 +154,12 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			margin: 0 auto;
 			display: grid;
 			grid-template-columns: 200px 1fr;
-			gap: 80px;
+			gap: 60px;
 			align-items: start;
 		}
 
 		.approach-label {
-			font-size: 12px;
+			font-size: 13px;
 			font-weight: 600;
 			text-transform: uppercase;
 			letter-spacing: 2px;
@@ -161,10 +167,10 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 		}
 
 		.approach-content {
-			font-size: 15px;
+			font-size: 17px;
 			line-height: 1.9;
 			color: var(--text-black);
-			max-width: 800px;
+			max-width: 900px;
 		}
 
 		.approach-content strong {
@@ -516,8 +522,13 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			}
 
 			.hero-title {
-				font-size: 36px;
+				font-size: 28px;
 				letter-spacing: -1px;
+			}
+
+			.hero-category {
+				font-size: 12px;
+				margin-bottom: 16px;
 			}
 
 			.section-approach,
@@ -606,6 +617,7 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 				<!-- Section 1: Hero - Large Typography -->
 				<section class="section-hero" id="sectionHero">
+					<span class="hero-category" id="heroCategory"></span>
 					<h1 class="hero-title" id="heroTitle">Loading...</h1>
 				</section>
 
@@ -749,7 +761,31 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 						: `${clientName} ${category} 프로젝트 - ${projectTitle} | 하이브미디어 공공기관 마케팅 전문`;
 					const seoKeywords = `${clientName}, ${projectTitle}, ${category}, 공공기관마케팅, SNS마케팅, 하이브미디어, 마케팅에이전시`;
 
-					// Update NEW Hero Section UI (title only for minimalist design)
+					// Category to subpage title mapping
+					const categoryTitleMap = {
+						'Online AD': '온라인 광고',
+						'online_ad': '온라인 광고',
+						'SNS': 'SNS 마케팅',
+						'sns': 'SNS 마케팅',
+						'Homepage': '홈페이지 제작',
+						'homepage': '홈페이지 제작',
+						'Eventpage': '이벤트 페이지',
+						'eventpage': '이벤트 페이지',
+						'Video': '영상 제작',
+						'video': '영상 제작',
+						'Print': '인쇄물',
+						'print': '인쇄물',
+						'Exhibition Art': '전시 기획',
+						'exhibition_art': '전시 기획',
+						'Marketing': '마케팅',
+						'Web': '웹 에이전시',
+						'Exhibition': '전시 기획',
+						'BRANDING': '브랜딩',
+					};
+
+					// Update Hero Section with category as subpage title
+					const subpageTitle = categoryTitleMap[category] || category;
+					document.getElementById('heroCategory').textContent = subpageTitle;
 					document.getElementById('heroTitle').textContent = projectTitle;
 
 					// Update PROJECT APPROACH section (description goes here now)

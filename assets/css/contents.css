@@ -184,7 +184,7 @@ ABOUT
 strong.ani-tit {
 	display: inline-block;
 	position: relative;
-	color: var(--parallax-bgw);
+	color: #87CEEB;
 	font-family: Poppins-Bold;
 	font-size: 3.5rem;
 	margin-bottom: 30px;
@@ -193,9 +193,9 @@ strong.ani-tit {
 strong.ani-tit::after {
 	content: "";
 	display: block;
-	background-color: var(--section02-bg);
+	background-color: #000;
 	width: 120%;
-	height: 100%;
+	height: 0;
 	position: absolute;
 	right: 0;
 	left: 0;
@@ -214,7 +214,7 @@ strong.ani-tit span {
 }
 
 .aos-animate strong.ani-tit::after {
-	animation: titShowAni .7s ease-in-out .2s both
+	animation: none;
 }
 
 .aos-animate strong.ani-tit span {
@@ -246,7 +246,7 @@ strong.ani-tit span {
 
 .about-title .main-tit h3 strong {
 	font-family: NotoSansKR-Medium;
-	color: var(--parallax-bgw);
+	color: #87CEEB;
 }
 
 .about-title .main-tit h3 span {
@@ -257,9 +257,9 @@ strong.ani-tit span {
 .about-title .main-tit h3 span::after {
 	content: "";
 	display: block;
-	background-color: var(--section02-bg);
+	background-color: #000;
 	width: 100%;
-	height: 100%;
+	height: 0;
 	position: absolute;
 	right: 0;
 	left: 0;
@@ -272,11 +272,11 @@ strong.ani-tit span {
 }
 
 .about-title.aos-animate .main-tit h3 span::after {
-	animation: titShowAni .7s ease-in-out both;
+	animation: none;
 }
 
 .about-title.aos-animate .main-tit h3 span.first::after {
-	animation-delay: 1.5s;
+	animation: none;
 }
 
 
