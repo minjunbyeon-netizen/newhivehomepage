@@ -2421,6 +2421,32 @@
 
         console.log('✅ GSAP Reveal Wipe 효과 초기화 완료');
 
+        // ===== 숫자 카운터 애니메이션 =====
+        document.querySelectorAll('.stat-number').forEach(el => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const isDecimal = el.getAttribute('data-decimal') === 'true';
+
+            const counter = { val: 0 };
+
+            ScrollTrigger.create({
+                trigger: el,
+                start: 'top 85%',
+                once: true,
+                onEnter: () => {
+                    gsap.to(counter, {
+                        val: target,
+                        duration: 2,
+                        ease: 'power2.out',
+                        onUpdate: () => {
+                            el.textContent = (isDecimal ? counter.val.toFixed(1) : Math.floor(counter.val)) + suffix;
+                        }
+                    });
+                }
+            });
+        });
+        console.log('✅ 숫자 카운터 애니메이션 초기화 완료');
+
         // ===== 섹션 타이틀 타이핑 효과 =====
         function initTypingEffect() {
             const typingTargets = [
