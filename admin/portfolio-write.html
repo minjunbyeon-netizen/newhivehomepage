@@ -703,14 +703,14 @@
                         <div class="form-group">
                             <label for="projectType">Project Type *</label>
                             <input type="text" id="projectType" required
-                                placeholder="예: Brand Identity, Campaign, Web Design">
+                                placeholder="?? Brand Identity, Campaign, Web Design">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="year">Year *</label>
-                            <input type="text" id="year" required placeholder="예: 2024">
+                            <input type="text" id="year" required placeholder="?? 2024">
                         </div>
 
                         <div class="form-group">
@@ -733,36 +733,36 @@
                         <div class="section-title">Project Descriptions</div>
 
                         <div class="form-group">
-                            <label for="description1">프로젝트 개요 *</label>
+                            <label for="description1">?�로?�트 개요 *</label>
                             <textarea id="description1" required
-                                placeholder="예: 본 캠페인은 신제품 런칭을 위한 통합 마케팅 프로젝트로, SNS 광고와 인플루언서 마케팅을 결합하여 브랜드 인지도를 높이고 구매 전환율을 증대시키는 것을 목표로 합니다."></textarea>
+                                placeholder="?? �?캠페?��? ?�제???�칭???�한 ?�합 마�????�로?�트�? SNS 광고?� ?�플루언??마�??�을 결합?�여 브랜???��??��? ?�이�?구매 ?�환?�을 증�??�키??것을 목표�??�니??"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="description2">주요 성과 지표</label>
+                            <label for="description2">주요 ?�과 지??/label>
                             <div id="metricsContainer">
                                 <div class="metric-row">
                                     <select class="metric-type">
-                                        <option value="">지표 선택</option>
-                                        <option value="ROAS">ROAS (광고 투자 수익률)</option>
-                                        <option value="조회수">조회수</option>
-                                        <option value="이벤트 참여자">이벤트 참여자 수</option>
-                                        <option value="전환율">전환율 (%)</option>
-                                        <option value="클릭률">클릭률 (CTR %)</option>
-                                        <option value="도달">도달 수</option>
-                                        <option value="참여율">참여율 (%)</option>
-                                        <option value="구매 전환">구매 전환 수</option>
-                                        <option value="매출">매출 증가율 (%)</option>
-                                        <option value="트래픽">웹사이트 트래픽 증가 (%)</option>
-                                        <option value="브랜드 언급">브랜드 언급량 증가 (%)</option>
-                                        <option value="팔로워">팔로워 증가 수</option>
+                                        <option value="">지???�택</option>
+                                        <option value="ROAS">ROAS (광고 ?�자 ?�익�?</option>
+                                        <option value="조회??>조회??/option>
+                                        <option value="?�벤??참여??>?�벤??참여????/option>
+                                        <option value="?�환??>?�환??(%)</option>
+                                        <option value="?�릭�?>?�릭�?(CTR %)</option>
+                                        <option value="?�달">?�달 ??/option>
+                                        <option value="참여??>참여??(%)</option>
+                                        <option value="구매 ?�환">구매 ?�환 ??/option>
+                                        <option value="매출">매출 증�???(%)</option>
+                                        <option value="?�래??>?�사?�트 ?�래??증�? (%)</option>
+                                        <option value="브랜???�급">브랜???�급??증�? (%)</option>
+                                        <option value="?�로??>?�로??증�? ??/option>
                                     </select>
-                                    <input type="text" class="metric-value" placeholder="수치 입력 (예: 450, 3.2)">
+                                    <input type="text" class="metric-value" placeholder="?�치 ?�력 (?? 450, 3.2)">
                                     <button type="button" class="remove-metric-btn"
                                         onclick="removeMetric(this)">×</button>
                                 </div>
                             </div>
-                            <button type="button" class="add-metric-btn" onclick="addMetric()">+ 성과 지표 추가</button>
+                            <button type="button" class="add-metric-btn" onclick="addMetric()">+ ?�과 지??추�?</button>
                         </div>
                     </div>
 
@@ -773,7 +773,7 @@
                             <label for="thumbnail">Thumbnail Image *</label>
                             <div class="file-input-wrapper">
                                 <label for="thumbnail" class="file-input-label" id="thumbnailLabel">
-                                    <span class="upload-icon">📎</span>
+                                    <span class="upload-icon">?��</span>
                                     <span class="upload-text">Choose file or drag here</span>
                                 </label>
                                 <input type="file" id="thumbnail" accept="image/*" required>
@@ -784,60 +784,60 @@
                                     <span class="image-filename" id="thumbnailFilename"></span>
                                     <span class="image-size" id="thumbnailSize"></span>
                                     <button type="button" class="remove-image-btn" onclick="removeImage('thumbnail')">×
-                                        제거</button>
+                                        ?�거</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="descriptions-section">
-                        <div class="section-title">Direction Section (선택사항)</div>
-                        <p style="font-size:12px;color:#666;margin-bottom:16px;">이미지 사이에 표시될 프로젝트 방향성 설명입니다. "강조 키워드"에
-                            입력한
-                            단어가 골드색으로 표시됩니다.</p>
+                        <div class="section-title">Direction Section (?�택?�항)</div>
+                        <p style="font-size:12px;color:#666;margin-bottom:16px;">?��?지 ?�이???�시???�로?�트 방향???�명?�니?? "강조 ?�워????
+                            ?�력??
+                            ?�어가 골드?�으�??�시?�니??</p>
 
                         <div class="form-group">
-                            <label for="directionMain">Direction 메인 설명</label>
+                            <label for="directionMain">Direction 메인 ?�명</label>
                             <textarea id="directionMain" rows="3"
-                                placeholder="예: 실무진과의 인터뷰를 통해 개선 방향을 구체화하는 과정을 거쳤습니다."></textarea>
+                                placeholder="?? ?�무진과???�터뷰�? ?�해 개선 방향??구체?�하??과정??거쳤?�니??"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label>강조 키워드 (메인 설명에서 강조할 단어)</label>
-                            <input type="text" id="directionKeyword" placeholder="예: 소비자·운영·브랜드"
+                            <label>강조 ?�워??(메인 ?�명?�서 강조???�어)</label>
+                            <input type="text" id="directionKeyword" placeholder="?? ?�비?�·운?�·브?�드"
                                 style="margin-bottom:4px;">
-                            <p style="font-size:11px;color:#999;">위 메인 설명에 포함된 단어를 입력하면 골드색으로 강조됩니다</p>
+                            <p style="font-size:11px;color:#999;">??메인 ?�명???�함???�어�??�력?�면 골드?�으�?강조?�니??/p>
                         </div>
 
                         <div class="form-group">
-                            <label>Direction 항목 (최대 3개)</label>
+                            <label>Direction ??�� (최�? 3�?</label>
                             <div
                                 style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-bottom:8px;align-items:center;">
-                                <input type="text" id="directionItem1Key" placeholder="강조 키워드" style="font-size:13px;">
+                                <input type="text" id="directionItem1Key" placeholder="강조 ?�워?? style="font-size:13px;">
                                 <input type="text" id="directionItem1Text"
-                                    placeholder="설명 텍스트 (예: 원하는 제품을 찾을 수 있게 하고 싶어요)">
+                                    placeholder="?�명 ?�스??(?? ?�하???�품??찾을 ???�게 ?�고 ?�어??">
                             </div>
                             <div
                                 style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-bottom:8px;align-items:center;">
-                                <input type="text" id="directionItem2Key" placeholder="강조 키워드" style="font-size:13px;">
-                                <input type="text" id="directionItem2Text" placeholder="설명 텍스트">
+                                <input type="text" id="directionItem2Key" placeholder="강조 ?�워?? style="font-size:13px;">
+                                <input type="text" id="directionItem2Text" placeholder="?�명 ?�스??>
                             </div>
                             <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;">
-                                <input type="text" id="directionItem3Key" placeholder="강조 키워드" style="font-size:13px;">
-                                <input type="text" id="directionItem3Text" placeholder="설명 텍스트">
+                                <input type="text" id="directionItem3Key" placeholder="강조 ?�워?? style="font-size:13px;">
+                                <input type="text" id="directionItem3Text" placeholder="?�명 ?�스??>
                             </div>
                         </div>
                     </div>
 
                     <div class="descriptions-section">
-                        <div class="section-title">본문 이미지 (선택사항)</div>
+                        <div class="section-title">본문 ?��?지 (?�택?�항)</div>
 
                         <div class="form-group">
-                            <label for="additionalImages">추가 이미지 (최대 5장)</label>
+                            <label for="additionalImages">추�? ?��?지 (최�? 5??</label>
                             <div class="file-input-wrapper">
                                 <label for="additionalImages" class="file-input-label" id="additionalImagesLabel">
-                                    <span class="upload-icon">📎</span>
-                                    <span class="upload-text">여러 이미지 선택 가능 (최대 5장)</span>
+                                    <span class="upload-icon">?��</span>
+                                    <span class="upload-text">?�러 ?��?지 ?�택 가??(최�? 5??</span>
                                 </label>
                                 <input type="file" id="additionalImages" accept="image/*" multiple>
                             </div>
@@ -878,11 +878,11 @@
                         </div>
 
                         <div class="descriptions-section">
-                            <div class="section-title">작성자 정보</div>
+                            <div class="section-title">?�성???�보</div>
 
                             <div class="form-group">
-                                <label for="author">작성자 이름 *</label>
-                                <input type="text" id="author" required placeholder="홍길동">
+                                <label for="author">?�성???�름 *</label>
+                                <input type="text" id="author" required placeholder="?�길??>
                             </div>
                         </div>
                     </div>
@@ -900,12 +900,12 @@
             </div>
             <div class="preview-content" id="previewContent">
                 <div class="preview-empty" id="previewEmpty">
-                    <div class="preview-empty-icon">📝</div>
-                    <div class="preview-empty-text">왼쪽 양식에 내용을 입력하면<br>여기서 미리보기가 표시됩니다</div>
+                    <div class="preview-empty-icon">?��</div>
+                    <div class="preview-empty-text">?�쪽 ?�식???�용???�력?�면<br>?�기??미리보기가 ?�시?�니??/div>
                 </div>
                 <div id="previewData" style="display:none;">
-                    <img id="previewImage" class="preview-image" style="display:none;" alt="썸네일 미리보기">
-                    <h1 class="preview-title" id="previewTitle">제목을 입력하세요</h1>
+                    <img id="previewImage" class="preview-image" style="display:none;" alt="?�네??미리보기">
+                    <h1 class="preview-title" id="previewTitle">?�목???�력?�세??/h1>
                     <div class="preview-meta">
                         <div class="preview-meta-item">
                             <span class="preview-meta-label">Client</span>
@@ -926,7 +926,7 @@
                     </div>
                     <div class="preview-desc" id="previewDesc"></div>
                     <div class="preview-metrics" id="previewMetrics" style="display:none;">
-                        <div class="preview-metrics-title">주요 성과 지표</div>
+                        <div class="preview-metrics-title">주요 ?�과 지??/div>
                         <div id="previewMetricsList"></div>
                     </div>
                     <div class="preview-direction" id="previewDirection" style="display:none;">
@@ -941,7 +941,7 @@
     <script>
         function goToHome() {
             console.log('goToHome called!');
-            if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
+            if (confirm('?�?�된 ?�보??지?��?�??�아가�??�니??\n?�페?��?�??�동?�시겠습?�까?')) {
                 console.log('Redirecting to index.html');
                 window.location.href = '../index.html';
             } else {
@@ -981,7 +981,7 @@
                 document.getElementById('previewData').style.display = hasContent ? 'block' : 'none';
 
                 // Update basic fields
-                document.getElementById('previewTitle').textContent = title || '제목을 입력하세요';
+                document.getElementById('previewTitle').textContent = title || '?�목???�력?�세??;
                 document.getElementById('previewClient').textContent = client || '-';
                 document.getElementById('previewCategory').textContent = category || '-';
                 document.getElementById('previewYear').textContent = year || '-';
@@ -1106,21 +1106,21 @@
             newRow.className = 'metric-row';
             newRow.innerHTML = `
                 <select class="metric-type">
-                    <option value="">지표 선택</option>
-                    <option value="ROAS">ROAS (광고 투자 수익률)</option>
-                    <option value="조회수">조회수</option>
-                    <option value="이벤트 참여자">이벤트 참여자 수</option>
-                    <option value="전환율">전환율 (%)</option>
-                    <option value="클릭률">클릭률 (CTR %)</option>
-                    <option value="도달">도달 수</option>
-                    <option value="참여율">참여율 (%)</option>
-                    <option value="구매 전환">구매 전환 수</option>
-                    <option value="매출">매출 증가율 (%)</option>
-                    <option value="트래픽">웹사이트 트래픽 증가 (%)</option>
-                    <option value="브랜드 언급">브랜드 언급량 증가 (%)</option>
-                    <option value="팔로워">팔로워 증가 수</option>
+                    <option value="">지???�택</option>
+                    <option value="ROAS">ROAS (광고 ?�자 ?�익�?</option>
+                    <option value="조회??>조회??/option>
+                    <option value="?�벤??참여??>?�벤??참여????/option>
+                    <option value="?�환??>?�환??(%)</option>
+                    <option value="?�릭�?>?�릭�?(CTR %)</option>
+                    <option value="?�달">?�달 ??/option>
+                    <option value="참여??>참여??(%)</option>
+                    <option value="구매 ?�환">구매 ?�환 ??/option>
+                    <option value="매출">매출 증�???(%)</option>
+                    <option value="?�래??>?�사?�트 ?�래??증�? (%)</option>
+                    <option value="브랜???�급">브랜???�급??증�? (%)</option>
+                    <option value="?�로??>?�로??증�? ??/option>
                 </select>
-                <input type="text" class="metric-value" placeholder="수치 입력 (예: 450, 3.2)">
+                <input type="text" class="metric-value" placeholder="?�치 ?�력 (?? 450, 3.2)">
                 <button type="button" class="remove-metric-btn" onclick="removeMetric(this)">×</button>
             `;
             container.appendChild(newRow);
@@ -1131,7 +1131,7 @@
             if (container.children.length > 1) {
                 button.closest('.metric-row').remove();
             } else {
-                alert('최소 1개의 성과 지표는 유지해야 합니다.');
+                alert('최소 1개의 ?�과 지?�는 ?��??�야 ?�니??');
             }
         }
 
@@ -1150,8 +1150,8 @@
                         document.getElementById('thumbnailSize').textContent = formatFileSize(file.size);
                         document.getElementById('thumbnailPreview').style.display = 'block';
                         document.getElementById('thumbnailLabel').classList.add('has-file');
-                        document.querySelector('#thumbnailLabel .upload-icon').textContent = '✓';
-                        document.querySelector('#thumbnailLabel .upload-text').textContent = '이미지 첨부 완료';
+                        document.querySelector('#thumbnailLabel .upload-icon').textContent = '??;
+                        document.querySelector('#thumbnailLabel .upload-text').textContent = '?��?지 첨�? ?�료';
                     };
                     reader.readAsDataURL(file);
                 }
@@ -1163,7 +1163,7 @@
             input.value = '';
             document.getElementById(inputId + 'Preview').style.display = 'none';
             document.getElementById(inputId + 'Label').classList.remove('has-file');
-            document.querySelector('#' + inputId + 'Label .upload-icon').textContent = '📎';
+            document.querySelector('#' + inputId + 'Label .upload-icon').textContent = '?��';
             document.querySelector('#' + inputId + 'Label .upload-text').textContent = 'Choose file or drag here';
         }
 
@@ -1186,7 +1186,7 @@
                 const maxFiles = 5;
 
                 if (files.length + additionalImagesFiles.length > maxFiles) {
-                    alert(`최대 ${maxFiles}장까지만 업로드 가능합니다.`);
+                    alert(`최�? ${maxFiles}?�까지�??�로??가?�합?�다.`);
                     return;
                 }
 
@@ -1217,7 +1217,7 @@
                         <img src="${e.target.result}" alt="${file.name}">
                         <div class="additional-image-info">${file.name}</div>
                         <div class="additional-image-info">${formatFileSize(file.size)}</div>
-                        <button type="button" class="additional-image-remove" onclick="removeAdditionalImage(${index})">× 제거</button>
+                        <button type="button" class="additional-image-remove" onclick="removeAdditionalImage(${index})">× ?�거</button>
                     `;
                     container.appendChild(div);
                 };
@@ -1237,12 +1237,12 @@
 
             if (count > 0) {
                 label.classList.add('has-file');
-                label.querySelector('.upload-icon').textContent = '✓';
-                label.querySelector('.upload-text').innerHTML = `이미지 ${count}장 첨부됨 <span class="image-count-badge">${count}/5</span>`;
+                label.querySelector('.upload-icon').textContent = '??;
+                label.querySelector('.upload-text').innerHTML = `?��?지 ${count}??첨�???<span class="image-count-badge">${count}/5</span>`;
             } else {
                 label.classList.remove('has-file');
-                label.querySelector('.upload-icon').textContent = '📎';
-                label.querySelector('.upload-text').textContent = '여러 이미지 선택 가능 (최대 5장)';
+                label.querySelector('.upload-icon').textContent = '?��';
+                label.querySelector('.upload-text').textContent = '?�러 ?��?지 ?�택 가??(최�? 5??';
             }
         }
     </script>
@@ -1280,7 +1280,7 @@
 
             // Check if logged in
             if (!userId) {
-                alert('로그인이 필요합니다. 다시 로그인해주세요.');
+                alert('로그?�이 ?�요?�니?? ?�시 로그?�해주세??');
                 window.location.href = 'login.html';
                 return;
             }
@@ -1316,7 +1316,7 @@
                 // Convert thumbnail to Base64 (no Firebase Storage needed)
                 const thumbnailFile = document.getElementById('thumbnail').files[0];
                 if (!thumbnailFile) {
-                    alert('썸네일 이미지를 선택해주세요.');
+                    alert('?�네???��?지�??�택?�주?�요.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit for Approval';
                     return;
@@ -1325,7 +1325,7 @@
                 // Check file type
                 const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
                 if (!validTypes.includes(thumbnailFile.type)) {
-                    alert('이미지 형식 오류\n\n지원되는 형식: JPG, PNG, GIF, WebP\n선택한 파일: ' + thumbnailFile.type);
+                    alert('?��?지 ?�식 ?�류\n\n지?�되???�식: JPG, PNG, GIF, WebP\n?�택???�일: ' + thumbnailFile.type);
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit for Approval';
                     return;
@@ -1334,7 +1334,7 @@
                 // Check file size (max 10MB for original file)
                 const maxSize = 10 * 1024 * 1024; // 10MB
                 if (thumbnailFile.size > maxSize) {
-                    alert('파일 용량 초과\n\n최대 용량: 10MB\n선택한 파일: ' + Math.round(thumbnailFile.size / 1024 / 1024) + 'MB\n\n더 작은 이미지를 선택해주세요.');
+                    alert('?�일 ?�량 초과\n\n최�? ?�량: 10MB\n?�택???�일: ' + Math.round(thumbnailFile.size / 1024 / 1024) + 'MB\n\n???��? ?��?지�??�택?�주?�요.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit for Approval';
                     return;
@@ -1377,7 +1377,7 @@
                             // Convert with compression (0.6 quality for better safety)
                             resolve(canvas.toDataURL('image/jpeg', 0.6));
                         };
-                        img.onerror = () => reject(new Error('이미지 로드 실패'));
+                        img.onerror = () => reject(new Error('?��?지 로드 ?�패'));
                         img.src = URL.createObjectURL(thumbnailFile);
                     });
 
@@ -1386,14 +1386,14 @@
 
                     // Check if compressed size is still too large (Firestore limit is 1MB total)
                     if (compressedSizeKB > 900) {
-                        alert('이미지 압축 후에도 용량이 너무 큽니다 (약 ' + compressedSizeKB + 'KB).\n\n파이어베이스 저장 제한(1MB)을 맞추기 위해\n해상도가 더 낮거나 용량이 작은 이미지를 사용해주세요.');
+                        alert('?��?지 ?�축 ?�에???�량???�무 ?�니??(??' + compressedSizeKB + 'KB).\n\n?�이?�베?�스 ?�???�한(1MB)??맞추�??�해\n?�상?��? ????��???�량???��? ?��?지�??�용?�주?�요.');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Submit for Approval';
                         return;
                     }
                 } catch (imageError) {
                     console.error('Image processing error:', imageError);
-                    alert('이미지 처리 오류\n\n' + imageError.message + '\n\n다른 이미지를 선택하거나 파일을 확인해주세요.');
+                    alert('?��?지 처리 ?�류\n\n' + imageError.message + '\n\n?�른 ?��?지�??�택?�거???�일???�인?�주?�요.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit for Approval';
                     return;
@@ -1430,7 +1430,7 @@
                                     ctx.drawImage(img, 0, 0, width, height);
                                     resolve(canvas.toDataURL('image/jpeg', 0.5));
                                 };
-                                img.onerror = () => reject(new Error('이미지 로드 실패'));
+                                img.onerror = () => reject(new Error('?��?지 로드 ?�패'));
                                 img.src = URL.createObjectURL(file);
                             });
 
@@ -1521,12 +1521,12 @@
                 console.log('Successfully saved to Firestore');
 
                 // Success message
-                successMsg.textContent = '✅ 포트폴리오가 성공적으로 제출되었습니다! 관리자 승인 후 포트폴리오 페이지에 표시됩니다.';
+                successMsg.textContent = '???�트?�리?��? ?�공?�으�??�출?�었?�니?? 관리자 ?�인 ???�트?�리???�이지???�시?�니??';
                 successMsg.classList.add('show');
                 portfolioForm.reset();
 
                 // Show alert
-                alert('제출 완료!\n\n포트폴리오가 성공적으로 제출되었습니다.\n관리자의 승인 후 포트폴리오 페이지에 게시됩니다.');
+                alert('?�출 ?�료!\n\n?�트?�리?��? ?�공?�으�??�출?�었?�니??\n관리자???�인 ???�트?�리???�이지??게시?�니??');
 
                 setTimeout(() => {
                     successMsg.classList.remove('show');
@@ -1536,21 +1536,21 @@
                 console.error('Submission error:', error);
 
                 // Detailed error messages
-                let errorMessage = '제출 실패: ';
+                let errorMessage = '?�출 ?�패: ';
 
                 if (error.code === 'storage/unauthorized') {
-                    errorMessage += '파일 업로드 권한이 없습니다. Firebase Storage 설정을 확인해주세요.';
+                    errorMessage += '?�일 ?�로??권한???�습?�다. Firebase Storage ?�정???�인?�주?�요.';
                 } else if (error.code === 'permission-denied') {
-                    errorMessage += 'Firestore 쓰기 권한이 없습니다. Firebase 보안 규칙을 확인해주세요.';
+                    errorMessage += 'Firestore ?�기 권한???�습?�다. Firebase 보안 규칙???�인?�주?�요.';
                 } else if (error.message.includes('network')) {
-                    errorMessage += '네트워크 연결을 확인해주세요.';
+                    errorMessage += '?�트?�크 ?�결???�인?�주?�요.';
                 } else if (error.message.includes('storage')) {
-                    errorMessage += '이미지 업로드 중 오류가 발생했습니다. 파일 크기나 형식을 확인해주세요.';
+                    errorMessage += '?��?지 ?�로??�??�류가 발생?�습?�다. ?�일 ?�기???�식???�인?�주?�요.';
                 } else {
-                    errorMessage += error.message || '알 수 없는 오류가 발생했습니다.';
+                    errorMessage += error.message || '?????�는 ?�류가 발생?�습?�다.';
                 }
 
-                alert(errorMessage + '\n\n상세 오류:\n' + error.toString());
+                alert(errorMessage + '\n\n?�세 ?�류:\n' + error.toString());
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit for Approval';

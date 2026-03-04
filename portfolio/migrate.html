@@ -223,20 +223,20 @@
 
 <body>
     <div class="container">
-        <h1>🔄 Portfolio Migration Tool</h1>
+        <h1>?�� Portfolio Migration Tool</h1>
         <p class="description">
-            기존 MySQL 데이터(portfolio.json)를 Firebase Firestore로 마이그레이션합니다.
+            기존 MySQL ?�이??portfolio.json)�?Firebase Firestore�?마이그레?�션?�니??
         </p>
 
         <!-- Step 1: Load JSON -->
         <div class="panel">
-            <h2>Step 1: JSON 데이터 로드</h2>
+            <h2>Step 1: JSON ?�이??로드</h2>
             <div id="dropZone">
-                <p>📁 portfolio.json 파일을 여기에 드래그하거나 클릭하세요</p>
+                <p>?�� portfolio.json ?�일???�기???�래그하거나 ?�릭?�세??/p>
                 <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
             </div>
             <div style="margin-top: 15px;">
-                <button class="btn btn-secondary" onclick="loadFromPath()">📂 기본 경로에서 로드</button>
+                <button class="btn btn-secondary" onclick="loadFromPath()">?�� 기본 경로?�서 로드</button>
                 <span style="color: #666; font-size: 12px; margin-left: 10px;">
                     (./assets/uploaded/app/portfolio.json)
                 </span>
@@ -245,15 +245,15 @@
 
         <!-- Step 2: Preview & Stats -->
         <div class="panel" id="previewPanel" style="display: none;">
-            <h2>Step 2: 데이터 미리보기</h2>
+            <h2>Step 2: ?�이??미리보기</h2>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="number" id="totalCount">0</div>
-                    <div class="label">총 항목</div>
+                    <div class="label">�???��</div>
                 </div>
                 <div class="stat-card">
                     <div class="number" id="activeCount">0</div>
-                    <div class="label">활성 항목</div>
+                    <div class="label">?�성 ??��</div>
                 </div>
                 <div class="stat-card">
                     <div class="number" id="categoryCount">0</div>
@@ -265,10 +265,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>광고주</th>
-                        <th>프로젝트명</th>
+                        <th>광고�?/th>
+                        <th>?�로?�트�?/th>
                         <th>카테고리</th>
-                        <th>날짜</th>
+                        <th>?�짜</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -277,19 +277,19 @@
 
         <!-- Step 3: Migration -->
         <div class="panel" id="migrationPanel" style="display: none;">
-            <h2>Step 3: Firebase로 마이그레이션</h2>
+            <h2>Step 3: Firebase�?마이그레?�션</h2>
             <div class="progress-bar">
                 <div class="fill" id="progressFill"></div>
             </div>
             <div style="margin-bottom: 20px;">
-                <span id="progressText">대기 중...</span>
+                <span id="progressText">?��?�?..</span>
             </div>
             <div>
                 <button class="btn btn-primary" id="migrateBtn" onclick="startMigration()">
-                    🚀 마이그레이션 시작
+                    ?? 마이그레?�션 ?�작
                 </button>
                 <button class="btn btn-danger" id="clearBtn" onclick="clearFirestore()">
-                    🗑️ 기존 데이터 삭제
+                    ?���?기존 ?�이????��
                 </button>
             </div>
             <div class="log-area" id="logArea" style="margin-top: 20px;"></div>
@@ -384,7 +384,7 @@
 
                 // Update UI
                 document.getElementById('dropZone').classList.add('loaded');
-                document.getElementById('dropZone').innerHTML = `<p>✅ ${portfolioData.length}개 항목 로드됨</p>`;
+                document.getElementById('dropZone').innerHTML = `<p>??${portfolioData.length}�???�� 로드??/p>`;
                 document.getElementById('previewPanel').style.display = 'block';
                 document.getElementById('migrationPanel').style.display = 'block';
 
@@ -416,37 +416,37 @@
                     </tr>
                 `).join('');
 
-                log(`✅ ${portfolioData.length}개 포트폴리오 항목 로드 완료`, 'success');
+                log(`??${portfolioData.length}�??�트?�리????�� 로드 ?�료`, 'success');
             } catch (error) {
-                log(`❌ JSON 파싱 오류: ${error.message}`, 'error');
+                log(`??JSON ?�싱 ?�류: ${error.message}`, 'error');
             }
         };
 
         // Load from file path (using fetch)
         window.loadFromPath = async function () {
             try {
-                log('📁 기본 경로에서 JSON 로드 중...', 'info');
+                log('?�� 기본 경로?�서 JSON 로드 �?..', 'info');
                 const response = await fetch('../assets/uploaded/app/portfolio.json');
-                if (!response.ok) throw new Error('파일을 찾을 수 없습니다');
+                if (!response.ok) throw new Error('?�일??찾을 ???�습?�다');
                 const data = await response.json();
                 window.loadJsonData(data);
             } catch (error) {
-                log(`❌ 로드 실패: ${error.message}`, 'error');
+                log(`??로드 ?�패: ${error.message}`, 'error');
             }
         };
 
         // Start migration
         window.startMigration = async function () {
             if (portfolioData.length === 0) {
-                log('❌ 마이그레이션할 데이터가 없습니다', 'error');
+                log('??마이그레?�션???�이?��? ?�습?�다', 'error');
                 return;
             }
 
-            const confirmed = confirm(`${portfolioData.length}개 항목을 Firebase에 업로드하시겠습니까?`);
+            const confirmed = confirm(`${portfolioData.length}�???��??Firebase???�로?�하?�겠?�니�?`);
             if (!confirmed) return;
 
             document.getElementById('migrateBtn').disabled = true;
-            log('🚀 마이그레이션 시작...', 'info');
+            log('?? 마이그레?�션 ?�작...', 'info');
 
             const progressFill = document.getElementById('progressFill');
             const progressText = document.getElementById('progressText');
@@ -460,7 +460,7 @@
                     await setDoc(doc(db, 'portfolios', item.id), item);
                     successCount++;
                 } catch (error) {
-                    log(`❌ 항목 ${item.id} 업로드 실패: ${error.message}`, 'error');
+                    log(`????�� ${item.id} ?�로???�패: ${error.message}`, 'error');
                     errorCount++;
                 }
 
@@ -471,20 +471,20 @@
 
                 // Log every 20 items
                 if ((i + 1) % 20 === 0) {
-                    log(`📊 진행률: ${i + 1}/${portfolioData.length}`, 'info');
+                    log(`?�� 진행�? ${i + 1}/${portfolioData.length}`, 'info');
                 }
             }
 
-            log(`✅ 마이그레이션 완료! 성공: ${successCount}, 실패: ${errorCount}`, 'success');
+            log(`??마이그레?�션 ?�료! ?�공: ${successCount}, ?�패: ${errorCount}`, 'success');
             document.getElementById('migrateBtn').disabled = false;
         };
 
         // Clear Firestore
         window.clearFirestore = async function () {
-            const confirmed = confirm('⚠️ 기존 portfolios 컬렉션의 모든 데이터를 삭제하시겠습니까?');
+            const confirmed = confirm('?�️ 기존 portfolios 컬렉?�의 모든 ?�이?��? ??��?�시겠습?�까?');
             if (!confirmed) return;
 
-            log('🗑️ 기존 데이터 삭제 중...', 'warning');
+            log('?���?기존 ?�이????�� �?..', 'warning');
 
             try {
                 const querySnapshot = await getDocs(collection(db, 'portfolios'));
@@ -495,9 +495,9 @@
                     deleteCount++;
                 }
 
-                log(`✅ ${deleteCount}개 문서 삭제 완료`, 'success');
+                log(`??${deleteCount}�?문서 ??�� ?�료`, 'success');
             } catch (error) {
-                log(`❌ 삭제 실패: ${error.message}`, 'error');
+                log(`????�� ?�패: ${error.message}`, 'error');
             }
         };
 
@@ -541,7 +541,7 @@
             }
         });
 
-        log('🎉 마이그레이션 도구 준비 완료', 'success');
+        log('?�� 마이그레?�션 ?�구 준�??�료', 'success');
     </script>
 </body>
 
