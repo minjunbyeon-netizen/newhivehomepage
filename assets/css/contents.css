@@ -184,7 +184,7 @@ ABOUT
 strong.ani-tit {
 	display: inline-block;
 	position: relative;
-	color: #87CEEB;
+	color: #0084ff;
 	font-family: Poppins-Bold;
 	font-size: 3.5rem;
 	margin-bottom: 30px;
@@ -246,7 +246,7 @@ strong.ani-tit span {
 
 .about-title .main-tit h3 strong {
 	font-family: NotoSansKR-Medium;
-	color: #87CEEB;
+	color: #0084ff;
 }
 
 .about-title .main-tit h3 span {

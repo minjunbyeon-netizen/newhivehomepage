@@ -256,7 +256,7 @@ footer * {
 
 /* 마케팅 페이지 - 파란선을 하늘색으로 변경 */
 .om-point::before {
-    background-color: #87CEEB !important;
+    background-color: #0084ff !important;
 }
 
 /* 마케팅 페이지 - 흰색 원을 회색으로 변경 */
@@ -315,17 +315,17 @@ footer * {
 
 /* about 섹션 타이틀 포인트 색상 - 하늘색 */
 .about-con .contents strong.ani-tit {
-    color: #87CEEB !important;
+    color: #0084ff !important;
 }
 
 /* about 본문 강조 텍스트 - 하늘색 */
 .about-con .about-title .main-tit h3 strong {
-    color: #87CEEB !important;
+    color: #0084ff !important;
 }
 
 /* about 본문 강조 텍스트 span - 하늘색 */
 .about-con .about-title .main-tit h3 strong span {
-    color: #87CEEB !important;
+    color: #0084ff !important;
 }
 
 /* 흰색 네모 커버 애니메이션 제거 → 검은색 네모 (height:0으로 숨김) */
@@ -343,7 +343,7 @@ footer * {
 
 /* Direction 섹션도 동일 적용 */
 .about-direction strong.ani-tit {
-    color: #87CEEB !important;
+    color: #0084ff !important;
 }
 
 .about-direction strong.ani-tit::after {
