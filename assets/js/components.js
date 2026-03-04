@@ -51,16 +51,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Get the base path based on current page location
 function getBasePath() {
-    const path = window.location.pathname;
-    // Count directory depth from hivemedia_homepage
-    const parts = path.split('/');
-    const rootIndex = parts.findIndex(p => p === 'hivemedia_homepage');
-    if (rootIndex >= 0) {
-        const depth = parts.length - rootIndex - 2; // -2 for hivemedia_homepage and filename
-        if (depth <= 0) return './';
-        return '../'.repeat(depth);
+    // Find the components.js script tag to determine the site root
+    const scripts = document.querySelectorAll('script[src*="components.js"]');
+    for (const script of scripts) {
+        const src = script.getAttribute('src');
+        // components.js is always at assets/js/components.js
+        // So strip "assets/js/components.js" to get the base path
+        const idx = src.indexOf('assets/js/components.js');
+        if (idx >= 0) {
+            return src.substring(0, idx) || './';
+        }
     }
-    // Default for root deployment
+    // Fallback: detect depth from pathname
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(Boolean);
+    // If the last part looks like a file, remove it
+    if (parts.length > 0 && parts[parts.length - 1].includes('.')) {
+        parts.pop();
+    }
+    // For subfolders like service/, portfolio/, etc. use ../
+    if (parts.length > 1) {
+        return '../';
+    }
     return './';
 }
 
