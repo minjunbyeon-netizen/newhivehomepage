@@ -488,7 +488,7 @@ table td a {
     --inquiry-bg: url(../img/inQuiry_btn_w.png);
     --inquiry-circle: url(../img/inQuiry_circle_w.png);
     --parallax-bg: #0084ff;
-    --parallax-bgw: #0084ff;
+    --parallax-bgw: #fff;
     --parallax-bg2: #0084ff;
     --parallax-bg2w: #0084ff;
     --parallax-bg3w: #229be1;
@@ -614,7 +614,7 @@ table td a {
         --inquiry-bg: url(../img/inQuiry_btn_w.png);
         --inquiry-circle: url(../img/inQuiry_circle_w.png);
         --parallax-bg: #0084ff;
-        --parallax-bgw: #0084ff;
+        --parallax-bgw: #fff;
         --parallax-bg2: #0f40a4;
         --parallax-bg2w: #0f40a4;
         --parallax-bg3: #229be1;
