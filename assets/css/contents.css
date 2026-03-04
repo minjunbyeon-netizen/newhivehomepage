@@ -2248,7 +2248,7 @@ SERVICE > ONLINE MARKETING
 .om-zone1 .om-text-box p {
 	font-family: NotoSansKR-Medium;
 	font-size: 1.8rem;
-	color: var(--text-color);
+	color: #979797;
 }
 
 .om-point {
@@ -2603,7 +2603,7 @@ SERVICE > ONLINE MARKETING
 }
 
 .om-working-items li p {
-	color: var(--text-color2);
+	color: #979797;
 	font-size: 1.6rem;
 }
 
