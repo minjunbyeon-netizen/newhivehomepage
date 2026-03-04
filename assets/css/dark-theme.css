@@ -203,16 +203,22 @@ footer * {
 
 .om-zone h3,
 .om-zone h4,
-.om-zone p,
 .om-zone span,
 .om-zone strong,
 .om-zone b {
     color: #fff !important;
 }
 
-.om-text-box h3,
-.om-text-box p {
+.om-zone p {
+    color: #979797 !important;
+}
+
+.om-text-box h3 {
     color: #fff !important;
+}
+
+.om-text-box p {
+    color: #979797 !important;
 }
 
 .om-title h3,
