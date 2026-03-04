@@ -2095,13 +2095,13 @@ WORK PROCESS SECTION
 	align-items: center;
 	justify-content: flex-start;
 	position: relative;
-	box-shadow: 0 10px 30px rgba(0, 132, 255, 0.3);
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: none;
+	transition: transform 0.3s ease;
 }
 
 .process-step:hover {
 	transform: translateY(-10px);
-	box-shadow: 0 20px 40px rgba(0, 132, 255, 0.4);
+	box-shadow: none;
 }
 
 .process-step .step-number {
