@@ -8,7 +8,7 @@ $base_path = '';
 $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 ?>
 <!doctype html>
-<html lang="ko" data-theme="light">
+<html lang="ko" data-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -38,7 +38,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         /* ===== 미니멀 뉴스 기사 스타일 ===== */
         body,
         .Wrap {
-            background: #fff !important;
+            background: #0a0a0a !important;
         }
 
         .Wrap {
@@ -65,7 +65,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             max-width: 720px;
             margin: 0 auto;
             padding: 60px 24px 120px;
-            background: #fff;
+            background: #0a0a0a;
         }
 
         /* 뒤로가기 */
@@ -73,7 +73,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #888;
+            color: #aaa;
             font-size: 13px;
             text-decoration: none;
             margin-bottom: 40px;
@@ -81,20 +81,20 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .back-link:hover {
-            color: #0066cc;
+            color: #0084ff;
         }
 
         /* 기사 헤더 */
         .article-header {
             margin-bottom: 48px;
             padding-bottom: 32px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .article-category {
             display: inline-block;
             font-size: 12px;
-            color: #0066cc;
+            color: #0084ff;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -105,7 +105,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
             font-size: 32px;
             font-weight: 700;
-            color: #111;
+            color: #fff;
             line-height: 1.4;
             margin-bottom: 20px;
             letter-spacing: -0.5px;
@@ -144,7 +144,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 17px;
             line-height: 1.9;
-            color: #333;
+            color: #eee;
             word-break: keep-all;
         }
 
@@ -157,23 +157,23 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: #111;
+            color: #fff;
             margin: 48px 0 20px;
             padding-bottom: 12px;
-            border-bottom: 2px solid #0066cc;
+            border-bottom: 2px solid #0084ff;
         }
 
         .article-content h3 {
             font-size: 20px;
             font-weight: 600;
-            color: #222;
+            color: #fff;
             margin: 36px 0 16px;
         }
 
         .article-content h4 {
             font-size: 18px;
             font-weight: 600;
-            color: #333;
+            color: #fff;
             margin: 28px 0 12px;
         }
 
@@ -186,23 +186,23 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
         /* 링크 */
         .article-content a {
-            color: #0066cc;
+            color: #0084ff;
             text-decoration: underline;
             text-underline-offset: 2px;
         }
 
         .article-content a:hover {
-            color: #004499;
+            color: #00aaff;
         }
 
         /* 인용문 */
         .article-content blockquote {
             margin: 32px 0;
             padding: 20px 24px;
-            background: #f8f9fa;
-            border-left: 4px solid #0066cc;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #0084ff;
             font-style: italic;
-            color: #555;
+            color: #ccc;
         }
 
         .article-content blockquote p {
@@ -223,40 +223,40 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
         /* 강조 */
         .article-content strong {
-            color: #111;
+            color: #fff;
             font-weight: 600;
         }
 
         /* 구분선 */
         .article-content hr {
             border: none;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin: 48px 0;
         }
 
         /* 코드 */
         .article-content code {
             font-family: 'Consolas', 'Monaco', monospace;
-            background: #f5f5f5;
+            background: rgba(255, 255, 255, 0.1);
             padding: 2px 6px;
             border-radius: 3px;
             font-size: 0.9em;
-            color: #e83e8c;
+            color: #ff79c6;
         }
 
         .article-content pre {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px;
             border-radius: 4px;
             overflow-x: auto;
             margin: 28px 0;
-            border: 1px solid #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .article-content pre code {
             background: none;
             padding: 0;
-            color: #333;
+            color: #eee;
         }
 
         /* 테이블 */
@@ -270,27 +270,27 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         .article-content th,
         .article-content td {
             padding: 12px 16px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: left;
         }
 
         .article-content th {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             font-weight: 600;
-            color: #111;
+            color: #fff;
         }
 
         /* 태그 */
         .article-tags {
             margin-top: 48px;
             padding-top: 24px;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .article-tags span {
             display: inline-block;
-            background: #f5f5f5;
-            color: #666;
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaa;
             padding: 6px 14px;
             font-size: 13px;
             margin: 4px 4px 4px 0;
@@ -299,7 +299,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .article-tags span:hover {
-            background: #0066cc;
+            background: #0084ff;
             color: #fff;
         }
 
@@ -313,8 +313,8 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         .article-loading .spinner {
             width: 32px;
             height: 32px;
-            border: 2px solid #e0e0e0;
-            border-top: 2px solid #0066cc;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid #0084ff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
@@ -334,12 +334,12 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         .article-error {
             text-align: center;
             padding: 100px 20px;
-            color: #666;
+            color: #aaa;
         }
 
         .article-error h3 {
             font-size: 20px;
-            color: #333;
+            color: #fff;
             margin-bottom: 12px;
         }
 
@@ -347,7 +347,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         .article-nav {
             margin-top: 80px;
             padding: 40px 0;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
@@ -360,13 +360,13 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             display: flex;
             flex-direction: column;
             padding: 20px;
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
             transition: all 0.2s ease;
         }
 
         .nav-link:hover {
-            background: #f1f3f5;
+            background: rgba(255, 255, 255, 0.06);
             transform: translateY(-2px);
         }
 
@@ -386,7 +386,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
         .nav-title {
             font-size: 15px;
-            color: #333;
+            color: #fff;
             font-weight: 500;
             line-height: 1.4;
             display: -webkit-box;
@@ -397,7 +397,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .nav-link:hover .nav-title {
-            color: #0066cc;
+            color: #0084ff;
         }
 
         @media (max-width: 576px) {
@@ -409,8 +409,8 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         /* Footer 스타일 오버라이드 */
         footer,
         .footer {
-            background: #1a1a1a !important;
-            border-top: 1px solid #333;
+            background: #0a0a0a !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .dark_bg {
@@ -471,8 +471,20 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
     <!-- Firebase SDK -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            collection,
+            query,
+            where,
+            orderBy,
+            limit,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
@@ -548,7 +560,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
                     // 본문 줄바꿈을 문단으로 변환
                     let contentHtml = (article.content || '')
-                        .split(/\n\n+/)  // 빈 줄로 문단 구분
+                        .split(/\n\n+/) // 빈 줄로 문단 구분
                         .filter(p => p.trim())
                         .map(p => {
                             // [IMAGE: url] 마커를 이미지 태그로 변환

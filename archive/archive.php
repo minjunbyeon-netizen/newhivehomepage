@@ -6,7 +6,7 @@ ini_set('display_errors', '0');
 $base_path = '';
 ?>
 <!doctype html>
-<html lang="ko" data-theme="light">
+<html lang="ko" data-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -37,29 +37,38 @@ $base_path = '';
 
     <!-- Schema.org Blog + BreadcrumbList -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "하이브미디어 아카이브",
-        "description": "마케팅 트렌드, 업계 소식, 디지털 마케팅 인사이트",
-        "url": "https://hivemedia.co.kr/archive/",
-        "publisher": {
-            "@type": "Organization",
-            "name": "하이브미디어",
-            "url": "https://hivemedia.co.kr",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://hivemedia.co.kr/assets/img/logo_img_b.png"
+        {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "하이브미디어 아카이브",
+            "description": "마케팅 트렌드, 업계 소식, 디지털 마케팅 인사이트",
+            "url": "https://hivemedia.co.kr/archive/",
+            "publisher": {
+                "@type": "Organization",
+                "name": "하이브미디어",
+                "url": "https://hivemedia.co.kr",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://hivemedia.co.kr/assets/img/logo_img_b.png"
+                }
+            },
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://hivemedia.co.kr/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Archive",
+                        "item": "https://hivemedia.co.kr/archive/"
+                    }
+                ]
             }
-        },
-        "breadcrumb": {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hivemedia.co.kr/"},
-                {"@type": "ListItem", "position": 2, "name": "Archive", "item": "https://hivemedia.co.kr/archive/"}
-            ]
         }
-    }
     </script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-icon-180x180.png" />
@@ -78,9 +87,9 @@ $base_path = '';
 
 
     <style>
-        /* Force light color scheme to prevent browser dark mode tinting */
+        /* Force dark color scheme */
         :root {
-            color-scheme: light only !important;
+            color-scheme: dark only !important;
         }
 
         * {
@@ -95,21 +104,21 @@ $base_path = '';
         .main-con,
         .archive-main,
         .left-panel,
-        .right-panel,
-        .Wrap *:not(.header):not(.header *):not(footer):not(footer *):not(.section-title):not(.cta-button):not(.article-modal__close):not(.nav-wrap):not(.nav-wrap *) {
-            background: #ffffff !important;
-            background-color: #ffffff !important;
+        .right-panel {
+            background: #0a0a0a !important;
+            background-color: #0a0a0a !important;
+            color: #fff !important;
         }
 
         html,
         body {
             font-family: 'Noto Sans KR', 'Montserrat', Malgun Gothic, 맑은 고딕, Apple SD Gothic Neo, sans-serif;
-            color: #000;
+            color: #fff;
             line-height: 1.5;
             word-break: keep-all;
         }
 
-        /* Override OS dark mode for this page */
+        /* Ensure dark mode for OS preference */
         @media (prefers-color-scheme: dark) {
 
             html,
@@ -119,9 +128,9 @@ $base_path = '';
             .archive-main,
             .left-panel,
             .right-panel {
-                background: #ffffff !important;
-                background-color: #ffffff !important;
-                color: #000 !important;
+                background: #0a0a0a !important;
+                background-color: #0a0a0a !important;
+                color: #fff !important;
             }
         }
 
@@ -180,7 +189,7 @@ $base_path = '';
         .intro-text {
             font-size: 1.6rem;
             line-height: 1.8;
-            color: var(--text-color);
+            color: #bbb;
             margin-bottom: 20px;
             max-width: 320px;
         }
@@ -188,7 +197,7 @@ $base_path = '';
         .stats-box {
             margin-top: 40px;
             padding: 20px 0;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-item {
@@ -198,11 +207,11 @@ $base_path = '';
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 8px 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-item .label {
-            color: #666;
+            color: #aaa;
         }
 
         .stat-item .value {
@@ -212,9 +221,9 @@ $base_path = '';
         .cta-button {
             display: inline-block;
             padding: 12px 24px;
-            border: 1px solid #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             background: transparent;
-            color: #1a1a1a;
+            color: #fff;
             font-size: 1.4rem;
             letter-spacing: 1px;
             text-decoration: none;
@@ -224,21 +233,21 @@ $base_path = '';
         }
 
         .cta-button:hover {
-            background: #1a1a1a;
-            color: #ffffff;
+            background: #fff;
+            color: #0a0a0a;
         }
 
         .left-footer {
             position: relative;
             margin-top: 60px;
             padding-top: 30px;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .left-footer a {
             display: block;
             font-size: 11px;
-            color: #1a1a1a;
+            color: #ccc;
             text-decoration: none;
             margin-bottom: 4px;
             text-transform: uppercase;
@@ -247,28 +256,29 @@ $base_path = '';
 
         .left-footer a:hover {
             text-decoration: underline;
+            color: #fff;
         }
 
         .left-footer .write-link {
-            color: #bbb !important;
+            color: #888 !important;
             font-size: 10px;
         }
 
         .left-footer .write-link:hover {
-            color: #888 !important;
+            color: #aaa !important;
         }
 
         .copyright {
             margin-top: 20px;
             font-size: 10px;
-            color: #888;
+            color: #666;
         }
 
         /* Right Panel - 80% */
         .right-panel {
             width: 80%;
             padding: 60px 60px 60px 40px;
-            border-left: 1px solid #ddd;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* Section Style */
@@ -295,13 +305,13 @@ $base_path = '';
             align-items: flex-start;
             font-size: 1.6rem;
             padding: 12px 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .article-row:hover {
-            background: rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             padding-left: 10px;
             margin-left: -10px;
             padding-right: 10px;
@@ -317,7 +327,7 @@ $base_path = '';
         .article-row .category {
             width: 120px;
             text-align: center;
-            color: #666;
+            color: #aaa;
         }
 
         .article-row .date {
@@ -333,7 +343,7 @@ $base_path = '';
             align-items: center;
             font-size: 1.6rem;
             padding: 12px 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .cat-row .name {
@@ -349,8 +359,8 @@ $base_path = '';
         /* Footer Override - Dark */
         footer,
         .footer {
-            background: #1a1a1a !important;
-            border-top: 1px solid #333;
+            background: #0a0a0a !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
         }
 
@@ -385,7 +395,7 @@ $base_path = '';
             .right-panel {
                 padding: 40px 30px;
                 border-left: none;
-                border-top: 1px solid #ddd;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .left-footer {
@@ -438,7 +448,7 @@ $base_path = '';
 
         .category-column__header {
             padding: 0 0 16px 0;
-            border-bottom: 2px solid #1a1a1a;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
             background: transparent;
             margin-bottom: 16px;
             display: flex;
@@ -449,7 +459,7 @@ $base_path = '';
         .category-column__title {
             font-size: 18px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: #fff;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0;
@@ -474,7 +484,7 @@ $base_path = '';
             padding: 14px 0;
             background: transparent;
             border: none;
-            border-bottom: 1px solid #e5e5e5;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 0;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -489,12 +499,12 @@ $base_path = '';
 
         .category-column__item:hover {
             padding-left: 8px;
-            background: rgba(0, 0, 0, 0.02);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .category-column__item-title {
             font-size: 14px;
-            color: #333;
+            color: #fff;
             line-height: 1.5;
             margin-bottom: 0;
             flex: 1;
@@ -502,7 +512,7 @@ $base_path = '';
 
         .category-column__item-date {
             font-size: 12px;
-            color: #999;
+            color: #888;
             margin-left: 20px;
             white-space: nowrap;
         }
@@ -566,7 +576,7 @@ $base_path = '';
         .article-modal__title h2 {
             font-size: 18px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: #fff;
         }
 
         .article-modal__title p {
@@ -579,7 +589,8 @@ $base_path = '';
             height: 36px;
             border-radius: 50%;
             border: none;
-            background: #eee;
+            background: #333;
+            color: #fff;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -589,8 +600,8 @@ $base_path = '';
         }
 
         .article-modal__close:hover {
-            background: #1a1a1a;
-            color: #fff;
+            background: #fff;
+            color: #0a0a0a;
         }
 
         .article-modal__content {
@@ -610,7 +621,7 @@ $base_path = '';
             justify-content: space-between;
             align-items: center;
             padding: 14px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -621,7 +632,7 @@ $base_path = '';
 
         .article-modal__item:hover {
             padding-left: 8px;
-            background: rgba(0, 132, 255, 0.03);
+            background: rgba(0, 132, 255, 0.1);
             margin: 0 -24px;
             padding-right: 32px;
             padding-left: 32px;
@@ -631,7 +642,7 @@ $base_path = '';
             font-family: 'Noto Sans KR', sans-serif;
             font-weight: 300;
             font-size: 14px;
-            color: #333;
+            color: #fff;
             line-height: 1.5;
             flex: 1;
         }
@@ -656,8 +667,8 @@ $base_path = '';
     </style>
 </head>
 
-<body style="background-color:#ffffff !important;">
-    <div class="Wrap" style="background-color:#ffffff !important;">
+<body style="background-color:#0a0a0a !important;">
+    <div class="Wrap" style="background-color:#0a0a0a !important;">
         <div id="header-placeholder"></div>
 
         <main class="archive-main">
@@ -712,8 +723,16 @@ $base_path = '';
 
     <!-- Firebase SDK -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Firebase 설정
         const firebaseConfig = {
@@ -732,10 +751,21 @@ $base_path = '';
         const basePath = '<?php echo $base_path; ?>';
 
         // 3개 고정 카테고리
-        const fixedCategories = [
-            { key: 'trend', name: 'TREND', theme: 'trend' },
-            { key: 'insight', name: 'INSIGHT', theme: 'insight' },
-            { key: 'case', name: 'CASE STUDY', theme: 'case' }
+        const fixedCategories = [{
+                key: 'trend',
+                name: 'TREND',
+                theme: 'trend'
+            },
+            {
+                key: 'insight',
+                name: 'INSIGHT',
+                theme: 'insight'
+            },
+            {
+                key: 'case',
+                name: 'CASE STUDY',
+                theme: 'case'
+            }
         ];
 
         // 샘플 데이터 제거됨 - Firebase에서만 데이터 로드
@@ -845,7 +875,10 @@ $base_path = '';
                 setTimeout(() => {
                     const el = document.getElementById(`cat-${activeCat}`);
                     if (el) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        el.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
                         el.style.transform = 'scale(1.02)';
                         el.style.transition = 'transform 0.5s';
                         setTimeout(() => el.style.transform = 'scale(1)', 1000);
