@@ -517,11 +517,11 @@ $base_path = '';
             white-space: nowrap;
         }
 
-        /* Category Color Accents - All Blue */
+        /* Category Color Accents - All White */
         .category-column--trend .category-column__header,
         .category-column--insight .category-column__header,
         .category-column--case .category-column__header {
-            border-bottom-color: #0084ff;
+            border-bottom-color: #ffffff;
         }
 
         /* Responsive */
@@ -632,7 +632,7 @@ $base_path = '';
 
         .article-modal__item:hover {
             padding-left: 8px;
-            background: rgba(0, 132, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             margin: 0 -24px;
             padding-right: 32px;
             padding-left: 32px;
@@ -655,8 +655,8 @@ $base_path = '';
         }
 
         .active-category-highlight {
-            background: rgba(0, 132, 255, 0.05) !important;
-            border: 1px solid rgba(0, 132, 255, 0.2);
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 20px !important;
             border-radius: 12px;
         }

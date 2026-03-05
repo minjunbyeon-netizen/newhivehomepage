@@ -81,7 +81,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .back-link:hover {
-            color: #0084ff;
+            color: #fff;
         }
 
         /* 기사 헤더 */
@@ -94,7 +94,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         .article-category {
             display: inline-block;
             font-size: 12px;
-            color: #0084ff;
+            color: #fff;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -160,7 +160,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             color: #fff;
             margin: 48px 0 20px;
             padding-bottom: 12px;
-            border-bottom: 2px solid #0084ff;
+            border-bottom: 2px solid #fff;
         }
 
         .article-content h3 {
@@ -186,13 +186,13 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
         /* 링크 */
         .article-content a {
-            color: #0084ff;
+            color: #ccc;
             text-decoration: underline;
             text-underline-offset: 2px;
         }
 
         .article-content a:hover {
-            color: #00aaff;
+            color: #fff;
         }
 
         /* 인용문 */
@@ -200,7 +200,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             margin: 32px 0;
             padding: 20px 24px;
             background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid #0084ff;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
             font-style: italic;
             color: #ccc;
         }
@@ -299,8 +299,8 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .article-tags span:hover {
-            background: #0084ff;
-            color: #fff;
+            background: #fff;
+            color: #0a0a0a;
         }
 
         /* 로딩 */
@@ -314,7 +314,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             width: 32px;
             height: 32px;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            border-top: 2px solid #0084ff;
+            border-top: 2px solid #fff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
@@ -397,7 +397,7 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         .nav-link:hover .nav-title {
-            color: #0084ff;
+            color: #fff;
         }
 
         @media (max-width: 576px) {
