@@ -407,39 +407,23 @@ strong.ani-tit span {
 
 .about-list li .img {
 	position: relative;
-	background-image: url(../img/image_sample.png?new);
-	background-position: 50%;
 	margin-bottom: 10px;
-	background-size: cover;
-	animation: scaleAni .7s ease-in .7s both;
-	transition: scale .7s cubic-bezier(.54, 0, .1, .98);
-}
-
-/* Modern Reveal Animation - Blur to Clear + Fade + Scale */
-.about-list li .img::before {
-	display: none;
-	/* 파란 오버레이 제거 */
-}
-
-.about-list li .img {
 	overflow: hidden;
 }
 
 .about-list li .img img {
-	filter: blur(15px);
 	opacity: 0;
-	transform: scale(1.15);
+	transform: scale(1.05);
 	transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.about-list li.aos-animate .img img {
-	filter: blur(0);
-	opacity: 1;
-	transform: scale(1);
 	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.about-list li.aos-animate .img img {
+	opacity: 1;
+	transform: scale(1);
 }
 
 .about-list li .text h4 {

@@ -1472,8 +1472,6 @@ ul.index-content li .img-hidden {
 ul.index-content li .img {
 	position: relative;
 	width: 100%;
-	background-image: url(../img/image_sample.png?new);
-	background-position: 50%;
 	overflow: hidden;
 	background-size: cover;
 	transition: scale .7s cubic-bezier(.54, 0, .1, .98);
