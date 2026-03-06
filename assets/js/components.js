@@ -440,14 +440,8 @@ const FOOTER_HTML = `
             </ul>
         </div>
     </div>
-    <p class="copy">Copyright © 2023 HIVEMEDIA. All rights reserved</p>
+    <p class="copy">Copyright © 2025 HIVEMEDIA. All rights reserved</p>
 </footer>
-<script>
-    AOS.init({
-        easing: 'ease-out-back',
-        duration: 1500
-    });
-</script>
 `;
 
 // Initialize components when DOM is ready

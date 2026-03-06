@@ -490,14 +490,15 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
             authDomain: "hivemedia-archive.firebaseapp.com",
             projectId: "hivemedia-archive",
-            storageBucket: "hivemedia-archive.appspot.com",
-            messagingSenderId: "305221975765",
-            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
+            storageBucket: "hivemedia-archive.firebasestorage.app",
+            messagingSenderId: "105246116532",
+            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1",
+            measurementId: "G-1YZDYEPFFN"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const articleId = "<?php echo $articleId; ?>";
+        const articleId = <?php echo json_encode($articleId); ?>;
 
         function formatDate(timestamp) {
             if (!timestamp) return '';

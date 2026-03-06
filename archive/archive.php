@@ -672,7 +672,7 @@ $base_path = '';
         <div id="header-placeholder"></div>
 
         <main class="archive-main">
-            <!-- Left Panel - 40% -->
+            <!-- Left Panel - 20% -->
             <div class="left-panel">
                 <h1 class="page-title">NEWS &</h1>
                 <h1 class="page-title-sub">ARCHIVE</h1>
