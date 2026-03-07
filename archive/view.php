@@ -518,7 +518,6 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
         }
 
         async function fetchArticle() {
-            console.log('Fetching article ID:', articleId);
             const loadingEl = document.getElementById('articleLoading');
             const errorEl = document.getElementById('articleError');
             const viewEl = document.getElementById('articleView');
@@ -535,7 +534,6 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
                 if (docSnap.exists()) {
                     const article = docSnap.data();
-                    console.log('Article data fetched:', article.title);
 
                     document.getElementById('articleCategory').textContent = article.category || '기타';
                     document.getElementById('articleTitle').textContent = article.title || '제목 없음';
@@ -608,7 +606,6 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
                     // 이전글/다음글 가져오기
                     fetchPrevNextArticles(article.createdAt);
                 } else {
-                    console.log('Article not found');
                     loadingEl.style.display = 'none';
                     errorEl.style.display = 'block';
                 }
@@ -628,7 +625,6 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
             // 로직 시작 전 영역을 표시하여 동작 여부 확인
             navEl.style.display = 'grid';
-            console.log('fetchPrevNextArticles 시작. createdAt:', currentCreatedAt);
 
             if (!currentCreatedAt) {
                 console.warn('이 문서에 createdAt 필드가 없습니다.');
@@ -654,12 +650,10 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
                     limit(1)
                 );
 
-                console.log('이전/다음 글 데이터 요청 중...');
                 const [prevSnap, nextSnap] = await Promise.all([
                     getDocs(prevQuery),
                     getDocs(nextQuery)
                 ]);
-                console.log('데이터 수신 완료. 이전:', prevSnap.size, '다음:', nextSnap.size);
 
                 if (!prevSnap.empty) {
                     const d = prevSnap.docs[0];

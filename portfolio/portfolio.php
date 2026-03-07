@@ -1704,7 +1704,6 @@ $base_path = '';
                 // Update counts on bento cards
                 updateBentoCounts(snapshot);
 
-                console.log('Firebase portfolios loaded:', snapshot.size);
             } catch (error) {
                 console.error('Error loading portfolios:', error);
             }

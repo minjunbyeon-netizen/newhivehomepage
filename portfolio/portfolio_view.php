@@ -706,45 +706,13 @@ $docId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 			try {
 				let data;
 
-				// DEMO: Hardcoded data for migrated_103
-				if (docId === 'migrated_103') {
-					data = {
-						title: 'The New Breath of Everyday',
-						category: 'BRANDING',
-						client: 'UNIX',
-						year: '2024',
-						projectType: 'Brand Identity',
-						description: 'UNIX는 1978년 헤어드라이어를 시작으로, 40여년 동안 끊임없는 노력과 지속적인 혁신을 통해 건강한 아름다움을 선도하는 글로벌 뷰티케어 브랜드입니다.\n\n고객의 신뢰를 바탕으로 튼튼한 기반과 고도화된 기술력을 보유하고 있으며도 흥겨워요 유닉스만을 연결시키면서 비용을 수 있는 양이가 무제한성습니다.\n\n미래에는 단순한 제품이나 서비스를 넘어 유닉스가 추구하는 건강한 아름다움의 의미와 가치를 담아 낼 수 있도록 브랜드의 총체적인 재정립하였습니다.',
-						attachments: [
-							'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1200&h=1600&fit=crop',
-							'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=800&fit=crop',
-							'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&h=1000&fit=crop',
-							'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&h=800&fit=crop',
-							'https://images.unsplash.com/photo-1522338242042-1a1c1f8f7b96?w=1000&h=1400&fit=crop'
-						],
-						directions: [
-							{
-								label: 'DIRECTION',
-								main: '실무진과의 인터뷰를 통해 개선 방향을 구체화하는 과정을 거쳤습니다. <strong>소비자·운영·브랜드</strong>의 세 가지 주요 관점에서 개선이 필요하다는 점을 확인하였습니다.<br>이를 바탕으로 디자인 원칙을 정립하였습니다.',
-								items: [
-									'<strong>쉽고 빠르게</strong> 원하는 제품을 찾을 수 있게 하고 싶어요.',
-									'운영적인 측면을 고려한 <strong>체계적인 구조</strong>가 마련되었으면 좋겠어요.',
-									'올드한 이미지를 탈피하고 모던한 <strong>브랜드 이미지</strong>를 구축하고 싶어요.'
-								]
-							}
-						],
-						createdAt: new Date()
-					};
-				} else {
-					const docRef = doc(db, 'portfolios', docId);
-					const docSnap = await getDoc(docRef);
-					if (!docSnap.exists()) {
-						console.log('Project not found');
-						window.location.href = 'portfolio.php';
-						return;
-					}
-					data = docSnap.data();
+				const docRef = doc(db, 'portfolios', docId);
+				const docSnap = await getDoc(docRef);
+				if (!docSnap.exists()) {
+					window.location.href = 'portfolio.php';
+					return;
 				}
+				data = docSnap.data();
 
 				if (data) {
 
