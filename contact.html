@@ -311,12 +311,12 @@
         // Use the standardized config (defined in firebase-config.js or imported via script)
         // Wait for DOM to ensure config is available if loaded via script
         document.addEventListener('DOMContentLoaded', async () => {
-            if (typeof firebaseConfig === 'undefined') {
+            if (typeof window.firebaseConfig === 'undefined') {
                 console.error('Firebase configuration not found');
                 return;
             }
 
-            const app = initializeApp(firebaseConfig);
+            const app = initializeApp(window.firebaseConfig);
             const db = getFirestore(app);
             const form = document.getElementById('contact-form');
             const submitBtn = document.getElementById('submit-btn');
