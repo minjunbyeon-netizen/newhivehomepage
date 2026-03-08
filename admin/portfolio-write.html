@@ -940,12 +940,8 @@
     </div>
     <script>
         function goToHome() {
-            console.log('goToHome called!');
             if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
-                console.log('Redirecting to index.html');
                 window.location.href = '../index.html';
-            } else {
-                console.log('User cancelled');
             }
         }
 
@@ -953,7 +949,6 @@
             const logoElement = document.querySelector('.home-logo');
             if (logoElement) {
                 logoElement.addEventListener('click', goToHome);
-                console.log('Logo click event attached');
             }
 
             // Live Preview Update Function
@@ -1254,9 +1249,9 @@
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
             authDomain: "hivemedia-archive.firebaseapp.com",
             projectId: "hivemedia-archive",
-            storageBucket: "hivemedia-archive.appspot.com",
-            messagingSenderId: "305221975765",
-            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
+            storageBucket: "hivemedia-archive.firebasestorage.app",
+            messagingSenderId: "105246116532",
+            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -1275,8 +1270,6 @@
 
         portfolioForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            console.log('Form submitted');
 
             // Check if logged in
             if (!userId) {
@@ -1340,8 +1333,6 @@
                     return;
                 }
 
-                console.log('Compressing and converting image...');
-
                 let thumbnailUrl;
                 try {
                     // Resize and compress image to keep under 1MB
@@ -1382,8 +1373,6 @@
                     });
 
                     const compressedSizeKB = Math.round(thumbnailUrl.length / 1024);
-                    console.log('Image compressed, size:', compressedSizeKB, 'KB');
-
                     // Check if compressed size is still too large (Firestore limit is 1MB total)
                     if (compressedSizeKB > 900) {
                         alert('이미지 압축 후에도 용량이 너무 큽니다 (약 ' + compressedSizeKB + 'KB).\n\n파이어베이스 저장 제한(1MB)을 맞추기 위해\n해상도가 더 낮거나 용량이 작은 이미지를 사용해주세요.');
@@ -1402,7 +1391,6 @@
                 // Process additional images
                 const additionalImageUrls = [];
                 if (additionalImagesFiles.length > 0) {
-                    console.log(`Processing ${additionalImagesFiles.length} additional images...`);
                     for (const file of additionalImagesFiles) {
                         try {
                             const imgUrl = await new Promise((resolve, reject) => {
@@ -1516,9 +1504,7 @@
                     updatedAt: serverTimestamp()
                 };
 
-                console.log('Saving to Firestore...', portfolioData);
                 await addDoc(collection(db, 'portfolios'), portfolioData);
-                console.log('Successfully saved to Firestore');
 
                 // Success message
                 successMsg.textContent = '✅ 포트폴리오가 성공적으로 제출되었습니다! 관리자 승인 후 포트폴리오 페이지에 표시됩니다.';

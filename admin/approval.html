@@ -535,12 +535,8 @@
 
     <script>
         function goToHome() {
-            console.log('goToHome called!');
             if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
-                console.log('Redirecting to index.html');
                 window.location.href = '../index.html';
-            } else {
-                console.log('User cancelled');
             }
         }
 
@@ -548,7 +544,6 @@
             const logoElement = document.querySelector('.home-logo');
             if (logoElement) {
                 logoElement.addEventListener('click', goToHome);
-                console.log('Logo click event attached');
             }
         });
     </script>
@@ -579,9 +574,9 @@
             apiKey: "AIzaSyBeZGgTw8zJoYz26PUfk3xoU-83oMD3v_M",
             authDomain: "hivemedia-archive.firebaseapp.com",
             projectId: "hivemedia-archive",
-            storageBucket: "hivemedia-archive.appspot.com",
-            messagingSenderId: "305221975765",
-            appId: "1:305221975765:web:5d6c8b980e47087f941f17"
+            storageBucket: "hivemedia-archive.firebasestorage.app",
+            messagingSenderId: "105246116532",
+            appId: "1:105246116532:web:18aad82490a11b7d4ea5e1"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -670,9 +665,6 @@
                     `;
                     return;
                 }
-
-                console.log('Firebase에서 받은 문서 개수:', snapshot.size);
-                snapshot.forEach(doc => console.log('문서 ID:', doc.id));
 
                 const addedIds = new Set(); // 중복 방지
                 snapshot.forEach(docSnap => {

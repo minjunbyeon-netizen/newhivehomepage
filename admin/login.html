@@ -169,12 +169,8 @@
 
         // Home redirect function
         function goToHome() {
-            console.log('goToHome called!'); // 디버깅용
             if (confirm('저장된 정보는 지워지고 돌아가게 됩니다.\n홈페이지로 이동하시겠습니까?')) {
-                console.log('Redirecting to index.html'); // 디버깅용
                 window.location.href = '../index.html';
-            } else {
-                console.log('User cancelled'); // 디버깅용
             }
         }
 
@@ -183,9 +179,6 @@
             const logoElement = document.querySelector('.home-logo');
             if (logoElement) {
                 logoElement.addEventListener('click', goToHome);
-                console.log('Logo click event attached'); // 디버깅용
-            } else {
-                console.error('Logo element not found!'); // 디버깅용
             }
         });
 
