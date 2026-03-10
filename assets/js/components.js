@@ -92,15 +92,8 @@ const HEADER_HTML = `
         }
     }
     @media (max-width: 480px) {
-        .btn-brochure span {
-            display: none;
-        }
-        .btn-brochure::before {
-            content: "📄";
-            font-size: 16px;
-        }
         .btn-brochure {
-            padding: 8px 10px;
+            padding: 5px 10px;
         }
     }
     .gnb .nav-sub {

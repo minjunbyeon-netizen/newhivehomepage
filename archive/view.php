@@ -23,10 +23,10 @@ $articleId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-icon-180x180.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png" />
-    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/all.css?v=<?= filemtime(__DIR__.'/../assets/css/all.css') ?>">
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
-    <script src="../assets/js/common.js" defer=""></script>
-    <script src="../assets/js/components.js" defer=""></script>
+    <script src="../assets/js/common.js?v=<?= filemtime(__DIR__.'/../assets/js/common.js') ?>" defer=""></script>
+    <script src="../assets/js/components.js?v=<?= filemtime(__DIR__.'/../assets/js/components.js') ?>" defer=""></script>
 
     <!-- Google Fonts - Montserrat + Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

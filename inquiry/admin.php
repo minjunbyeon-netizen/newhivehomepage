@@ -332,7 +332,7 @@ $adminPassword = $config['admin']['password'] ?? '1234';
         </div>
     </div>
 
-    <script src="../assets/js/firebase-config.js"></script>
+    <script src="../assets/js/firebase-config.js?v=<?= filemtime(__DIR__.'/../assets/js/firebase-config.js') ?>"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";

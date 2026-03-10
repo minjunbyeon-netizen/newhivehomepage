@@ -233,7 +233,9 @@
         const userRole = sessionStorage.getItem('userRole');
         const userTeam = sessionStorage.getItem('userTeam');
 
-        if (userRole === 'staff') {
+        if (!userRole) {
+            window.location.href = 'login.html';
+        } else if (userRole === 'staff') {
             alert('관리자만 접근할 수 있습니다.');
             window.location.href = 'dashboard.html';
         }

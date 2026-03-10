@@ -1188,13 +1188,13 @@
                     previewImg.src = imageUrl;
                     previewImg.dataset.url = imageUrl;
                     previewBox.classList.add('show');
-                    statusEl.textContent = '✅ 생성 완료!';
+                    statusEl.textContent = '생성 완료';
                 } else {
-                    statusEl.textContent = '❌ ' + (data.error || '생성 실패');
+                    statusEl.textContent = (data.error || '생성 실패');
                 }
             } catch (error) {
                 console.error('Generate error:', error);
-                statusEl.textContent = '❌ 네트워크 오류';
+                statusEl.textContent = '네트워크 오류';
             } finally {
                 genBtn.disabled = false;
             }
@@ -1236,7 +1236,7 @@
             // 삽입 버튼 비활성화
             const insertBtn = card.querySelector('.insert-btn');
             if (insertBtn) {
-                insertBtn.textContent = '✅ 삽입됨';
+                insertBtn.textContent = '삽입됨';
                 insertBtn.disabled = true;
             }
 
@@ -1290,7 +1290,7 @@
                 // 활동 로그 기록
                 await logActivity('create', archiveData.title, 'archive');
 
-                alert('✅ 글 작성이 완료되었습니다.\n승인대기 페이지로 글이 이동되었습니다.');
+                alert('글 작성이 완료되었습니다.\n승인대기 페이지로 글이 이동되었습니다.');
                 window.location.href = 'dashboard.html';
 
             } catch (error) {
